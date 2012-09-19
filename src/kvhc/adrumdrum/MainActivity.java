@@ -50,9 +50,12 @@ public class MainActivity extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			if(player.IsPlaying()) {
-    			player.Play();
-    		} else {
     			player.Stop();
+    			tv1.setText("Not playing anymore");
+    			
+    		} else {
+    			player.Play();
+    			tv1.setText("Playing");
     		}
 		}
     };
