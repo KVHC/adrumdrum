@@ -1,8 +1,5 @@
 package kvhc.adrumdrum;
 
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import android.content.Context;
 
@@ -12,18 +9,14 @@ public class Player {
 	private SoundManager mSoundManager;
 	
 	// Timing
-	private Timer m_Timer;
+	Runnable r;
+	AndroidTimer mTimer;
 	private long waitTime; // Milliseconds
-	private TimerTask timerTask = new TimerTask() {
-		@Override
-		public void run() {
-			NextStep();
-	}};
 	
 	
 	// Sounds
 	private int m_numChannels;
-	private ArrayList<Channel> m_Channels;
+	private Channel[] m_Channels;
 	
 	
 	// State
@@ -32,14 +25,19 @@ public class Player {
 	boolean m_isPlaying;
 	
 	
-	
+	/**
+	 * Wow
+	 * @param context
+	 */
 	public Player(Context context) {
+		
 		waitTime = 500;
 		
 		m_numChannels = 4;
-		m_Channels = new ArrayList<Channel>(m_numChannels);
+		m_Channels = new Channel[m_numChannels];
 		m_currentStep = 0;
 		m_isPlaying = false;
+		
 		
 		mSoundManager = new SoundManager();
         mSoundManager.initSounds(context);
@@ -49,11 +47,15 @@ public class Player {
         mSoundManager.addSound(4, R.raw.snare);
         
         for(int i = 0; i < m_numChannels; i++) {
-        	m_Channels.set(i, new Channel(i+1));
+        	m_Channels[i] = new Channel(i+1);
         }
         
-        m_Timer = new Timer();
-        m_Timer.schedule(timerTask, waitTime);
+        r = new Runnable(){
+    		public void run() {
+    			NextStep();
+    		}
+    	};
+    	mTimer = new AndroidTimer(r,waitTime);
 	}
 	
 	private void NextStep() {
@@ -64,13 +66,13 @@ public class Player {
 			}
 			
 			for(int i = 0; i < m_numChannels; i++) {
-				if(m_Channels.get(i).PlayStep(m_currentStep)) {
-					mSoundManager.playSound(m_Channels.get(i).GetSound());
+				if(m_Channels[i].PlayStep(m_currentStep)) {
+					mSoundManager.playSound(m_Channels[i].GetSound());
 				}
 			}
+			
+			mTimer.setTime(waitTime);
 		}
-		
-		m_Timer.schedule(timerTask, waitTime);
 	}
 	
 	public void SetWaitTimeByBPM(int bpm) {
@@ -88,11 +90,13 @@ public class Player {
 		
 	public void Play() {
 		m_isPlaying = true;
+		mTimer.start();
 	}
 	
 	public void Stop() {
 		m_isPlaying = false;
 		m_currentStep = 0;
+		mTimer.stop();
 	}
 	
 	public boolean IsPlaying() {
@@ -101,10 +105,10 @@ public class Player {
 	
 	
 	public void SetSound(int channel, int sound) {
-		m_Channels.get(channel).SetSound(sound);
+		m_Channels[channel].SetSound(sound);
 	}
 	
 	public void SetStep(int channel, int step, boolean active) {
-		m_Channels.get(channel).SetStep(step, active);
+		m_Channels[channel].SetStep(step, active);
 	}
 }

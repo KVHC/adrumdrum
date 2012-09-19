@@ -74,6 +74,10 @@ public class AndroidTimer {
 		this.job = job;
 	}
 	
+	public void setTime(long time) {
+		this.time = time;
+	}
+	
 	/**
 	 * A private class used too loop the the job
 	 */

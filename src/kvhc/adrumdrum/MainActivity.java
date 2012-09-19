@@ -2,9 +2,9 @@ package kvhc.adrumdrum;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,8 +17,7 @@ public class MainActivity extends Activity {
 	Runnable r;
 	AndroidTimer mTimer;
 	TextView tv1;
-	
-	
+		
 	private Player player;
 	
     @Override
@@ -26,18 +25,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv1 = (TextView)findViewById(R.id.textView1);
-
-    	r = new Runnable(){
-    		
-    		public void run() {
-    			tv1.setText("dörp"+i);
-    			i++;
-    		}
-    		
-    	};
-    	mTimer = new AndroidTimer(r,500);
         
-        /*
+        
         //waitTime = 500;
         player = new Player(getBaseContext());
         
@@ -50,29 +39,21 @@ public class MainActivity extends Activity {
         player.SetStep(1, 3, true);
         player.SetStep(1, 5, true);
         player.SetStep(1, 11, true);
-        */
-    	/*
-        Button btn1 = (Button)findViewById(R.id.button1);
-        btn1.setOnClickListener((android.view.View.OnClickListener) btnListener);
-        */
-    	mTimer.start();
         
+    	
+        Button btn1 = (Button)findViewById(R.id.button1);
+        btn1.setOnClickListener( btnListener);
     }
     
     private OnClickListener btnListener = new OnClickListener()
     {
-		public void onClick(DialogInterface arg0, int arg1) {
+		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			
-			
-			//mTimer.start();
-			/*
 			if(player.IsPlaying()) {
     			player.Play();
     		} else {
     			player.Stop();
     		}
-    		*/
 		}
     };
 
