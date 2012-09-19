@@ -78,7 +78,7 @@ public class AndroidTimer {
 	 * A private class used too loop the the job
 	 */
 	private Runnable timer = new Runnable(){
-		@Override
+		//@Override
 		public void run() {
 			if(enabled){
 				handler.post(job);
