@@ -21,7 +21,7 @@ public class Player {
 	
 	// State
 	private int m_currentStep;
-	private int m_numSteps;
+	private int m_numSteps = 7;
 	boolean m_isPlaying;
 	
 	
@@ -78,13 +78,13 @@ public class Player {
 	public void SetWaitTimeByBPM(int bpm) {
 		
 		if(bpm <= 0){
-			// Säkert dumt
+			// Sï¿½kert dumt
 			Stop();
 			return;
 		}
 		
-		// Kan man göra så? :S
-		// 1 / (bpm / 60s) för att få fram tid mellan beats/step (4/4 iaf?)
+		// Kan man gï¿½ra sï¿½? :S
+		// 1 / (bpm / 60s) fï¿½r att fï¿½ fram tid mellan beats/step (4/4 iaf?)
 		waitTime = (long)(60.0 / bpm)*1000;
 	}
 		
