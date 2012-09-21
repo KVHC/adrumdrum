@@ -68,25 +68,26 @@ public class MainActivity extends Activity {
         // LOL det här är fulkod
 
         int id = view.getId();
+        int first = ((CheckBox)findViewById(R.id.checkbox0_0)).getId();
         
-        if (id<2131230732) {
-        	int num = id-2131230723;
+        if (id<(first+9)) {
+        	int num = id-first;
         	tv1.setText("chan 0, step "+num+" "+checked);
         	player.SetStep(0, num, checked);
         	
         }
-        else if (id>2131230731 && id<2131230740) {
-        	int num = id-2131230732;
+        else if (id>(first+8) && id<(first+17)) {
+        	int num = id-(first+9);
         	tv1.setText("chan 1, step "+num+" "+checked);
         	player.SetStep(1, num, checked);
         }
-        else if (id>2131230740 && id<2131230749){
-        	int num = id-2131230741;
+        else if (id>(first+17) && id<(first+26)){
+        	int num = id-(first+18);
         	tv1.setText("chan 2, step "+num+" "+checked);
         	player.SetStep(2, num, checked);
         }
         else {
-        	int num = id-2131230750;
+        	int num = id-(first+27);
         	tv1.setText("chan 3, step "+num+" "+checked);
         	player.SetStep(3, num, checked);
         }
@@ -119,20 +120,20 @@ public class MainActivity extends Activity {
     	
     	bpmBar.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
 
-			@Override
+			//@Override
 			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 				player.setBPMInRange(progress);
 				tv1.setText("BPM is: " + (60 + progress*6));
 				
 			}
 
-			@Override
+			//@Override
 			public void onStartTrackingTouch(SeekBar arg0) {
 				// TODO Auto-generated method stub
 				
 			}
 
-			@Override
+			//@Override
 			public void onStopTrackingTouch(SeekBar arg0) {
 				//TODO
 				
@@ -141,7 +142,7 @@ public class MainActivity extends Activity {
     	
     	panningBar.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
 
-			@Override
+			//@Override
 			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 				if(progress >= 50){					
 					player.panning(1.0, 1.0 - ((progress - 50) * 0.02));
@@ -155,13 +156,13 @@ public class MainActivity extends Activity {
 				
 			}
 
-			@Override
+			//@Override
 			public void onStartTrackingTouch(SeekBar arg0) {
 				// TODO Auto-generated method stub
 				
 			}
 
-			@Override
+			//@Override
 			public void onStopTrackingTouch(SeekBar arg0) {
 				//TODO
 				
