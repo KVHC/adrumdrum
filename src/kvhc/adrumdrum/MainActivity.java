@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.CheckBox;
@@ -27,6 +29,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         tv1 = (TextView)findViewById(R.id.textView1);
        
+        initBars();
+        
         //nåt sånt här skulle man kunna göra
         /*
         for (int chan=0;chan<4;chan++) {
@@ -103,6 +107,67 @@ public class MainActivity extends Activity {
     		}
 		}
     };
+    
+    
+    
+    private void initBars(){
+    	SeekBar bpmBar = (SeekBar)findViewById(R.id.bpmbar);
+    	SeekBar panningBar = (SeekBar)findViewById(R.id.panningbar);
+    	TextView bpmtext = (TextView) findViewById(R.id.bpmtext);
+    	
+    	panningBar.setProgress(50);
+    	
+    	bpmBar.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
+
+			@Override
+			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
+				player.setBPMInRange(progress);
+				tv1.setText("BPM is: " + (60 + progress*6));
+				
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar arg0) {
+				//TODO
+				
+			}
+        });
+    	
+    	panningBar.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
+
+			@Override
+			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
+				if(progress >= 50){					
+					player.panning(1.0, 1.0 - ((progress - 50) * 0.02));
+					tv1.setText("Panned: R=1.0 L=" + (1.0 -(progress - 50) * 0.02));
+				}
+				else if (progress < 50){
+					player.panning(1.0 - (50 - progress) * 0.02, 1.0);
+					tv1.setText("Panned: R=" +((1.0 - (50 - progress) * 0.02)) + "L=1.0");
+				}
+
+				
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar arg0) {
+				//TODO
+				
+			}
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

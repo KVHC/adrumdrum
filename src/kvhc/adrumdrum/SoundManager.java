@@ -8,12 +8,12 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 
 /**
- * @author !!!!NÅN ANNAN!!!!!
+ * @author !!!!Nï¿½N ANNAN!!!!!
  *
- * KOD TAGEN FRÅN 
+ * KOD TAGEN FRï¿½N 
  * http://www.droidnova.com/creating-sound-effects-in-android-part-1,570.html
  * 
- * Fast nu ändrade jag till Arraylist för det är ju fan så han använnde den, det jävla nötet.
+ * Fast nu ï¿½ndrade jag till Arraylist fï¿½r det ï¿½r ju fan sï¿½ han anvï¿½nnde den, det jï¿½vla nï¿½tet.
  *
  */
 public class SoundManager {
@@ -34,13 +34,13 @@ public class SoundManager {
 	    mSoundPoolMap.put(index, mSoundPool.load(mContext, SoundID, 1));
 	}
 	
-	public void playSound(int index)
+	public void playSound(int index,float right, float left)
 	{
 		if(mSoundPoolMap.get(index) != null) {
 			float streamVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 			streamVolume = streamVolume / mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 			
-			mSoundPool.play(mSoundPoolMap.get(index), streamVolume, streamVolume, 1, 0, 1f);
+			mSoundPool.play(mSoundPoolMap.get(index), left * streamVolume, right * streamVolume, 1, 0, 1f);
 		}
 	}
 }
