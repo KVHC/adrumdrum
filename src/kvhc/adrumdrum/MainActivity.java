@@ -169,6 +169,19 @@ public class MainActivity extends Activity {
 			}
         });
     }
+    
+    
+    /*La in det här för att få tyst på skiten om man går ur appen.
+    Får dock upp "unfortunately... has crasched."
+    Spelar ingen roll om player.Stop är med i bara en av dom eller båda.
+    */
+    public void onStop() {
+    	player.Stop();
+    }
+    
+    public void onDestroy() {
+    	player.Stop();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
