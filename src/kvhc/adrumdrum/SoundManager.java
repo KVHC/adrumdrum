@@ -1,19 +1,18 @@
 package kvhc.adrumdrum;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
 
 /**
- * @author !!!!N�N ANNAN!!!!!
  *
- * KOD TAGEN FR�N 
+ * The SoundManager class is used to manage and play sounds.
+ *
+ * Code based on blog entry by Martin Breuer:
  * http://www.droidnova.com/creating-sound-effects-in-android-part-1,570.html
  * 
- * Fast nu �ndrade jag till Arraylist f�r det �r ju fan s� han anv�nnde den, det j�vla n�tet.
+ * @author Martin Breuer
  *
  */
 public class SoundManager {
@@ -22,6 +21,13 @@ public class SoundManager {
 	private  AudioManager  mAudioManager;
 	private  Context mContext;
 	
+	
+	/**
+	 * Initiate a SoundManager
+	 * 
+	 * @param theContext Context for the audo service
+	 */
+	
 	public void initSounds(Context theContext) {
 	    mContext = theContext;
 	    mSoundPool = new SoundPool(24, AudioManager.STREAM_MUSIC, 0);
@@ -29,11 +35,24 @@ public class SoundManager {
 	    mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
 	}
 	
+	/**
+	 * Add a sound to a SoundManager
+	 * 
+	 * @param index index of the sound added
+	 * @param SoundID resource ID
+	 */
 	public void addSound(int index, int SoundID)
 	{
 	    mSoundPoolMap.put(index, mSoundPool.load(mContext, SoundID, 1));
 	}
 	
+	/**
+	 * Play a sound
+	 * 
+	 * @param index a sound to play
+	 * @param right right volume
+	 * @param left left volume
+	 */
 	public void playSound(int index,float right, float left)
 	{
 		if(mSoundPoolMap.get(index) != null) {
