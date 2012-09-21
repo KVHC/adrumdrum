@@ -5,6 +5,10 @@
 #################
 #Android.gitignore
 
+# Upload the apk (for testing)
+!/bin/*.apk
+
+
 # built application files
 *.apk
 *.ap_
@@ -26,9 +30,6 @@ local.properties
 .classpath
 .project
 ##########################
-
-# Upload the apk (for testing)
-!/bin/*.apk
 
 
 
