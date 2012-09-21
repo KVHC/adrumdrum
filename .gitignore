@@ -27,6 +27,9 @@ local.properties
 .project
 ##########################
 
+# Upload the apk (for testing)
+!/bin/*.apk
+
 
 
 *.pydevproject
