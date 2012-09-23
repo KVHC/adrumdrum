@@ -41,9 +41,9 @@ public class Player {
 		
 		mSoundManager = new SoundManager();
         mSoundManager.initSounds(context);
-        mSoundManager.addSound(1, R.raw.bassdrum);
-        mSoundManager.addSound(2, R.raw.hihatclosed);
-        mSoundManager.addSound(3, R.raw.ingenaning);
+        mSoundManager.addSound(1, R.raw.ljud1);
+        mSoundManager.addSound(2, R.raw.bd);
+        mSoundManager.addSound(3, R.raw.hat);
         mSoundManager.addSound(4, R.raw.snare);
         
         for(int i = 0; i < m_numChannels; i++) {
@@ -60,9 +60,7 @@ public class Player {
 	
 	private void NextStep() {
 		if(m_isPlaying) {
-			
 			m_currentStep++;
-			
 			if(m_currentStep > m_numSteps) {
 				m_currentStep = 0;
 			}
@@ -90,27 +88,17 @@ public class Player {
 		waitTime = (long)(60.0 / bpm)*1000;
 	}
 		
-	/**
-	 * Begins the playback
-	 */
 	public void Play() {
 		m_isPlaying = true;
 		mTimer.start();
 	}
 	
-	/**
-	 * Stops the playback
-	 */
 	public void Stop() {
 		m_isPlaying = false;
 		m_currentStep = 0;
 		mTimer.stop();
 	}
 	
-	/**
-	 * Is the player... playing?
-	 * @return True if playing
-	 */
 	public boolean IsPlaying() {
 		return m_isPlaying;
 	}

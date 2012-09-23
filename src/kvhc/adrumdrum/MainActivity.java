@@ -49,14 +49,10 @@ public class MainActivity extends Activity {
     {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			
 			if(player.IsPlaying()) {
-				tv1.setText("Is Playing, stopping.");
-				player.Stop();
-				
-    		} else {
-    			tv1.setText("Stopped, stating to play. fuck .");
     			player.Play();
+    		} else {
+    			player.Stop();
     		}
 		}
     };
