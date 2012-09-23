@@ -177,10 +177,14 @@ public class MainActivity extends Activity {
     */
     public void onStop() {
     	player.Stop();
+    	super.onStop();
+    	super.onDestroy();
     }
     
     public void onDestroy() {
     	player.Stop();
+    	super.onStop();
+    	super.onDestroy();
     }
 
     @Override
