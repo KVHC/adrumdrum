@@ -1,7 +1,12 @@
 package kvhc.adrumdrum;
 
-import java.util.ArrayList;
-
+/**
+ * The Channel class manages a channel containing a number
+ * of steps and a sound to play for each active step
+ * 
+ * @author kvhc
+ *
+ */
 public class Channel {
 	
 	private int m_soundId;

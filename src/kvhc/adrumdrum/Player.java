@@ -17,11 +17,12 @@ public class Player {
 	// Sounds
 	private int m_numChannels;
 	private Channel[] m_Channels;
-	
+	float rightSound;
+	float leftSound;
 	
 	// State
 	private int m_currentStep;
-	private int m_numSteps;
+	private int m_numSteps = 7;
 	boolean m_isPlaying;
 	
 	
@@ -37,6 +38,8 @@ public class Player {
 		m_Channels = new Channel[m_numChannels];
 		m_currentStep = 0;
 		m_isPlaying = false;
+		rightSound = (float) 1.0;
+		leftSound = (float) 1.0;
 		
 		
 		mSoundManager = new SoundManager();
@@ -67,7 +70,7 @@ public class Player {
 			
 			for(int i = 0; i < m_numChannels; i++) {
 				if(m_Channels[i].PlayStep(m_currentStep)) {
-					mSoundManager.playSound(m_Channels[i].GetSound());
+					mSoundManager.playSound(m_Channels[i].GetSound(),rightSound,leftSound);
 				}
 			}
 			
@@ -78,16 +81,26 @@ public class Player {
 	public void SetWaitTimeByBPM(int bpm) {
 		
 		if(bpm <= 0){
-			// Säkert dumt
+			// Sï¿½kert dumt
 			Stop();
 			return;
 		}
 		
-		// Kan man göra så? :S
-		// 1 / (bpm / 60s) för att få fram tid mellan beats/step (4/4 iaf?)
-		waitTime = (long)(60.0 / bpm)*1000;
+		// Kan man gï¿½ra sï¿½? :S
+		// 1 / (bpm / 60s) fï¿½r att fï¿½ fram tid mellan beats/step (4/4 iaf?)
+		waitTime = (long)((60.0 / bpm)*1000);
 	}
-		
+	
+	public void setBPMInRange(int p){
+		SetWaitTimeByBPM(60 + p*6);
+	}
+	
+	public void panning(double r, double l){
+		rightSound = (float)r;
+		leftSound = (float)l;
+	}
+	
+	
 	public void Play() {
 		m_isPlaying = true;
 		mTimer.start();
