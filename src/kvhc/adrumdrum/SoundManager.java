@@ -10,11 +10,9 @@ import android.media.SoundPool;
 /**
  * @author !!!!NÅN ANNAN!!!!!
  *
- * KOD TAGEN FRÅN 
- * http://www.droidnova.com/creating-sound-effects-in-android-part-1,570.html
+ * Grundar klassen på http://www.droidnova.com/creating-sound-effects-in-android-part-1,570.html
  * 
- * Fast nu ändrade jag till Arraylist för det är ju fan så han använnde den, det jävla nötet.
- *
+ * 
  */
 public class SoundManager {
 	private  SoundPool mSoundPool;
