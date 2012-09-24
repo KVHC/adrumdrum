@@ -8,7 +8,6 @@
 # Upload the apk (for testing)
 !/bin/*.apk
 
-
 # built application files
 *.apk
 *.ap_
