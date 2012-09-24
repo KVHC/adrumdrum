@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -15,50 +16,25 @@ import android.widget.CheckBox;
 
 public class MainActivity extends Activity {
 	
-
 	Runnable r;
 	AndroidTimer mTimer;
 	TextView tv1;
+	RadioGroup activeSteps;
 	private Player player;
-	
-	//CheckBox cb[][] = new CheckBox[4][16];
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv1 = (TextView)findViewById(R.id.textView1);
+        activeSteps = (RadioGroup)findViewById(R.id.radiogroup);
        
         initBars();
-        
-        //nåt sånt här skulle man kunna göra
-        /*
-        for (int chan=0;chan<4;chan++) {
-        	for(int step=0;step<16;step++) {
-        		String cbid = "checkbox" + "chan" + "_" + "step";
-        		int resID = getResources().getIdentifier(cbid, "id", "kvhc.adrumdrum");
-        		cb[chan][step] = ((CheckBox) findViewById(resID));
-        	}
-    	}*/
-        
-        
-        //waitTime = 500;
-        player = new Player(getBaseContext());
-        
-        /*
-        player.SetStep(0, 0, true);
-        player.SetStep(0, 3, true);
-        player.SetStep(0, 7, true);
-        player.SetStep(0, 11, true);
-        
-        player.SetStep(1, 0, true);
-        player.SetStep(1, 3, true);
-        player.SetStep(1, 5, true);
-        player.SetStep(1, 11, true);
-        */
+
+        player = new Player(getBaseContext(), this);
     	
         Button btn1 = (Button)findViewById(R.id.button1);
-        btn1.setOnClickListener( btnListener);
+        btn1.setOnClickListener(btnListener);
     }
     
     public void onCheckboxClicked(View view) {
@@ -170,11 +146,10 @@ public class MainActivity extends Activity {
         });
     }
     
+    public void setRadioButtonToActiveStep(int n) {
+    	activeSteps.check(activeSteps.getId()+n+1);
+    }
     
-    /*La in det här för att få tyst på skiten om man går ur appen.
-    Får dock upp "unfortunately... has crasched."
-    Spelar ingen roll om player.Stop är med i bara en av dom eller båda.
-    */
     public void onStop() {
     	player.Stop();
     	super.onStop();

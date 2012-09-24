@@ -20,8 +20,62 @@
         android:text="@string/play_button" />
     
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="horizontal"
+		android:id="@+id/whatstep"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" >
+		<RadioGroup 
+		    android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:orientation="horizontal"
+			android:id="@+id/radiogroup">
+			<RadioButton 
+		    	android:id="@+id/radiobutton0"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content" >
+			</RadioButton>
+			<RadioButton 
+		    	android:id="@+id/radiobutton1" 
+		    	android:layout_width="40dp"
+				android:layout_height="wrap_content" >
+			</RadioButton>
+			<RadioButton 
+			    android:id="@+id/radiobutton2" 
+			    android:layout_width="40dp"
+				android:layout_height="wrap_content" >
+			</RadioButton>
+			<RadioButton 
+			    android:id="@+id/radiobutton3" 
+			    android:layout_width="40dp"
+				android:layout_height="wrap_content" >
+			</RadioButton>
+			<RadioButton 
+		    	android:id="@+id/radiobutton4"
+				android:layout_width="40dp"
+				android:layout_height="wrap_content" >
+			</RadioButton>
+			<RadioButton 
+		    	android:id="@+id/radiobutton5" 
+		    	android:layout_width="40dp"
+				android:layout_height="wrap_content" >
+			</RadioButton>
+			<RadioButton 
+			    android:id="@+id/radiobutton6" 
+			    android:layout_width="40dp"
+				android:layout_height="wrap_content" >
+			</RadioButton>
+			<RadioButton 
+			    android:id="@+id/radiobutton7" 
+			    android:layout_width="40dp"
+				android:layout_height="wrap_content" >
+			</RadioButton>
+		</RadioGroup>
+	</LinearLayout>
+    
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/firstrow"
     	android:orientation="horizontal"
+    	android:layout_below="@+id/whatstep"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content">
     	<CheckBox 

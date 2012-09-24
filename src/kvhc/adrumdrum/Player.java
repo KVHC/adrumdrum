@@ -1,6 +1,5 @@
 package kvhc.adrumdrum;
 
-
 import android.content.Context;
 
 public class Player {
@@ -25,12 +24,18 @@ public class Player {
 	private int m_numSteps = 7;
 	boolean m_isPlaying;
 	
+	// Save a reference to MainActivity, 
+	// used to tell the MA which step is active
+	MainActivity act;
 	
 	/**
 	 * Wow
 	 * @param context
 	 */
-	public Player(Context context) {
+	public Player(Context context, MainActivity act) {
+		
+		//Saves the reference to MA
+		this.act = act;
 		
 		waitTime = 500;
 		
@@ -64,6 +69,7 @@ public class Player {
 	private void NextStep() {
 		if(m_isPlaying) {
 			m_currentStep++;
+			
 			if(m_currentStep > m_numSteps) {
 				m_currentStep = 0;
 			}
@@ -73,6 +79,8 @@ public class Player {
 					mSoundManager.playSound(m_Channels[i].GetSound(),rightSound,leftSound);
 				}
 			}
+			
+			act.setRadioButtonToActiveStep(m_currentStep);
 			
 			mTimer.setTime(waitTime);
 		}
