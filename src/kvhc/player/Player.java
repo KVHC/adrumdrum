@@ -2,7 +2,6 @@ package kvhc.player;
 
 import kvhc.adrumdrum.MainActivity;
 import kvhc.adrumdrum.R;
-import kvhc.adrumdrum.R.raw;
 import kvhc.util.AndroidTimer;
 import android.content.Context;
 
@@ -79,8 +78,8 @@ public class Player {
 			}
 			
 			for(int i = 0; i < m_numChannels; i++) {
-				if(m_Channels[i].PlayStep(m_currentStep)) {
-					mSoundManager.playSound(m_Channels[i].GetSound(),rightSound,leftSound);
+				if(m_Channels[i].PlayStep(m_currentStep) && !m_Channels[i].isMuted()) {
+					mSoundManager.playSound(m_Channels[i].GetSound(),rightSound,leftSound,m_Channels[i].getVolume());
 				}
 			}
 			
@@ -135,5 +134,16 @@ public class Player {
 	
 	public void SetStep(int channel, int step, boolean active) {
 		m_Channels[channel].SetStep(step, active);
+	}
+	
+	public void muteAllChannelsExcept(int channel) {
+		if (channel>m_numChannels) {
+			return;
+		}
+		for(int i=0;i<m_numChannels;i++) {
+			if (i!=channel) {
+				m_Channels[i].setMute(true);
+			}
+		}
 	}
 }

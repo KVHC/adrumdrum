@@ -13,6 +13,8 @@ public class Channel {
 	private int m_soundId;
 	private int m_numSteps;
 	private Step[] m_Steps;
+	private boolean mute;
+	private float volume; //0.0 <= volume <= 1.0
 	
 	public Channel() {
 		this(0, 16); // 0 = inget ljud? 
@@ -26,6 +28,9 @@ public class Channel {
 		m_soundId = soundId;
 		m_numSteps = steps;
 		m_Steps = new Step[m_numSteps];
+		mute = false;
+		volume = 1.0f; //full volym tills vidare, antar att den här ska 
+					   //initieras till hälften egentligen
 		
 		for(int i = 0; i < m_numSteps; i++) {
 			m_Steps[i] = new Step();
@@ -42,6 +47,22 @@ public class Channel {
 	
 	public int GetSound() {
 		return m_soundId;
+	}
+	
+	public boolean isMuted() {
+		return mute;
+	}
+	
+	public void setMute(boolean mute) {
+		this.mute = mute;
+	}
+	
+	public float getVolume() {
+		return volume;
+	}
+	
+	public void setVolume(float volume) {
+		this.volume = volume;
 	}
 	
 	// Togglar en Step.....

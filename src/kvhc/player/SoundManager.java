@@ -53,13 +53,13 @@ public class SoundManager {
 	 * @param right right volume
 	 * @param left left volume
 	 */
-	public void playSound(int index,float right, float left)
+	public void playSound(int index,float right, float left, float volume)
 	{
 		if(mSoundPoolMap.get(index) != null) {
 			float streamVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 			streamVolume = streamVolume / mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 			
-			mSoundPool.play(mSoundPoolMap.get(index), left * streamVolume, right * streamVolume, 1, 0, 1f);
+			mSoundPool.play(mSoundPoolMap.get(index), volume*left*streamVolume, volume*right*streamVolume, 1, 0, 1f);
 		}
 	}
 }
