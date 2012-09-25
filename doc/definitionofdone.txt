@@ -1,0 +1,11 @@
+DEFINITION OF DONE
+GRUPP 30 - SE PROJECT
+ht 2012
+
+1. Skall kompilera utan fel när du tagit hem senaste master-branchen (om du mergar in ny kod)
+
+2. Någon annan skall ha läst din kod och diskuterat den med dig (code review)
+
+3. Javadoc skall vara skrivet för metoder/klasser
+
+4. Test skall vara skrivna för metoder/klasser
