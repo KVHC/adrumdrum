@@ -141,9 +141,8 @@ public class Player {
 			return;
 		}
 		for(int i=0;i<m_numChannels;i++) {
-			if (i!=channel) {
-				m_Channels[i].setMute(true);
-			}
+			m_Channels[i].setMute(true);
 		}
+		m_Channels[channel].setMute(false);
 	}
 }
