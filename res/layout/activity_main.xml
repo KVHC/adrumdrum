@@ -371,14 +371,14 @@
 	    android:id="@+id/textView3"
 	    android:layout_width="80dp"
 	    android:layout_height="wrap_content"
-	    android:text="@string/l" />
+	    android:text="@string/left" />
 
 	<TextView
 	    android:id="@+id/textView4"
 	    android:layout_width="80dp"
 	    android:layout_height="wrap_content"
 	    android:gravity="right"
-	    android:text="@string/r" />
+	    android:text="@string/right" />
 
 	</LinearLayout>
 

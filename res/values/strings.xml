@@ -6,7 +6,7 @@
     <string name="title_activity_main">aDrumDrum</string>
     <string name="play_button">Play/Stop</string>
     <string name="bpm">BPM</string>
-    <string name="l">L</string>
-    <string name="r">R</string>
+    <string name="left">L</string>
+    <string name="right">R</string>
 
 </resources>
