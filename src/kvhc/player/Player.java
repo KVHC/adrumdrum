@@ -5,6 +5,11 @@ import kvhc.adrumdrum.R;
 import kvhc.util.AndroidTimer;
 import android.content.Context;
 
+/**
+ * Class to manage sounds.
+ * @author faj
+ *
+ */
 public class Player {
 	
 	// SoundPool
@@ -32,8 +37,9 @@ public class Player {
 	MainActivity act;
 	
 	/**
-	 * Wow
-	 * @param context
+	 * Constructor
+	 * @param context 
+	 * @param act The MainActivity who creates this Player
 	 */
 	public Player(Context context, MainActivity act) {
 		
@@ -69,6 +75,9 @@ public class Player {
     	mTimer = new AndroidTimer(r,waitTime);
 	}
 	
+	/**
+	 * Invokes the next step and plays it. Tells the GUI which step is playing.
+	 */
 	private void NextStep() {
 		if(m_isPlaying) {
 			m_currentStep++;
@@ -89,6 +98,10 @@ public class Player {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param bpm
+	 */
 	public void SetWaitTimeByBPM(int bpm) {
 		
 		if(bpm <= 0){
@@ -102,27 +115,45 @@ public class Player {
 		waitTime = (long)((60.0 / bpm)*1000);
 	}
 	
+	/**
+	 * 
+	 * @param p
+	 */
 	public void setBPMInRange(int p){
 		SetWaitTimeByBPM(60 + p*6);
 	}
 	
+	/**
+	 * 
+	 * @param r
+	 * @param l
+	 */
 	public void panning(double r, double l){
 		rightSound = (float)r;
 		leftSound = (float)l;
 	}
 	
-	
+	/**
+	 * Starts playing by calling the timer
+	 */
 	public void Play() {
 		m_isPlaying = true;
 		mTimer.start();
 	}
 	
+	/**
+	 * Stops playing and sets the current step to 0.
+	 */
 	public void Stop() {
 		m_isPlaying = false;
 		m_currentStep = 0;
 		mTimer.stop();
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean IsPlaying() {
 		return m_isPlaying;
 	}
