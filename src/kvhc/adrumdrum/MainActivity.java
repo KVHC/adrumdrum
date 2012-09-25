@@ -1,5 +1,7 @@
 package kvhc.adrumdrum;
 
+import kvhc.player.Player;
+import kvhc.util.AndroidTimer;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
