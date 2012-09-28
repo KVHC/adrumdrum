@@ -8,5 +8,27 @@
     <string name="bpm">BPM</string>
     <string name="left">L</string>
     <string name="right">R</string>
+    <string name="panning">Panning</string>
+    <string name="volume">Volume</string>
+    <string name="velocity">Velocity</string>
+    <string name="set_sample">Set Sample</string>
+    <string name="back_button">Back</string>
+    <string-array name="samples">
+        <item>Bassdrum</item>
+        <item>Bell Ride Cymbal</item>
+        <item>Crash Cymbal 01</item>
+        <item>Crash Cymbal 02</item>
+        <item>Hihat Closed</item>
+        <item>Hihat Open</item>
+        <item>Ride Cymbal</item>
+        <item>Snare 01</item>
+        <item>Snare 02</item>
+        <item>Snare 03</item>
+        <item>Splash Cymbal 01</item>
+        <item>Splash Cymbal 02</item>
+        <item>Tomtom 01</item>
+        <item>Tomtom 02</item>
+        <item>Tomtom 03</item>
+    </string-array>
 
 </resources>

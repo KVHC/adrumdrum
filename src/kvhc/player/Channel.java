@@ -14,6 +14,10 @@ public class Channel {
 	private int m_numSteps;
 	private Step[] m_Steps;
 	
+	private float m_volume;
+	private float m_leftPan;
+	private float m_rightPan;
+	
 	public Channel() {
 		this(0, 16); // 0 = inget ljud? 
 	}
@@ -30,6 +34,8 @@ public class Channel {
 		for(int i = 0; i < m_numSteps; i++) {
 			m_Steps[i] = new Step();
 		}
+		
+		m_volume = 0.7f;
 	}
 	
 	public boolean PlayStep(int i) {
@@ -56,4 +62,18 @@ public class Channel {
 		m_Steps[step].SetActive(active);
 	}
 	
+	public float GetVolume() {
+		return m_volume;
+	}
+	
+	public void SetVolume(float volume) {
+		m_volume = volume;
+	}
+
+	public void SetPanning(float rightLevel, float leftLevel) {
+		// TODO Auto-generated method stub
+		m_leftPan = leftLevel;
+		m_rightPan = rightLevel;
+		
+	}
 }

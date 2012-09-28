@@ -29,10 +29,6 @@ public class GUIController {
 		initBars();
 	}
 	
-	
-	
-	
-	
     private void initText() {
     	tv1 = (TextView)ma.getFromR(R.id.textView1);
 		
