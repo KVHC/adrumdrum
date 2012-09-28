@@ -44,12 +44,16 @@ public class Channel {
 		return m_soundId;
 	}
 	
+	public int GetNumberOfSteps() {
+		return m_numSteps;
+	}
+	
 	// Togglar en Step.....
 	public void ToggleStep(int step) {
 		// LOL Vilken toggle.
 		m_Steps[step].SetActive(
-				!m_Steps[step].IsActive()
-			);
+			!m_Steps[step].IsActive()
+		);
 	}
 	
 	public void SetStep(int step, boolean active) {
