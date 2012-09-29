@@ -22,10 +22,11 @@ public class PdRenderer implements ISongRenderer {
 	}
 	
 	public void RenderSong(Song song) {
-		for(Channel c : song.GetChannels()) {
-			
-		}
+		// Vill inte spela upp hela samtidigt.
 		
+		//for(Channel c : song.GetChannels()) {
+			
+		//}
 	}
 	
 	public void RenderSongAtStep(Song song, int step) {
@@ -33,10 +34,11 @@ public class PdRenderer implements ISongRenderer {
 		for(Channel c: song.GetChannels()) {
 			if(c.IsStepActive(step)) {
 				// Något sånt här
-				/*PdBase.SendFloat(c.GetSound().GetName() + "-volume", c.GetVolume());
-				PdBase.SendFloat(c.GetSound().GetName() +"-leftpan", c.GetLeftPanning());
-				PdBase.SendFloat(c.GetSound().GetName() +"-rightpan", c.GetRightPanning());
-				PdBase.SendTrigger(c.GetSound().GetName());*/
+				//String soundName = c.GetSound().GetName();
+				/*PdBase.SendFloat(soundName + "-volume", c.GetVolume());
+				PdBase.SendFloat(soundName +"-leftpan", c.GetLeftPanning());
+				PdBase.SendFloat(soundName +"-rightpan", c.GetRightPanning());
+				PdBase.SendTrigger(soundName);*/
 			}
 		}
 	}
