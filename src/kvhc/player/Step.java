@@ -8,6 +8,7 @@ public class Step {
 	public Step() 
 	{
 		isActive = false;
+		vel = 0.7f;
 	}
 	
 	public Step(boolean SetActive) {
@@ -22,11 +23,11 @@ public class Step {
 		return isActive;
 	}
 	
-	public void SetVel(float velocity) {
+	public void SetVelolcity(float velocity) {
 		vel = velocity;
 	}
 	
-	public float GetVel() {
+	public float GetVelocity() {
 		return vel;
 	}
 }
