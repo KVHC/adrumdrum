@@ -34,6 +34,8 @@ public class Song {
 	 */
 	public Song(ArrayList<Channel> channels) {
 		m_Channels = channels;
+		numsteps = m_Channels.get(0).GetNumberOfSteps();
+		bpm = 120;
 	}
 	
 	/**

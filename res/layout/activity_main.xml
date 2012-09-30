@@ -19,322 +19,33 @@
         android:layout_alignParentBottom="true"
         android:text="@string/play_button" />
     
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:orientation="horizontal"
-		android:id="@+id/whatstep"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content" >
-		<RadioGroup 
-		    android:layout_width="wrap_content"
-			android:layout_height="wrap_content" 
-			android:orientation="horizontal"
-			android:id="@+id/radiogroup">
-			<RadioButton 
-		    	android:id="@+id/radiobutton0"
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content" >
-			</RadioButton>
-			<RadioButton 
-		    	android:id="@+id/radiobutton1" 
-		    	android:layout_width="40dp"
-				android:layout_height="wrap_content" >
-			</RadioButton>
-			<RadioButton 
-			    android:id="@+id/radiobutton2" 
-			    android:layout_width="40dp"
-				android:layout_height="wrap_content" >
-			</RadioButton>
-			<RadioButton 
-			    android:id="@+id/radiobutton3" 
-			    android:layout_width="40dp"
-				android:layout_height="wrap_content" >
-			</RadioButton>
-			<RadioButton 
-		    	android:id="@+id/radiobutton4"
-				android:layout_width="40dp"
-				android:layout_height="wrap_content" >
-			</RadioButton>
-			<RadioButton 
-		    	android:id="@+id/radiobutton5" 
-		    	android:layout_width="40dp"
-				android:layout_height="wrap_content" >
-			</RadioButton>
-			<RadioButton 
-			    android:id="@+id/radiobutton6" 
-			    android:layout_width="40dp"
-				android:layout_height="wrap_content" >
-			</RadioButton>
-			<RadioButton 
-			    android:id="@+id/radiobutton7" 
-			    android:layout_width="40dp"
-				android:layout_height="wrap_content" >
-			</RadioButton>
-		</RadioGroup>
-	</LinearLayout>
     
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/firstrow"
-    	android:orientation="horizontal"
-    	android:layout_below="@+id/whatstep"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content">
-    	<CheckBox 
-	    	android:id="@+id/checkbox0_0"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox0_1"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox0_2"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox0_3"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox0_4"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox0_5"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox0_6"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox0_7"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-
-	</LinearLayout>
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:id="@+id/secondrow"
-    	android:orientation="horizontal"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content" 
-    	android:layout_below="@+id/firstrow" >
-    	<CheckBox 
-	    	android:id="@+id/checkbox1_0"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox1_1"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox1_2"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox1_3"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox1_4"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox1_5"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox1_6"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox1_7"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-
-	</LinearLayout>
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:id="@+id/thirdrow"
-    	android:orientation="horizontal"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content" 
-    	android:layout_below="@+id/secondrow" >
-    	<CheckBox 
-	    	android:id="@+id/checkbox2_0"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox2_1"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox2_2"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox2_3"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox2_4"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox2_5"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox2_6"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox2_7"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-
-	</LinearLayout>
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:id="@+id/fourthrow"
-    	android:orientation="horizontal"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content" 
-    	android:layout_below="@+id/thirdrow" >
-    	<CheckBox 
-	    	android:id="@+id/checkbox3_0"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox3_1"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox3_2"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox3_3"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox3_4"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox3_5"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox3_6"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-		<CheckBox 
-	    	android:id="@+id/checkbox3_7"
-	    	android:layout_width="40dp"
-	    	android:layout_height="wrap_content"
-	    	android:onClick="onCheckboxClicked"
-	    	android:paddingRight="0dp"
-	    	android:paddingLeft="0dp" />
-
-	</LinearLayout>
+    <!-- RadioButtons showing the active step -->
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/ActiveStepsContainer"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+        
+    </TableLayout>
+    
+    <!-- Channels -->
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/ChannelContainer"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ActiveStepsContainer" >
+        
+    </TableLayout>
 
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/bpmrow"
     	android:orientation="horizontal"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
-		android:layout_below="@+id/fourthrow" >
+		android:layout_below="@+id/ChannelContainer" >
 
 	<SeekBar
 	    android:layout_width="160dp"
@@ -365,7 +76,6 @@
 	    android:layout_height="wrap_content"
 	    android:gravity="center"
 	    android:text="@string/bpm" />
-	
 
 	<TextView
 	    android:id="@+id/textView3"

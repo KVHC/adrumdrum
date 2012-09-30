@@ -73,6 +73,10 @@ public class GUIStepButton extends CheckBox {
 		m_Active = active;
 	}
 	
+	public void reverse() {
+		m_Active = !m_Active;
+	}
+	
 	@Override 
 	protected void onDraw(Canvas canvas) {
 		//super.onDraw(canvas);

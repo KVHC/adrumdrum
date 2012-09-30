@@ -16,7 +16,12 @@
        
 	<TableRow> 
        	<TextView android:text="@string/set_sample"></TextView> 
-    	<Button android:id="@+id/buttonChangeSample" />
+    	<Spinner
+        	android:id="@+id/spinner_sample"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:entries="@array/samples"
+        	android:prompt="@string/samples_prompt" />
     </TableRow>
        
     <TableRow>
