@@ -15,7 +15,6 @@ public class Player {
 	// Channel Renderer ;)
 	ISongRenderer mChannelRender;
 	
-	
 	// Timing
 	Runnable r;
 	AndroidTimer mTimer;
@@ -23,33 +22,31 @@ public class Player {
 	
 	
 	// Sounds
-	Song song;
+	Song song = null;
 	float rightSound;
 	float leftSound;
 	
 	// State
 	private int m_currentStep;
-	private int m_numSteps = 7;
+	private int m_numSteps = 8;
 	boolean m_isPlaying;
 	
 	// Save a reference to MainActivity, 
 	// used to tell the MA which step is active
-	MainActivity act;
+	//MainActivity act;
 	
 	/**
 	 * Wow
 	 * @param context
 	 */
-	public Player(Context context, MainActivity act) {
+	public Player(Context context) {
 		
 		mChannelRender = new SoundPoolRenderer(context);
 		
 		//Saves the reference to MA
-		this.act = act;
+		//this.act = act;
 		
 		waitTime = 500;
-		
-		
 		
 		m_currentStep = 0;
 		m_isPlaying = false;
@@ -66,24 +63,28 @@ public class Player {
 	
 	public void LoadSong(Song newSong) {
 		song = newSong;
-		
 		mChannelRender.LoadSounds(song.GetSounds());
 	}
 	
 	private void NextStep() {
-		if(m_isPlaying) {
+		if(m_isPlaying && song != null) {
 
-			act.setRadioButtonToActiveStep(m_currentStep);
+			//act.setRadioButtonToActiveStep(m_currentStep);
+			
 			mChannelRender.RenderSongAtStep(song, m_currentStep);
 			
 			m_currentStep++;
 
-			if(m_currentStep > m_numSteps) {
+			if(m_currentStep >= m_numSteps) {
 				m_currentStep = 0;
 			}
 			
 			mTimer.setTime(waitTime);
 		}
+	}
+	
+	public int GetActiveStep() {
+		return m_currentStep; 
 	}
 	
 	public void SetWaitTimeByBPM(int bpm) {

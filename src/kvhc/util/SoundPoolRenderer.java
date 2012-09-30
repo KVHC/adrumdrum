@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import android.content.Context;
+import android.util.Log;
 import kvhc.adrumdrum.R;
 import kvhc.player.Channel;
 import kvhc.player.Song;
@@ -50,7 +51,8 @@ public class SoundPoolRenderer implements ISongRenderer {
 	public void RenderSongAtStep(Song song, int step) {
 		for(Channel c : song.GetChannels()) {
 			if(c.IsStepActive(step)) {
-				mSoundManager.playSound(c.GetSound().GetId(), c.GetVolumeRight(step), c.GetVolumeLeft(step));
+				// 
+				mSoundManager.playSound(c.GetSound().GetId(), 1.0f, 1.0f);
 			}
 		}
 	}

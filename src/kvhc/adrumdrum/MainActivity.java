@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 	
 	
 	TextView tv1;
-	private Player player;
+	//private Player player;
 	private GUIController guic;
 	
     @Override
@@ -35,29 +35,26 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         tv1 = (TextView)findViewById(R.id.textView1);
         
-        player = new Player(getBaseContext(), this);
-        guic = new GUIController(player, this);
-    
+        //player = new Player(getBaseContext(), this);
+        guic = new GUIController(this);
     }
 
     public Object getFromR(int id){
     	return findViewById(id);
     }
 
-    public void setRadioButtonToActiveStep(int id) {
-    	guic.setActiveStep(id);
-    }
+    //public void setRadioButtonToActiveStep(int id) {
+//    	guic.setActiveStep(id);
+    //}
     
     public void onStop() {
-    	player.Stop();
     	super.onStop();
-    	super.onDestroy();
+    	//player.Stop();
     }
     
     public void onDestroy() {
-    	player.Stop();
-    	super.onStop();
     	super.onDestroy();
+    	//player.Stop();
     }
 
     @Override

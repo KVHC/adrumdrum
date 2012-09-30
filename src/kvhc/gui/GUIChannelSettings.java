@@ -47,14 +47,15 @@ public class GUIChannelSettings {
 		mButton.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
-				mChannel.SetSound(GetSoundFromSpinner());
+				mChannel.SetSound(GUIChannelSettings.GetSoundFromString(String.valueOf(mSampleSinner.getSelectedItem())));
 			}
 		});
 	}
 	
-	private Sound GetSoundFromSpinner() {
+	public static Sound GetSoundFromString(String s) {
 		
-		String name = String.valueOf(mSampleSinner.getSelectedItem());
+		//String name = String.valueOf(s.getSelectedItem());
+		String name = s;
 		if("Bassdrum".equals(name)) {
 			return new Sound(1, R.raw.jazzfunkkitbd_01, name);
 		}

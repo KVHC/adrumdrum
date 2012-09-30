@@ -13,6 +13,9 @@
     <string name="velocity">Velocity</string>
     <string name="set_sample">Set Sample</string>
     <string name="back_button">Back</string>
+    <string name="add_channel_button">Add Channel</string>
+    <string name="add_step_button">Add Step</string>
+    <string name="remove_step_button">Del Step</string>
     <string name="samples_prompt">Choose a sample</string>
     <string-array name="samples">
         <item>Bassdrum</item>

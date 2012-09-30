@@ -68,9 +68,7 @@ public class Channel {
 		return mSound;
 	}
 	
-	// Togglar en Step.....
 	public void ToggleStep(int step) {
-		// LOL Vilken toggle.
 		m_Steps.get(step).SetActive(
 				!m_Steps.get(step).IsActive()
 			);
