@@ -32,7 +32,6 @@
 	        android:layout_height="wrap_content"
 	        android:layout_below="@+id/button1"
 	        android:layout_alignParentRight="true"
-	        android:layout_alignParentBottom="true"
 	        android:text="@string/add_channel_button" />
 	    
 	    <Button
@@ -41,7 +40,6 @@
 	        android:layout_height="wrap_content"
 	        android:layout_below="@+id/buttonAddChannel"
 	        android:layout_alignParentRight="true"
-	        android:layout_alignParentBottom="true"
 	        android:text="@string/add_step_button" />
 	    
 	    <Button
@@ -50,36 +48,40 @@
 	        android:layout_height="wrap_content"
 	        android:layout_below="@+id/buttonAddStep"
 	        android:layout_alignParentRight="true"
-	        android:layout_alignParentBottom="true"
 	        android:text="@string/remove_step_button" />
     </RelativeLayout>
     
     <!-- RadioButtons showing the active step -->
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/ActiveStepsContainer"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
-        
-    </TableLayout>
     
-    <!-- Channels -->
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/ChannelContainer"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ActiveStepsContainer" >
-        
-    </TableLayout>
+            	android:id="@+id/ActiveStepsContainer"
+            	android:orientation="horizontal"
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+           >
+    	</TableLayout>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/stepScroll"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bpmrow"
+        >
+    	<!-- Channels -->
+    	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            	android:id="@+id/ChannelContainer"
+            	android:orientation="horizontal"
+            	android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	      	    >
+   		</TableLayout>
+    </ScrollView>
 
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/bpmrow"
     	android:orientation="horizontal"
     	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-		android:layout_below="@+id/ChannelContainer" >
+    	android:layout_height="wrap_content">
 
 	<SeekBar
 	    android:layout_width="160dp"
@@ -104,19 +106,6 @@
 	    android:layout_height="wrap_content"
 	    android:gravity="center"
 	    android:text="@string/bpm" />
-
-	<TextView
-	    android:id="@+id/textView3"
-	    android:layout_width="80dp"
-	    android:layout_height="wrap_content"
-	    android:text="@string/left" />
-
-	<TextView
-	    android:id="@+id/textView4"
-	    android:layout_width="80dp"
-	    android:layout_height="wrap_content"
-	    android:gravity="right"
-	    android:text="@string/right" />
 
 	</LinearLayout>
 

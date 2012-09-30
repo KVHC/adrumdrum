@@ -117,7 +117,9 @@ public class GUIController {
 	 */
 	private void initChannels() {
 		
-		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
+		RedrawChannels();
+		
+		/*TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
 		
 		for(int y = 0; y < song.GetNumberOfChannels(); y++) {
 			TableRow row = new TableRow(channelContainer.getContext());
@@ -129,20 +131,25 @@ public class GUIController {
 			channelContainer.addView(row);
 		}
 
-		channelContainer.setVisibility(View.VISIBLE);
+		channelContainer.setVisibility(View.VISIBLE);*/
 	}
 	
 	private void addChannel(Channel c) {
 		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
 		
 		TableRow row = new TableRow(channelContainer.getContext());
+		
+		// Name label
+		TextView name = new TextView(parentActivity);
+		name.setText(c.GetSound().GetName());
+		row.addView(name);
+		
 		for(int x = 0; x < song.GetNumberOfSteps(); x++) {
 			GUIStepButton box = new GUIStepButton(row.getContext(), song.GetNumberOfChannels()-1, x);
 			box.setOnClickListener(stepClickListener);
 			row.addView(box);
 		}
 		channelContainer.addView(row);
-		//channelContainer.invalidate();
 	}
 	
     private void initText() {
@@ -156,67 +163,28 @@ public class GUIController {
            
            Button addChnl = (Button)parentActivity.findViewById(R.id.buttonAddChannel);
            addChnl.setOnClickListener(addChannelListener);
+           
+           Button addStep = (Button)parentActivity.findViewById(R.id.buttonAddStep);
+           addStep.setOnClickListener(addStepListener);
+           
+           Button remStep = (Button)parentActivity.findViewById(R.id.buttonRemoveStep);
+           remStep.setOnClickListener(removeStepListener);
 	}
 
 	private void initBars(){
 		SeekBar bpmBar = (SeekBar)parentActivity.findViewById(R.id.bpmbar);
-    	//SeekBar panningBar = (SeekBar)parentActivity.findViewById(R.id.panningbar);
-    	TextView bpmtext = (TextView)parentActivity.findViewById(R.id.bpmtext);
-    	
-    	//panningBar.setProgress(50);
     	
     	bpmBar.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
 
-			//@Override
 			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 				player.setBPMInRange(progress);
 				tv1.setText("BPM is: " + (60 + progress*6));
 				
 			}
 
-			//@Override
-			public void onStartTrackingTouch(SeekBar arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			//@Override
-			public void onStopTrackingTouch(SeekBar arg0) {
-				//TODO
-				
-			}
+			public void onStartTrackingTouch(SeekBar arg0) {}
+			public void onStopTrackingTouch(SeekBar arg0) {}
         });
-    	
-    	/*panningBar.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
-
-			//@Override
-			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
-				/*if(progress >= 50){					
-					song.panning(1.0, 1.0 - ((progress - 50) * 0.02));
-					tv1.setText("Panned: R=1.0 L=" + (1.0 -(progress - 50) * 0.02));
-				}
-				else if (progress < 50){
-					player.panning(1.0 - (50 - progress) * 0.02, 1.0);
-					tv1.setText("Panned: R=" +((1.0 - (50 - progress) * 0.02)) + "L=1.0");
-				}
-				
-				// Ska inte ske här längre. 
-
-				
-			}
-
-			//@Override
-			public void onStartTrackingTouch(SeekBar arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			//@Override
-			public void onStopTrackingTouch(SeekBar arg0) {
-				//TODO
-				
-			}
-        });*/
     }
 	
 	
@@ -277,9 +245,7 @@ public class GUIController {
 			
 			Log.e("LOL", "OKEJ LÄGG TILL DÅ");
 			
-			final EditText input = new EditText(parentActivity); // This could also come from an xml resource, in which case you would use findViewById() to access the input
-			
-			
+			// Spinner for sound sample selection
 			CreateSampleList();
 			final Spinner input2 = new Spinner(parentActivity);
 			ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(parentActivity, android.R.layout.simple_spinner_dropdown_item, sampleArray);
@@ -309,6 +275,61 @@ public class GUIController {
 		}
 	};
     
+	
+	private OnClickListener addStepListener = new OnClickListener() {
+		
+		public void onClick(View v) {
+			// Add one step to the song and gui
+			
+			song.AddSteps(1);
+			player.LoadSong(song);
+			RedrawChannels();
+		}
+	};
+	
+	private OnClickListener removeStepListener = new OnClickListener() {
+		
+		public void onClick(View v) {
+			song.RemoveSteps(1);
+			player.LoadSong(song);
+			RedrawChannels();
+		}
+	};
+	
+	private void RedrawChannels() {
+		// Now it redraws all the channels and steps, this is not really neccessary 
+		// this is VERY optimizable.
+		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
+		channelContainer.removeAllViewsInLayout();
+		
+		int y = 0;
+		for(Channel c: song.GetChannels()) {
+			
+			TableRow row = new TableRow(channelContainer.getContext());
+			
+			// Name label
+			TextView name = new TextView(parentActivity);
+			name.setText(c.GetSound().GetName());
+			row.addView(name);
+			
+			// All the steps
+			for(int x = 0; x < song.GetNumberOfSteps(); x++) {
+				
+				GUIStepButton box = new GUIStepButton(row.getContext(), y, x, c.IsStepActive(x));	// Construction
+				box.setOnClickListener(stepClickListener);						// Listener
+				row.addView(box);
+				
+			}
+			channelContainer.addView(row);
+			y++;
+		}
+
+
+		channelContainer.setVisibility(View.VISIBLE);
+		channelContainer.invalidate();
+	}
+	
+	
 	public void setActiveStep(int stepid) {
 		//var nån bugg i rg.clearCheck(), nån får gärna fixa detta
 		//rg.check(stepid);

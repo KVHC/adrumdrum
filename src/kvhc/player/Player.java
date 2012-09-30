@@ -28,7 +28,6 @@ public class Player {
 	
 	// State
 	private int m_currentStep;
-	private int m_numSteps = 8;
 	boolean m_isPlaying;
 	
 	// Save a reference to MainActivity, 
@@ -75,7 +74,7 @@ public class Player {
 			
 			m_currentStep++;
 
-			if(m_currentStep >= m_numSteps) {
+			if(m_currentStep >= song.GetNumberOfSteps()) {
 				m_currentStep = 0;
 			}
 			

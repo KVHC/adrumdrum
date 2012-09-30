@@ -91,8 +91,8 @@ public class Song {
 	 */
 	public void AddSteps(int numberOfStepsToAdd) {
 		
-		for(int i = 0; i < m_Channels.size(); i++) {
-			m_Channels.get(i).ResizeBy(numberOfStepsToAdd);
+		for(Channel c : m_Channels) {
+			c.ResizeBy(numberOfStepsToAdd);
 		}
 		
 	}

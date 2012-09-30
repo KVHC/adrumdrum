@@ -49,6 +49,22 @@ public class GUIStepButton extends CheckBox {
 		m_Active = false;
 	}
 	
+	public GUIStepButton(Context context, int channelId, int stepId, boolean isActive) {
+		super(context);
+		
+		if(GUIStepButton.m_buttonOff == null) {
+			GUIStepButton.m_buttonOff = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonoff);
+		}
+		
+		if(GUIStepButton.m_buttonOn == null) {
+			m_buttonOn = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonon);
+		}
+		
+		m_ChannelId = channelId;
+		m_StepId = stepId;
+		m_Active = isActive;
+	}
+	
 	/**
 	 * Returns the channel number this View represents 
 	 * @return
