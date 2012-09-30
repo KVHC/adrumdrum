@@ -36,14 +36,14 @@ public class GUIController {
 	private TextView tv1;
 	private RadioGroup rg;
 	
-	private Activity parentActivity; // Lite onödigt egentligt...
+	private Activity parentActivity;
+	
 	
 	/**
 	 * Constructor
 	 * @param player the sound controller
 	 * @param ma the main activity
 	 */
-	//public GUIController(Player player, MainActivity ma){
 	public GUIController(Activity activity) {
 		parentActivity = activity;
 		
@@ -85,14 +85,6 @@ public class GUIController {
 		
 		song = new Song(channels);
 		
-		/*song.GetChannel(0).SetStep(0, true);
-		song.GetChannel(0).SetStep(4, true);
-		
-		song.GetChannel(1).SetStep(0, true);
-		song.GetChannel(1).SetStep(2, true);
-		song.GetChannel(1).SetStep(4, true);
-		song.GetChannel(1).SetStep(6, true);*/
-		
 		player.LoadSong(song);
 	}
 	
@@ -118,20 +110,6 @@ public class GUIController {
 	private void initChannels() {
 		
 		RedrawChannels();
-		
-		/*TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
-		
-		for(int y = 0; y < song.GetNumberOfChannels(); y++) {
-			TableRow row = new TableRow(channelContainer.getContext());
-			for(int x = 0; x < song.GetNumberOfSteps(); x++) {
-				GUIStepButton box = new GUIStepButton(row.getContext(), y, x);
-				box.setOnClickListener(stepClickListener);
-				row.addView(box);
-			}
-			channelContainer.addView(row);
-		}
-
-		channelContainer.setVisibility(View.VISIBLE);*/
 	}
 	
 	private void addChannel(Channel c) {
@@ -329,9 +307,22 @@ public class GUIController {
 		channelContainer.invalidate();
 	}
 	
+	/**
+	 * Call onStop (might need some special handling here?)
+	 */
+	public void onStop() {
+    	player.Stop();
+    }
+    
+	/**
+	 * Call onDestroy (might need some special handling here?)
+	 */
+    public void onDestroy() {
+    	player.Stop();
+    }
+	
 	
 	public void setActiveStep(int stepid) {
 		//var nån bugg i rg.clearCheck(), nån får gärna fixa detta
-		//rg.check(stepid);
 	}
 }
