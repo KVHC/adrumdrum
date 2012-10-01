@@ -1,12 +1,16 @@
 package kvhc.gui;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
@@ -20,6 +24,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 import kvhc.adrumdrum.MainActivity;
 import kvhc.adrumdrum.R;
@@ -39,7 +44,7 @@ public class GUIController {
 	private RadioGroup rg;
 	
 	private Activity parentActivity;
-	
+	private Observer activeStepObserver;
 	
 	/**
 	 * Constructor
@@ -50,6 +55,17 @@ public class GUIController {
 		parentActivity = activity;
 		
 		this.player = new Player(parentActivity.getBaseContext());
+		
+		activeStepObserver = new Observer() {
+			public void update(Observable observable, Object data) {
+				
+				int step = Integer.parseInt(data.toString());
+				rg.check(step);
+				
+			}
+		};
+		
+		player.addObserver(activeStepObserver);
 		
 		init();
 	}
@@ -63,7 +79,6 @@ public class GUIController {
 		initButtons();
 		initBars();
 		initChannels();
-		initShowActiveSteps();
 	}
 	
 	
@@ -95,6 +110,9 @@ public class GUIController {
 	private void initShowActiveSteps() {
 		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
 		
+		LayoutParams params = new LayoutParams(1);
+		params.span = song.GetNumberOfSteps();
+		
 		TableRow row = new TableRow(channelContainer.getContext());
 		
 		TextView stepMsg = new TextView(parentActivity.getBaseContext());
@@ -102,14 +120,16 @@ public class GUIController {
 		row.addView(stepMsg);
 		
 		rg = new RadioGroup(parentActivity.getBaseContext());
-		row.addView(rg);
+		rg.setLayoutParams(params);
 		for(int i = 0; i < song.GetNumberOfSteps(); i++) {
 			RadioButton btn = new RadioButton(rg.getContext());
+			btn.setId(i);
 			rg.addView(btn);
 		}
 		
 		rg.setOrientation(LinearLayout.HORIZONTAL);
 		rg.setEnabled(true);
+		row.addView(rg);
 		
 		channelContainer.addView(row);
 		

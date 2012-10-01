@@ -1,16 +1,13 @@
 package kvhc.player;
 
-import java.util.ArrayList;
+import java.util.Observable;
 
-import kvhc.adrumdrum.MainActivity;
-import kvhc.adrumdrum.R;
-import kvhc.adrumdrum.R.raw;
 import kvhc.util.AndroidTimer;
 import kvhc.util.ISongRenderer;
 import kvhc.util.SoundPoolRenderer;
 import android.content.Context;
 
-public class Player {
+public class Player extends Observable {
 	
 	// Channel Renderer ;)
 	ISongRenderer mChannelRender;
@@ -70,6 +67,8 @@ public class Player {
 
 			//act.setRadioButtonToActiveStep(m_currentStep);
 			
+			
+			
 			mChannelRender.RenderSongAtStep(song, m_currentStep);
 			
 			m_currentStep++;
@@ -77,6 +76,9 @@ public class Player {
 			if(m_currentStep >= song.GetNumberOfSteps()) {
 				m_currentStep = 0;
 			}
+			
+			setChanged();
+			notifyObservers(m_currentStep);
 		}
 	}
 	
