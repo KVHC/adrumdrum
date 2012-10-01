@@ -1,0 +1,31 @@
+Krav id:                07
+
+Use case/scenario:      Spara ett mönster 
+
+Trigger:			    Användaren vill spara ner ett skapat mönster till en 
+				    fil på telefonen och trycker på en spara knapp.
+
+Precondition:           Appen är startad.
+
+Basic path:             Användaren vill spara ner ett mönster till telefonen. 
+				    Alla inställningar som rör mönstret ska sparas ner i en 
+				    fil. Mönstret och alla inställningar ska kunna ska kunna 					    återskapas från filen. 
+				    Användaren ska även ange namnet på filen som sparas
+
+Exception path:         1. Användaren har angett ett filnamn som redan finns.
+					  Appen frågar användaren om den vill skriva över den 
+					  existerande filen eller inte. Om inte så får 
+					  användaren ange ett nytt namn annars skrivs filen över
+				    2. Användaren har angett ett ogiltigt filnamn.
+					  Popup med felmedelande och användaren får 
+					  ange ett nytt namn på filen
+				    3. Filen kan inte sparas till minnet 
+					  (Rättigheter/Inte tillräckligt minne)
+					  Popup om felet och stänger sparniingsdialogen
+
+
+Post condition:         Appen fortsätter att köra som innan. Det ska finnas en 
+				    med det angivna namnet som innehåller data som kan 
+				    användas till att återskapa mönstret man hade innan 
+				    sparningen.
+        

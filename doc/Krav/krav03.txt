@@ -1,0 +1,22 @@
+Krav id:                03
+Use case/scenario:      Ändra BPM    
+
+Trigger:			    Användaren drar på en progressbar för att ändra 
+				    bpm.
+
+Precondition:           Appen är startad.
+
+Basic path:             Användaren vill spela mönstret i en annan BPM 
+				    och ökar BPM genom att dra progressbaren till höger
+				    minskar BPM genom att dra till vänster. Högsta och 
+				    lägsta BPM ska vara förutbestämt och och användaren 
+				    ska aldrig kunna spela upp mönstret i högre eller lägre 
+				    BPM
+
+Exception path:         Om ett möster redan spelas när BPM ändras så ska BPM ändras
+				    så snabbt som möjligt (efter nästa spelade step)
+
+Post condition:         Appen körs fortfarande och fungerar som innan och
+				    tempot som mönster spelas i har ändrats 
+        
+

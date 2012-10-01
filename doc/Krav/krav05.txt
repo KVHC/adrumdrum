@@ -1,0 +1,21 @@
+Krav id:                05
+Use case/scenario:      Muta en kanal 
+
+Trigger:			    Användaren markerar att en kanal ska mutas 
+			         (inte spelas upp)
+
+Precondition:           Appen är startad.
+
+Basic path:             Användaren vill inte spela upp ljud från en viss kanal 
+				    och markerar det genom att trycka på en mute knapp för 
+				    den kanalen. 
+				    Efter att en kanal har blivit mutad så ska inga ljud från 
+				    den spelas upp.
+
+Exception path:         
+
+Post condition:         Inga steps som ligger i den mutade kanalen kommer spelas 
+				    upp. Alla andra kanaler ska vara oförändrade och appen 
+				    ska fungera precis som tidigare 
+        
+

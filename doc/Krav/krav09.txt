@@ -1,0 +1,25 @@
+Krav id:                09
+
+Use case/scenario:      Ta bort en kanal i mönstret
+
+Trigger:			    Användaren väljer att ta bort en kanal från mönstret 
+				    genom att trycka på en knapp
+
+Precondition:           Appen är startad. 
+
+Basic path:             Användaren vill ta bort en kanal och ska ha möjlighet 
+				    att välja vilken kanal i mönstret som ska tas bort. 
+				    De aktiva stepsen som fanns i kanalen ska inte längre 
+				    spelas. Kanalen ska inte längre finnas med i modellen 
+				    eller GUI:t
+
+
+Exception path:         1. Det finns bara en kanal. Om det bara finns en kanal
+					  så ska användaren få upp en popup om att användaren 
+					  kanalen inte kan tas bort
+
+
+Post condition:         Appen fortsätter att köra som innan. Kanalen som är 
+				    borttagen ska inte synas i GUI, höras i uppspelningen 
+				    eller finnas med vid sparning.
+        
