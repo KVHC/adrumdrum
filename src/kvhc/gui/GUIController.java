@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,7 @@ import kvhc.player.Channel;
 import kvhc.player.Player;
 import kvhc.player.Song;
 import kvhc.player.Sound;
+import kvhc.player.Step;
 
 public class GUIController {
 
@@ -92,7 +94,7 @@ public class GUIController {
 	
 	private void initShowActiveSteps() {
 		
-		TableLayout activeStepsContainer = (TableLayout)parentActivity.findViewById(R.id.ActiveStepsContainer);
+		/*TableLayout activeStepsContainer = (TableLayout)parentActivity.findViewById(R.id.ActiveStepsContainer);
 		rg = new RadioGroup(parentActivity.getBaseContext());
 		
 		for(int i = 0; i < song.GetNumberOfSteps(); i++) {
@@ -103,7 +105,7 @@ public class GUIController {
 		rg.setOrientation(LinearLayout.HORIZONTAL);
 		rg.setEnabled(true);
 		activeStepsContainer.addView(rg);
-		activeStepsContainer.setVisibility(View.VISIBLE);
+		activeStepsContainer.setVisibility(View.VISIBLE);*/
 	}
 	
 	/**
@@ -129,6 +131,7 @@ public class GUIController {
 		for(int x = 0; x < song.GetNumberOfSteps(); x++) {
 			GUIStepButton box = new GUIStepButton(row.getContext(), song.GetNumberOfChannels()-1, x);
 			box.setOnClickListener(stepClickListener);
+			box.setOnLongClickListener(stepButtonLong);
 			row.addView(box);
 		}
 		channelContainer.addView(row);
@@ -225,8 +228,6 @@ public class GUIController {
 		public void onClick(View v) {
 			Button b = (Button) v;
 			
-			Log.e("LOL", "OKEJ LÄGG TILL DÅ");
-			
 			// Spinner for sound sample selection
 			CreateSampleList();
 			final Spinner input2 = new Spinner(parentActivity);
@@ -301,6 +302,7 @@ public class GUIController {
 				
 				GUIStepButton box = new GUIStepButton(row.getContext(), y, x, c.IsStepActive(x));	// Construction
 				box.setOnClickListener(stepClickListener);						// Listener
+				box.setOnLongClickListener(stepButtonLong);
 				row.addView(box);
 				
 			}
@@ -331,4 +333,34 @@ public class GUIController {
 	public void setActiveStep(int stepid) {
 		//var nån bugg i rg.clearCheck(), nån får gärna fixa detta
 	}
+	
+	
+	private OnLongClickListener stepButtonLong = new OnLongClickListener() {
+		
+		public boolean onLongClick(View v) {
+			
+			final GUIStepButton step = (GUIStepButton) v; // We can do this?
+			final Step s = song.GetChannel(step.GetChannel()).GetSteps().get(step.GetStep());
+			
+			final SeekBar velocitySlider = new SeekBar(parentActivity);
+			velocitySlider.setProgress((int)(100 * s.GetVelocity()));
+			AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity);
+			
+			builder.setView(velocitySlider);
+			builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			    public void onClick(DialogInterface dialog, int whichButton) {
+			        
+			    	int value = velocitySlider.getProgress();
+			        s.SetVelolcity(value / 100.0f);
+			        dialog.dismiss();
+			    }
+			});
+			
+			
+			builder.create();
+			builder.show();
+			
+			return s.IsActive();
+		}
+	};
 }

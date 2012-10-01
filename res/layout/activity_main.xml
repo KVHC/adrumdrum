@@ -1,34 +1,61 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-   	<TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="@string/hello_world" />
-	
-   	<RelativeLayout 
-   	    xmlns:android="http://schemas.android.com/apk/res/android"
     	xmlns:tools="http://schemas.android.com/tools"
-    	android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-   	    android:layout_below="@+id/textView1"
-   	    android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
+       android:layout_width="fill_parent"
+       android:layout_height="fill_parent"
+       android:orientation="horizontal"
+       >
+       
+          <!-- RadioButtons showing the active step -->
+    <ScrollView
+	        android:id="@+id/stepScroll"
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_alignParentTop="true"
+	        android:layout_toLeftOf="@+id/layoutzz"
+
+	        >
+	    	<!-- Channels -->
+	    	<HorizontalScrollView 
+	    	    android:layout_width="fill_parent"
+	    	    android:layout_height="wrap_content"
+	    	    >
+		    	<TableLayout
+		            	android:id="@+id/ChannelContainer"
+		            	android:orientation="horizontal"
+		            	android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			      	    >
+		   		</TableLayout>
+	   		</HorizontalScrollView>
+	    </ScrollView>
+	    
+	<RelativeLayout 
+	    android:id="@+id/layoutzz"
+    	android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
    	    >
-	    <Button
-	        android:id="@+id/button1"
+   	    
+   	    <TextView
+	        android:id="@+id/textView1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:gravity="top|right"
+	        android:text="@string/hello_world" />
+   	    
+	    <Button
+	        android:id="@+id/button1"
+	        android:layout_width="100dp"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@string/hello_world"
 	        android:layout_alignParentRight="true"
 	        android:text="@string/play_button" />
 	    
 	    <Button
 	        android:id="@+id/buttonAddChannel"
-	        android:layout_width="wrap_content"
+	        android:layout_width="100dp"
 	        android:layout_height="wrap_content"
 	        android:layout_below="@+id/button1"
 	        android:layout_alignParentRight="true"
@@ -36,7 +63,7 @@
 	    
 	    <Button
 	        android:id="@+id/buttonAddStep"
-	        android:layout_width="wrap_content"
+	        android:layout_width="100dp"
 	        android:layout_height="wrap_content"
 	        android:layout_below="@+id/buttonAddChannel"
 	        android:layout_alignParentRight="true"
@@ -44,70 +71,27 @@
 	    
 	    <Button
 	        android:id="@+id/buttonRemoveStep"
-	        android:layout_width="wrap_content"
+	        android:layout_width="100dp"
 	        android:layout_height="wrap_content"
 	        android:layout_below="@+id/buttonAddStep"
 	        android:layout_alignParentRight="true"
 	        android:text="@string/remove_step_button" />
-    </RelativeLayout>
-    
-    <!-- RadioButtons showing the active step -->
-    
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            	android:id="@+id/ActiveStepsContainer"
-            	android:orientation="horizontal"
-            	android:layout_width="wrap_content"
-            	android:layout_height="wrap_content"
-           >
-    	</TableLayout>
-    <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/stepScroll"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/bpmrow"
-        >
-    	<!-- Channels -->
-    	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            	android:id="@+id/ChannelContainer"
-            	android:orientation="horizontal"
-            	android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	      	    >
-   		</TableLayout>
-    </ScrollView>
-
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/bpmrow"
-    	android:orientation="horizontal"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content">
-
-	<SeekBar
-	    android:layout_width="160dp"
-	    android:layout_height="wrap_content"
-	    android:id="@+id/bpmbar"
-	/>
 	    
-	</LinearLayout>
-	
-	<LinearLayout
-	    xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:id="@+id/textrow"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/bpmrow"
-	    android:gravity="center|center_horizontal"
-	    android:orientation="horizontal" >
-	
-	<TextView
-	    android:id="@+id/bpmtext"
-	    android:layout_width="160dp"
-	    android:layout_height="wrap_content"
-	    android:gravity="center"
-	    android:text="@string/bpm" />
-
-	</LinearLayout>
-
-			
-</RelativeLayout>
+	    
+    	<SeekBar
+	    	android:layout_width="160dp"
+	    	android:layout_height="wrap_content"
+	    	android:layout_below="@+id/buttonRemoveStep"
+	    	android:layout_alignParentRight="true"
+	    	android:id="@+id/bpmbar" />
+		
+		<TextView
+		    android:id="@+id/bpmtext"
+	    	android:layout_width="160dp"
+	    	android:layout_height="wrap_content"
+	    	android:layout_below="@+id/bpmbar"
+	    	android:gravity="center"
+	    	android:text="@string/bpm" />
+    </RelativeLayout>
+       
+   </RelativeLayout>	

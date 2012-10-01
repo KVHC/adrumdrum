@@ -54,7 +54,7 @@ public class Channel {
 			m_Steps.add(new Step());
 		}
 		
-		m_volume = 0.7f;
+		m_volume = 1.0f;
 		mute = false;
 	}
 	
@@ -90,7 +90,7 @@ public class Channel {
 			return 0.0f;
 		}
 		
-		return (m_volume * m_leftPan * m_Steps.get(step).GetVelocity());
+		return (m_volume * m_Steps.get(step).GetVelocity());
 	}
 	
 	public float GetVolumeRight(int step) {
@@ -98,7 +98,7 @@ public class Channel {
 			return 0.0f; 
 		}
 		
-		return (m_volume * m_rightPan * m_Steps.get(step).GetVelocity());  
+		return (m_volume * m_Steps.get(step).GetVelocity());  
 	}
 	
 	public float GetVolume() {
@@ -137,26 +137,17 @@ public class Channel {
 
 	public void ResizeBy(int resizeByAmount) {
 		
-		int newSize = m_Steps.size()  + resizeByAmount;
+		m_numSteps += resizeByAmount;
 		
-		ArrayList<Step> newSteps = new ArrayList<Step>(newSize);
-		
-		if(0 > resizeByAmount) {
-			for(int i = 0; i < newSize; i++) {
-				newSteps.add(i, m_Steps.get(i));
+		if(resizeByAmount < 0) {
+			for(int i = 0; i < (-resizeByAmount); i++) {
+				m_Steps.remove(m_Steps.size()-1);
 			}
 		} else {
-			int i = 0;
-			for(; i < m_Steps.size(); i++) {
-				newSteps.add(i, m_Steps.get(i));
-			}
-			
-			for(;  i < newSize; i++) {
-				newSteps.add(i, new Step());
+			for(int i = 0; i < resizeByAmount; i++) {
+				m_Steps.add(new Step());
 			}
 		}
-		
-		m_Steps = newSteps;
 	}
 	
 	public ArrayList<Step> GetSteps() {
