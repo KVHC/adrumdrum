@@ -67,7 +67,8 @@ public class Player extends Observable {
 
 			//act.setRadioButtonToActiveStep(m_currentStep);
 			
-			
+			setChanged();
+			notifyObservers(m_currentStep);
 			
 			mChannelRender.RenderSongAtStep(song, m_currentStep);
 			
@@ -77,8 +78,7 @@ public class Player extends Observable {
 				m_currentStep = 0;
 			}
 			
-			setChanged();
-			notifyObservers(m_currentStep);
+			
 		}
 	}
 	
