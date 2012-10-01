@@ -1,19 +1,22 @@
 Krav id:                01
+
 Use case/scenario:      Starta uppspelning.    
 
 Trigger:                Användaren trycker på Play.
 
 Precondition:           Appen är startad.
 
-Basic path:             Användaren har ett pattern framför sig och vill
+Basic path:             Användaren har ett mönster framför sig och vill
                         spela upp detta genom att trycka på play. Appen
                         startar uppspelning och stegar igenom mönstret
                         och spelar upp rätt ljud för de steps som är aktiva. 
 
-Exception path:         
+Exception path:         Uppspelning är redan igång, appen ignorerar då att
+                        användaren trycker på play.
 
 Post condition:         Appen körs fortfarande och fungerar som innan
-                        uppspelningen påbörjades och det relevanta 				mönstret spelas upp.
+                        uppspelningen påbörjades och det relevanta 
+                        mönstret spelas upp.
 
         
 

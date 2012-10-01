@@ -1,0 +1,25 @@
+Krav id:                10
+
+Use case/scenario:      Användaren vill lägga till en kanal till sitt mönster.  
+
+Trigger:                Användaren väljer att lägga till en kanal.
+
+Precondition:           Appen är startad.
+
+Basic path:             Användaren väljer att lägga till en kanal till sitt
+                        mönster, en ny kanal skapas och användaren får välja
+                        vilket ljud som ska spelas av kanalen. Den nya kanalen
+                        går att redigera och kommer att höras vid nästa 
+                        uppspelning. Den tillagda kanalen visas grafiskt och
+                        går att redigera.
+
+Exception path:         -
+
+Post condition:         Kanalen som lagts till går att redigera och spela upp.
+                        Pågick en uppspelning när kanalen lades till så 
+                        fortsätter denna och spelar även upp ljud från den 
+                        nya kanalen.
+
+
+        
+

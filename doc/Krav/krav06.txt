@@ -1,0 +1,32 @@
+Krav id:                06
+
+Use case/scenario:      Uppspelning av endast en kanal.    
+
+Trigger:                Användaren trycker på Solo för en kanal.
+
+Precondition:           Appen är startad.
+
+Basic path:             Användaren har ett mönster framför sig och vill
+                        spela upp endast en kanal i detta mönster. Appen
+                        reagerar då genom att vid nästa uppspelning endast
+                        spela upp ljud ifrån denna kanal.
+
+Exception path:         1. Uppspelning är redan igång, appen börjar då vid 
+                        nästa step att enbart spela ljud från den aktuella
+                        kanalen.
+                        2. Solo är redan påslaget för denna kanal, appen 
+                        upphör då att spela enbart den kanalen och spelar
+                        istället hela mönstret.
+                        3. Solo är redan påslaget för en annan kanal, appen
+                        reagerar då genom att upphöra med solouppspelning
+                        av den kanalen och börjar istället att spela upp
+                        enbart den nya kanalens ljud.
+
+Post condition:         Vid nästa uppspelning spelas enbart ljudet från den
+                        kanal som har solo aktivt upp. Pågick en uppspelning 
+                        innan användaren tryckte på Solo så pågår denna 
+                        uppspelning ännu, men nu spelas enbart ljudet från en
+                        kanal.
+
+        
+

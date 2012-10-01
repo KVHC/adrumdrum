@@ -1,0 +1,23 @@
+Krav id:                04
+
+Use case/scenario:      Ändring av volym    
+
+Trigger:                Användaren ändrar läge på en progress bar för att
+                        ändra volym. 
+
+Precondition:           Appen är startad.
+
+Basic path:             Användaren vill justera uppspelningsvolymen och 
+                        ändrar läget på en progress bar. Appen justerar
+                        volymen för nästa uppspelning. 
+
+Exception path:         Uppspelning är redan igång när volymen ändras,
+                        appen reagerar då med att sänka eller höja volymen
+                        vid uppspelning av nästa step.
+
+Post condition:         Appen körs fortfarande och om en uppspelning pågick
+                        när volymen ändrades så fortsätter denna med 
+                        justerad volym.
+
+        
+

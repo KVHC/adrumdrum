@@ -1,0 +1,29 @@
+Krav id:                08
+
+Use case/scenario:      Ladda ett mönster.    
+
+Trigger:                Användaren trycker på en ladda-knapp.
+
+Precondition:           Appen är startad.
+
+Basic path:             Användaren vill ladda in ett mönster i appen från en
+                        fil, trycker på ladda-knappen och får välja vilken
+                        fil som skall öppnas. Detta mönster laddas i appen.
+
+Exception path:         1. En uppspelning pågår medan användaren trycker på 
+                        ladda, då stoppas denna uppspelning och användaren
+                        får välja vilken fil som skall ladddas.
+                        2. Användaren råkar trycka på laddaknappen av
+                        misstag och kan då avbryta åtgärden och återgå 
+                        till tillståndet som appen var i innan ladda-knappen
+                        trycktes på.
+                        3. Appen kan inte läsa den valda filen av någon 
+                        anledning (rättigheter, fel format på filen etc.)
+                        och visar då en popup-varning som säger att filen
+                        ej laddats. 
+
+Post condition:         Mönstret som laddats in går att redigera och spela 
+                        upp.
+
+        
+

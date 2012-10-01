@@ -1,1 +1,19 @@
+Krav id:                02
 
+Use case/scenario:      Stoppa uppspelning.
+
+Trigger:                Användaren trycker på Stop.
+
+Precondition:           Appen spelar upp ett mönster.
+
+Basic path:             Uppspelning av ett mönster pågår, användaren vill
+                        stoppa uppspelningen och trycker på stop. Appen
+                        avbryter uppspelning av mönstret och inget ljud spelas
+                        upp.
+
+Exception path:         Ingen uppspelning är igång, då ignorerar appen att 
+                        användaren trycker på stop.
+
+Post condition          Appen körs fortfarande och reagerar på samma sätt
+                        som den gjorde medan uppspelningen pågick och
+                        inget ljud spelas upp.
