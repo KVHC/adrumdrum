@@ -58,7 +58,15 @@ public class Channel {
 		mute = false;
 	}
 	
+	/**
+	 * Returns true if the step is active
+	 * @param i
+	 * @return
+	 */
 	public boolean IsStepActive(int i) {
+		if(mute || i >= m_numSteps || i < 0) {
+			return false;
+		}
 		return m_Steps.get(i).IsActive();
 	}
 	
@@ -70,10 +78,12 @@ public class Channel {
 		return mSound;
 	}
 	
-	public void ToggleStep(int step) {
+	public boolean ToggleStep(int step) {
 		m_Steps.get(step).SetActive(
 				!m_Steps.get(step).IsActive()
 			);
+		
+		return IsStepActive(step);
 	}
 	
 	public void SetStep(int step, boolean active) {
@@ -86,6 +96,8 @@ public class Channel {
 	}
 	
 	public float GetVolumeLeft(int step) {
+		if(mute) return 0.0f;
+		
 		if(step >= m_Steps.size()|| step < 0) {
 			return 0.0f;
 		}
@@ -94,6 +106,8 @@ public class Channel {
 	}
 	
 	public float GetVolumeRight(int step) {
+		if(mute) return 0.0f;
+		
 		if(step >= m_Steps.size() || step < 0) {
 			return 0.0f; 
 		}
@@ -102,6 +116,8 @@ public class Channel {
 	}
 	
 	public float GetVolume() {
+		if(mute) return 0.0f;
+		
 		return m_volume;
 	}
 	

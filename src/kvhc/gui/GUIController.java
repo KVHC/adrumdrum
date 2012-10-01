@@ -93,10 +93,16 @@ public class GUIController {
 	}
 	
 	private void initShowActiveSteps() {
+		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
 		
-		/*TableLayout activeStepsContainer = (TableLayout)parentActivity.findViewById(R.id.ActiveStepsContainer);
+		TableRow row = new TableRow(channelContainer.getContext());
+		
+		TextView stepMsg = new TextView(parentActivity.getBaseContext());
+		stepMsg.setText("Step");
+		row.addView(stepMsg);
+		
 		rg = new RadioGroup(parentActivity.getBaseContext());
-		
+		row.addView(rg);
 		for(int i = 0; i < song.GetNumberOfSteps(); i++) {
 			RadioButton btn = new RadioButton(rg.getContext());
 			rg.addView(btn);
@@ -104,8 +110,10 @@ public class GUIController {
 		
 		rg.setOrientation(LinearLayout.HORIZONTAL);
 		rg.setEnabled(true);
-		activeStepsContainer.addView(rg);
-		activeStepsContainer.setVisibility(View.VISIBLE);*/
+		
+		channelContainer.addView(row);
+		
+		
 	}
 	
 	/**
@@ -182,7 +190,7 @@ public class GUIController {
             box.reverse();
             
             // Updates the corresponding channel
-            song.GetChannel(box.GetChannel()).SetStep(box.GetStep(), box.isChecked());
+            box.SetActive(song.GetChannel(box.GetChannel()).ToggleStep(box.GetStep()));
         }
     };
 	
@@ -221,6 +229,57 @@ public class GUIController {
     		sampleArray.add("Tomtom 02");
     		sampleArray.add("Tomtom 03");
     	}
+    }
+    
+    private void RedrawChannels() {
+		// Now it redraws all the channels and steps, this is not really neccessary 
+		// this is VERY optimizable.
+		
+		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
+		channelContainer.removeAllViewsInLayout();
+		
+		initShowActiveSteps();
+		
+		int y = 0;
+		for(Channel c: song.GetChannels()) {
+			
+			TableRow row = new TableRow(channelContainer.getContext());
+			
+			// Name label/ mute button
+			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c, this);
+			name.setText(c.GetSound().GetName());
+			row.addView(name);
+			
+			// All the steps
+			for(int x = 0; x < song.GetNumberOfSteps(); x++) {
+				
+				GUIStepButton box = new GUIStepButton(row.getContext(), y, x, c.IsStepActive(x));	// Construction
+				box.setOnClickListener(stepClickListener);						// Listener
+				box.setOnLongClickListener(stepButtonLong);
+				row.addView(box);
+				
+			}
+			channelContainer.addView(row);
+			y++;
+		}
+
+
+		channelContainer.setVisibility(View.VISIBLE);
+		channelContainer.invalidate();
+	}
+	
+	/**
+	 * Call onStop (might need some special handling here?)
+	 */
+	public void onStop() {
+    	player.Stop();
+    }
+    
+	/**
+	 * Call onDestroy (might need some special handling here?)
+	 */
+    public void onDestroy() {
+    	player.Stop();
     }
     
     private OnClickListener addChannelListener = new OnClickListener() {
@@ -263,7 +322,7 @@ public class GUIController {
 		
 		public void onClick(View v) {
 			// Add one step to the song and gui
-			
+			player.Stop();
 			song.AddSteps(1);
 			player.LoadSong(song);
 			RedrawChannels();
@@ -273,66 +332,12 @@ public class GUIController {
 	private OnClickListener removeStepListener = new OnClickListener() {
 		
 		public void onClick(View v) {
+			player.Stop();
 			song.RemoveSteps(1);
 			player.LoadSong(song);
 			RedrawChannels();
 		}
 	};
-	
-	private void RedrawChannels() {
-		// Now it redraws all the channels and steps, this is not really neccessary 
-		// this is VERY optimizable.
-		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
-		channelContainer.removeAllViewsInLayout();
-		
-		int y = 0;
-		for(Channel c: song.GetChannels()) {
-			
-			TableRow row = new TableRow(channelContainer.getContext());
-			
-			// Name label
-			
-			//TextView name = new TextView(parentActivity);
-			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c, this);
-			name.setText(c.GetSound().GetName());
-			row.addView(name);
-			
-			// All the steps
-			for(int x = 0; x < song.GetNumberOfSteps(); x++) {
-				
-				GUIStepButton box = new GUIStepButton(row.getContext(), y, x, c.IsStepActive(x));	// Construction
-				box.setOnClickListener(stepClickListener);						// Listener
-				box.setOnLongClickListener(stepButtonLong);
-				row.addView(box);
-				
-			}
-			channelContainer.addView(row);
-			y++;
-		}
-
-
-		channelContainer.setVisibility(View.VISIBLE);
-		channelContainer.invalidate();
-	}
-	
-	/**
-	 * Call onStop (might need some special handling here?)
-	 */
-	public void onStop() {
-    	player.Stop();
-    }
-    
-	/**
-	 * Call onDestroy (might need some special handling here?)
-	 */
-    public void onDestroy() {
-    	player.Stop();
-    }
-	
-	
-	public void setActiveStep(int stepid) {
-		//var nån bugg i rg.clearCheck(), nån får gärna fixa detta
-	}
 	
 	
 	private OnLongClickListener stepButtonLong = new OnLongClickListener() {
