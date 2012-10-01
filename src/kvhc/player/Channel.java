@@ -15,6 +15,7 @@ public class Channel {
 	//private int m_soundId;
 	private int m_numSteps;
 	private ArrayList<Step> m_Steps;
+	private boolean mute;
 	
 	private float m_volume;
 	private float m_leftPan;
@@ -54,6 +55,7 @@ public class Channel {
 		}
 		
 		m_volume = 0.7f;
+		mute = false;
 	}
 	
 	public boolean IsStepActive(int i) {
@@ -107,6 +109,14 @@ public class Channel {
 		m_volume = volume;
 	}
 	
+	public void SetMute(boolean mute){
+		this.mute = mute;
+	}
+	
+	public boolean isMuted(){
+		return mute;
+	}
+	
 	public int GetNumberOfSteps() {
 		return m_Steps.size();
 	}
@@ -152,4 +162,5 @@ public class Channel {
 	public ArrayList<Step> GetSteps() {
 		return m_Steps;
 	}
+
 }

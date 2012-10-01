@@ -77,8 +77,6 @@ public class Player {
 			if(m_currentStep >= song.GetNumberOfSteps()) {
 				m_currentStep = 0;
 			}
-			
-			mTimer.setTime(waitTime);
 		}
 	}
 	
@@ -97,6 +95,8 @@ public class Player {
 		// Kan man g�ra s�? :S
 		// 1 / (bpm / 60s) f�r att f� fram tid mellan beats/step (4/4 iaf?)
 		waitTime = (long)((60.0 / bpm)*1000);
+		
+		mTimer.setTime(waitTime);
 	}
 	
 	public void setBPMInRange(int p){

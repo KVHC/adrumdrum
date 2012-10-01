@@ -50,7 +50,7 @@ public class SoundPoolRenderer implements ISongRenderer {
 	 */
 	public void RenderSongAtStep(Song song, int step) {
 		for(Channel c : song.GetChannels()) {
-			if(c.IsStepActive(step)) {
+			if(c.IsStepActive(step)&& !c.isMuted()) {
 				// 
 				mSoundManager.playSound(c.GetSound().GetId(), 1.0f, 1.0f);
 			}

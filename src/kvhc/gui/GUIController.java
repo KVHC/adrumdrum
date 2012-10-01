@@ -64,6 +64,8 @@ public class GUIController {
 		initShowActiveSteps();
 	}
 	
+	
+	
 	/**
 	 * Init sample song 
 	 */
@@ -118,7 +120,9 @@ public class GUIController {
 		TableRow row = new TableRow(channelContainer.getContext());
 		
 		// Name label
-		TextView name = new TextView(parentActivity);
+
+		ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,this);
+		//TextView name = new TextView(parentActivity);
 		name.setText(c.GetSound().GetName());
 		row.addView(name);
 		
@@ -286,7 +290,9 @@ public class GUIController {
 			TableRow row = new TableRow(channelContainer.getContext());
 			
 			// Name label
-			TextView name = new TextView(parentActivity);
+			
+			//TextView name = new TextView(parentActivity);
+			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c, this);
 			name.setText(c.GetSound().GetName());
 			row.addView(name);
 			
