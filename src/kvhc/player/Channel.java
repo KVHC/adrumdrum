@@ -139,6 +139,11 @@ public class Channel {
 		
 		m_numSteps += resizeByAmount;
 		
+		if(m_numSteps < 0) {
+			m_numSteps -= resizeByAmount;
+			return;
+		}
+		
 		if(resizeByAmount < 0) {
 			for(int i = 0; i < (-resizeByAmount); i++) {
 				m_Steps.remove(m_Steps.size()-1);
