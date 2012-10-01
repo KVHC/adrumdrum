@@ -34,9 +34,12 @@ import kvhc.player.Song;
 import kvhc.player.Sound;
 import kvhc.player.Step;
 
+/**
+ * Master class of the GUI
+ *
+ */
 public class GUIController {
 
-	
 	private Player player;
 	private Song song;
 	
@@ -107,6 +110,9 @@ public class GUIController {
 		player.LoadSong(song);
 	}
 	
+	/**
+	 * Inits the radio buttons who shows what step is active at the moment
+	 */
 	private void initShowActiveSteps() {
 		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
 		
@@ -133,7 +139,6 @@ public class GUIController {
 		
 		channelContainer.addView(row);
 		
-		
 	}
 	
 	/**
@@ -144,6 +149,13 @@ public class GUIController {
 		RedrawChannels();
 	}
 	
+	/**
+	 * Adds a new channel.
+	 * Checks the number of steps of the song and adds that many steps,
+	 * adds and links a ChannelButtonGUI to it.
+	 * 
+	 * @param c the channel to be added
+	 */
 	private void addChannel(Channel c) {
 		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
 		
@@ -151,7 +163,7 @@ public class GUIController {
 		
 		// Name label
 
-		ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,this);
+		ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c);
 		//TextView name = new TextView(parentActivity);
 		name.setText(c.GetSound().GetName());
 		row.addView(name);
@@ -165,11 +177,17 @@ public class GUIController {
 		channelContainer.addView(row);
 	}
 	
+	/**
+	 * Inits a TextView. For testing purposes only atm
+	 */
     private void initText() {
     	tv1 = (TextView)parentActivity.findViewById(R.id.textView1);
 		
 	}
 
+    /**
+     * Inits the necessary GUI-buttons (Play/Stop, Add Channel, Remove Step etc)
+     */
 	private void initButtons() {
     	   Button btn1 = (Button)parentActivity.findViewById(R.id.button1);
            btn1.setOnClickListener(btnListener);
@@ -183,7 +201,10 @@ public class GUIController {
            Button remStep = (Button)parentActivity.findViewById(R.id.buttonRemoveStep);
            remStep.setOnClickListener(removeStepListener);
 	}
-
+	
+	/**
+	 * Inits the BPM-bar
+	 */
 	private void initBars(){
 		SeekBar bpmBar = (SeekBar)parentActivity.findViewById(R.id.bpmbar);
     	
@@ -200,7 +221,9 @@ public class GUIController {
         });
     }
 	
-	
+	/**
+	 * Listener to the step buttons
+	 */
 	private OnClickListener stepClickListener = new OnClickListener() {
 
         public void onClick(View v) {
@@ -214,6 +237,42 @@ public class GUIController {
         }
     };
 	
+    /**
+     * LooooooooooongClick Listener to the step buttons,
+     * gives you a progress bar to set the velocity of the step.
+     */
+    private OnLongClickListener stepButtonLong = new OnLongClickListener() {
+		
+		public boolean onLongClick(View v) {
+			
+			final GUIStepButton step = (GUIStepButton) v; // We can do this?
+			final Step s = song.GetChannel(step.GetChannel()).GetSteps().get(step.GetStep());
+			
+			final SeekBar velocitySlider = new SeekBar(parentActivity);
+			velocitySlider.setProgress((int)(100 * s.GetVelocity()));
+			AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity);
+			
+			builder.setView(velocitySlider);
+			builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			    public void onClick(DialogInterface dialog, int whichButton) {
+			        
+			    	int value = velocitySlider.getProgress();
+			        s.SetVelolcity(value / 100.0f);
+			        dialog.dismiss();
+			    }
+			});
+			
+			
+			builder.create();
+			builder.show();
+			
+			return s.IsActive();
+		}
+	};
+    
+	/**
+	 * Listener to the Play/Stop-button
+	 */
     private OnClickListener btnListener = new OnClickListener()
     {
 		public void onClick(View v) {
@@ -228,6 +287,10 @@ public class GUIController {
 		}
     };
     
+    /**
+     * An array of Strings containing the names of the different sounds.
+     * This should be done in a different way (?)
+     */
     private ArrayList<String> sampleArray = null;
     
     private void CreateSampleList() {
@@ -251,9 +314,15 @@ public class GUIController {
     	}
     }
     
+    /**
+     * Redraws all the Channel and their steps and their ChannelButtons.
+     * This is done when adding or removing steps (and would be done if
+     * we implemented removeChannel()). 
+     * 
+     * Now it redraws all the channels and steps, this is not really neccessary
+     * THIS IS VERY OPTIMIZABLE
+     */
     private void RedrawChannels() {
-		// Now it redraws all the channels and steps, this is not really neccessary 
-		// this is VERY optimizable.
 		
 		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
 		channelContainer.removeAllViewsInLayout();
@@ -266,7 +335,7 @@ public class GUIController {
 			TableRow row = new TableRow(channelContainer.getContext());
 			
 			// Name label/ mute button
-			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c, this);
+			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c);
 			name.setText(c.GetSound().GetName());
 			row.addView(name);
 			
@@ -302,6 +371,9 @@ public class GUIController {
     	player.Stop();
     }
     
+    /**
+     * Listener to the add-new-channel-button. Doesn't redraw the old channels.
+     */
     private OnClickListener addChannelListener = new OnClickListener() {
 		
 		public void onClick(View v) {
@@ -337,7 +409,9 @@ public class GUIController {
 		}
 	};
     
-	
+	/**
+	 * Listener to the add-new-step-button. Redraws all the channels
+	 */
 	private OnClickListener addStepListener = new OnClickListener() {
 		
 		public void onClick(View v) {
@@ -349,6 +423,9 @@ public class GUIController {
 		}
 	};
 	
+	/**
+	 * Listener to the remove-step-button. Redraws all the channels
+	 */
 	private OnClickListener removeStepListener = new OnClickListener() {
 		
 		public void onClick(View v) {
@@ -359,33 +436,4 @@ public class GUIController {
 		}
 	};
 	
-	
-	private OnLongClickListener stepButtonLong = new OnLongClickListener() {
-		
-		public boolean onLongClick(View v) {
-			
-			final GUIStepButton step = (GUIStepButton) v; // We can do this?
-			final Step s = song.GetChannel(step.GetChannel()).GetSteps().get(step.GetStep());
-			
-			final SeekBar velocitySlider = new SeekBar(parentActivity);
-			velocitySlider.setProgress((int)(100 * s.GetVelocity()));
-			AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity);
-			
-			builder.setView(velocitySlider);
-			builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			    public void onClick(DialogInterface dialog, int whichButton) {
-			        
-			    	int value = velocitySlider.getProgress();
-			        s.SetVelolcity(value / 100.0f);
-			        dialog.dismiss();
-			    }
-			});
-			
-			
-			builder.create();
-			builder.show();
-			
-			return s.IsActive();
-		}
-	};
 }
