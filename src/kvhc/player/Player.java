@@ -97,7 +97,6 @@ public class Player extends Observable {
 		// Kan man g�ra s�? :S
 		// 1 / (bpm / 60s) f�r att f� fram tid mellan beats/step (4/4 iaf?)
 		waitTime = (long)((60.0 / bpm)*1000);
-		
 		mTimer.setTime(waitTime);
 	}
 	
@@ -114,6 +113,8 @@ public class Player extends Observable {
 		m_isPlaying = false;
 		m_currentStep = 0;
 		mTimer.stop();
+		setChanged();
+		notifyObservers(-1);
 	}
 	
 	public boolean IsPlaying() {
