@@ -175,4 +175,18 @@ public class Song {
 	public String GetName() {
 		return mName;
 	}
+	
+	/**
+	 * Mutes all channels except the specified one
+	 * @param channel the channel to go SOLO 
+	 */
+	public void muteAllChannelsExcept(int channel) {
+		if (channel>=m_Channels.size()) {
+			return;
+		}
+		for(int i=0;i<m_Channels.size();i++) {
+			m_Channels.get(i).SetMute(true);
+		}
+		m_Channels.get(channel).SetMute(false);
+	}
 }
