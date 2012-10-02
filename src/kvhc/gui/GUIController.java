@@ -436,17 +436,26 @@ public class GUIController {
 		}
 	};
 	
+	
+	/*
+	 * A observer that are being called every time a the player go to the next step
+	 * It marks the current step with a red line in the GUI
+	 */
 	private Observer StepObserver = new Observer() {
 		public void update(Observable observable, Object data) {
 			int step = Integer.parseInt(data.toString());
 			TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
 			
+			// Den första raden är tom så börjar på andra 
 			for(int i = 1; i < channelContainer.getChildCount(); i++){
 				TableRow row = (TableRow) channelContainer.getChildAt(i);
-				int totalSteps = row.getChildCount() - 2;
-				int previosStep = step - 1;
+				// Den magiska 2:an är kommer från att det finns en knapp och något annat 
+				// förutom steps i raden
+				int totalSteps = row.getChildCount() - 2; 
+				int previosStep = (step - 1);
 				if (previosStep < 0)
 					previosStep = totalSteps;
+				// +1 för att första ellementet är en knapp
 				GUIStepButton gs = (GUIStepButton)row.getChildAt(previosStep + 1);
 				gs.setPlaying(false);
 				gs = (GUIStepButton)row.getChildAt(step + 1);

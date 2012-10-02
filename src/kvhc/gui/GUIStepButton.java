@@ -57,7 +57,9 @@ public class GUIStepButton extends CheckBox {
 	}
 	
 	
-
+	/*
+	 * This method initialize the images that represent different phases of a step
+	 */
 	private void initImages(){
 		if(GUIStepButton.m_buttonOff == null) {
 			m_buttonOff = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonoff);
