@@ -68,7 +68,7 @@ public class GUIController {
 			}
 		};
 		
-		player.addObserver(activeStepObserver);
+		player.addObserver(StepObserver);
 		
 		init();
 	}
@@ -433,6 +433,26 @@ public class GUIController {
 			song.RemoveSteps(1);
 			player.LoadSong(song);
 			RedrawChannels();
+		}
+	};
+	
+	private Observer StepObserver = new Observer() {
+		public void update(Observable observable, Object data) {
+			int step = Integer.parseInt(data.toString());
+			TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
+			
+			for(int i = 1; i < channelContainer.getChildCount(); i++){
+				TableRow row = (TableRow) channelContainer.getChildAt(i);
+				int totalSteps = row.getChildCount() - 2;
+				int previosStep = step - 1;
+				if (previosStep < 0)
+					previosStep = totalSteps;
+				GUIStepButton gs = (GUIStepButton)row.getChildAt(previosStep + 1);
+				gs.setPlaying(false);
+				gs = (GUIStepButton)row.getChildAt(step + 1);
+				gs.setPlaying(true);
+			}
+			channelContainer.invalidate();
 		}
 	};
 	

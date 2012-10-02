@@ -23,9 +23,12 @@ public class GUIStepButton extends CheckBox {
 	private int m_StepId;
 	
 	private boolean m_Active; 
+	private boolean m_Playing;
 	
 	private static Bitmap m_buttonOff; 
 	private static Bitmap m_buttonOn;
+	private static Bitmap m_buttonOff_play; 
+	private static Bitmap m_buttonOn_play;
 	
 	/**
 	 * Constructor for the GUIStepButton
@@ -36,13 +39,7 @@ public class GUIStepButton extends CheckBox {
 	public GUIStepButton(Context context, int channelId, int stepId) {
 		super(context);
 		
-		if(GUIStepButton.m_buttonOff == null) {
-			GUIStepButton.m_buttonOff = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonoff);
-		}
-		
-		if(GUIStepButton.m_buttonOn == null) {
-			m_buttonOn = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonon);
-		}
+		initImages();
 		
 		m_ChannelId = channelId;
 		m_StepId = stepId;
@@ -52,18 +49,34 @@ public class GUIStepButton extends CheckBox {
 	public GUIStepButton(Context context, int channelId, int stepId, boolean isActive) {
 		super(context);
 		
+		initImages();
+		
+		m_ChannelId = channelId;
+		m_StepId = stepId;
+		m_Active = isActive;
+	}
+	
+	
+
+	private void initImages(){
 		if(GUIStepButton.m_buttonOff == null) {
-			GUIStepButton.m_buttonOff = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonoff);
+			m_buttonOff = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonoff);
 		}
 		
 		if(GUIStepButton.m_buttonOn == null) {
 			m_buttonOn = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonon);
 		}
 		
-		m_ChannelId = channelId;
-		m_StepId = stepId;
-		m_Active = isActive;
+		if(GUIStepButton.m_buttonOff_play == null) {
+			m_buttonOff_play = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonoff_active);
+		}
+		
+		if(GUIStepButton.m_buttonOn_play == null) {
+			m_buttonOn_play = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonon_active);
+		}
+		
 	}
+	
 	
 	/**
 	 * Returns the channel number this View represents 
@@ -93,14 +106,32 @@ public class GUIStepButton extends CheckBox {
 		m_Active = !m_Active;
 	}
 	
+	/**
+	 * Setter for playing variable
+	 * @param playing Boolean that represents if the steps being played
+	 */
+	public void setPlaying(boolean playing){
+		m_Playing = playing;
+	}
+	
+	
+	
 	@Override 
 	protected void onDraw(Canvas canvas) {
 		//super.onDraw(canvas);
 		
 		if(m_Active) {
-			canvas.drawBitmap(GUIStepButton.m_buttonOn, 0, 0, null);
+			if (m_Playing){
+				canvas.drawBitmap(GUIStepButton.m_buttonOn_play, 0, 0, null);
+			} else {
+				canvas.drawBitmap(GUIStepButton.m_buttonOn, 0, 0, null);
+			}
 		} else {
-			canvas.drawBitmap(GUIStepButton.m_buttonOff, 0, 0, null);
+			if (m_Playing){
+				canvas.drawBitmap(GUIStepButton.m_buttonOff_play, 0, 0, null);
+			} else {
+				canvas.drawBitmap(GUIStepButton.m_buttonOff, 0, 0, null);
+			}
 		}
 	}
 	
