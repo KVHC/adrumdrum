@@ -70,6 +70,15 @@ public class Channel {
 		return m_Steps.get(i).IsActive();
 	}
 	
+	/**
+	 * Sets all steps to inactive
+	 */
+	public void clearAllSteps() {
+		for (Step step : m_Steps) {
+			step.SetActive(false);
+		}
+	}
+	
 	public void SetSound(Sound sound) {
 		mSound = sound;
 	}

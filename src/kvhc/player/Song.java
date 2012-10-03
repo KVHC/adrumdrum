@@ -107,6 +107,12 @@ public class Song {
 		}
 	}
 	
+	public void clearAllSteps() {
+		for (Channel channel : m_Channels) {
+			channel.clearAllSteps();
+		}
+	}
+	
 	/**
 	 * Returns a specified channel
 	 * @param channelNumber

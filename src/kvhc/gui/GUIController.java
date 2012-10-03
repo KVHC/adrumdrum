@@ -200,6 +200,10 @@ public class GUIController {
            
            Button remStep = (Button)parentActivity.findViewById(R.id.buttonRemoveStep);
            remStep.setOnClickListener(removeStepListener);
+           
+           Button clearAllSteps = (Button)parentActivity.findViewById(R.id.buttonClearAllSteps);
+           clearAllSteps.setOnClickListener(clearAllStepsListener);
+           
 	}
 	
 	/**
@@ -406,6 +410,16 @@ public class GUIController {
 			builder.create();
 			builder.show();
 			
+		}
+	};
+	
+	/**
+	 * Listener to the clear-all-steps-listener.
+	 * This is just for testing and the button should be moved elsewhere.
+	 */
+	private OnClickListener clearAllStepsListener = new OnClickListener() {
+		public void onClick(View v) {
+			song.clearAllSteps();
 		}
 	};
     

@@ -77,11 +77,18 @@
 	        android:layout_alignParentRight="true"
 	        android:text="@string/remove_step_button" />
 	    
+	    <Button
+	        android:id="@+id/buttonClearAllSteps"
+	        android:layout_width="100dp"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/buttonRemoveStep"
+	        android:layout_alignParentRight="true"
+	        android:text="@string/clear_all_steps_button" />
 	    
     	<SeekBar
 	    	android:layout_width="160dp"
 	    	android:layout_height="wrap_content"
-	    	android:layout_below="@+id/buttonRemoveStep"
+	    	android:layout_below="@+id/buttonClearAllSteps"
 	    	android:layout_alignParentRight="true"
 	    	android:id="@+id/bpmbar" />
 		
