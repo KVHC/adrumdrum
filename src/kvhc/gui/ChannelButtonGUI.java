@@ -2,7 +2,9 @@ package kvhc.gui;
 
 import kvhc.player.Channel;
 import kvhc.util.AndroidTimer;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.LightingColorFilter;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +20,7 @@ public class ChannelButtonGUI extends Button {
 
 	private boolean isActive;
 	private Channel channel;
+	private Activity mainActivity;
 
 	/**
 	 * Constructor
@@ -27,7 +30,9 @@ public class ChannelButtonGUI extends Button {
 	public ChannelButtonGUI(Context context, Channel channel) {
 		super(context);
 		this.channel = channel;
+		mainActivity = (Activity) context;
 		setOnClickListener(onClick);
+		setOnLongClickListener(onLongClick);
 		this.isActive = false;
 		getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFF00FF00));
 
@@ -50,6 +55,13 @@ public class ChannelButtonGUI extends Button {
 	}
 	
 	/**
+	 * Returns the Channel associated with this ChannelButtonGUI
+	 */
+	public Channel getChannel() {
+		return channel;
+	}
+	
+	/**
 	 * Button Listener
 	 */
 	private OnClickListener onClick = new OnClickListener() {
@@ -62,6 +74,16 @@ public class ChannelButtonGUI extends Button {
 			isActive = !isActive;
 		}
 	};
+	
+	
+	private OnLongClickListener onLongClick = new OnLongClickListener() {
+		public boolean onLongClick(View v) {
+			Intent intent = new Intent(mainActivity, GUIChannelSettings.class);
+	    	mainActivity.startActivity(intent);
+			return true;
+		}
+	};
+	
 
 
 }

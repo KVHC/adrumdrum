@@ -1,5 +1,7 @@
 package kvhc.gui;
 
+import android.app.Activity;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView.FindListener;
@@ -12,28 +14,35 @@ import kvhc.adrumdrum.R;
 import kvhc.player.Channel;
 import kvhc.player.Sound;
 
-public class GUIChannelSettings {
+public class GUIChannelSettings extends Activity {
 
 	private Channel mChannel;
 	
 	private SeekBar mSeekbarVolume;
 	private SeekBar mSeekbarPanning;
-	
 	private Spinner mSampleSinner;
-	
 	private Button mButton;
 	
 	private MainActivity ma;
 	
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.channel_settings);
+        
+        //initGUI();
+        
+    }
+	
 	
 	public GUIChannelSettings(MainActivity mainActivity, Channel c) {
-		mChannel = c;
-		ma = mainActivity;
+		//mChannel = c;
+		//ma = mainActivity;
 		
-		initGUI();
+		//initGUI();
 	}
 	
 	private void initGUI() {
+		
 		mSeekbarVolume = (SeekBar) ma.findViewById(R.id.seekbarChannelVolume);
 		mSeekbarVolume.setOnSeekBarChangeListener(VolumeListener);
 		
@@ -50,6 +59,7 @@ public class GUIChannelSettings {
 				mChannel.SetSound(GUIChannelSettings.GetSoundFromString(String.valueOf(mSampleSinner.getSelectedItem())));
 			}
 		});
+		
 	}
 	
 	public static Sound GetSoundFromString(String s) {

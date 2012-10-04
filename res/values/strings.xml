@@ -4,6 +4,7 @@
     <string name="hello_world">Hey man, check out the beat.</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">aDrumDrum</string>
+    <string name="title_channel_settings">Channel Settings</string>
     <string name="play_button">Play/Stop</string>
     <string name="bpm">BPM</string>
     <string name="left">L</string>

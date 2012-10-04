@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -287,6 +288,7 @@ public class GUIController {
 			// Name label/ mute button
 			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c);
 			name.setText(c.GetSound().GetName());
+			//name.setOnLongClickListener(channelSettingsListener);
 			row.addView(name);
 			
 			// All the steps
@@ -306,6 +308,12 @@ public class GUIController {
 		channelContainer.setVisibility(View.VISIBLE);
 		channelContainer.invalidate();
 	}
+    
+    public void goToChannelSettings(Channel channel) {
+    	//GUIChannelSettings cs = new GUIChannelSettings();
+    	Intent intent = new Intent(parentActivity, GUIChannelSettings.class);
+    	parentActivity.startActivity(intent);
+    }
 	
 	/**
 	 * Call onStop (might need some special handling here?)
@@ -470,5 +478,17 @@ public class GUIController {
 			RedrawChannels();
 		}
 	};
+	
+	/*
+	private OnLongClickListener channelSettingsListener = new OnLongClickListener() {
+		
+		public boolean onLongClick(View v) {
+			player.Stop();
+			ChannelButtonGUI btn = (ChannelButtonGUI) v;
+			goToChannelSettings(btn.getChannel());
+			return true;
+		}
+	};
+	*/
 	
 }

@@ -16,6 +16,7 @@
             android:label="@string/title_activity_main" 
             android:finishOnTaskLaunch="true"
             android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar"
             android:screenOrientation="landscape" >
             
             <intent-filter>
@@ -23,6 +24,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity 
+            android:name=".ChannelSettings"
+            android:label="@string/title_channel_settings"
+            android:screenOrientation="landscape" >
         </activity>
     </application>
 
