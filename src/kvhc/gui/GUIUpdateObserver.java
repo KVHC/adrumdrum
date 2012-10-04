@@ -11,15 +11,14 @@ import android.widget.TableRow;
 
 
 
-public class GUIUppdateObserver implements Observer {
+public class GUIUpdateObserver implements Observer {
 	
 	private Activity parentActivity;
 	private int current;
 	
-	public GUIUppdateObserver(Activity pa){
+	public GUIUpdateObserver(Activity pa){
 		parentActivity = pa;
 	}
-	
 	
 	
 	/*
@@ -34,22 +33,22 @@ public class GUIUppdateObserver implements Observer {
 		
 		if (step >= 0){
 			
-			// Den första raden är tom så börjar på andra 
-			for(int i = 1; i < channelContainer.getChildCount(); i++){
+			// Börjar på noll, radiobuttons/annat bör inte ligga i channelContainer
+			for(int i = 0; i < channelContainer.getChildCount(); i++) {
 				TableRow row = (TableRow) channelContainer.getChildAt(i);
 				// Den magiska 2:an är kommer från att det finns en knapp och något annat 
 				// förutom steps i raden
 				int totalSteps = row.getChildCount() - 2; 
-				int previosStep = (step - 1);
-				if (previosStep < 0)
-					previosStep = totalSteps;
-				// +1 för att första ellementet är en knapp
-				((GUIStepButton)row.getChildAt(previosStep + 1)).setPlaying(false);
+				int previousStep = (step - 1);
+				if (previousStep < 0)
+					previousStep = totalSteps;
+				// +1 för att första elementet är en knapp
+				((GUIStepButton)row.getChildAt(previousStep + 1)).setPlaying(false);
 				((GUIStepButton)row.getChildAt(step + 1)).setPlaying(true);
 			}
 			current = step + 1;
-		}else{
-			for(int i = 1; i < channelContainer.getChildCount(); i++){
+		}else {
+			for(int i = 0; i < channelContainer.getChildCount(); i++){
 				TableRow row = (TableRow) channelContainer.getChildAt(i);
 				((GUIStepButton)row.getChildAt(current)).setPlaying(false);
 			}

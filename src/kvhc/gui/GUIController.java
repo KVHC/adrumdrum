@@ -44,10 +44,10 @@ public class GUIController {
 	private Song song;
 	
 	private TextView tv1;
-	private RadioGroup rg;
+	//private RadioGroup rg;
 	
 	private Activity parentActivity;
-	private Observer activeStepObserver;
+	//private Observer activeStepObserver;
 	
 	/**
 	 * Constructor
@@ -59,6 +59,7 @@ public class GUIController {
 		
 		this.player = new Player(parentActivity.getBaseContext());
 		
+		/*
 		activeStepObserver = new Observer() {
 			public void update(Observable observable, Object data) {
 				
@@ -67,8 +68,8 @@ public class GUIController {
 				
 			}
 		};
-		
-		player.addObserver(new GUIUppdateObserver(parentActivity));
+		*/
+		player.addObserver(new GUIUpdateObserver(parentActivity));
 		
 		init();
 	}
@@ -83,7 +84,6 @@ public class GUIController {
 		initBars();
 		initChannels();
 	}
-	
 	
 	
 	/**
@@ -112,8 +112,14 @@ public class GUIController {
 	
 	/**
 	 * Inits the radio buttons who shows what step is active at the moment
+	 *
 	 */
 	private void initShowActiveSteps() {
+
+		// Radiobuttons/annat bör inte ligga i channelContainer.
+		// Strykt detta tills vidare.
+		
+		/*
 		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
 		
 		LayoutParams params = new LayoutParams(1);
@@ -138,8 +144,10 @@ public class GUIController {
 		row.addView(rg);
 		
 		channelContainer.addView(row);
+		*/
 		
 	}
+	
 	
 	/**
 	 * Init the default channel rows
@@ -148,6 +156,57 @@ public class GUIController {
 		
 		RedrawChannels();
 	}
+	
+	
+	/**
+	 * Inits a TextView. For testing purposes only atm
+	 */
+    private void initText() {
+    	tv1 = (TextView)parentActivity.findViewById(R.id.textView1);
+		
+	}
+
+    /**
+     * Inits the necessary GUI-buttons (Play/Stop, Add Channel, Remove Step etc)
+     */
+	private void initButtons() {
+    	   Button btn1 = (Button)parentActivity.findViewById(R.id.button1);
+           btn1.setOnClickListener(btnListener);
+           
+           Button addChnl = (Button)parentActivity.findViewById(R.id.buttonAddChannel);
+           addChnl.setOnClickListener(addChannelListener);
+           
+           Button addStep = (Button)parentActivity.findViewById(R.id.buttonAddStep);
+           addStep.setOnClickListener(addStepListener);
+           
+           Button remStep = (Button)parentActivity.findViewById(R.id.buttonRemoveStep);
+           remStep.setOnClickListener(removeStepListener);
+           
+           // this was just for testing, adding it somewhere else later
+           //Button clearAllSteps = (Button)parentActivity.findViewById(R.id.buttonClearAllSteps);
+           //clearAllSteps.setOnClickListener(clearAllStepsListener);
+           
+	}
+	
+	/**
+	 * Inits the BPM-bar
+	 */
+	private void initBars(){
+		SeekBar bpmBar = (SeekBar)parentActivity.findViewById(R.id.bpmbar);
+    	
+    	bpmBar.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
+
+			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
+				player.setBPMInRange(progress);
+				tv1.setText("BPM is: " + (60 + progress*6));
+				
+			}
+
+			public void onStartTrackingTouch(SeekBar arg0) {}
+			public void onStopTrackingTouch(SeekBar arg0) {}
+        });
+    }
+	
 	
 	/**
 	 * Adds a new channel.
@@ -177,54 +236,96 @@ public class GUIController {
 		channelContainer.addView(row);
 	}
 	
-	/**
-	 * Inits a TextView. For testing purposes only atm
-	 */
-    private void initText() {
-    	tv1 = (TextView)parentActivity.findViewById(R.id.textView1);
-		
-	}
-
+    
     /**
-     * Inits the necessary GUI-buttons (Play/Stop, Add Channel, Remove Step etc)
+     * An array of Strings containing the names of the different sounds.
+     * This should be done in a different way (?)
      */
-	private void initButtons() {
-    	   Button btn1 = (Button)parentActivity.findViewById(R.id.button1);
-           btn1.setOnClickListener(btnListener);
-           
-           Button addChnl = (Button)parentActivity.findViewById(R.id.buttonAddChannel);
-           addChnl.setOnClickListener(addChannelListener);
-           
-           Button addStep = (Button)parentActivity.findViewById(R.id.buttonAddStep);
-           addStep.setOnClickListener(addStepListener);
-           
-           Button remStep = (Button)parentActivity.findViewById(R.id.buttonRemoveStep);
-           remStep.setOnClickListener(removeStepListener);
-           
-           Button clearAllSteps = (Button)parentActivity.findViewById(R.id.buttonClearAllSteps);
-           clearAllSteps.setOnClickListener(clearAllStepsListener);
-           
-	}
-	
-	/**
-	 * Inits the BPM-bar
-	 */
-	private void initBars(){
-		SeekBar bpmBar = (SeekBar)parentActivity.findViewById(R.id.bpmbar);
-    	
-    	bpmBar.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
-
-			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
-				player.setBPMInRange(progress);
-				tv1.setText("BPM is: " + (60 + progress*6));
+    private ArrayList<String> sampleArray = null;
+    
+    private void CreateSampleList() {
+    	if(sampleArray == null) {
+    		sampleArray = new ArrayList<String>(16);
+    		sampleArray.add("Bassdrum");
+    		sampleArray.add("Bell Ride Cymbal");
+    		sampleArray.add("Crash Cymbal 01");
+    		sampleArray.add("Crash Cymbal 02");
+    		sampleArray.add("Hihat Closed");
+    		sampleArray.add("Hihat Open");
+    		sampleArray.add("Ride Cymbal");
+    		sampleArray.add("Snare 01");
+    		sampleArray.add("Snare 02");
+    		sampleArray.add("Snare 03");
+    		sampleArray.add("Splash Cymbal 01");
+    		sampleArray.add("Splash Cymbal 02");
+    		sampleArray.add("Tomtom 01");
+    		sampleArray.add("Tomtom 02");
+    		sampleArray.add("Tomtom 03");
+    	}
+    }
+    
+    /**
+     * Redraws all the Channel and their steps and their ChannelButtons.
+     * This is done when adding or removing steps (and would be done if
+     * we implemented removeChannel()). 
+     * 
+     * Now it redraws all the channels and steps, this is not really neccessary
+     * THIS IS VERY OPTIMIZABLE
+     */
+    private void RedrawChannels() {
+		
+		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
+		channelContainer.removeAllViewsInLayout();
+		
+		//initShowActiveSteps();
+		
+		int y = 0;
+		for(Channel c: song.GetChannels()) {
+			
+			TableRow row = new TableRow(channelContainer.getContext());
+			
+			// Name label/ mute button
+			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c);
+			name.setText(c.GetSound().GetName());
+			row.addView(name);
+			
+			// All the steps
+			for(int x = 0; x < song.GetNumberOfSteps(); x++) {
+				
+				GUIStepButton box = new GUIStepButton(row.getContext(), y, x, c.IsStepActive(x));	// Construction
+				box.setOnClickListener(stepClickListener);						// Listener
+				box.setOnLongClickListener(stepButtonLong);
+				row.addView(box);
 				
 			}
+			channelContainer.addView(row);
+			y++;
+		}
 
-			public void onStartTrackingTouch(SeekBar arg0) {}
-			public void onStopTrackingTouch(SeekBar arg0) {}
-        });
-    }
+
+		channelContainer.setVisibility(View.VISIBLE);
+		channelContainer.invalidate();
+	}
 	
+	/**
+	 * Call onStop (might need some special handling here?)
+	 */
+	public void onStop() {
+    	player.Stop();
+    }
+    
+	/**
+	 * Call onDestroy (might need some special handling here?)
+	 */
+    public void onDestroy() {
+    	player.Stop();
+    }
+    
+    
+    //
+    // Listeners:
+    //
+    
 	/**
 	 * Listener to the step buttons
 	 */
@@ -241,6 +342,7 @@ public class GUIController {
         }
     };
 	
+    
     /**
      * LooooooooooongClick Listener to the step buttons,
      * gives you a progress bar to set the velocity of the step.
@@ -291,89 +393,6 @@ public class GUIController {
 		}
     };
     
-    /**
-     * An array of Strings containing the names of the different sounds.
-     * This should be done in a different way (?)
-     */
-    private ArrayList<String> sampleArray = null;
-    
-    private void CreateSampleList() {
-    	if(sampleArray == null) {
-    		sampleArray = new ArrayList<String>(16);
-    		sampleArray.add("Bassdrum");
-    		sampleArray.add("Bell Ride Cymbal");
-    		sampleArray.add("Crash Cymbal 01");
-    		sampleArray.add("Crash Cymbal 02");
-    		sampleArray.add("Hihat Closed");
-    		sampleArray.add("Hihat Open");
-    		sampleArray.add("Ride Cymbal");
-    		sampleArray.add("Snare 01");
-    		sampleArray.add("Snare 02");
-    		sampleArray.add("Snare 03");
-    		sampleArray.add("Splash Cymbal 01");
-    		sampleArray.add("Splash Cymbal 02");
-    		sampleArray.add("Tomtom 01");
-    		sampleArray.add("Tomtom 02");
-    		sampleArray.add("Tomtom 03");
-    	}
-    }
-    
-    /**
-     * Redraws all the Channel and their steps and their ChannelButtons.
-     * This is done when adding or removing steps (and would be done if
-     * we implemented removeChannel()). 
-     * 
-     * Now it redraws all the channels and steps, this is not really neccessary
-     * THIS IS VERY OPTIMIZABLE
-     */
-    private void RedrawChannels() {
-		
-		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
-		channelContainer.removeAllViewsInLayout();
-		
-		initShowActiveSteps();
-		
-		int y = 0;
-		for(Channel c: song.GetChannels()) {
-			
-			TableRow row = new TableRow(channelContainer.getContext());
-			
-			// Name label/ mute button
-			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c);
-			name.setText(c.GetSound().GetName());
-			row.addView(name);
-			
-			// All the steps
-			for(int x = 0; x < song.GetNumberOfSteps(); x++) {
-				
-				GUIStepButton box = new GUIStepButton(row.getContext(), y, x, c.IsStepActive(x));	// Construction
-				box.setOnClickListener(stepClickListener);						// Listener
-				box.setOnLongClickListener(stepButtonLong);
-				row.addView(box);
-				
-			}
-			channelContainer.addView(row);
-			y++;
-		}
-
-
-		channelContainer.setVisibility(View.VISIBLE);
-		channelContainer.invalidate();
-	}
-	
-	/**
-	 * Call onStop (might need some special handling here?)
-	 */
-	public void onStop() {
-    	player.Stop();
-    }
-    
-	/**
-	 * Call onDestroy (might need some special handling here?)
-	 */
-    public void onDestroy() {
-    	player.Stop();
-    }
     
     /**
      * Listener to the add-new-channel-button. Doesn't redraw the old channels.
@@ -419,7 +438,9 @@ public class GUIController {
 	 */
 	private OnClickListener clearAllStepsListener = new OnClickListener() {
 		public void onClick(View v) {
+			player.Stop();
 			song.clearAllSteps();
+			RedrawChannels();
 		}
 	};
     
