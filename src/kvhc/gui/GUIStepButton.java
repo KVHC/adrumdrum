@@ -31,6 +31,10 @@ public class GUIStepButton extends CheckBox {
 	private static Bitmap m_buttonOn;
 	private static Bitmap m_buttonOff_play; 
 	private static Bitmap m_buttonOn_play;
+	private static int distanceFromTop = 12;  // så att stepsen ritas i mitten av raden
+	
+	
+	
 	
 	/**
 	 * Constructor for the GUIStepButton
@@ -134,24 +138,24 @@ public class GUIStepButton extends CheckBox {
 
 		// Flyttar siffrorna åt vänster om de är större än tio så att de fortfarande är centrerade
 		float textPosX = 19;
-		float textPosY = 32;
+		float textPosY = 32 + distanceFromTop;
 		if (m_StepId > 8 && m_StepId < 100){
-			textPosX = 14;
+			textPosX = 13;
 		}	
 		
 		
 		if (m_Playing){
 			paint.setColor(Color.RED); // Om steget spelas så ska färgen på siffrorna också vara röda
 			if(m_Active) {
-				canvas.drawBitmap(GUIStepButton.m_buttonOn_play, 0, 0, null);
+				canvas.drawBitmap(GUIStepButton.m_buttonOn_play, 0, distanceFromTop, null);
 			} else {
-				canvas.drawBitmap(GUIStepButton.m_buttonOff_play, 0, 0, null);
+				canvas.drawBitmap(GUIStepButton.m_buttonOff_play, 0, distanceFromTop, null);
 			}
 		} else {
 			if (m_Active){
-				canvas.drawBitmap(GUIStepButton.m_buttonOn, 0, 0, null);
+				canvas.drawBitmap(GUIStepButton.m_buttonOn, 0, distanceFromTop, null);
 			} else {
-				canvas.drawBitmap(GUIStepButton.m_buttonOff, 0, 0, null);
+				canvas.drawBitmap(GUIStepButton.m_buttonOff, 0, distanceFromTop, null);
 			}
 		}
 		canvas.drawText(String.valueOf(m_StepId +1),textPosX,textPosY, paint);
