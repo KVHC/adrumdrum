@@ -5,6 +5,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.View;
 import android.widget.CheckBox;
 
@@ -57,7 +59,7 @@ public class GUIStepButton extends CheckBox {
 	}
 	
 	
-	/*
+	/**
 	 * This method initialize the images that represent different phases of a step
 	 */
 	private void initImages(){
@@ -104,6 +106,9 @@ public class GUIStepButton extends CheckBox {
 		m_Active = active;
 	}
 	
+	/**
+	 * Change the avtive state of the button to the opposite state
+	 */
 	public void reverse() {
 		m_Active = !m_Active;
 	}
@@ -118,23 +123,39 @@ public class GUIStepButton extends CheckBox {
 	
 	
 	
-	@Override 
+	/**
+	 * A method that specifies how the step button should be drawn 
+	 */
 	protected void onDraw(Canvas canvas) {
-		//super.onDraw(canvas);
 		
-		if(m_Active) {
-			if (m_Playing){
+		// Skapar en färg för att måla texten
+		Paint paint = new Paint();
+		paint.setTextSize(20);
+
+		// Flyttar siffrorna åt vänster om de är större än tio så att de fortfarande är centrerade
+		float textPosX = 19;
+		float textPosY = 32;
+		if (m_StepId > 8 && m_StepId < 100){
+			textPosX = 14;
+		}	
+		
+		
+		if (m_Playing){
+			paint.setColor(Color.RED); // Om steget spelas så ska färgen på siffrorna också vara röda
+			if(m_Active) {
 				canvas.drawBitmap(GUIStepButton.m_buttonOn_play, 0, 0, null);
 			} else {
-				canvas.drawBitmap(GUIStepButton.m_buttonOn, 0, 0, null);
+				canvas.drawBitmap(GUIStepButton.m_buttonOff_play, 0, 0, null);
 			}
 		} else {
-			if (m_Playing){
-				canvas.drawBitmap(GUIStepButton.m_buttonOff_play, 0, 0, null);
+			if (m_Active){
+				canvas.drawBitmap(GUIStepButton.m_buttonOn, 0, 0, null);
 			} else {
 				canvas.drawBitmap(GUIStepButton.m_buttonOff, 0, 0, null);
 			}
 		}
+		canvas.drawText(String.valueOf(m_StepId +1),textPosX,textPosY, paint);
+		
 	}
 	
 }

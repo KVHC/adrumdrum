@@ -48,9 +48,11 @@ public class GUIUpdateObserver implements Observer {
 			}
 			current = step + 1;
 		}else {
-			for(int i = 0; i < channelContainer.getChildCount(); i++){
-				TableRow row = (TableRow) channelContainer.getChildAt(i);
-				((GUIStepButton)row.getChildAt(current)).setPlaying(false);
+			if (current > 0){
+				for(int i = 0; i < channelContainer.getChildCount(); i++){
+					TableRow row = (TableRow) channelContainer.getChildAt(i);
+					((GUIStepButton)row.getChildAt(current)).setPlaying(false);
+				}
 			}
 		}
 		channelContainer.invalidate();
