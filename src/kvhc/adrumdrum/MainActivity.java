@@ -3,8 +3,12 @@ package kvhc.adrumdrum;
 import kvhc.gui.GUIController;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
@@ -37,4 +41,18 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
+    
+	/**
+	 * Listener to the menu
+	 */
+	public boolean onOptionsItemSelected (MenuItem item){
+		switch(item.getItemId()) {
+			case R.id.licenses: 
+				guic.createAndShowLicensesDialog();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+    
 }

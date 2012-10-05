@@ -36,5 +36,7 @@
         <item>Tomtom 02</item>
         <item>Tomtom 03</item>
     </string-array>
+    <string name="licenses">Licenses</string>
+
 
 </resources>

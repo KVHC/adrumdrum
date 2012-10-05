@@ -31,8 +31,8 @@ public class StepTest extends AndroidTestCase {
 		Step step = new Step();
 		
 		float testVel = 0.333f; //new Random().nextFloat();
-		step.SetVel(testVel);
+		step.SetVelolcity(testVel);
 		
-		Assert.assertEquals("Current Velocity", testVel, step.GetVel());
+		Assert.assertEquals("Current Velocity", testVel, step.GetVelocity());
 	}
 }

@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
@@ -25,6 +26,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 import kvhc.adrumdrum.MainActivity;
@@ -490,5 +492,19 @@ public class GUIController {
 		}
 	};
 	*/
-	
+
+
+	public void createAndShowLicensesDialog(){
+		AlertDialog dialog = new AlertDialog.Builder(parentActivity).create();
+		dialog.setTitle(R.string.licenses);
+		dialog.setMessage("LICENSES HERE");
+		dialog.setButton(AlertDialog.BUTTON_POSITIVE,"Ok", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		dialog.show();
+	}
 }
