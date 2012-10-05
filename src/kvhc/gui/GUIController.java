@@ -493,14 +493,15 @@ public class GUIController {
 	};
 	*/
 
-
+	/**
+	 * Show a Licenses Dialog!
+	 */
 	public void createAndShowLicensesDialog(){
 		AlertDialog dialog = new AlertDialog.Builder(parentActivity).create();
 		dialog.setTitle(R.string.licenses);
 		dialog.setMessage("LICENSES HERE");
 		dialog.setButton(AlertDialog.BUTTON_POSITIVE,"Ok", new DialogInterface.OnClickListener() {
 			
-			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
 			}
