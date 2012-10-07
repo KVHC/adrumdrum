@@ -79,14 +79,27 @@ public class Channel {
 		}
 	}
 	
+	/**
+	 * Sets the Sound of the Channel
+	 * @param sound the sound to be used
+	 */
 	public void SetSound(Sound sound) {
 		mSound = sound;
 	}
 	
+	/**
+	 * @return the sound of the step
+	 */
 	public Sound GetSound() {
 		return mSound;
 	}
 	
+	/**
+	 * Toggles a step between active or inactive
+	 * If it's active, it is set to inactive and vice versa
+	 * @param step what step
+	 * @return whether it's active or not after the operation
+	 */
 	public boolean ToggleStep(int step) {
 		m_Steps.get(step).SetActive(
 				!m_Steps.get(step).IsActive()
@@ -95,15 +108,33 @@ public class Channel {
 		return IsStepActive(step);
 	}
 	
+	/**
+	 * Sets a specific step to active or not
+	 * @param step what step
+	 * @param active boolean whether the step should be active or not
+	 */
 	public void SetStep(int step, boolean active) {
 		m_Steps.get(step).SetActive(active);
 	}
 	
+	/**
+	 * Sets a specific step to active or not active and with a specific velocity ("volume")
+	 * @param step what step
+	 * @param active boolean whether the step should be active or not
+	 * @param velocity velocity ("volume") of the step
+	 */
 	public void SetStep(int step, boolean active, float velocity) {
 		m_Steps.get(step).SetActive(active);
 		m_Steps.get(step).SetVelolcity(velocity);
 	}
 	
+	/**
+	 * Get the left speakers volume of a separate step in the channel
+	 * Is computed by multiplying the channel volume by the steps velocity ("volume")
+	 * 
+	 * @param step what step
+	 * @return a float between 0 and 1
+	 */
 	public float GetVolumeLeft(int step) {
 		if(mute) return 0.0f;
 		
@@ -114,6 +145,13 @@ public class Channel {
 		return (m_volume * m_Steps.get(step).GetVelocity());
 	}
 	
+	/**
+	 * Get the right speakers volume of a separate step in the channel
+	 * Is computed by multiplying the channel volume by the steps velocity ("volume")
+	 * 
+	 * @param step what step
+	 * @return a float between 0 and 1
+	 */
 	public float GetVolumeRight(int step) {
 		if(mute) return 0.0f;
 		
@@ -124,42 +162,82 @@ public class Channel {
 		return (m_volume * m_Steps.get(step).GetVelocity());  
 	}
 	
+	/**
+	 * Returns the volume of the Channel.
+	 * If the Channel is muted it returns zero
+	 * 
+	 * @return a float between 0 and 1
+	 */
 	public float GetVolume() {
 		if(mute) return 0.0f;
 		
 		return m_volume;
 	}
 	
+	/**
+	 * Sets the volume of the channel.
+	 * 
+	 * @param volume A float between 0 and 1
+	 */
 	public void SetVolume(float volume) {
 		m_volume = volume;
 	}
 	
+	/**
+	 * Sets mute to true or false
+	 * @param mute
+	 */
 	public void SetMute(boolean mute){
 		this.mute = mute;
 	}
 	
+	/**
+	 * 
+	 * @return a boolean whether the channel is muted or not
+	 */
 	public boolean isMuted(){
 		return mute;
 	}
 	
+	/**
+	 * @return the number of steps in the channel
+	 */
 	public int GetNumberOfSteps() {
 		return m_Steps.size();
 	}
 
+	/**
+	 * Sets the panning of the right and left speaker
+	 * @param rightLevel
+	 * @param leftLevel
+	 */
 	public void SetPanning(float rightLevel, float leftLevel) {
-		// TODO Auto-generated method stub
 		m_leftPan = leftLevel;
 		m_rightPan = rightLevel;
 	}
 	
+	/**
+	 * Returns the Left Panning of the Channel
+	 * @return
+	 */
 	public float GetLeftPanning() {
 		return m_leftPan;
 	}
 	
+	/**
+	 * Returns the Right Panning of the Channel
+	 * @return
+	 */
 	public float GetRightPanning() {
 		return m_rightPan;
 	}
 
+	/**
+	 * Resizes the number of Steps in the Channel
+	 * resizeByAmount may be a positive or negative number
+	 * 
+	 * @param resizeByAmount the number of steps to be added or removed
+	 */
 	public void ResizeBy(int resizeByAmount) {
 		
 		m_numSteps += resizeByAmount;
@@ -180,6 +258,10 @@ public class Channel {
 		}
 	}
 	
+	/**
+	 * Returns an arraylist with all the Channels Steps
+	 * @return an arraylist with all the Channels Steps
+	 */
 	public ArrayList<Step> GetSteps() {
 		return m_Steps;
 	}
