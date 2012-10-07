@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.LightingColorFilter;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -79,6 +80,9 @@ public class ChannelButtonGUI extends Button {
 	private OnLongClickListener onLongClick = new OnLongClickListener() {
 		public boolean onLongClick(View v) {
 			Intent intent = new Intent(mainActivity, GUIChannelSettings.class);
+			
+			//Försök att skicka med Channel. Vet inte om det är så här man gör:
+            //intent.putExtra("Channel", channel);  
 	    	mainActivity.startActivity(intent);
 			return true;
 		}

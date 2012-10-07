@@ -33,6 +33,9 @@ public class GUIChannelSettings extends Activity {
         
     }
 	
+    public GUIChannelSettings() {
+    	//getChannel();
+    }
 	
 	public GUIChannelSettings(MainActivity mainActivity, Channel c) {
 		//mChannel = c;
@@ -40,6 +43,7 @@ public class GUIChannelSettings extends Activity {
 		
 		//initGUI();
 	}
+
 	
 	private void initGUI() {
 		
@@ -128,6 +132,14 @@ public class GUIChannelSettings extends Activity {
 		
 		return null;
 	}
+	
+	/**
+	 * getChannel ska plocka ut en Channel som skickas med Intent när man
+	 * skapar en ny aktivitet (denna). FUNKAR EJ.
+	 */
+	/*private void getChannel() {
+		mChannel = (Channel) getIntent().getSerializableExtra("Channel");
+	}*/
 	
 	private OnSeekBarChangeListener VolumeListener = new OnSeekBarChangeListener() {
 		

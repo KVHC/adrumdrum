@@ -26,9 +26,9 @@
             </intent-filter>
         </activity>
         <activity 
-            android:name=".ChannelSettings"
-            android:label="@string/title_channel_settings"
-            android:screenOrientation="landscape" >
+            android:name="kvhc.gui.GUIChannelSettings" >
+            <!-- android:label="@string/title_channel_settings"
+            android:screenOrientation="landscape" -->
         </activity>
     </application>
 
