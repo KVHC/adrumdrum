@@ -15,6 +15,7 @@
     <string name="set_sample">Set Sample</string>
     <string name="back_button">Back</string>
     <string name="add_channel_button">Add Channel</string>
+    <string name="remove_channel_button">Remove Channel</string>
     <string name="add_step_button">Add Step</string>
     <string name="remove_step_button">Del Step</string>
     <string name="clear_steps">Clear Steps</string>

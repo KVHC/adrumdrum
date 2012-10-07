@@ -129,6 +129,9 @@ public class GUIController {
            Button addChnl = (Button)parentActivity.findViewById(R.id.buttonAddChannel);
            addChnl.setOnClickListener(addChannelListener);
            
+           Button remChnl = (Button)parentActivity.findViewById(R.id.buttonRemoveChannel);
+           remChnl.setOnClickListener(removeChannelListener);
+           
            Button addStep = (Button)parentActivity.findViewById(R.id.buttonAddStep);
            addStep.setOnClickListener(addStepListener);
            
@@ -183,6 +186,30 @@ public class GUIController {
 			row.addView(box);
 		}
 		channelContainer.addView(row);
+	}
+	
+	/**
+	 * Removes the last channel
+	 * @throws Exception 
+	 */
+	private void removeLastChannel() throws Exception {
+		/*
+		int channelIndex = song.GetNumberOfChannels()-1;
+		Log.e("index of channel to be deleted", ""+channelIndex);
+		if (channelIndex < 0) {
+			return;
+		}
+		player.Stop();
+		song.GetChannel(channelIndex).clearAllSteps(); //This shouldn't be necessary
+		song.RemoveChannel(channelIndex);
+		player.LoadSong(song);
+		
+		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
+		channelContainer.removeViewAt(channelContainer.getChildCount()-1);
+		int numofchilds = channelContainer.getChildCount();
+		Log.e("number of children is now:", ""+numofchilds);
+		*/
+		
 	}
 	
     
@@ -392,6 +419,19 @@ public class GUIController {
 		}
 	};
 	
+	/**
+	 * Listener to the remove-channel-button
+	 */
+	private OnClickListener removeChannelListener = new OnClickListener() {
+		
+		public void onClick(View v) {
+			try {
+				removeLastChannel();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	};
     
 	/**
 	 * Listener to the add-new-step-button. Redraws all the channels
