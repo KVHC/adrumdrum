@@ -50,6 +50,8 @@ public class MainActivity extends Activity {
 			case R.id.licenses: 
 				guic.createAndShowLicensesDialog();
 				return true;
+			case R.id.clear_steps:
+				guic.clearAllSteps();
 			default:
 				return super.onOptionsItemSelected(item);
 		}

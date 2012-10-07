@@ -47,10 +47,8 @@ public class GUIController {
 	private Song song;
 	
 	private TextView tv1;
-	//private RadioGroup rg;
 	
 	private Activity parentActivity;
-	//private Observer activeStepObserver;
 	
 	/**
 	 * Constructor
@@ -62,16 +60,6 @@ public class GUIController {
 		
 		this.player = new Player(parentActivity.getBaseContext());
 		
-		/*
-		activeStepObserver = new Observer() {
-			public void update(Observable observable, Object data) {
-				
-				int step = Integer.parseInt(data.toString());
-				rg.check(step);
-				
-			}
-		};
-		*/
 		player.addObserver(new GUIUpdateObserver(parentActivity));
 		
 		init();
@@ -113,44 +101,6 @@ public class GUIController {
 		player.LoadSong(song);
 	}
 	
-	/**
-	 * Inits the radio buttons who shows what step is active at the moment
-	 *
-	 */
-	private void initShowActiveSteps() {
-
-		// Radiobuttons/annat bör inte ligga i channelContainer.
-		// Strykt detta tills vidare.
-		
-		/*
-		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
-		
-		LayoutParams params = new LayoutParams(1);
-		params.span = song.GetNumberOfSteps();
-		
-		TableRow row = new TableRow(channelContainer.getContext());
-		
-		TextView stepMsg = new TextView(parentActivity.getBaseContext());
-		stepMsg.setText("Step");
-		row.addView(stepMsg);
-		
-		rg = new RadioGroup(parentActivity.getBaseContext());
-		rg.setLayoutParams(params);
-		for(int i = 0; i < song.GetNumberOfSteps(); i++) {
-			RadioButton btn = new RadioButton(rg.getContext());
-			btn.setId(i);
-			rg.addView(btn);
-		}
-		
-		rg.setOrientation(LinearLayout.HORIZONTAL);
-		rg.setEnabled(true);
-		row.addView(rg);
-		
-		channelContainer.addView(row);
-		*/
-		
-	}
-	
 	
 	/**
 	 * Init the default channel rows
@@ -184,10 +134,6 @@ public class GUIController {
            
            Button remStep = (Button)parentActivity.findViewById(R.id.buttonRemoveStep);
            remStep.setOnClickListener(removeStepListener);
-           
-           // this was just for testing, adding it somewhere else later
-           //Button clearAllSteps = (Button)parentActivity.findViewById(R.id.buttonClearAllSteps);
-           //clearAllSteps.setOnClickListener(clearAllStepsListener);
            
 	}
 	
@@ -311,10 +257,14 @@ public class GUIController {
 		channelContainer.invalidate();
 	}
     
-    public void goToChannelSettings(Channel channel) {
-    	//GUIChannelSettings cs = new GUIChannelSettings();
-    	Intent intent = new Intent(parentActivity, GUIChannelSettings.class);
-    	parentActivity.startActivity(intent);
+    /**
+     * Stops Playback and clears all steps
+     * Redraws all Channels
+     */
+    public void clearAllSteps() {
+    	player.Stop();
+		song.clearAllSteps();
+		RedrawChannels();
     }
 	
 	/**
@@ -442,17 +392,6 @@ public class GUIController {
 		}
 	};
 	
-	/**
-	 * Listener to the clear-all-steps-listener.
-	 * This is just for testing and the button should be moved elsewhere.
-	 */
-	private OnClickListener clearAllStepsListener = new OnClickListener() {
-		public void onClick(View v) {
-			player.Stop();
-			song.clearAllSteps();
-			RedrawChannels();
-		}
-	};
     
 	/**
 	 * Listener to the add-new-step-button. Redraws all the channels
@@ -480,18 +419,6 @@ public class GUIController {
 			RedrawChannels();
 		}
 	};
-	
-	/*
-	private OnLongClickListener channelSettingsListener = new OnLongClickListener() {
-		
-		public boolean onLongClick(View v) {
-			player.Stop();
-			ChannelButtonGUI btn = (ChannelButtonGUI) v;
-			goToChannelSettings(btn.getChannel());
-			return true;
-		}
-	};
-	*/
 
 	/**
 	 * Show a Licenses Dialog!
