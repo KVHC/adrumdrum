@@ -52,7 +52,7 @@ public class SoundPoolRenderer implements ISongRenderer {
 		for(Channel c : song.GetChannels()) {
 			if(c.IsStepActive(step)&& !c.isMuted()) {
 				// 
-				mSoundManager.playSound(c.GetSound().GetId(), c.GetVolumeRight(step), c.GetVolumeLeft(step));
+				mSoundManager.playSound(c.GetSound().GetId(), c.GetVolumeRight(step), c.GetVolumeLeft(step),c.GetVolume());
 			}
 		}
 	}
