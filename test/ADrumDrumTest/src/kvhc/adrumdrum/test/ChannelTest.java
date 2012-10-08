@@ -99,7 +99,7 @@ public class ChannelTest extends AndroidTestCase {
         testChannel.ResizeBy(0-(before+1));
         after = testChannel.GetNumberOfSteps();
         
-        Assert.assertEquals(1, after);
+        Assert.assertEquals(before, after);
     }
     
 }
