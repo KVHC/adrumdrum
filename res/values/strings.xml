@@ -4,9 +4,40 @@
     <string name="hello_world">Hey man, check out the beat.</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">aDrumDrum</string>
+    <string name="title_channel_settings">Channel Settings</string>
     <string name="play_button">Play/Stop</string>
     <string name="bpm">BPM</string>
     <string name="left">L</string>
     <string name="right">R</string>
+    <string name="panning">Panning</string>
+    <string name="volume">Volume</string>
+    <string name="velocity">Velocity</string>
+    <string name="set_sample">Set Sample</string>
+    <string name="back_button">Back</string>
+    <string name="add_channel_button">Add Channel</string>
+    <string name="remove_channel_button">Remove Channel</string>
+    <string name="add_step_button">Add Step</string>
+    <string name="remove_step_button">Del Step</string>
+    <string name="clear_steps">Clear Steps</string>
+    <string name="samples_prompt">Choose a sample</string>
+    <string-array name="samples">
+        <item>Bassdrum</item>
+        <item>Bell Ride Cymbal</item>
+        <item>Crash Cymbal 01</item>
+        <item>Crash Cymbal 02</item>
+        <item>Hihat Closed</item>
+        <item>Hihat Open</item>
+        <item>Ride Cymbal</item>
+        <item>Snare 01</item>
+        <item>Snare 02</item>
+        <item>Snare 03</item>
+        <item>Splash Cymbal 01</item>
+        <item>Splash Cymbal 02</item>
+        <item>Tomtom 01</item>
+        <item>Tomtom 02</item>
+        <item>Tomtom 03</item>
+    </string-array>
+    <string name="licenses">Licenses</string>
+
 
 </resources>
