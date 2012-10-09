@@ -88,6 +88,7 @@ public class Channel {
 	}
 	
 	/**
+	 * Method that returns the sound of the step.
 	 * @return the sound of the step
 	 */
 	public Sound GetSound() {
@@ -192,7 +193,7 @@ public class Channel {
 	}
 	
 	/**
-	 * 
+	 * Method for seeing if the channel is muted or not
 	 * @return a boolean whether the channel is muted or not
 	 */
 	public boolean isMuted(){
@@ -200,6 +201,7 @@ public class Channel {
 	}
 	
 	/**
+	 * Method for getting the number of steps in the channel
 	 * @return the number of steps in the channel
 	 */
 	public int GetNumberOfSteps() {
@@ -217,16 +219,16 @@ public class Channel {
 	}
 	
 	/**
-	 * Returns the Left Panning of the Channel
-	 * @return
+	 * Method for getting the Left Panning of the Channel
+	 * @return the Left Panning of the Channel
 	 */
 	public float GetLeftPanning() {
 		return m_leftPan;
 	}
 	
 	/**
-	 * Returns the Right Panning of the Channel
-	 * @return
+	 * Method for getting the Right Panning of the Channel
+	 * @return the Right Panning of the Channel
 	 */
 	public float GetRightPanning() {
 		return m_rightPan;
@@ -259,7 +261,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Returns an arraylist with all the Channels Steps
+	 * Method for getting an arraylist with all the Channels Steps
 	 * @return an arraylist with all the Channels Steps
 	 */
 	public ArrayList<Step> GetSteps() {

@@ -76,7 +76,9 @@ public class ChannelButtonGUI extends Button {
 		}
 	};
 	
-	
+	/**
+	 * Button Listener for long click
+	 */
 	private OnLongClickListener onLongClick = new OnLongClickListener() {
 		public boolean onLongClick(View v) {
 			Intent intent = new Intent(mainActivity, GUIChannelSettings.class);

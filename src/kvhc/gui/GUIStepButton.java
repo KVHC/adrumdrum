@@ -129,6 +129,7 @@ public class GUIStepButton extends CheckBox {
 	
 	/**
 	 * A method that specifies how the step button should be drawn 
+	 * @param canvas. A canvas to draw the button on
 	 */
 	protected void onDraw(Canvas canvas) {
 		

@@ -48,7 +48,7 @@ public class Song {
 	
 	/**
 	 * Add a created channel to the song
-	 * @param c
+	 * @param c. The channel that should be added
 	 */
 	public void AddChannel(Channel c) {
 		m_Channels.add(c);
