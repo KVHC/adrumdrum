@@ -123,14 +123,15 @@ public class GUIController {
      * Inits the necessary GUI-buttons (Play/Stop, Add Channel, Remove Step etc)
      */
 	private void initButtons() {
+		
     	   Button btn1 = (Button)parentActivity.findViewById(R.id.button1);
            btn1.setOnClickListener(btnListener);
            
            Button addChnl = (Button)parentActivity.findViewById(R.id.buttonAddChannel);
            addChnl.setOnClickListener(addChannelListener);
            
-           Button remChnl = (Button)parentActivity.findViewById(R.id.buttonRemoveChannel);
-           remChnl.setOnClickListener(removeChannelListener);
+           //Button remChnl = (Button)parentActivity.findViewById(R.id.buttonRemoveChannel);
+           //remChnl.setOnClickListener(removeChannelListener);
            
            Button addStep = (Button)parentActivity.findViewById(R.id.buttonAddStep);
            addStep.setOnClickListener(addStepListener);

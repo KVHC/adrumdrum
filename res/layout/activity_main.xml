@@ -1,17 +1,82 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	xmlns:tools="http://schemas.android.com/tools"
-       android:layout_width="fill_parent"
-       android:layout_height="fill_parent"
-       android:orientation="horizontal"
-       >
-       
-          <!-- RadioButtons showing the active step -->
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <!-- Horizontal list with buttons and a bpm-bar -->
+
+    <LinearLayout
+        android:id="@+id/layoutzz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+   	    
+   	    
+        <!-- Textview showing "BPM" -->
+        <!-- 
+		<TextView
+		    android:id="@+id/bpmtext"
+	    	android:layout_width="50dp"
+	    	android:layout_height="wrap_content"
+	    	android:gravity="center"
+	    	android:text="@string/bpm" />
+	    -->
+		
+   	    <!-- BPM-bar -->
+    	<SeekBar
+    	    android:id="@+id/bpmbar" 
+	    	android:layout_width="90dp"
+	    	android:layout_height="wrap_content"
+	    	android:gravity="center" />
+    	
+    	<!-- Textview showing status messages -->
+    	<TextView
+   	    android:id="@+id/textView1"
+	    android:layout_width="100dp"
+	    android:layout_height="wrap_content"
+	    android:gravity="center"
+	    android:text="@string/hello_world" />
+	    
+    	<!-- Add Channel button -->
+	    <Button
+	        android:id="@+id/buttonAddChannel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/add_channel_button" />
+	    
+	    <!-- Add Step button -->
+	    <Button
+	        android:id="@+id/buttonAddStep"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/add_step_button" />
+	    
+	    <!-- Remove Step button -->
+	    <Button
+	        android:id="@+id/buttonRemoveStep"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/remove_step_button" />
+		
+		<!-- Play/Stop button -->
+		<Button
+	        android:id="@+id/button1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/play_button" />
+		
+    </LinearLayout>
+    
+    
+    <!-- ScrollView showing the Channels and their Steps -->	
+    
     <ScrollView
 	        android:id="@+id/stepScroll"
 	        android:layout_width="wrap_content"
-	        android:layout_height="match_parent"
-	        android:layout_alignParentTop="true"
-	        android:layout_toLeftOf="@+id/layoutzz"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/layoutzz"
+	        
 
 	        >
 	    	<!-- Channels -->
@@ -27,89 +92,8 @@
 			      	    >
 		   		</TableLayout>
 	   		</HorizontalScrollView>
-	    </ScrollView>
-	    
-	<RelativeLayout 
-	    android:id="@+id/layoutzz"
-    	android:layout_width="120dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-   	    >
-   	    
-   	    <TextView
-	        android:id="@+id/textView1"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
-	        android:gravity="top|right"
-	        android:text="@string/hello_world" />
-   	    
-	    <Button
-	        android:id="@+id/button1"
-	        android:layout_width="100dp"
-	        android:layout_height="wrap_content"
-	        android:layout_below="@string/hello_world"
-	        android:layout_alignParentRight="true"
-	        android:text="@string/play_button" />
-	    
-	    <Button
-	        android:id="@+id/buttonAddChannel"
-	        android:layout_width="100dp"
-	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/button1"
-	        android:layout_alignParentRight="true"
-	        android:text="@string/add_channel_button" />
-	    
-	   	<Button
-	        android:id="@+id/buttonRemoveChannel"
-	        android:layout_width="100dp"
-	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/buttonAddChannel"
-	        android:layout_alignParentRight="true"
-	        android:text="@string/remove_channel_button" />
-	    
-	    <Button
-	        android:id="@+id/buttonAddStep"
-	        android:layout_width="100dp"
-	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/buttonRemoveChannel"
-	        android:layout_alignParentRight="true"
-	        android:text="@string/add_step_button" />
-	    
-	    <Button
-	        android:id="@+id/buttonRemoveStep"
-	        android:layout_width="100dp"
-	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/buttonAddStep"
-	        android:layout_alignParentRight="true"
-	        android:text="@string/remove_step_button" />
-	    
-	    <!--
-	    <Button
-	        android:id="@+id/buttonClearAllSteps"
-	        android:layout_width="100dp"
-	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/buttonRemoveStep"
-	        android:layout_alignParentRight="true"
-	        android:text="@string/clear_all_steps_button" />
-	        
-	    -->
-	    
-    	<SeekBar
-	    	android:layout_width="160dp"
-	    	android:layout_height="wrap_content"
-	    	android:layout_below="@+id/buttonRemoveStep"
-	    	android:layout_alignParentRight="true"
-	    	android:id="@+id/bpmbar" />
-		
-		<TextView
-		    android:id="@+id/bpmtext"
-	    	android:layout_width="160dp"
-	    	android:layout_height="wrap_content"
-	    	android:layout_below="@+id/bpmbar"
-	    	android:gravity="center"
-	    	android:text="@string/bpm" />
-    </RelativeLayout>
+	   	
+	</ScrollView>  
+
        
    </RelativeLayout>	
