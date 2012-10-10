@@ -147,6 +147,15 @@ public class Channel {
 	}
 	
 	/**
+	 * This method returns the volume set to this channel
+	 * @return The raw volume of this channel without caring about velocity 
+	 * 		   of the next step or if the channel is muted
+	 */
+	public float getChannelVolume(){
+		return m_volume;
+	}
+	
+	/**
 	 * Get the right speakers volume of a separate step in the channel
 	 * Is computed by multiplying the channel volume by the steps velocity ("volume")
 	 * 
