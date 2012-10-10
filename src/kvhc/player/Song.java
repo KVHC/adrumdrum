@@ -2,6 +2,8 @@ package kvhc.player;
 
 import java.util.ArrayList;
 
+import android.util.Log;
+
 
 public class Song {
 	
@@ -102,8 +104,10 @@ public class Song {
 	 * @param numberOfStepsToRemove
 	 */
 	public void RemoveSteps(int numberOfStepsToRemove) {
-		for(int i = 0; i < m_Channels.size(); i++) {
-			m_Channels.get(i).ResizeBy(-numberOfStepsToRemove);
+		if (!m_Channels.isEmpty() && numberOfStepsToRemove <= m_Channels.get(0).GetNumberOfSteps()) {
+			for(int i = 0; i < m_Channels.size(); i++) {
+				m_Channels.get(i).ResizeBy(-numberOfStepsToRemove);
+			}
 		}
 	}
 	
