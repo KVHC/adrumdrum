@@ -11,7 +11,7 @@ import java.util.Observer;
  */
 public class TestObserver implements Observer {
 	
-	int count;
+	private int count;
 	
 	public TestObserver(){
 		//super();
