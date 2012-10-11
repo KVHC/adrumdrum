@@ -46,10 +46,15 @@ public class ChannelButtonGUI extends Button {
 		mainActivity = (Activity) context;
 		setOnClickListener(onClick);
 		setOnLongClickListener(onLongClick);
-		this.isActive = false;
-		setBackgroundResource(R.drawable.unmuted);
+		this.isActive = channel.isMuted();
 		setGravity(20);
 		
+		if(isActive){
+			setBackgroundResource(R.drawable.muted);
+		}
+		else{
+			setBackgroundResource(R.drawable.unmuted);
+		}
 	}
 	
 	/**
