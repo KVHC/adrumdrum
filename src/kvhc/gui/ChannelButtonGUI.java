@@ -35,6 +35,8 @@ public class ChannelButtonGUI extends Button {
 	 * Constructor
 	 * @param context the main activity
 	 * @param channel the Channel to control
+	 * @param id The id of the channel
+	 * @param A GUI controller to send to the options dialog
 	 */
 	public ChannelButtonGUI(Context context, Channel channel,int id, GUIController controll) {
 		super(context);

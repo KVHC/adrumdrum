@@ -1,6 +1,7 @@
 package kvhc.adrumdrum;
 
 import kvhc.gui.GUIController;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,27 +15,39 @@ public class MainActivity extends Activity {
 	
 	private GUIController guic;
 	
-    @Override
+    /**
+     * Everything that the app have to do then created
+     */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
         guic = new GUIController(this);
+        // Always change media volume and not ringtone volume
+        setVolumeControlStream(AudioManager.STREAM_MUSIC); 
     }
 
+    /**
+     * The things that should be done then the app are stopped
+     */
     public void onStop() {
     	guic.onStop();
     	
     	super.onStop();
     }
     
+    /**
+     * The things that should be done then the app are destroyed
+     */
     public void onDestroy() {
     	guic.onDestroy();
     	
     	super.onDestroy();
     }
 
-    @Override
+    /**
+     * The things that should be done then the menu are created
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
