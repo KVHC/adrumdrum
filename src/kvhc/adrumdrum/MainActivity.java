@@ -12,14 +12,12 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
-	TextView tv1;
 	private GUIController guic;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tv1 = (TextView)findViewById(R.id.textView1);
         
         guic = new GUIController(this);
     }

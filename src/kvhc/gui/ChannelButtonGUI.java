@@ -1,5 +1,6 @@
 package kvhc.gui;
 
+import kvhc.adrumdrum.R;
 import kvhc.player.Channel;
 import kvhc.player.ChannelDialog;
 import kvhc.util.AndroidTimer;
@@ -16,6 +17,11 @@ import android.widget.Button;
  * Class to manage a ChannelButton.
  * When clicked it sets its Channel to active or inactive and sets 
  * the button color to red (inactive) or green (active).
+ * 
+ * The .png files that are used by this class are under the creative common licens and 
+ * were created by Interactivemania - http://www.interactivemania.com and
+ * Downloaded from http://www.iconfinder.com/
+ * 
  * 
  */
 public class ChannelButtonGUI extends Button {
@@ -36,24 +42,26 @@ public class ChannelButtonGUI extends Button {
 		setOnClickListener(onClick);
 		setOnLongClickListener(onLongClick);
 		this.isActive = false;
-		getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFF00FF00));
-
+		setBackgroundResource(R.drawable.unmuted);
+		setGravity(20);
+		
 	}
 	
 	/**
 	 * Activates the Channel and sets the button color to green.
 	 */
 	public void activate(){
-		getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFF00FF00));
 		channel.SetMute(false);
+		setBackgroundResource(R.drawable.unmuted);
+		
 	}
 	
 	/**
 	 * Deactivates the Channel and sets the button color to red.
 	 */
 	public void deactivate(){
-		getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
 		channel.SetMute(true);
+		setBackgroundResource(R.drawable.muted);
 	}
 	
 	/**

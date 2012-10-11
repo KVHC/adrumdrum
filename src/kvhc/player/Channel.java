@@ -64,7 +64,7 @@ public class Channel {
 	 * @return
 	 */
 	public boolean IsStepActive(int i) {
-		if(mute || i >= m_numSteps || i < 0) {
+		if( i >= m_numSteps || i < 0) {
 			return false;
 		}
 		return m_Steps.get(i).IsActive();

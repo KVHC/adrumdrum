@@ -13,21 +13,29 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-
+/**
+ * A dialog about channel settings
+ */
 public class ChannelDialog extends Dialog{
 
 	private Channel channel;
 	private Button back;
 	private TextView tv1; // DEBUG
 	
-	
+	/**
+	 * The Constructor
+	 * @param parrentActivity The activity that started this dialog
+	 * @param channel The channel to change the settings for
+	 */
 	public ChannelDialog(Activity parrentActivity, Channel channel) {
 		super(parrentActivity);
 		tv1 = (TextView)parrentActivity.findViewById(R.id.textView1); //DEBUG
 		this.channel = channel;
 	}
 	
-	@Override
+	/**
+	 * What should happen then a new dialog is created
+	 */
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.channel_settings);
@@ -36,13 +44,17 @@ public class ChannelDialog extends Dialog{
         initBars();
 	}
 	
-	
+	/**
+	 * Init the buttons in this dialog
+	 */
 	private void initButtons(){
 		back = (Button)this.findViewById(R.id.buttonBack);
 		back.setOnClickListener(backClick);
 	}
 	
-	
+	/**
+	 * Init the progressbars in this dialog
+	 */
 	private void initBars(){
 		SeekBar panningBar = (SeekBar)this.findViewById(R.id.seekbarChannelPanning);
 		
@@ -70,7 +82,9 @@ public class ChannelDialog extends Dialog{
 	
 	
 	
-	
+	/**
+	 * A listener that changes the panning on the channel
+	 */
 	OnSeekBarChangeListener panningListener = new OnSeekBarChangeListener() {
 
 		public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
@@ -97,6 +111,10 @@ public class ChannelDialog extends Dialog{
 		}
     };
     
+    
+    /**
+     * A listener that change the volume of the channel
+     */
 	OnSeekBarChangeListener volumeListener = new OnSeekBarChangeListener() {
 
 		public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
@@ -114,7 +132,9 @@ public class ChannelDialog extends Dialog{
     };
 	
 	
-	
+	/**
+	 * A on click listener that close this dialog
+	 */
 	private View.OnClickListener backClick = new View.OnClickListener(){
 		public void onClick(View v) {
 			dismiss();
