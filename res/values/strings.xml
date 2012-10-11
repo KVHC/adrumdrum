@@ -38,6 +38,7 @@
         <item>Tomtom 03</item>
     </string-array>
     <string name="licenses">Licenses</string>
+    <string name="remove_Button">Remove this channel</string>
 
 
 </resources>

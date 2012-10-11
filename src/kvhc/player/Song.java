@@ -56,17 +56,6 @@ public class Song {
 		m_Channels.add(c);
 	}
 	
-	/**
-	 * Remove a channel at the specified index
-	 * @param channelIndex
-	 * @throws Exception
-	 */
-	public void RemoveChannel(int channelIndex) throws Exception {
-		if( 0 > channelIndex || m_Channels.size() >= channelIndex)
-			return;
-		
-		m_Channels.remove(channelIndex);
-	}
 	
 	/**
 	 * Removed channel based on the channel object. 
@@ -178,6 +167,22 @@ public class Song {
 		mName = name;
 	}
 	
+	/**
+	 * Removes a channal on the given number
+	 * @param channel The number of the channel to remove
+	 */
+	public boolean removeChannel(int channel) {
+		if (channel >= m_Channels.size() ||  m_Channels.size() <= 1 ){
+			return false;
+		}
+		else{
+			m_Channels.remove(channel);
+		}
+		return true;
+		
+	}
+		
+		
 	/**
 	 * Returns the name of the song 
 	 * @return

@@ -20,17 +20,20 @@ import android.widget.TextView;
 public class ChannelDialog extends Dialog{
 
 	private Channel channel;
-	private Button back;
-	private TextView tv1; // DEBUG
+	private TextView tv1;
+	private int id;
+	private GUIController controller;
 	
 	/**
 	 * The Constructor
 	 * @param parrentActivity The activity that started this dialog
 	 * @param channel The channel to change the settings for
 	 */
-	public ChannelDialog(Activity parrentActivity, Channel channel) {
+	public ChannelDialog(Activity parrentActivity, Channel channel,	int id, GUIController controller) {
 		super(parrentActivity);
 		tv1 = (TextView)parrentActivity.findViewById(R.id.textView1); //DEBUG
+		this.id = id;
+		this.controller = controller;
 		this.channel = channel;
 	}
 	
@@ -49,8 +52,11 @@ public class ChannelDialog extends Dialog{
 	 * Init the buttons in this dialog
 	 */
 	private void initButtons(){
-		back = (Button)this.findViewById(R.id.buttonBack);
+		Button back = (Button)this.findViewById(R.id.buttonBack);
 		back.setOnClickListener(backClick);
+
+		Button remove = (Button)this.findViewById(R.id.buttonRemove);
+		remove.setOnClickListener(removeClick);
 	}
 	
 	/**
@@ -140,7 +146,17 @@ public class ChannelDialog extends Dialog{
 		public void onClick(View v) {
 			dismiss();
 		}
-	};	
+	};
+	
+	/**
+	 * A on click listener that close this dialog
+	 */
+	private View.OnClickListener removeClick = new View.OnClickListener(){
+		public void onClick(View v) {
+			controller.removeChannel(id);
+			dismiss();
+		}
+	};
 	
 	
 }

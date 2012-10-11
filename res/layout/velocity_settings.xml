@@ -16,11 +16,12 @@
 				android:layout_width="200dp"
         		android:layout_height="wrap_content" 
         		/>
+    </TableRow>
+
     	<TableRow>
 		<Button android:text="@string/back_button" android:id="@+id/buttonBack" />
 	</TableRow>
 	
-    </TableRow>
        
 	
 </TableLayout>

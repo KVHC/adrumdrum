@@ -175,7 +175,7 @@ public class GUIController {
 		
 		// Name label
 
-		ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c);
+		ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,song.GetNumberOfChannels()-1,this);
 		//TextView name = new TextView(parentActivity);
 		name.setText(c.GetSound().GetName());
 		row.addView(name);
@@ -262,7 +262,7 @@ public class GUIController {
 			TableRow row = new TableRow(channelContainer.getContext());
 			
 			// Name label/ mute button
-			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c);
+			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,y,this);
 			name.setText(c.GetSound().GetName());
 			//name.setOnLongClickListener(channelSettingsListener);
 			row.addView(name);
@@ -295,6 +295,13 @@ public class GUIController {
 		RedrawChannels();
     }
 	
+    public void removeChannel(int channel){
+    	if (song.removeChannel(channel)){
+    		player.LoadSong(song);
+    		RedrawChannels();
+    	}
+    }
+    
 	/**
 	 * Call onStop (might need some special handling here?)
 	 */
@@ -330,41 +337,6 @@ public class GUIController {
         }
     };
 	
-    
-    /**
-     * LooooooooooongClick Listener to the step buttons,
-     * gives you a progress bar to set the velocity of the step.
-     */
-    /*
-    private OnLongClickListener stepButtonLong = new OnLongClickListener() {
-		
-		public boolean onLongClick(View v) {
-		
-			final GUIStepButton step = (GUIStepButton) v; // We can do this?
-			final Step s = song.GetChannel(step.GetChannel()).GetSteps().get(step.GetStep());
-			
-			final SeekBar velocitySlider = new SeekBar(parentActivity);
-			velocitySlider.setProgress((int)(100 * s.GetVelocity()));
-			AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity);
-			
-			builder.setView(velocitySlider);
-			builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			    public void onClick(DialogInterface dialog, int whichButton) {
-			        
-			    	int value = velocitySlider.getProgress();
-			        s.SetVelolcity(value / 100.0f);
-			        dialog.dismiss();
-			    }
-			});
-			
-			
-			builder.create();
-			builder.show();
-			
-			return s.IsActive();
-		}
-	};
-     */
     
 	/**
 	 * Listener to the Play/Stop-button

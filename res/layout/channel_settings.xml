@@ -23,8 +23,11 @@
         	android:entries="@array/samples"
         	android:prompt="@string/samples_prompt" />
     </TableRow>
-       
-    <TableRow>
+    
+	   <TableRow>
+		<Button android:text="@string/remove_Button" android:id="@+id/buttonRemove" />
+		
 		<Button android:text="@string/back_button" android:id="@+id/buttonBack" />
 	</TableRow>
+	
 </TableLayout>

@@ -28,15 +28,19 @@ public class ChannelButtonGUI extends Button {
 	private boolean isActive;
 	private Channel channel;
 	private Activity mainActivity;
+	private int id;
+	private GUIController controll;
 
 	/**
 	 * Constructor
 	 * @param context the main activity
 	 * @param channel the Channel to control
 	 */
-	public ChannelButtonGUI(Context context, Channel channel) {
+	public ChannelButtonGUI(Context context, Channel channel,int id, GUIController controll) {
 		super(context);
 		this.channel = channel;
+		this.id = id;
+		this.controll = controll;
 		mainActivity = (Activity) context;
 		setOnClickListener(onClick);
 		setOnLongClickListener(onLongClick);
@@ -90,7 +94,7 @@ public class ChannelButtonGUI extends Button {
 	private OnLongClickListener onLongClick = new OnLongClickListener() {
 		public boolean onLongClick(View v) {
 			
-			ChannelDialog cd = new ChannelDialog(mainActivity, channel);
+			ChannelDialog cd = new ChannelDialog(mainActivity, channel,id,controll);
 			cd.show();
 			
 			//Intent intent = new Intent(mainActivity, GUIChannelSettings.class);
