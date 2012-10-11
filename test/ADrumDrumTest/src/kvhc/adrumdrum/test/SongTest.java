@@ -31,9 +31,9 @@ public class SongTest extends AndroidTestCase {
 		Song s = new Song(4);
 		
 		Assert.assertEquals(4, s.GetNumberOfChannels());
-		s.RemoveChannel(s.GetNumberOfChannels()-1);
-		s.RemoveChannel(s.GetNumberOfChannels()-1);
-		s.RemoveChannel(s.GetNumberOfChannels()-1);
+		s.removeChannel(s.GetNumberOfChannels()-1);
+		s.removeChannel(s.GetNumberOfChannels()-1);
+		s.removeChannel(s.GetNumberOfChannels()-1);
 		Assert.assertEquals(1, s.GetNumberOfChannels());
 	}
 	
