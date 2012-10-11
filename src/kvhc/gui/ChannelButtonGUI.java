@@ -49,10 +49,10 @@ public class ChannelButtonGUI extends Button {
 		this.isActive = channel.isMuted();
 		setGravity(20);
 		
-		if(isActive){
+		if (isActive) {
 			setBackgroundResource(R.drawable.muted);
 		}
-		else{
+		else {
 			setBackgroundResource(R.drawable.unmuted);
 		}
 	}
@@ -61,7 +61,7 @@ public class ChannelButtonGUI extends Button {
 	 * Activates the Channel and sets the button color to green.
 	 */
 	public void activate(){
-		channel.SetMute(false);
+		channel.setMute(false);
 		setBackgroundResource(R.drawable.unmuted);
 		
 	}
@@ -70,7 +70,7 @@ public class ChannelButtonGUI extends Button {
 	 * Deactivates the Channel and sets the button color to red.
 	 */
 	public void deactivate(){
-		channel.SetMute(true);
+		channel.setMute(true);
 		setBackgroundResource(R.drawable.muted);
 	}
 	
@@ -89,8 +89,9 @@ public class ChannelButtonGUI extends Button {
 		public void onClick(View v) {
 			if (isActive)
 				activate();
-			else
+			else {
 				deactivate();
+			}
 			isActive = !isActive;
 		}
 	};
@@ -99,16 +100,9 @@ public class ChannelButtonGUI extends Button {
 	 * Button Listener for long click
 	 */
 	private OnLongClickListener onLongClick = new OnLongClickListener() {
-		public boolean onLongClick(View v) {
-			
+		public boolean onLongClick(View v) {		
 			ChannelDialog cd = new ChannelDialog(mainActivity, channel,id,controll);
 			cd.show();
-			
-			//Intent intent = new Intent(mainActivity, GUIChannelSettings.class);
-			
-			//Försök att skicka med Channel. Vet inte om det är så här man gör:
-            //intent.putExtra("Channel", channel);  
-	    	//mainActivity.startActivity(intent);
 			return true;
 		}
 	};

@@ -7,11 +7,8 @@ import android.util.Log;
 
 public class Song {
 	
-	private ArrayList<Channel> m_Channels;
-	
-	private int bpm; // Unsure if this should be here
+	private ArrayList<Channel> mChannels;
 	private int numsteps;
-	
 	private String mName;
 	
 	/**
@@ -20,13 +17,11 @@ public class Song {
 	 */
 	public Song(int numChannels) {
 		
-		bpm = 120;
 		numsteps = 16;
+		mChannels = new ArrayList<Channel>(numChannels);
 		
-		m_Channels = new ArrayList<Channel>(numChannels);
-		
-		for(int i = 0; i < numChannels; i++) {
-			m_Channels.add(new Channel(null, numsteps));
+		for (int i = 0; i < numChannels; i++) {
+			mChannels.add(new Channel(null, numsteps));
 		}
 	}
 	
@@ -35,25 +30,24 @@ public class Song {
 	 * @param channels
 	 */
 	public Song(ArrayList<Channel> channels) {
-		m_Channels = channels;
-		numsteps = m_Channels.get(0).GetNumberOfSteps();
-		bpm = 120;
+		mChannels = channels;
+		numsteps = mChannels.get(0).getNumberOfSteps();
 	}
 	
 	/**
 	 * Add an empty channel to the song
 	 */
-	public void AddChannel() {
+	public void addChannel() {
 		Channel c = new Channel(null, numsteps);
-		m_Channels.add(c);
+		mChannels.add(c);
 	}
 	
 	/**
 	 * Add a created channel to the song
 	 * @param c. The channel that should be added
 	 */
-	public void AddChannel(Channel c) {
-		m_Channels.add(c);
+	public void addChannel(Channel c) {
+		mChannels.add(c);
 	}
 	
 	
@@ -64,10 +58,10 @@ public class Song {
 	 * @param c
 	 * @throws Exception
 	 */
-	public void RemoveChannel(Channel c) throws Exception {
-		for(int i = 0; i < m_Channels.size(); i++) {
-			if(m_Channels.get(i).equals(c)) {
-				m_Channels.remove(i);
+	public void removeChannel(Channel c) throws Exception {
+		for (int i = 0; i < mChannels.size(); i++) {
+			if (mChannels.get(i).equals(c)) {
+				mChannels.remove(i);
 				// Vet inte om detta ändrar på ordningen i arraylist? Vill ha länkad så det inte gör något. 
 				// Kanske om man fixar med en iterator? Detta är bara ett exempel
 			}
@@ -80,28 +74,26 @@ public class Song {
 	 * Append a number of steps to all channels
 	 * @param numberOfStepsToAdd
 	 */
-	public void AddSteps(int numberOfStepsToAdd) {
-		
-		for(Channel c : m_Channels) {
-			c.ResizeBy(numberOfStepsToAdd);
+	public void addSteps(int numberOfStepsToAdd) {
+		for(Channel c : mChannels) {
+			c.resizeBy(numberOfStepsToAdd);
 		}
-		
 	}
 	
 	/**
 	 * Remove a number of steps from all channels
 	 * @param numberOfStepsToRemove
 	 */
-	public void RemoveSteps(int numberOfStepsToRemove) {
-		if (!m_Channels.isEmpty() && numberOfStepsToRemove <= m_Channels.get(0).GetNumberOfSteps()) {
-			for(int i = 0; i < m_Channels.size(); i++) {
-				m_Channels.get(i).ResizeBy(-numberOfStepsToRemove);
+	public void removeSteps(int numberOfStepsToRemove) {
+		if (!mChannels.isEmpty() && numberOfStepsToRemove <= mChannels.get(0).getNumberOfSteps()) {
+			for (int i = 0; i < mChannels.size(); i++) {
+				mChannels.get(i).resizeBy(-numberOfStepsToRemove);
 			}
 		}
 	}
 	
 	public void clearAllSteps() {
-		for (Channel channel : m_Channels) {
+		for (Channel channel : mChannels) {
 			channel.clearAllSteps();
 		}
 	}
@@ -111,37 +103,35 @@ public class Song {
 	 * @param channelNumber
 	 * @return
 	 */
-	public Channel GetChannel(int channelNumber) {
-		return m_Channels.get(channelNumber);
+	public Channel getChannel(int channelNumber) {
+		return mChannels.get(channelNumber);
 	}
 	
 	/**
 	 * Returns all the channels that the song contains
 	 * @return
 	 */
-	public ArrayList<Channel> GetChannels() {
-		return m_Channels;
+	public ArrayList<Channel> getChannels() {
+		return mChannels;
 	}
 
 	/**
 	 * Returns the number of channels in the song
 	 * @return
 	 */
-	public int GetNumberOfChannels() {
-		return m_Channels.size();
+	public int getNumberOfChannels() {
+		return mChannels.size();
 	}
 
 	/**
 	 * Returns the number of steps in this song
  	 * @return
 	 */
-	public int GetNumberOfSteps() {
-		
-		if(m_Channels.size() <= 0) {
+	public int getNumberOfSteps() {
+		if (mChannels.size() <= 0) {
 			return 0;
 		}
-		
-		return m_Channels.get(0).GetNumberOfSteps();
+		return mChannels.get(0).getNumberOfSteps();
 	}
 	
 	/**
@@ -149,21 +139,20 @@ public class Song {
 	 * @return
 	 */
 	public ArrayList<Sound> GetSounds() {
-		ArrayList<Sound> sounds = new ArrayList<Sound>(m_Channels.size());
+		ArrayList<Sound> sounds = new ArrayList<Sound>(mChannels.size());
 		
-		for(Channel c : m_Channels) {
-			sounds.add(c.GetSound());
+		for (Channel c : mChannels) {
+			sounds.add(c.getSound());
 		}
 		
 		return sounds;
 	}
 	
-	
 	/**
 	 * Gives the song a name
 	 * @param name
 	 */
-	public void SetName(String name) {
+	public void setName(String name) {
 		mName = name;
 	}
 	
@@ -172,22 +161,19 @@ public class Song {
 	 * @param channel The number of the channel to remove
 	 */
 	public boolean removeChannel(int channel) {
-		if (channel >= m_Channels.size() ||  m_Channels.size() <= 1 ){
+		if (channel >= mChannels.size() ||  mChannels.size() <= 1 ){
 			return false;
-		}
-		else{
-			m_Channels.remove(channel);
+		} else {
+			mChannels.remove(channel);
 		}
 		return true;
-		
 	}
-		
 		
 	/**
 	 * Returns the name of the song 
 	 * @return
 	 */
-	public String GetName() {
+	public String getName() {
 		return mName;
 	}
 	
@@ -196,12 +182,12 @@ public class Song {
 	 * @param channel the channel to go SOLO 
 	 */
 	public void muteAllChannelsExcept(int channel) {
-		if (channel>=m_Channels.size()) {
+		if (channel>=mChannels.size()) {
 			return;
 		}
-		for(int i=0;i<m_Channels.size();i++) {
-			m_Channels.get(i).SetMute(true);
+		for (int i=0;i<mChannels.size();i++) {
+			mChannels.get(i).setMute(true);
 		}
-		m_Channels.get(channel).SetMute(false);
+		mChannels.get(channel).setMute(false);
 	}
 }

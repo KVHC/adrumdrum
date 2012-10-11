@@ -65,14 +65,14 @@ public class ChannelDialog extends Dialog{
 	private void initBars(){
 		SeekBar panningBar = (SeekBar)this.findViewById(R.id.seekbarChannelPanning);
 		
-		float right = channel.GetRightPanning();
-		float left = channel.GetLeftPanning();	
+		float right = channel.getRightPanning();
+		float left = channel.getLeftPanning();	
 		
 		if (right > left){
 			panningBar.setProgress(200 - (int)(left * 100));
-		}else if(right < left){
+		} else if(right < left) {
 			panningBar.setProgress((int)(right * 100));
-		}else{
+		} else {
 			panningBar.setProgress(100);
 		}
 		
@@ -106,8 +106,8 @@ public class ChannelDialog extends Dialog{
 				left = 1.0F;
 			}
 			
-			channel.SetPanning(right, left);
-			tv1.setText("Panned " + channel.GetLeftPanning() + "L " + channel.GetRightPanning() + "R");
+			channel.setPanning(right, left);
+			tv1.setText("Panned " + channel.getLeftPanning() + "L " + channel.getRightPanning() + "R");
 		}
 
 
@@ -128,7 +128,7 @@ public class ChannelDialog extends Dialog{
 			
 			float volume =  progress * 0.01F;
 				
-			channel.SetVolume(volume);
+			channel.setVolume(volume);
 		}
 
 		public void onStartTrackingTouch(SeekBar arg0) {

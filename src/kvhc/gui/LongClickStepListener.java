@@ -16,7 +16,6 @@ public class LongClickStepListener implements OnLongClickListener{
 	}
 	
 	
-	@Override
 	public boolean onLongClick(View v) {
 		StepDialog vd = new StepDialog(parentActivity, step);
 		vd.show();

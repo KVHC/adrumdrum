@@ -143,21 +143,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     	SQLiteDatabase db = this.getWritableDatabase();
     	 
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, song.GetName()); 
+        values.put(KEY_NAME, song.getName()); 
      
         // Inserting Row
         long songId = db.insert(TABLE_SONG, null, values);
         
         values.clear();
         int channelId = 0;
-        for(Channel c : song.GetChannels()) {
+        for(Channel c : song.getChannels()) {
         	
-        	int soundId = c.GetSound().GetId();
+        	int soundId = c.getSound().GetId();
         	// Add channel sound
         	values.put(KEY_ID, soundId);
-        	values.put(KEY_NAME, c.GetSound().GetName());
+        	values.put(KEY_NAME, c.getSound().GetName());
         	values.put(FKEY_SONGID, songId);
-        	values.put(KEY_SOUNDVALUE, c.GetSound().GetSoundValue());
+        	values.put(KEY_SOUNDVALUE, c.getSound().GetSoundValue());
         	
         	db.insert(TABLE_SOUND, null, values);
         	values.clear();
@@ -165,19 +165,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         	// Add channel
         	values.put(FKEY_SONGID, songId);
         	values.put(KEY_ID, channelId);
-        	values.put(KEY_VOLUME, c.GetVolume());
-        	values.put(KEY_LEFTPAN, c.GetLeftPanning());
-        	values.put(KEY_RIGHTPAN, c.GetRightPanning());
+        	values.put(KEY_VOLUME, c.getVolume());
+        	values.put(KEY_LEFTPAN, c.getLeftPanning());
+        	values.put(KEY_RIGHTPAN, c.getRightPanning());
         	
         	db.insert(TABLE_CHANNEL, null, values);
         	values.clear();
         	
         	int i = 0;
-        	for(Step step : c.GetSteps()) {
+        	for(Step step : c.getSteps()) {
         		values.put(KEY_ID, i++);
         		values.put(FKEY_SONGID, songId);
-                values.put(KEY_VELOCITY, step.GetVelocity());
-                values.put(KEY_ACTIVE, step.IsActive());
+                values.put(KEY_VELOCITY, step.getVelocity());
+                values.put(KEY_ACTIVE, step.isActive());
                 values.put(FKEY_CHANNELID, channelId);
                 
                 db.insert(TABLE_STEP, null, values);
@@ -257,14 +257,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         	
         	Channel c = new Channel(s, stepCursor.getCount());
         	
-        	c.SetPanning((float)channelCursor.getDouble(5), (float)channelCursor.getDouble(4));
-        	c.SetVolume((float)channelCursor.getDouble(3));
+        	c.setPanning((float)channelCursor.getDouble(5), (float)channelCursor.getDouble(4));
+        	c.setVolume((float)channelCursor.getDouble(3));
         	
         	while(stepCursor.moveToNext()) {
-        		c.SetStep(stepCursor.getInt(0), stepCursor.getInt(2) > 0, (float)stepCursor.getDouble(1));
+        		c.setStep(stepCursor.getInt(0), stepCursor.getInt(2) > 0, (float)stepCursor.getDouble(1));
         	}
         	
-        	song.AddChannel(c);
+        	song.addChannel(c);
         }
         
         

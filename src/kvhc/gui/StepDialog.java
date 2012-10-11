@@ -52,7 +52,7 @@ public class StepDialog extends Dialog {
 	 */
 	private void initBars(){
 		SeekBar velocityBar = (SeekBar)this.findViewById(R.id.seekbarVelocity);
-		velocityBar.setProgress((int)(step.GetVelocity() * 100));
+		velocityBar.setProgress((int)(step.getVelocity() * 100));
 		velocityBar.setOnSeekBarChangeListener(velocityListener);
 	}
 	
@@ -64,7 +64,7 @@ public class StepDialog extends Dialog {
 
 		public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 			
-			step.SetVelolcity(progress * 0.01F);
+			step.setVelolcity(progress * 0.01F);
 		}
 
 		public void onStartTrackingTouch(SeekBar arg0) {

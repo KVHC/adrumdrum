@@ -12,14 +12,14 @@ import java.util.ArrayList;
  */
 public class Channel {
 	
-	//private int m_soundId;
-	private int m_numSteps;
-	private ArrayList<Step> m_Steps;
+	//private int soundId;
+	private int numSteps;
+	private ArrayList<Step> mSteps;
 	private boolean mute;
 	
-	private float m_volume;
-	private float m_leftPan;
-	private float m_rightPan;
+	private float volume;
+	private float leftPan;
+	private float rightPan;
 	
 	private Sound mSound;
 	
@@ -47,14 +47,14 @@ public class Channel {
 	 */
 	public Channel(Sound sound, int steps) {
 		mSound = sound;
-		m_numSteps = steps;
-		m_Steps = new ArrayList<Step>(m_numSteps);
+		numSteps = steps;
+		mSteps = new ArrayList<Step>(numSteps);
 		
-		for(int i = 0; i < m_numSteps; i++) {
-			m_Steps.add(new Step());
+		for (int i = 0; i < numSteps; i++) {
+			mSteps.add(new Step());
 		}
 		
-		m_volume = 1.0f;
+		volume = 1.0f;
 		mute = false;
 	}
 	
@@ -63,19 +63,19 @@ public class Channel {
 	 * @param i
 	 * @return
 	 */
-	public boolean IsStepActive(int i) {
-		if( i >= m_numSteps || i < 0) {
+	public boolean isStepActive(int i) {
+		if( i >= numSteps || i < 0) {
 			return false;
 		}
-		return m_Steps.get(i).IsActive();
+		return mSteps.get(i).isActive();
 	}
 	
 	/**
 	 * Sets all steps to inactive
 	 */
 	public void clearAllSteps() {
-		for (Step step : m_Steps) {
-			step.SetActive(false);
+		for (Step step : mSteps) {
+			step.setActive(false);
 		}
 	}
 	
@@ -83,7 +83,7 @@ public class Channel {
 	 * Sets the Sound of the Channel
 	 * @param sound the sound to be used
 	 */
-	public void SetSound(Sound sound) {
+	public void setSound(Sound sound) {
 		mSound = sound;
 	}
 	
@@ -91,7 +91,7 @@ public class Channel {
 	 * Method that returns the sound of the step.
 	 * @return the sound of the step
 	 */
-	public Sound GetSound() {
+	public Sound getSound() {
 		return mSound;
 	}
 	
@@ -101,12 +101,12 @@ public class Channel {
 	 * @param step what step
 	 * @return whether it's active or not after the operation
 	 */
-	public boolean ToggleStep(int step) {
-		m_Steps.get(step).SetActive(
-				!m_Steps.get(step).IsActive()
+	public boolean toggleStep(int step) {
+		mSteps.get(step).setActive(
+				!mSteps.get(step).isActive()
 			);
 		
-		return IsStepActive(step);
+		return isStepActive(step);
 	}
 	
 	/**
@@ -114,8 +114,8 @@ public class Channel {
 	 * @param step what step
 	 * @param active boolean whether the step should be active or not
 	 */
-	public void SetStep(int step, boolean active) {
-		m_Steps.get(step).SetActive(active);
+	public void setStep(int step, boolean active) {
+		mSteps.get(step).setActive(active);
 	}
 	
 	/**
@@ -124,9 +124,9 @@ public class Channel {
 	 * @param active boolean whether the step should be active or not
 	 * @param velocity velocity ("volume") of the step
 	 */
-	public void SetStep(int step, boolean active, float velocity) {
-		m_Steps.get(step).SetActive(active);
-		m_Steps.get(step).SetVelolcity(velocity);
+	public void setStep(int step, boolean active, float velocity) {
+		mSteps.get(step).setActive(active);
+		mSteps.get(step).setVelolcity(velocity);
 	}
 	
 	/**
@@ -136,14 +136,16 @@ public class Channel {
 	 * @param step what step
 	 * @return a float between 0 and 1
 	 */
-	public float GetVolumeLeft(int step) {
-		if(mute) return 0.0f;
-		
-		if(step >= m_Steps.size()|| step < 0) {
+	public float getVolumeLeft(int step) {
+		if (mute) {
 			return 0.0f;
 		}
 		
-		return (m_volume * m_Steps.get(step).GetVelocity());
+		if (step >= mSteps.size()|| step < 0) {
+			return 0.0f;
+		}
+		
+		return (volume * mSteps.get(step).getVelocity());
 	}
 	
 	/**
@@ -152,7 +154,7 @@ public class Channel {
 	 * 		   of the next step or if the channel is muted
 	 */
 	public float getChannelVolume(){
-		return m_volume;
+		return volume;
 	}
 	
 	/**
@@ -162,14 +164,14 @@ public class Channel {
 	 * @param step what step
 	 * @return a float between 0 and 1
 	 */
-	public float GetVolumeRight(int step) {
+	public float getVolumeRight(int step) {
 		if(mute) return 0.0f;
 		
-		if(step >= m_Steps.size() || step < 0) {
+		if(step >= mSteps.size() || step < 0) {
 			return 0.0f; 
 		}
 		
-		return (m_volume * m_Steps.get(step).GetVelocity());  
+		return (volume * mSteps.get(step).getVelocity());  
 	}
 	
 	/**
@@ -178,10 +180,10 @@ public class Channel {
 	 * 
 	 * @return a float between 0 and 1
 	 */
-	public float GetVolume() {
+	public float getVolume() {
 		if(mute) return 0.0f;
 		
-		return m_volume;
+		return volume;
 	}
 	
 	/**
@@ -189,15 +191,15 @@ public class Channel {
 	 * 
 	 * @param volume A float between 0 and 1
 	 */
-	public void SetVolume(float volume) {
-		m_volume = volume;
+	public void setVolume(float volume) {
+		volume = volume;
 	}
 	
 	/**
 	 * Sets mute to true or false
 	 * @param mute
 	 */
-	public void SetMute(boolean mute){
+	public void setMute(boolean mute){
 		this.mute = mute;
 	}
 	
@@ -213,13 +215,13 @@ public class Channel {
 	 * Method for getting the number of steps in the channel
 	 * @return the number of steps in the channel
 	 */
-	public int GetNumberOfSteps() {
-		return m_Steps.size();
+	public int getNumberOfSteps() {
+		return mSteps.size();
 	}
 	
 	public Step getStepAt(int i){
-		if (i >= 0 && i < m_Steps.size()){
-			return m_Steps.get(i);
+		if (i>=0 && i < mSteps.size()){
+			return mSteps.get(i);
 		}else {
 			return null;
 		}
@@ -230,25 +232,25 @@ public class Channel {
 	 * @param rightLevel
 	 * @param leftLevel
 	 */
-	public void SetPanning(float rightLevel, float leftLevel) {
-		m_leftPan = leftLevel;
-		m_rightPan = rightLevel;
+	public void setPanning(float rightLevel, float leftLevel) {
+		leftPan = leftLevel;
+		rightPan = rightLevel;
 	}
 	
 	/**
 	 * Method for getting the Left Panning of the Channel
 	 * @return the Left Panning of the Channel
 	 */
-	public float GetLeftPanning() {
-		return m_leftPan;
+	public float getLeftPanning() {
+		return leftPan;
 	}
 	
 	/**
 	 * Method for getting the Right Panning of the Channel
 	 * @return the Right Panning of the Channel
 	 */
-	public float GetRightPanning() {
-		return m_rightPan;
+	public float getRightPanning() {
+		return rightPan;
 	}
 
 	/**
@@ -257,22 +259,22 @@ public class Channel {
 	 * 
 	 * @param resizeByAmount the number of steps to be added or removed
 	 */
-	public void ResizeBy(int resizeByAmount) {
+	public void resizeBy(int resizeByAmount) {
 		
-		m_numSteps += resizeByAmount;
+		numSteps += resizeByAmount;
 		
-		if(m_numSteps < 0) {
-			m_numSteps -= resizeByAmount;
+		if (numSteps < 0) {
+			numSteps -= resizeByAmount;
 			return;
 		}
 		
-		if(resizeByAmount < 0) {
+		if (resizeByAmount < 0) {
 			for(int i = 0; i < (-resizeByAmount); i++) {
-				m_Steps.remove(m_Steps.size()-1);
+				mSteps.remove(mSteps.size()-1);
 			}
 		} else {
 			for(int i = 0; i < resizeByAmount; i++) {
-				m_Steps.add(new Step());
+				mSteps.add(new Step());
 			}
 		}
 	}
@@ -281,9 +283,8 @@ public class Channel {
 	 * Method for getting an arraylist with all the Channels Steps
 	 * @return an arraylist with all the Channels Steps
 	 */
-	public ArrayList<Step> GetSteps() {
-		return m_Steps;
+	public ArrayList<Step> getSteps() {
+		return mSteps;
 	}
 
-	
 }

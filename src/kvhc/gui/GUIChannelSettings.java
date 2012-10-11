@@ -60,7 +60,7 @@ public class GUIChannelSettings extends Activity {
 		mButton.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
-				mChannel.SetSound(GUIChannelSettings.GetSoundFromString(String.valueOf(mSampleSinner.getSelectedItem())));
+				mChannel.setSound(GUIChannelSettings.GetSoundFromString(String.valueOf(mSampleSinner.getSelectedItem())));
 			}
 		});
 		
@@ -157,7 +157,7 @@ public class GUIChannelSettings extends Activity {
 				boolean fromUser) {
 			// TODO Auto-generated method stub
 			if(fromUser) {
-				mChannel.SetVolume(progress / 100.0f);
+				mChannel.setVolume(progress / 100.0f);
 			}
 		}
 	};
@@ -178,10 +178,10 @@ public class GUIChannelSettings extends Activity {
 				boolean fromUser) {
 			// TODO Auto-generated method stub
 			if(progress >= 100){					
-				mChannel.SetPanning(1.0f, 1.0f - ((progress - 100) * 0.01f));
+				mChannel.setPanning(1.0f, 1.0f - ((progress - 100) * 0.01f));
 			}
 			else if (progress < 100){
-				mChannel.SetPanning(1.0f - (100 - progress) * 0.01f, 1.0f);
+				mChannel.setPanning(1.0f - (100 - progress) * 0.01f, 1.0f);
 			}
 		}
 	};

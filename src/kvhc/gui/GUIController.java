@@ -91,14 +91,14 @@ public class GUIController {
 		ArrayList<Channel> channels = new ArrayList<Channel>(sounds.size());
 		
 		// Har ingen sparad låt än, så vi får göra såhär.
-		for(int i = 0; i < sounds.size(); i++)  {
+		for (int i=0; i < sounds.size(); i++)  {
 			// Adds a new channel
 			channels.add(new Channel(sounds.get(i), 8));
 		}
 		
 		song = new Song(channels);
 		
-		player.LoadSong(song);
+		player.loadSong(song);
 	}
 	
 	
@@ -106,8 +106,7 @@ public class GUIController {
 	 * Init the default channel rows
 	 */
 	private void initChannels() {
-		
-		RedrawChannels();
+		redrawChannels();
 	}
 	
 	
@@ -175,13 +174,12 @@ public class GUIController {
 		
 		// Name label
 
-		ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,song.GetNumberOfChannels()-1,this);
-		//TextView name = new TextView(parentActivity);
-		name.setText(c.GetSound().GetName());
+		ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,song.getNumberOfChannels()-1,this);
+		name.setText(c.getSound().GetName());
 		row.addView(name);
 		
-		for(int x = 0; x < song.GetNumberOfSteps(); x++) {
-			GUIStepButton box = new GUIStepButton(row.getContext(), song.GetNumberOfChannels()-1, x);
+		for(int x = 0; x < song.getNumberOfSteps(); x++) {
+			GUIStepButton box = new GUIStepButton(row.getContext(), song.getNumberOfChannels()-1, x);
 			box.setOnClickListener(stepClickListener);
 			box.setOnLongClickListener(new LongClickStepListener(c.getStepAt(x), parentActivity));
 			row.addView(box);
@@ -220,7 +218,7 @@ public class GUIController {
      */
     private ArrayList<String> sampleArray = null;
     
-    private void CreateSampleList() {
+    private void createSampleList() {
     	if(sampleArray == null) {
     		sampleArray = new ArrayList<String>(16);
     		sampleArray.add("Bassdrum");
@@ -249,28 +247,26 @@ public class GUIController {
      * Now it redraws all the channels and steps, this is not really neccessary
      * THIS IS VERY OPTIMIZABLE
      */
-    private void RedrawChannels() {
+    private void redrawChannels() {
 		
 		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
 		channelContainer.removeAllViewsInLayout();
 		
-		//initShowActiveSteps();
-		
 		int y = 0;
-		for(Channel c: song.GetChannels()) {
+		for(Channel c: song.getChannels()) {
 			
 			TableRow row = new TableRow(channelContainer.getContext());
 			
 			// Name label/ mute button
 			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,y,this);
-			name.setText(c.GetSound().GetName());
+			name.setText(c.getSound().GetName());
 			//name.setOnLongClickListener(channelSettingsListener);
 			row.addView(name);
 			
 			// All the steps
-			for(int x = 0; x < song.GetNumberOfSteps(); x++) {
+			for(int x = 0; x < song.getNumberOfSteps(); x++) {
 				
-				GUIStepButton box = new GUIStepButton(row.getContext(), y, x, c.IsStepActive(x));	// Construction
+				GUIStepButton box = new GUIStepButton(row.getContext(), y, x, c.isStepActive(x));	// Construction
 				box.setOnClickListener(stepClickListener);						// Listener
 				box.setOnLongClickListener(new LongClickStepListener(c.getStepAt(x), parentActivity));
 				row.addView(box);
@@ -290,15 +286,15 @@ public class GUIController {
      * Redraws all Channels
      */
     public void clearAllSteps() {
-    	player.Stop();
+    	player.stop();
 		song.clearAllSteps();
-		RedrawChannels();
+		redrawChannels();
     }
 	
-    public void removeChannel(int channel){
-    	if (song.removeChannel(channel)){
-    		player.LoadSong(song);
-    		RedrawChannels();
+    public void removeChannel(int channel) {
+    	if (song.removeChannel(channel)) {
+    		player.loadSong(song);
+    		redrawChannels();
     	}
     }
     
@@ -306,14 +302,14 @@ public class GUIController {
 	 * Call onStop (might need some special handling here?)
 	 */
 	public void onStop() {
-    	player.Stop();
+    	player.stop();
     }
     
 	/**
 	 * Call onDestroy (might need some special handling here?)
 	 */
     public void onDestroy() {
-    	player.Stop();
+    	player.stop();
     }
     
     
@@ -333,7 +329,7 @@ public class GUIController {
             box.reverse();
             
             // Updates the corresponding channel
-            box.SetActive(song.GetChannel(box.GetChannel()).ToggleStep(box.GetStep()));
+            box.SetActive(song.getChannel(box.GetChannel()).toggleStep(box.GetStep()));
         }
     };
 	
@@ -344,12 +340,12 @@ public class GUIController {
     private OnClickListener btnListener = new OnClickListener()
     {
 		public void onClick(View v) {
-			if(player.IsPlaying()) {
-    			player.Stop();
-    			tv1.setText("Not playing anymore");
+			if (player.isPlaying()) {
+    			player.stop();
+    			tv1.setText("Stopped");
     			
     		} else {
-    			player.Play();
+    			player.play();
     			tv1.setText("Playing");
     		}
 		}
@@ -365,7 +361,7 @@ public class GUIController {
 			Button b = (Button) v;
 			
 			// Spinner for sound sample selection
-			CreateSampleList();
+			createSampleList();
 			final Spinner input2 = new Spinner(parentActivity);
 			ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(parentActivity, android.R.layout.simple_spinner_dropdown_item, sampleArray);
 			input2.setAdapter(spinnerArrayAdapter);
@@ -378,11 +374,11 @@ public class GUIController {
 			    	String name = String.valueOf(input2.getSelectedItem());
 			        Sound s = GUIChannelSettings.GetSoundFromString(name);
 			        
-			        Channel c = new Channel(s, song.GetNumberOfSteps());
-			        song.AddChannel(c);
+			        Channel c = new Channel(s, song.getNumberOfSteps());
+			        song.addChannel(c);
 			        addChannel(c);
 			        
-			        player.LoadSong(song);
+			        player.loadSong(song);
 			        
 			        dialog.dismiss();
 			    }
@@ -415,10 +411,10 @@ public class GUIController {
 		
 		public void onClick(View v) {
 			// Add one step to the song and gui
-			player.Stop();
-			song.AddSteps(1);
-			player.LoadSong(song);
-			RedrawChannels();
+			player.stop();
+			song.addSteps(1);
+			player.loadSong(song);
+			redrawChannels();
 		}
 	};
 	
@@ -428,10 +424,10 @@ public class GUIController {
 	private OnClickListener removeStepListener = new OnClickListener() {
 		
 		public void onClick(View v) {
-			player.Stop();
-			song.RemoveSteps(1);
-			player.LoadSong(song);
-			RedrawChannels();
+			player.stop();
+			song.removeSteps(1);
+			player.loadSong(song);
+			redrawChannels();
 		}
 	};
 

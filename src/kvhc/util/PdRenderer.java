@@ -31,8 +31,8 @@ public class PdRenderer implements ISongRenderer {
 	
 	public void RenderSongAtStep(Song song, int step) {
 		
-		for(Channel c: song.GetChannels()) {
-			if(c.IsStepActive(step)) {
+		for(Channel c: song.getChannels()) {
+			if(c.isStepActive(step)) {
 				// Något sånt här
 				//String soundName = c.GetSound().GetName();
 				/*PdBase.SendFloat(soundName + "-volume", c.GetVolume());

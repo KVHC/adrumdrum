@@ -31,7 +31,7 @@ public class Step {
 	 * Enables or disables the step
 	 * @param Active True to enable the step, false to disable
 	 */
-	public void SetActive(boolean Active) {
+	public void setActive(boolean Active) {
 		mIsActive = Active;
 	}
 	
@@ -39,7 +39,7 @@ public class Step {
 	 * Tells whether or not the step is enabled (audible)
 	 * @return true if the step is enabled, false if disabled
 	 */
-	public boolean IsActive(){
+	public boolean isActive(){
 		return mIsActive;
 	}
 	
@@ -47,7 +47,7 @@ public class Step {
 	 * Sets the velocity ("volume") of the step. 0.0 is inaudible, 1.0 is normal volume
 	 * @param velocity a float greater than or equal to 0.0.
 	 */
-	public void SetVelolcity(float velocity) {
+	public void setVelolcity(float velocity) {
 		mVelocity = velocity;
 	}
 	
@@ -55,7 +55,7 @@ public class Step {
 	 * Return the velocity ("volume") of the step. 0.0 is inaudible, 1.0 is normal volume
 	 * @return the velocity of the step.
 	 */
-	public float GetVelocity() {
+	public float getVelocity() {
 		return mVelocity;
 	}
 }
