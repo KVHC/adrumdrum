@@ -1,6 +1,7 @@
-package kvhc.player;
+package kvhc.gui;
 
 import kvhc.adrumdrum.R;
+import kvhc.player.Channel;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -73,7 +74,7 @@ public class ChannelDialog extends Dialog{
 		
 		
 		SeekBar volumeBar = (SeekBar)this.findViewById(R.id.seekbarChannelVolume);
-		volumeBar.setProgress((int)(channel.getChannelVolume() * 200));
+		volumeBar.setProgress((int)(channel.getChannelVolume() * 100));
 		volumeBar.setOnSeekBarChangeListener(volumeListener);
 		
 	}
@@ -119,7 +120,7 @@ public class ChannelDialog extends Dialog{
 
 		public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 			
-			float volume =  progress * 0.005F;
+			float volume =  progress * 0.01F;
 				
 			channel.SetVolume(volume);
 		}

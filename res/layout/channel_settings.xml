@@ -6,7 +6,7 @@
     
     <TableRow>
        	<TextView android:text="@string/panning"></TextView>
-       	<SeekBar android:id="@+id/seekbarChannelPanning" android:max="200" android:progress="50" />
+       	<SeekBar android:id="@+id/seekbarChannelPanning" android:max="200" />
     </TableRow>
        
     <TableRow>

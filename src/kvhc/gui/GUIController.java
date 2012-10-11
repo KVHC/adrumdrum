@@ -183,7 +183,7 @@ public class GUIController {
 		for(int x = 0; x < song.GetNumberOfSteps(); x++) {
 			GUIStepButton box = new GUIStepButton(row.getContext(), song.GetNumberOfChannels()-1, x);
 			box.setOnClickListener(stepClickListener);
-			box.setOnLongClickListener(stepButtonLong);
+			box.setOnLongClickListener(new LongClickStepListener(c.getStepAt(x), parentActivity));
 			row.addView(box);
 		}
 		channelContainer.addView(row);
@@ -272,7 +272,7 @@ public class GUIController {
 				
 				GUIStepButton box = new GUIStepButton(row.getContext(), y, x, c.IsStepActive(x));	// Construction
 				box.setOnClickListener(stepClickListener);						// Listener
-				box.setOnLongClickListener(stepButtonLong);
+				box.setOnLongClickListener(new LongClickStepListener(c.getStepAt(x), parentActivity));
 				row.addView(box);
 				
 			}
@@ -335,10 +335,11 @@ public class GUIController {
      * LooooooooooongClick Listener to the step buttons,
      * gives you a progress bar to set the velocity of the step.
      */
+    /*
     private OnLongClickListener stepButtonLong = new OnLongClickListener() {
 		
 		public boolean onLongClick(View v) {
-			
+		
 			final GUIStepButton step = (GUIStepButton) v; // We can do this?
 			final Step s = song.GetChannel(step.GetChannel()).GetSteps().get(step.GetStep());
 			
@@ -363,6 +364,7 @@ public class GUIController {
 			return s.IsActive();
 		}
 	};
+     */
     
 	/**
 	 * Listener to the Play/Stop-button

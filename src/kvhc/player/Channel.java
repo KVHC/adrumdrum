@@ -216,6 +216,14 @@ public class Channel {
 	public int GetNumberOfSteps() {
 		return m_Steps.size();
 	}
+	
+	public Step getStepAt(int i){
+		if (i >= 0 && i < m_Steps.size()){
+			return m_Steps.get(i);
+		}else {
+			return null;
+		}
+	}
 
 	/**
 	 * Sets the panning of the right and left speaker

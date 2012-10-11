@@ -2,7 +2,6 @@ package kvhc.gui;
 
 import kvhc.adrumdrum.R;
 import kvhc.player.Channel;
-import kvhc.player.ChannelDialog;
 import kvhc.util.AndroidTimer;
 import android.app.Activity;
 import android.content.Context;
