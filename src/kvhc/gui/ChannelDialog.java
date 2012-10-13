@@ -22,18 +22,18 @@ public class ChannelDialog extends Dialog{
 	private Channel channel;
 	private TextView tv1;
 	private int id;
-	private GUIController controller;
+	private GUIController guic;
 	
 	/**
 	 * The Constructor
 	 * @param parrentActivity The activity that started this dialog
 	 * @param channel The channel to change the settings for
 	 */
-	public ChannelDialog(Activity parrentActivity, Channel channel,	int id, GUIController controller) {
+	public ChannelDialog(Activity parrentActivity, Channel channel,	int id, GUIController guic) {
 		super(parrentActivity);
 		tv1 = (TextView)parrentActivity.findViewById(R.id.textView1); //DEBUG
 		this.id = id;
-		this.controller = controller;
+		this.guic = guic;
 		this.channel = channel;
 	}
 	
@@ -55,6 +55,9 @@ public class ChannelDialog extends Dialog{
 		Button back = (Button)this.findViewById(R.id.buttonBack);
 		back.setOnClickListener(backClick);
 
+		Button clearSteps = (Button)this.findViewById(R.id.clear_steps_button);
+		clearSteps.setOnClickListener(clearStepsClick);
+		
 		Button remove = (Button)this.findViewById(R.id.buttonRemove);
 		remove.setOnClickListener(removeClick);
 	}
@@ -76,18 +79,14 @@ public class ChannelDialog extends Dialog{
 			panningBar.setProgress(100);
 		}
 		
-		panningBar.setOnSeekBarChangeListener(panningListener);
-		
+		panningBar.setOnSeekBarChangeListener(panningListener);		
 		
 		SeekBar volumeBar = (SeekBar)this.findViewById(R.id.seekbarChannelVolume);
 		volumeBar.setProgress((int)(channel.getChannelVolume() * 100));
 		volumeBar.setOnSeekBarChangeListener(volumeListener);
 		
 	}
-	
 
-	
-	
 	
 	/**
 	 * A listener that changes the panning on the channel
@@ -149,11 +148,22 @@ public class ChannelDialog extends Dialog{
 	};
 	
 	/**
-	 * A on click listener that close this dialog
+	 * Listener to the clearSteps button
+	 */
+	private View.OnClickListener clearStepsClick = new View.OnClickListener(){
+		public void onClick(View v) {
+			channel.clearAllSteps();
+			guic.redrawChannels();
+			dismiss();
+		}
+	};
+	
+	/**
+	 * Listener to the removeChannel button
 	 */
 	private View.OnClickListener removeClick = new View.OnClickListener(){
 		public void onClick(View v) {
-			controller.removeChannel(id);
+			guic.removeChannel(id);
 			dismiss();
 		}
 	};
