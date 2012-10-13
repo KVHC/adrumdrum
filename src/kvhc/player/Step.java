@@ -8,7 +8,8 @@ package kvhc.player;
 public class Step {
 	
 	private boolean mIsActive;
-	private float mVelocity; // For future use, 
+	private float mVelocity; // Velocity of the step 
+	private int mNumber; // The step number
 	
 	/**
 	 * Constructor, sets isActive to false by default
@@ -57,5 +58,21 @@ public class Step {
 	 */
 	public float getVelocity() {
 		return mVelocity;
+	}
+	
+	/**
+	 * Get the step number (for saving and loading)
+	 * @return the number of the step in the song. 
+	 */
+	public int getStepNumber() {
+		return mNumber;
+	}
+	
+	/**
+	 * Set the step number (for saving and loading)
+	 * @param step position number
+	 */
+	public void setStepNumber(int stepNumber) {
+		mNumber = stepNumber;
 	}
 }

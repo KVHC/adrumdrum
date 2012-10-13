@@ -1,5 +1,7 @@
 package kvhc.gui;
 
+import java.util.ArrayList;
+
 import kvhc.adrumdrum.R;
 import kvhc.player.Song;
 import kvhc.util.ISongLoader;
@@ -12,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,24 +27,35 @@ import android.widget.Toast;
  */
 public class LoadSongDialog extends Dialog {
 
+	// Song stuff 
+	private ISongLoader mSongLoader = null;
+	private Song mSong = null;
+	private ArrayList<Song> mSongList = null;
 	
-	private ISongLoader mSongLoader;
-	private Song mSong;
 	
-	private View.OnClickListener btnLoadListener = new View.OnClickListener() {
-		
-		public void onClick(View v) {
-			mSong = mSongLoader.loadSong("");
-			
-			dismiss();
-		}
-	}; 
+	// ListView and its content data (more or less) 
+	private ListView mList = null; 
+	private String[] songNames = null;
 	
 	public LoadSongDialog(Context context) {
 		super(context);
 		
 		mSongLoader = new SQLSongLoader(context);
 	}
+	
+	/**
+	 * Creates a list of the song names
+	 * @return an array of song names list
+	 */
+	private ArrayList<Song> getSongs() {
+		
+		if(mSongList == null) {
+			mSongList = mSongLoader.getSongList(null);
+		}
+		
+		return mSongList;
+	}
+	
 	
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,38 +65,36 @@ public class LoadSongDialog extends Dialog {
 		setTitle("Load Song");
 		
 		// Set up the list
-		ListView songList = (ListView)findViewById(R.id.savedSongsList);
+		mList = (ListView)findViewById(R.id.savedSongsList);
 		
-		String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-				  "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-				  "Linux", "OS/2" };
+		songNames = new String[getSongs().size()];
+		int i = 0;
+		for(Song song : getSongs()) {
+			songNames[i++] = song.getName();
+		}
 		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-				  R.layout.song_list_item, R.id.savedSongsList, values);
+				  R.layout.song_list_item, R.id.savedSongsList, songNames);
 
-		songList.setAdapter(adapter);
+		mList.setAdapter(adapter);
 		
-		songList.setOnItemClickListener(new OnItemClickListener() {
+		mList.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
-				Toast.makeText(getContext(),
-					      "Click ListItem Number " + position, Toast.LENGTH_LONG)
-					      .show();
 				
+				String name = songNames[position];
+				
+				String[] args = new String[] { name };
+				
+				mSong = mSongLoader.loadSong(args);
+				
+				dismiss();
 			}
 		});
-		
-		// Set up load button
-		Button b = (Button)findViewById(R.id.btnLoadSong);
-		b.setOnClickListener(btnLoadListener);
 	}
 	
 	public Song getSong() {
 		return mSong;
 	}
-	
-	
-	
-
 }
