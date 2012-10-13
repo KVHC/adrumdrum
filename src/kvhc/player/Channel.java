@@ -295,26 +295,25 @@ public class Channel {
      * @param stepid the center step of the spike
      */
     public void multiStepVelocitySpike(int stepid) {
-
+    	
         mSteps.get(stepid).setVelolcity(1.0f);
         mSteps.get(stepid).setActive(true);
-        if (stepid-1 >= 0) {
+        if (stepid-1 >= 0 && stepid-1 < numSteps) {
             mSteps.get(stepid-1).setActive(true);
             mSteps.get(stepid-1).setVelolcity(0.7f);
+            if (stepid-2 >= 0 && stepid-2 < numSteps) {
+                mSteps.get(stepid-2).setActive(true);
+                mSteps.get(stepid-2).setVelolcity(0.3f);
+            }
         }
-        if (stepid+1 >= 0) {
+        if (stepid+1 >= 0 && stepid+1 < numSteps) {
             mSteps.get(stepid+1).setActive(true);
             mSteps.get(stepid+1).setVelolcity(0.7f);
+            if (stepid+2 >= 0 && stepid+2 < numSteps) {
+                mSteps.get(stepid+2).setActive(true);
+                mSteps.get(stepid+2).setVelolcity(0.3f);
+            }
         }
-        if (stepid-2 >= 0) {
-            mSteps.get(stepid-2).setActive(true);
-            mSteps.get(stepid-2).setVelolcity(0.3f);
-        }
-        if (stepid+2 >= 0) {
-            mSteps.get(stepid+2).setActive(true);
-            mSteps.get(stepid+2).setVelolcity(0.3f);
-        }
-
     }
 
 
