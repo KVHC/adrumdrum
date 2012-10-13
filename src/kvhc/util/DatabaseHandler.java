@@ -38,34 +38,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     
  // Database Name
-    private static final String DATABASE_NAME = "contactsManager";
+    public static final String DATABASE_NAME = "ADrumDrumDatabase";
  
     // Song table name
-    private static final String TABLE_SONG = "songs";
-    
-    // Song Table Columns names
-    private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "name";
+    public static final String TABLE_SONG = "songs";
+    public static final String KEY_ID = "id";
+    public static final String KEY_NAME = "name";
     
     
     // Channel table name
-    private static final String TABLE_CHANNEL = "channels";
-    private static final String FKEY_SONGID = "song_id";
-    private static final String FKEY_SOUNDID = "sound_id";
-    private static final String KEY_VOLUME = "volume";
-    private static final String KEY_LEFTPAN = "left_panning";
-    private static final String KEY_RIGHTPAN = "right_panning";
+    public static final String TABLE_CHANNEL = "channels";
+    public static final String FKEY_SONGID = "song_id";
+    public static final String FKEY_SOUNDID = "sound_id";
+    public static final String KEY_VOLUME = "volume";
+    public static final String KEY_LEFTPAN = "left_panning";
+    public static final String KEY_RIGHTPAN = "right_panning";
     
     
     // Sound table name
-    private static final String TABLE_SOUND = "sounds";
-    private static final String KEY_SOUNDVALUE = "sound_value";
+    public static final String TABLE_SOUND = "sounds";
+    public static final String KEY_SOUNDVALUE = "sound_value";
+    
     
     // Step table name
-    private static final String TABLE_STEP = "steps";
-    private static final String KEY_VELOCITY = "velocity";
-    private static final String FKEY_CHANNELID = "channel_id";
-    private static final String KEY_ACTIVE = "is_active";
+    public static final String TABLE_STEP = "steps";
+    public static final String FKEY_CHANNELID = "channel_id";
+    public static final String KEY_VELOCITY = "velocity";
+    public static final String KEY_ACTIVE = "is_active";
+
+	public static final String KEY_NUMBER = "number";
     
     
     public DatabaseHandler(Context context) {
@@ -88,15 +89,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     	/**
     	 * Channel
     	 *   
-    	 *   int id, // NOT PRIMARY
-    	 *   float volume,
-    	 *   float leftPan,
-    	 *   float rightPan,
+    	 *   int id
+    	 *   int number (channel number in song)
+    	 *   float volume
+    	 *   float leftPan
+    	 *   float rightPan
     	 *   fkey int soundId
     	 *   fkey int songId
     	 */
         String CREATE_CHANNEL_TABLE = "CREATE TABLE " + TABLE_CHANNEL + "("
-                + KEY_ID + " INTEGER,"
+                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_NUMBER + " INTEGER,"
                 + KEY_VOLUME + " DOUBLE,"
                 + KEY_LEFTPAN + " DOUBLE,"
                 + KEY_RIGHTPAN + " DOUBLE,"
@@ -107,10 +110,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         /**
          * Sound
          *   
-         *   int id, // NOT PRIMARY
+         *   pk int id
          *   int soundValue (or string?)
          *   string name
-         *   fkey int songId
          * 
          */
         String CREATE_SOUND_TABLE = "CREATE TABLE " + TABLE_SOUND + "("
@@ -121,16 +123,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         
         /**
          * Step
-         * 	int id; // NOT PRIMARY!
+         * 	int id; 
          *  float velocity;
          *  int active - 0 false, else true
-         *  int fkey songId
+         *  int number
          *  int fkey channelId
          */
         String CREATE_STEP_TABLE =  "CREATE TABLE " + TABLE_STEP + "("
-                + KEY_ID + " INTEGER,"
-                + KEY_ACTIVE + " INTEGER," 
-                + FKEY_SONGID + " INTEGER,"
+                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_VELOCITY + " DOUBLE," 
+                + KEY_ACTIVE + " INTEGER,"
+                + KEY_NUMBER + " INTEGER"
                 + FKEY_CHANNELID + " INTEGER)";
         
         
@@ -300,7 +303,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @return Null if no song exists by that name, otherwise the song
      */
 	public Song getSongByName(String name) {
-		// TODO Auto-generated method stub
+		// TODO Comment to know what's going on
 		SQLiteDatabase db = this.getReadableDatabase();
    	 
         Cursor songCursor = db.query(TABLE_SONG, new String[] { KEY_ID,
@@ -314,6 +317,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         int songId = songCursor.getInt(0);
 		
 		return getSongById(songId);
+	}
+	
+	/**
+	 * Returns the rows from a table with the args... args. 
+	 * @param tableName 
+	 * @param args
+	 */
+
+	public Cursor getCursorForTable(String tableName, String[] columns, String where, String[] values) {
+		// Get a database to load from 
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		// Gets cursor for arguments 
+		Cursor tableCursor = db.query(tableName, columns, where, values, null,null,null,null);
+		
+		// Return it 
+		return tableCursor;
 	}
 
 }

@@ -9,8 +9,4 @@
         android:id="@+id/savedSongsList"
         ></ListView>
     
-    <Button 
-        android:id="@+id/btnLoadSong"
-        />
-
 </LinearLayout>

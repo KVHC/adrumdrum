@@ -30,7 +30,8 @@ public class Step {
 	private boolean mIsActive;
 	private float mVelocity;
 	private int stepid;
-	private Channel channel;
+	private Channel channel; 
+	private int mNumber; // The step number
 	
 	/**
 	 * Constructor, sets isActive to false by default.
@@ -121,4 +122,19 @@ public class Step {
 		mVelocity = 0.7f;
     }
 
+	/**
+	 * Get the step number (for saving and loading)
+	 * @return the number of the step in the song. 
+	 */
+	public int getStepNumber() {
+		return mNumber;
+	}
+	
+	/**
+	 * Set the step number (for saving and loading)
+	 * @param step position number
+	 */
+	public void setStepNumber(int stepNumber) {
+		mNumber = stepNumber;
+	}
 }
