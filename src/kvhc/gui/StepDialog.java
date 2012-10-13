@@ -95,6 +95,8 @@ public class StepDialog extends Dialog {
     private View.OnClickListener spikeClick = new View.OnClickListener(){
         public void onClick(View v) {
             step.multiStepVelocitySpike();
+            SeekBar velocityBar = (SeekBar)findViewById(R.id.seekbarVelocity);
+            velocityBar.setProgress(100);
             guic.redrawChannels();
         }
     };
