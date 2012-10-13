@@ -57,6 +57,9 @@ public class Channel {
 		}
 		
 		volume = 1.0f;
+		leftPan = 1.0f;
+		rightPan = 1.0f;
+		
 		mute = false;
 	}
 	
@@ -147,7 +150,7 @@ public class Channel {
 			return 0.0f;
 		}
 		
-		return (volume * mSteps.get(step).getVelocity());
+		return (volume * leftPan * mSteps.get(step).getVelocity());
 	}
 	
 	/**
@@ -173,7 +176,7 @@ public class Channel {
 			return 0.0f; 
 		}
 		
-		return (volume * mSteps.get(step).getVelocity());  
+		return (volume * rightPan * mSteps.get(step).getVelocity());  
 	}
 	
 	/**
@@ -194,7 +197,7 @@ public class Channel {
 	 * @param volume A float between 0 and 1
 	 */
 	public void setVolume(float volume) {
-		volume = volume;
+		this.volume = volume;
 	}
 	
 	/**
