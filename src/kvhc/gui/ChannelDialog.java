@@ -17,7 +17,7 @@ import android.widget.TextView;
 /**
  * A dialog about channel settings
  */
-public class ChannelDialog extends Dialog{
+public class ChannelDialog extends Dialog {
 
 	private Channel channel;
 	private TextView tv1;

@@ -2,6 +2,7 @@ package kvhc.player;
 
 import java.util.ArrayList;
 
+import android.text.Editable;
 import android.util.Log;
 
 
@@ -147,17 +148,9 @@ public class Song {
 		
 		return sounds;
 	}
-	
+		
 	/**
-	 * Gives the song a name
-	 * @param name
-	 */
-	public void setName(String name) {
-		mName = name;
-	}
-	
-	/**
-	 * Removes a channal on the given number
+	 * Removes a channel on the given number
 	 * @param channel The number of the channel to remove
 	 */
 	public boolean removeChannel(int channel) {
@@ -167,6 +160,14 @@ public class Song {
 			mChannels.remove(channel);
 		}
 		return true;
+	}
+	
+	/**
+	 * Gives the song a name
+	 * @param name
+	 */
+	public void setName(String name) {
+		mName = name;
 	}
 		
 	/**
