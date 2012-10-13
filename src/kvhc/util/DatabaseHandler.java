@@ -201,7 +201,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @param id
      * @return
      */
-    public Song getSongById(int id) {
+    private Song getSongById(int id) {
     	//Song song = new Song();
     	
     	SQLiteDatabase db = this.getReadableDatabase();
@@ -272,5 +272,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return song;
     	
     }
+
+    /**
+     * Checks the database for a Song with the name of the parameter name,
+     * if it exists it is loaded and returned!
+     * @param name Name of the song in the db
+     * @return Null if no song exists by that name, otherwise the song
+     */
+	public Song getSongByName(String name) {
+		// TODO Auto-generated method stub
+		SQLiteDatabase db = this.getReadableDatabase();
+   	 
+        Cursor songCursor = db.query(TABLE_SONG, new String[] { KEY_ID,
+                KEY_NAME }, KEY_NAME + "=?",
+                new String[] { name }, null, null, null, null);
+        if (songCursor == null)
+        	return null;
+        
+        songCursor.moveToFirst();
+        
+        int songId = songCursor.getInt(0);
+		
+		return getSongById(songId);
+	}
 
 }
