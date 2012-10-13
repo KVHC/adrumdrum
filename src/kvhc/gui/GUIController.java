@@ -174,7 +174,7 @@ public class GUIController {
 		// Name label
 
 		ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,song.getNumberOfChannels()-1,this);
-		name.setText(c.getSound().GetName());
+		name.setText(c.getSound().getName());
 		row.addView(name);
 		
 		for(int x = 0; x < song.getNumberOfSteps(); x++) {
@@ -241,7 +241,7 @@ public class GUIController {
 			
 			// Name label/ mute button
 			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,y,this);
-			name.setText(c.getSound().GetName());
+			name.setText(c.getSound().getName());
 			//name.setOnLongClickListener(channelSettingsListener);
 			row.addView(name);
 			

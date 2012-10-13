@@ -152,12 +152,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         int channelId = 0;
         for(Channel c : song.getChannels()) {
         	
-        	int soundId = c.getSound().GetId();
+        	int soundId = c.getSound().getId();
         	// Add channel sound
         	values.put(KEY_ID, soundId);
-        	values.put(KEY_NAME, c.getSound().GetName());
+        	values.put(KEY_NAME, c.getSound().getName());
         	values.put(FKEY_SONGID, songId);
-        	values.put(KEY_SOUNDVALUE, c.getSound().GetSoundValue());
+        	values.put(KEY_SOUNDVALUE, c.getSound().getSoundValue());
         	
         	db.insert(TABLE_SOUND, null, values);
         	values.clear();
