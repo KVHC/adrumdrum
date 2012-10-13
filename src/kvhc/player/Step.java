@@ -8,23 +8,33 @@ package kvhc.player;
 public class Step {
 	
 	private boolean mIsActive;
-	private float mVelocity; // For future use, 
+	private float mVelocity; // For future use,
+	private int stepid;
+	private Channel channel;
 	
 	/**
 	 * Constructor, sets isActive to false by default
+	 * @param channel the channel of the step
+	 * @param stepid the id/column of the step
 	 */
-	public Step() 
+	public Step(Channel channel, int stepid) 
 	{
 		mIsActive = false;
 		mVelocity = 0.7f;
+		this.channel = channel;
+		this.stepid = stepid;
 	}
 	
 	/**
 	 * Constructor
 	 * @param SetActive True to enable the step, false otherwise
+	 * @param Channel the channel of the step
+	 * @param stepid the id/column of the step
 	 */
-	public Step(boolean SetActive) {
+	public Step(boolean SetActive, Channel channel, int stepid) {
 		mIsActive = SetActive;
+		this.channel = channel;
+		this.stepid = stepid;
 	}
 	
 	/**
@@ -33,6 +43,7 @@ public class Step {
 	 */
 	public void setActive(boolean Active) {
 		mIsActive = Active;
+
 	}
 	
 	/**
@@ -58,4 +69,21 @@ public class Step {
 	public float getVelocity() {
 		return mVelocity;
 	}
+	
+    /**
+     * Returns the channel the step is on.
+     * @return the parent channel.
+     */
+    public Channel getChannel() {
+        return channel;
+    }
+	
+    /**
+     * Sets the steps velocity to 100%, the two neighbours to 70% and
+     * the neighbours neighbours to 30%. Activates the mentioned steps.
+     */
+    public void multiStepVelocitySpike() {
+        channel.multiStepVelocitySpike(stepid);
+    }
+
 }

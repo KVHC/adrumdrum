@@ -12,21 +12,23 @@ import kvhc.player.Step;
 
 public class StepDialog extends Dialog {
 
-
 	private Step step;
 	private Button back;
+	private Button spike;
+	private GUIController guic;
 	
 	/**
 	 * The constructor
 	 * @param parrentActivity The parent Activity of this dialog
 	 * @param step The step to display settings for
+	 * @param guic The GUIController
 	 */
-	public StepDialog(Activity parrentActivity, Step step) {
+	public StepDialog(Activity parrentActivity, Step step, GUIController guic) {
 		super(parrentActivity);
 		this.step = step;
+		this.guic = guic;
 		
 	}
-
 
 	/**
 	 * What to do then a new StepDialog are created
@@ -45,6 +47,9 @@ public class StepDialog extends Dialog {
 	private void initButtons(){
 		back = (Button)this.findViewById(R.id.buttonBack);
 		back.setOnClickListener(backClick);
+		
+		spike = (Button)this.findViewById(R.id.buttonSpike);
+	    spike.setOnClickListener(spikeClick);
 	}
 	
 	/**
@@ -83,6 +88,16 @@ public class StepDialog extends Dialog {
 			dismiss();
 		}
 	};	
+	
+    /**
+     * A on click listener that SPIKES the step
+     */
+    private View.OnClickListener spikeClick = new View.OnClickListener(){
+        public void onClick(View v) {
+            step.multiStepVelocitySpike();
+            guic.redrawChannels();
+        }
+    };
 	
 	
 }

@@ -9,15 +9,17 @@ public class LongClickStepListener implements OnLongClickListener{
 
 	Step step;
 	Activity parentActivity;
+	GUIController guic;
 	
-	public LongClickStepListener(Step step, Activity parentActivity){
+	public LongClickStepListener(Step step, Activity parentActivity, GUIController guic){
 		this.step = step;
 		this.parentActivity = parentActivity;
+		this.guic = guic;
 	}
 	
 	
 	public boolean onLongClick(View v) {
-		StepDialog vd = new StepDialog(parentActivity, step);
+		StepDialog vd = new StepDialog(parentActivity, step, guic);
 		vd.show();
 		
 		return true;

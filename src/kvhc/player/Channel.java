@@ -50,8 +50,10 @@ public class Channel {
 		numSteps = steps;
 		mSteps = new ArrayList<Step>(numSteps);
 		
+		int stepIdToAdd = 0;
+		
 		for (int i = 0; i < numSteps; i++) {
-			mSteps.add(new Step());
+			mSteps.add(new Step(this, stepIdToAdd++));
 		}
 		
 		volume = 1.0f;
@@ -274,7 +276,7 @@ public class Channel {
 			}
 		} else {
 			for(int i = 0; i < resizeByAmount; i++) {
-				mSteps.add(new Step());
+				mSteps.add(new Step(this, mSteps.size()));
 			}
 		}
 	}
@@ -286,5 +288,34 @@ public class Channel {
 	public ArrayList<Step> getSteps() {
 		return mSteps;
 	}
+	
+    /**
+     * Sets the step with given stepids velocity to 100%, the two neighbours to 70% and
+     * the neighbours neighbours to 30%. Activates the mentioned steps.
+     * @param stepid the center step of the spike
+     */
+    public void multiStepVelocitySpike(int stepid) {
+
+        mSteps.get(stepid).setVelolcity(1.0f);
+        mSteps.get(stepid).setActive(true);
+        if (stepid-1 >= 0) {
+            mSteps.get(stepid-1).setActive(true);
+            mSteps.get(stepid-1).setVelolcity(0.7f);
+        }
+        if (stepid+1 >= 0) {
+            mSteps.get(stepid+1).setActive(true);
+            mSteps.get(stepid+1).setVelolcity(0.7f);
+        }
+        if (stepid-2 >= 0) {
+            mSteps.get(stepid-2).setActive(true);
+            mSteps.get(stepid-2).setVelolcity(0.3f);
+        }
+        if (stepid+2 >= 0) {
+            mSteps.get(stepid+2).setActive(true);
+            mSteps.get(stepid+2).setVelolcity(0.3f);
+        }
+
+    }
+
 
 }

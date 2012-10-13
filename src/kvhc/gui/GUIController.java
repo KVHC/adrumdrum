@@ -52,7 +52,6 @@ public class GUIController {
 	
 	/**
 	 * Constructor
-	 * @param player the sound controller
 	 * @param ma the main activity
 	 */
 	public GUIController(Activity activity) {
@@ -181,35 +180,18 @@ public class GUIController {
 		for(int x = 0; x < song.getNumberOfSteps(); x++) {
 			GUIStepButton box = new GUIStepButton(row.getContext(), song.getNumberOfChannels()-1, x);
 			box.setOnClickListener(stepClickListener);
-			box.setOnLongClickListener(new LongClickStepListener(c.getStepAt(x), parentActivity));
+			box.setOnLongClickListener(new LongClickStepListener(c.getStepAt(x), parentActivity, this));
 			row.addView(box);
 		}
 		channelContainer.addView(row);
 	}
 	
-	/**
-	 * Removes the last channel
-	 * @throws Exception 
-	 */
-	private void removeLastChannel() throws Exception {
-		/*
-		int channelIndex = song.GetNumberOfChannels()-1;
-		Log.e("index of channel to be deleted", ""+channelIndex);
-		if (channelIndex < 0) {
-			return;
-		}
-		player.Stop();
-		song.GetChannel(channelIndex).clearAllSteps(); //This shouldn't be necessary
-		song.RemoveChannel(channelIndex);
-		player.LoadSong(song);
-		
-		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
-		channelContainer.removeViewAt(channelContainer.getChildCount()-1);
-		int numofchilds = channelContainer.getChildCount();
-		Log.e("number of children is now:", ""+numofchilds);
-		*/
-		
-	}
+    public void removeChannel(int channel) {
+    	if (song.removeChannel(channel)) {
+    		player.loadSong(song);
+    		redrawChannels();
+    	}
+    }
 	
     
     /**
@@ -247,7 +229,7 @@ public class GUIController {
      * Now it redraws all the channels and steps, this is not really neccessary
      * THIS IS VERY OPTIMIZABLE
      */
-    private void redrawChannels() {
+    public void redrawChannels() {
 		
 		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
 		channelContainer.removeAllViewsInLayout();
@@ -268,7 +250,7 @@ public class GUIController {
 				
 				GUIStepButton box = new GUIStepButton(row.getContext(), y, x, c.isStepActive(x));	// Construction
 				box.setOnClickListener(stepClickListener);						// Listener
-				box.setOnLongClickListener(new LongClickStepListener(c.getStepAt(x), parentActivity));
+				box.setOnLongClickListener(new LongClickStepListener(c.getStepAt(x), parentActivity, this));
 				row.addView(box);
 				
 			}
@@ -289,13 +271,6 @@ public class GUIController {
     	player.stop();
 		song.clearAllSteps();
 		redrawChannels();
-    }
-	
-    public void removeChannel(int channel) {
-    	if (song.removeChannel(channel)) {
-    		player.loadSong(song);
-    		redrawChannels();
-    	}
     }
     
 	/**
@@ -387,20 +362,6 @@ public class GUIController {
 			builder.create();
 			builder.show();
 			
-		}
-	};
-	
-	/**
-	 * Listener to the remove-channel-button
-	 */
-	private OnClickListener removeChannelListener = new OnClickListener() {
-		
-		public void onClick(View v) {
-			try {
-				removeLastChannel();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 	};
     
