@@ -17,17 +17,25 @@ public class SQLSongLoader implements ISongLoader {
 	}
 	
 	/**
-	 * Loads a song from SQL, Object source should be a String (name) 
+	 * Loads a song from SQL, Object source should be a String which should be the 
+	 * name of the song 
 	 */
 	public Song loadSong(Object source) {
 		// TODO Auto-generated method stub
 		
 		if(source.getClass() != String.class) {
-			// source is not a string, dunno how to use it. 
+			// if source is not a string,
+			// we cant use it
 			return null;
 		}
 		
-		return null;
+		String name = (String)source;
+		
+		Song loadedSong = mDB.getSongByName(name);
+		
+		// After processing?
+		
+		return loadedSong;
 	}
 
 }
