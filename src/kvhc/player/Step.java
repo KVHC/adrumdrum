@@ -85,5 +85,10 @@ public class Step {
     public void multiStepVelocitySpike() {
         channel.multiStepVelocitySpike(stepid);
     }
+    
+    public void reset() {
+    	mIsActive = false;
+		mVelocity = 0.7f;
+    }
 
 }

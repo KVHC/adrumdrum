@@ -77,7 +77,7 @@ public class Channel {
 	 */
 	public void clearAllSteps() {
 		for (Step step : mSteps) {
-			step.setActive(false);
+			step.reset();
 		}
 	}
 	
