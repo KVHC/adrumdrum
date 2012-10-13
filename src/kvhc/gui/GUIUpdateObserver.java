@@ -25,6 +25,8 @@ public class GUIUpdateObserver implements Observer {
 	 * This method should be called every time the player go to the next step
 	 * It marks the current step with a red line in the GUI
 	 * A -1 as parameter marks a stop in the player
+	 * 
+	 * TODO(update): This method have to be optimized
 	 */
 	public void update(Observable observable, Object data) {
 		int step = Integer.parseInt(data.toString());
@@ -38,6 +40,9 @@ public class GUIUpdateObserver implements Observer {
 				TableRow row = (TableRow) channelContainer.getChildAt(i);
 				// Den magiska 2:an är kommer från att det finns en knapp och något annat 
 				// förutom steps i raden
+				if(row.getChildCount() <= 2) {
+					break;
+				}
 				int totalSteps = row.getChildCount() - 2; 
 				int previousStep = (step - 1);
 				if (previousStep < 0)
@@ -51,6 +56,9 @@ public class GUIUpdateObserver implements Observer {
 			if (current > 0){
 				for(int i = 0; i < channelContainer.getChildCount(); i++){
 					TableRow row = (TableRow) channelContainer.getChildAt(i);
+					if(row.getChildCount() <= 2) {
+						break;
+					}
 					((GUIStepButton)row.getChildAt(current)).setPlaying(false);
 				}
 			}
