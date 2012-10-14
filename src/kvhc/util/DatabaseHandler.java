@@ -158,6 +158,53 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     
     /**
+     * Updates a row in a specified table, depenind on the where claus and where args
+     * @param tableName
+     * @param updatedValues
+     * @param whereClause
+     * @param whereArgs
+     * @return
+     */
+    public boolean updateRowInTable(String tableName, ContentValues updatedValues, String whereClause, String[] whereArgs) {
+    	
+    	// Gets a database 
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	
+    	// Update the table
+    	int rowsAffected = db.update(tableName, updatedValues, whereClause, whereArgs);
+    	
+    	if(rowsAffected != 1) {
+    		// We mostly want to update a row at a time when we update so 
+    		// if it's not one returned then something 
+    		// might be wrong
+    		
+    		// TODO test this, it might be stupid and lead to bugs
+    		
+    		// we do nothing about it
+    		
+    		// return the function as unsuccessful 
+    		return false;
+    	}
+    	
+    	// returns great success
+    	return true;
+    }
+    
+    /**
+     * Inserts a row into a table, doesn't check for valid keys
+     * @param tableName the table name
+     * @param values The key value pairs for the row
+     * @return the returned id or row number (not sure)
+     */
+    public long insertRowIntoTable(String tableName, ContentValues values) {
+    	// Get the database
+    	SQLiteDatabase db = this.getWritableDatabase();
+   	 
+        // Inserting Row and returning id
+        return db.insert(tableName, null, values);
+    }
+    
+    /**
      * Enters a song into the database
      * @param song
      */
