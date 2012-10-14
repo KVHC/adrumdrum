@@ -39,8 +39,8 @@ public class Sound {
 	 * @param soundValue The value of the sound in the R class
 	 * @param name
 	 */
-	public Sound(int id, int soundValue, String name) {
-		mId = id;
+	public Sound(int soundValue, String name) {
+		mId = -1;
 		mSoundValue = soundValue;
 		mName = name;
 	}
