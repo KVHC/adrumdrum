@@ -23,8 +23,6 @@ import kvhc.player.Sound;
 import kvhc.util.AssetManagerModel;
 import kvhc.util.ISongLoader;
 import kvhc.util.ISongRenderer;
-import kvhc.util.db.SQLRenderer;
-import kvhc.util.db.SQLSongLoader;
 import kvhc.util.db.SoundDataSource;
 
 /**
@@ -57,7 +55,6 @@ public class GUIController {
 		
 		player.addObserver(new GUIUpdateObserver(parentActivity));
 		
-		
 		mDBsoundHelper = new SoundDataSource(parentActivity);
 		
 		init();
@@ -81,60 +78,13 @@ public class GUIController {
 	private void initSong() {
 		// Okay, make a song
 		
-		// Adding sounds to the sound manager because we might now have them or something		
-		Sound s = new Sound(R.raw.jazzfunkkitbd_01, "Bassdrum");
-		mDBsoundHelper.save(s);
-		mSoundManager.setValue("BassDrum", s);
+		// Adding sounds to the sound manager because we might now have them or something
 		
-		s = new Sound(R.raw.jazzfunkkitbellridecym_01, "Ride");
-		mDBsoundHelper.save(s);
-		mSoundManager.setValue("Ride", s);
-		
-		s = new Sound(R.raw.jazzfunkkitclosedhh_01, "Closed hihat");
-		mDBsoundHelper.save(s);
-		mSoundManager.setValue("Closed hihat", s);
-		
-		s = new Sound(R.raw.jazzfunkkitcrashcym_01, "Crash 01");
-		mDBsoundHelper.save(s);
-		mSoundManager.setValue("Crash 01", s);
-		
-		s = new Sound(R.raw.jazzfunkkitcrashcym_02, "Crash 02");
-		mDBsoundHelper.save(s);
-		mSoundManager.setValue("Crash 02", s);
-		
-		s = new Sound(R.raw.jazzfunkkitsn_01, "Snare 01");
-		mDBsoundHelper.save(s);
-		mSoundManager.setValue("Snare 01", s);
-		
-		s = new Sound(R.raw.jazzfunkkitsn_02, "Snare 02");
-		mDBsoundHelper.save(s);
-		mSoundManager.setValue("Snare 02", s);
-		
-		s = new Sound(R.raw.jazzfunkkitsn_03, "Snare 03");
-		mDBsoundHelper.save(s);
-		mSoundManager.setValue("Snare 03", s);
-		
-		s = new Sound(R.raw.jazzfunkkitsplashcym_01, "Splash 01");
-		mDBsoundHelper.save(s);
-		mSoundManager.setValue("Splash 01", s);
-		
-		s = new Sound(R.raw.jazzfunkkitsplashcym_02, "Splash 02");
-		mDBsoundHelper.save(s);
-		mSoundManager.setValue("Splash 02", s);
-		
-		s = new Sound(R.raw.jazzfunkkittom_01, "Tomtom 01");
-		mDBsoundHelper.save(s);
-		mSoundManager.setValue("Tomtom 01", s);
-		
-		s = new Sound(R.raw.jazzfunkkittom_02, "Tomtom 02");
-		mDBsoundHelper.save(s);
-		mSoundManager.setValue("Tomtom 02", s);
-		
-		s = new Sound(R.raw.jazzfunkkittom_03, "Tomtom 03");
-		mDBsoundHelper.save(s);
-		mSoundManager.setValue("Tomtom 03", s);
-		
-		
+		mDBsoundHelper.open();
+		for(Sound sound : mDBsoundHelper.getAllSounds()) {
+			mSoundManager.setValue(song.getName(), sound);
+		}
+		mDBsoundHelper.close();
 		// Creates list of sounds for channel.
 		ArrayList<Sound> sounds = new ArrayList<Sound>(4);
 		
@@ -387,12 +337,11 @@ public class GUIController {
     private OnClickListener addChannelListener = new OnClickListener() {
 		
 		public void onClick(View v) {
-			Button b = (Button) v;
-			
+
 			// Spinner for sound sample selection
 			createSampleList();
 			final Spinner input2 = new Spinner(parentActivity);
-			ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(parentActivity, android.R.layout.simple_spinner_dropdown_item, sampleArray);
+			ArrayAdapter<Sound> spinnerArrayAdapter = new ArrayAdapter<Sound>(parentActivity, android.R.layout.simple_spinner_dropdown_item, mDBsoundHelper.getAllSounds());
 			input2.setAdapter(spinnerArrayAdapter);
 			
 			AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity);

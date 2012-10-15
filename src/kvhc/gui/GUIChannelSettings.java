@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.WebView.FindListener;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -13,7 +12,6 @@ import kvhc.adrumdrum.MainActivity;
 import kvhc.adrumdrum.R;
 import kvhc.player.Channel;
 import kvhc.player.Sound;
-import kvhc.player.SoundManager;
 import kvhc.util.AssetManagerModel;
 
 public class GUIChannelSettings extends Activity {

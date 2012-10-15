@@ -193,7 +193,7 @@ public class Channel {
 	 * @param volume A float between 0 and 1
 	 */
 	public void setVolume(float volume) {
-		volume = volume;
+		this.volume = volume;
 	}
 	
 	/**

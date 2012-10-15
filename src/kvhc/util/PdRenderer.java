@@ -1,7 +1,6 @@
 package kvhc.util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 // PGA inte länkat in projektet än i git så ser det just nu ut såhär. VSMG. Antar att LoadSounds blir att ladda en patch.
 //import org.puredata.android.service.PdService;

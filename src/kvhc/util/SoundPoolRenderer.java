@@ -1,16 +1,20 @@
 package kvhc.util;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import android.content.Context;
-import android.util.Log;
-import kvhc.adrumdrum.R;
 import kvhc.player.Channel;
 import kvhc.player.Song;
 import kvhc.player.Sound;
 import kvhc.player.SoundManager;
 
+/**
+ * Uses SoundPool for android as output for RenderSong and RenderSongAtStep 
+ * 
+ * 
+ * @author kvhc
+ *
+ */
 public class SoundPoolRenderer implements ISongRenderer {
 	
 	private SoundManager mSoundManager;
