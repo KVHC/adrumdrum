@@ -23,9 +23,9 @@ public class SoundManager {
 	
 	
 	/**
-	 * Initiate a SoundManager
+	 * Initiate a SoundManager.
 	 * 
-	 * @param theContext Context for the audo service
+	 * @param theContext Context for the audio service.
 	 */
 	
 	public void initSounds(Context theContext) {
@@ -36,10 +36,10 @@ public class SoundManager {
 	}
 	
 	/**
-	 * Add a sound to a SoundManager
+	 * Add a sound to a SoundManager.
 	 * 
-	 * @param index index of the sound added
-	 * @param SoundID resource ID
+	 * @param index index of the sound added.
+	 * @param SoundID resource ID.
 	 */
 	public void addSound(int index, int SoundID)
 	{
@@ -47,11 +47,11 @@ public class SoundManager {
 	}
 	
 	/**
-	 * Play a sound
+	 * Play a sound.
 	 * 
-	 * @param index a sound to play
-	 * @param right right volume
-	 * @param left left volume
+	 * @param index a sound to play.
+	 * @param right right volume.
+	 * @param left left volume.
 	 */
 	public void playSound(int index,float right, float left, float volume)
 	{

@@ -20,8 +20,8 @@ public class ChannelTest extends AndroidTestCase {
         Channel c = new Channel();
         
         Assert.assertNotNull(c);
-        Assert.assertEquals(16, c.GetNumberOfSteps());
-        Assert.assertNull(c.GetSound());
+        Assert.assertEquals(16, c.getNumberOfSteps());
+        Assert.assertNull(c.getSound());
     }
     
     /**
@@ -32,9 +32,9 @@ public class ChannelTest extends AndroidTestCase {
         Channel testChannel = new Channel(testSound);
         
         Assert.assertNotNull(testChannel);
-        Assert.assertEquals(16, testChannel.GetNumberOfSteps());
-        Assert.assertNotNull(testChannel.GetSound());
-        Assert.assertEquals("test", testChannel.GetSound().GetName());
+        Assert.assertEquals(16, testChannel.getNumberOfSteps());
+        Assert.assertNotNull(testChannel.getSound());
+        Assert.assertEquals("test", testChannel.getSound().getName());
     }
     
     /**
@@ -45,9 +45,9 @@ public class ChannelTest extends AndroidTestCase {
         Channel testChannel = new Channel(testSound,8);
         
         Assert.assertNotNull(testChannel);
-        Assert.assertEquals(8, testChannel.GetNumberOfSteps());
-        Assert.assertNotNull(testChannel.GetSound());
-        Assert.assertEquals("test", testChannel.GetSound().GetName());
+        Assert.assertEquals(8, testChannel.getNumberOfSteps());
+        Assert.assertNotNull(testChannel.getSound());
+        Assert.assertEquals("test", testChannel.getSound().getName());
     }
     
     /**
@@ -58,7 +58,7 @@ public class ChannelTest extends AndroidTestCase {
         testChannel.clearAllSteps();
         
         for (int i = 0; i<16;i++){
-            Assert.assertEquals(testChannel.IsStepActive(i), testChannel.GetSteps().get(i).IsActive());
+            Assert.assertEquals(testChannel.isStepActive(i), testChannel.getSteps().get(i).isActive());
         }   
     }
     
@@ -69,10 +69,10 @@ public class ChannelTest extends AndroidTestCase {
         Channel testChannel = new Channel();
         float RIGHTTESTLEVEL = (float)0.20;//SHOULD THIS BE RANDOM?
         float LEFTTESTLEVEL = (float)0.30;
-        testChannel.SetPanning(RIGHTTESTLEVEL, LEFTTESTLEVEL);
+        testChannel.setPanning(RIGHTTESTLEVEL, LEFTTESTLEVEL);
         
-        Assert.assertEquals(RIGHTTESTLEVEL, testChannel.GetRightPanning());
-        Assert.assertEquals(LEFTTESTLEVEL, testChannel.GetLeftPanning());
+        Assert.assertEquals(RIGHTTESTLEVEL, testChannel.getRightPanning());
+        Assert.assertEquals(LEFTTESTLEVEL, testChannel.getLeftPanning());
     }
     
     /**
@@ -81,23 +81,23 @@ public class ChannelTest extends AndroidTestCase {
     public void testResize(){
         //Test adding a step
         Channel testChannel = new Channel();
-        int before = testChannel.GetNumberOfSteps();
-        testChannel.ResizeBy(1);
-        int after = testChannel.GetNumberOfSteps();
+        int before = testChannel.getNumberOfSteps();
+        testChannel.resizeBy(1);
+        int after = testChannel.getNumberOfSteps();
         
         Assert.assertEquals(before+1,after);
         
         //Test removing a step
-        before = testChannel.GetNumberOfSteps();
-        testChannel.ResizeBy(-1);
-        after = testChannel.GetNumberOfSteps();
+        before = testChannel.getNumberOfSteps();
+        testChannel.resizeBy(-1);
+        after = testChannel.getNumberOfSteps();
         
         Assert.assertEquals(before-1,after);
         
         //Test removing to more steps than the Channels current number of steps
-        before = testChannel.GetNumberOfSteps();
-        testChannel.ResizeBy(0-(before+1));
-        after = testChannel.GetNumberOfSteps();
+        before = testChannel.getNumberOfSteps();
+        testChannel.resizeBy(0-(before+1));
+        after = testChannel.getNumberOfSteps();
         
         Assert.assertEquals(before, after);
     }

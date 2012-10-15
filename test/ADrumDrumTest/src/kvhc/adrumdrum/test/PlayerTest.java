@@ -13,8 +13,9 @@ import java.util.*;
  * @author kvhc
  *
  */
-public class PlayerTest extends AndroidTestCase {
+public class PlayerTest extends AndroidTestCase implements Observer {
 	
+	int count;
 	
 	/**
 	 * Tests the constructor 
@@ -29,22 +30,29 @@ public class PlayerTest extends AndroidTestCase {
 	 * 
 	 */
 	public void testPlay(){
+		count=0;
 		Player testPlayer = new Player(getContext());
-		TestObserver testObserver = new TestObserver();
-		testPlayer.addObserver(testObserver);
-		testPlayer.Play();
+		ArrayList<Channel> testList = new ArrayList<Channel>();
+		testList.add(new Channel(new Sound(1,1,"test"),1));
+		testPlayer.addObserver(this);
+		testPlayer.play();
 		
 		// I don't know why this keeps failing,
 		// but I think the test is broken, perhaps
 		// I'm not initiating the class correctly
 		try{
 			Thread.sleep(3000);
-		}catch(Exception e){
+		} catch(Exception e){
 			Assert.fail("Thread.sleep() threw exception in PlayerTest");
 		}
-		Assert.assertTrue(testObserver.getCount()>0);
+		Assert.assertTrue(count>0);
 		
-		Assert.assertEquals(testPlayer.IsPlaying(),true);
+		Assert.assertEquals(testPlayer.isPlaying(),true);
+	}
+
+	public void update(Observable observable, Object data) {
+		count++;
+		
 	}
 	
 	
