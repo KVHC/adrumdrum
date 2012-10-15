@@ -122,11 +122,13 @@ public class Player extends Observable {
 	 * Also notifies all observers with a -1
 	 */
 	public void stop() {
-		isPlaying = false;
-		currentStep = 0;
-		mTimer.stop();
-		setChanged();
-		notifyObservers(-1);
+		if(isPlaying){
+			isPlaying = false;
+			currentStep = 0;
+			mTimer.stop();
+			setChanged();
+			notifyObservers(-1);
+		}
 	}
 	
 	/**

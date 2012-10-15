@@ -29,6 +29,8 @@ public class GUIUpdateObserver implements Observer {
 	 * TODO(update): This method have to be optimized
 	 */
 	public void update(Observable observable, Object data) {
+		
+		
 		int step = Integer.parseInt(data.toString());
 		
 		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
