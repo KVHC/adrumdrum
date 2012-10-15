@@ -40,6 +40,6 @@
     </string-array>
     <string name="licenses">Licenses</string>
     <string name="remove_Button">Remove this channel</string>
-
-
+    <string name="save_song_option">Save Song</string>
+    <string name="load_song_option">Load Song</string>
 </resources>

@@ -32,6 +32,7 @@ public class Step {
 	private int stepid;
 	private Channel channel; 
 	private int mNumber; // The step number
+	private long id;
 	
 	/**
 	 * Constructor, sets isActive to false by default.
@@ -136,5 +137,13 @@ public class Step {
 	 */
 	public void setStepNumber(int stepNumber) {
 		mNumber = stepNumber;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }

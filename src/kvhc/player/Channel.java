@@ -21,6 +21,7 @@
 package kvhc.player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -34,7 +35,7 @@ public class Channel {
 	
 	//private int soundId;
 	private int numSteps;
-	private ArrayList<Step> mSteps;
+	private List<Step> mSteps;
 	private boolean mute;
 	
 	private float volume;
@@ -308,7 +309,7 @@ public class Channel {
 	 * Method for getting an arraylist with all the Channels Steps
 	 * @return an arraylist with all the Channels Steps
 	 */
-	public ArrayList<Step> getSteps() {
+	public List<Step> getSteps() {
 		return mSteps;
 	}
 	
@@ -339,5 +340,34 @@ public class Channel {
         }
     }
 
+
+	// TODO: Fix docs
+	private int mId;
+	public long getId() {
+		// TODO Auto-generated method stub
+		return mId;
+	}
+
+	public void setId(int id) {
+		mId = id;
+	}
+
+	public void setSteps(List<Step> steps) {
+		mSteps = steps;
+	}
+
+	/**
+	 * Position of channel in song in database....?
+	 * Could be used for ordering, i dunno.
+	 */
+	private int mChannelNumber;
+	public int getChannelNumber() {
+		// TODO Auto-generated method stub
+		return mChannelNumber;
+	}
+	
+	public void setChannelNumber(int channelNumber) {
+		mChannelNumber = channelNumber;
+	}
 
 }

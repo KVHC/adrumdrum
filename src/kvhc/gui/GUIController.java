@@ -29,6 +29,9 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
+import android.content.Intent;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -47,6 +50,12 @@ import kvhc.player.Player;
 import kvhc.player.Song;
 import kvhc.player.Sound;
 import kvhc.util.SoundFetcher;
+import kvhc.player.Step;
+import kvhc.util.AssetManagerModel;
+import kvhc.util.ISongLoader;
+import kvhc.util.ISongRenderer;
+import kvhc.util.db.SQLRenderer;
+import kvhc.util.db.SQLSongLoader;
 
 /**
  * Master class of the GUI.
@@ -59,6 +68,10 @@ public class GUIController {
 	private int solo;
 	
 	private Activity parentActivity;
+	private AssetManagerModel<Sound> mSoundManager = AssetManagerModel.getSoundManager();
+	
+	ISongRenderer sqlWriter;
+	ISongLoader sqlLoader;
 	
     /**
      * An array of Strings containing the names of the different sounds.
@@ -77,6 +90,9 @@ public class GUIController {
 		this.player = new Player(parentActivity.getBaseContext());
 		
 		player.addObserver(new GUIUpdateObserver(parentActivity));
+		
+		sqlWriter = new SQLRenderer(parentActivity);
+		sqlLoader = new SQLSongLoader(parentActivity);
 		
 		init();
 	}
@@ -98,15 +114,70 @@ public class GUIController {
 	 */
 	private void initSong() {
 		// Okay, make a song
-		ArrayList<Sound> sounds = new ArrayList<Sound>(4);
-		sounds.add(new Sound(1, R.raw.jazzfunkkitbd_01, "Bassdrum"));
-		sounds.add(new Sound(2, R.raw.jazzfunkkitclosedhh_01, "Hihat closed"));
-		sounds.add(new Sound(3, R.raw.jazzfunkkitsn_01, "Snare"));
-		sounds.add(new Sound(4, R.raw.jazzfunkkitridecym_01, "Ride"));
 		
+		// Loads the sounds into the application.  
+		SQLSongLoader loader = new SQLSongLoader(parentActivity);
+		ArrayList<Sound> soundList = loader.getSoundList(); // Loads the songs into the sound manager (sneaky way)
+		
+		// Adding sounds to the sound manager because we might now have them or something
+		Sound s = new Sound(R.raw.jazzfunkkitbd_01, "Bassdrum");
+		mSoundManager.setValue("BassDrum", s);
+		
+		s = new Sound(R.raw.jazzfunkkitbellridecym_01, "Ride");
+		mSoundManager.setValue("Ride", s);
+		
+		s = new Sound(R.raw.jazzfunkkitclosedhh_01, "Closed hihat");
+		mSoundManager.setValue("Closed hihat", s);
+		
+		s = new Sound(R.raw.jazzfunkkitcrashcym_01, "Crash 01");
+		mSoundManager.setValue("Crash 01", s);
+		
+		s = new Sound(R.raw.jazzfunkkitcrashcym_02, "Crash 02");
+		mSoundManager.setValue("Crash 02", s);
+		
+		s = new Sound(R.raw.jazzfunkkitsn_01, "Snare 01");
+		mSoundManager.setValue("Snare 01", s);
+		
+		s = new Sound(R.raw.jazzfunkkitsn_02, "Snare 02");
+		mSoundManager.setValue("Snare 02", s);
+		
+		s = new Sound(R.raw.jazzfunkkitsn_03, "Snare 03");
+		mSoundManager.setValue("Snare 03", s);
+		
+		s = new Sound(R.raw.jazzfunkkitsplashcym_01, "Splash 01");
+		mSoundManager.setValue("Splash 01", s);
+		
+		s = new Sound(R.raw.jazzfunkkitsplashcym_02, "Splash 02");
+		mSoundManager.setValue("Splash 02", s);
+		
+		s = new Sound(R.raw.jazzfunkkittom_01, "Tomtom 01");
+		mSoundManager.setValue("Tomtom 01", s);
+		
+		s = new Sound(R.raw.jazzfunkkittom_02, "Tomtom 02");
+		mSoundManager.setValue("Tomtom 02", s);
+		
+		s = new Sound(R.raw.jazzfunkkittom_03, "Tomtom 03");
+		mSoundManager.setValue("Tomtom 03", s);
+		
+		
+		
+		
+		SQLRenderer renderer = new SQLRenderer(parentActivity);
+		renderer.LoadSounds(soundList);
+		renderer.SaveSounds();
+		
+		// Creates list of sounds for channel.
+		ArrayList<Sound> sounds = new ArrayList<Sound>(4);
+		
+		sounds.add(mSoundManager.getValue("Bassdrum"));
+		sounds.add(mSoundManager.getValue("Hihat closed"));
+		sounds.add(mSoundManager.getValue("Snare"));
+		sounds.add(mSoundManager.getValue("Ride"));
+		
+		// Create channels
 		ArrayList<Channel> channels = new ArrayList<Channel>(sounds.size());
 		
-		// Har ingen sparad låt än, så vi får göra såhär.
+		// No saved song yet so this is how we roll.
 		for (int i=0; i < sounds.size(); i++)  {
 			// Adds a new channel
 			channels.add(new Channel(sounds.get(i), 8));
@@ -412,6 +483,7 @@ public class GUIController {
 			        
 			    	String name = String.valueOf(input2.getSelectedItem());
 			        Sound s = SoundFetcher.GetSoundFromString(name);
+			        Sound s2 = mSoundManager.getValue(name);
 			        
 			        Channel c = new Channel(s, song.getNumberOfSteps());
 			        song.addChannel(c);
@@ -428,7 +500,7 @@ public class GUIController {
 			
 		}
 	};
-    
+	
 	/**
 	 * Listener to the add-new-step-button. Redraws all the channels.
 	 */
@@ -489,5 +561,33 @@ public class GUIController {
 			}
 		});
 		dialog.show();
+	}
+	
+	
+	public void createAndShowSaveSongDialog() {
+		final SaveSongDialog saveDialog = new SaveSongDialog(parentActivity, song);
+		
+		saveDialog.setOnDismissListener(new OnDismissListener() {
+			
+			public void onDismiss(DialogInterface dialog) {
+				sqlWriter.RenderSong(song);
+			}
+		});
+		saveDialog.show();
+	}
+	
+	public void createAndShowLoadSongDialog() {
+		final LoadSongDialog loadDialog = new LoadSongDialog(parentActivity);
+		
+		loadDialog.setOnDismissListener(new OnDismissListener() {
+			
+			public void onDismiss(DialogInterface dialog) {
+				player.stop();
+				song = loadDialog.getSong();
+				player.loadSong(song);
+				
+			}
+		});
+		loadDialog.show();
 	}
 }

@@ -1,6 +1,6 @@
 package kvhc.util;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import kvhc.player.Song;
 
@@ -26,5 +26,5 @@ public interface ISongLoader {
 	 * @param args Implementation-based arguments
 	 * @return An ArrayList of loaded songs
 	 */
-	ArrayList<Song> getSongList(Object[] args);
+	List<Song> getSongList(Object[] args);
 }
