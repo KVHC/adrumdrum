@@ -1,6 +1,6 @@
 package kvhc.gui;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import kvhc.adrumdrum.R;
 import kvhc.player.Song;
@@ -13,10 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 /**
  * The Load Song dialog shows a list of saved songs (currently from the db)
@@ -30,7 +27,7 @@ public class LoadSongDialog extends Dialog {
 	// Song stuff 
 	private ISongLoader mSongLoader = null;
 	private Song mSong = null;
-	private ArrayList<Song> mSongList = null;
+	private List<Song> mSongList = null;
 	
 	
 	// ListView and its content data (more or less) 
@@ -47,7 +44,7 @@ public class LoadSongDialog extends Dialog {
 	 * Creates a list of the song names
 	 * @return an array of song names list
 	 */
-	private ArrayList<Song> getSongs() {
+	private List<Song> getSongs() {
 		
 		if(mSongList == null) {
 			mSongList = mSongLoader.getSongList(null);

@@ -23,7 +23,6 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SQLiteDatabase db = new SQLiteDatabase().;
         guic = new GUIController(this);
         // Always change media volume and not ringtone volume
         setVolumeControlStream(AudioManager.STREAM_MUSIC); 
