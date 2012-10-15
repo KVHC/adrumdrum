@@ -40,6 +40,7 @@ public class AndroidTimerTest extends AndroidTestCase {
 	}
 	/**
 	 * Tests changing the job while running.
+	 * Also tests start/stop functionality afterwards.
 	 */
 	public void testChangingJobWhileRunning() {
 		//first runnable to construct with
