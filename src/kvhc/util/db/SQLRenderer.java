@@ -2,13 +2,10 @@ package kvhc.util.db;
 
 import java.util.ArrayList;
 
-import android.content.ContentValues;
 import android.content.Context;
 
-import kvhc.player.Channel;
 import kvhc.player.Song;
 import kvhc.player.Sound;
-import kvhc.player.Step;
 import kvhc.util.ISongRenderer;
 
 
@@ -23,7 +20,6 @@ public class SQLRenderer implements ISongRenderer {
 	
 	
 	private ArrayList<Sound> mSounds;
-	private DatabaseHandler mDB;
 	private SongDataSource dbSongHelper;
 	private SoundDataSource dbSoundHelper;
 	
@@ -32,7 +28,6 @@ public class SQLRenderer implements ISongRenderer {
 	 * @param context Android context for some activity or view, parent...
 	 */
 	public SQLRenderer(Context context) {
-		mDB = new DatabaseHandler(context);
 		dbSongHelper = new SongDataSource(context);
 		dbSoundHelper  = new SoundDataSource(context);
 	}

@@ -22,6 +22,8 @@ package kvhc.adrumdrum;
 
 import kvhc.gui.GUIController;
 import kvhc.player.Song;
+import kvhc.util.db.SQLSongLoader;
+import kvhc.util.db.SoundDataSource;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.app.Activity;
@@ -36,16 +38,44 @@ public class MainActivity extends Activity {
 	
 	private GUIController guic;
 	
+	SQLSongLoader loader;
+	SoundDataSource mSoundLoader;
+	
+	
     /**
      * Everything that the app have to do then created
      */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        guic = new GUIController(this);
+        
         // Always change media volume and not ringtone volume
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
+        loader = new SQLSongLoader(this);
+        mSoundLoader = new SoundDataSource(this);
+        mSoundLoader.open();
+        
+        if(mSoundLoader.getAllSounds().size() == 0) {
+        	mSoundLoader.createSound(R.raw.jazzfunkkitbd_01, "Bassdrum");
+        	mSoundLoader.createSound(R.raw.jazzfunkkitbellridecym_01, "Bell Ride");
+        	mSoundLoader.createSound(R.raw.jazzfunkkitclosedhh_01, "Closed hihat");
+        	mSoundLoader.createSound(R.raw.jazzfunkkitcrashcym_01, "Crash 01");
+        	mSoundLoader.createSound(R.raw.jazzfunkkitcrashcym_02, "Crash 02");
+        	mSoundLoader.createSound(R.raw.jazzfunkkitopenhh_01, "Open hihat");
+        	mSoundLoader.createSound(R.raw.jazzfunkkitridecym_01, "Ride");
+        	mSoundLoader.createSound(R.raw.jazzfunkkitsn_01, "Snare 01");
+        	mSoundLoader.createSound(R.raw.jazzfunkkitsn_02, "Snare 02");
+        	mSoundLoader.createSound(R.raw.jazzfunkkitsn_03, "Snare 03");
+        	mSoundLoader.createSound(R.raw.jazzfunkkitsplashcym_01, "Splash 01");
+        	mSoundLoader.createSound(R.raw.jazzfunkkitsplashcym_02, "Splash 02");
+        	mSoundLoader.createSound(R.raw.jazzfunkkittom_01, "Tomtom 01");
+        	mSoundLoader.createSound(R.raw.jazzfunkkittom_02, "Tomtom 02");
+        	mSoundLoader.createSound(R.raw.jazzfunkkittom_03, "Tomtom 03");
+        }
+        
+        mSoundLoader.close();
+        guic = new GUIController(this);
     }
 
     /**

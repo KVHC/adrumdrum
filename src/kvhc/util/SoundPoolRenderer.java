@@ -27,6 +27,13 @@ import kvhc.player.Song;
 import kvhc.player.Sound;
 import kvhc.player.SoundManager;
 
+/**
+ * Uses SoundPool for android as output for RenderSong and RenderSongAtStep 
+ * 
+ * 
+ * @author kvhc
+ *
+ */
 public class SoundPoolRenderer implements ISongRenderer {
 	
 	private SoundManager mSoundManager;
