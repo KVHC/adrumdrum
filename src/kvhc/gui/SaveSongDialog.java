@@ -3,7 +3,7 @@ package kvhc.gui;
 import kvhc.adrumdrum.R;
 import kvhc.player.Song;
 import kvhc.util.ISongRenderer;
-import kvhc.util.SQLRenderer;
+import kvhc.util.db.SQLRenderer;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -29,7 +29,7 @@ public class SaveSongDialog extends Dialog {
 		super(context);
 		
 		mSong = song;
-		mSongRenderer = new SQLRenderer(); 
+		mSongRenderer = new SQLRenderer(context); 
 	}
 	
 	/**

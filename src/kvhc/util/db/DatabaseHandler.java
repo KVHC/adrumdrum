@@ -1,4 +1,4 @@
-package kvhc.util;
+package kvhc.util.db;
 
 import kvhc.player.Channel;
 import kvhc.player.Song;
@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
  
     // Song table name
     public static final String TABLE_SONG = "songs";
-    public static final String KEY_ID = "id";
+    public static final String KEY_ID = "_id";
     public static final String KEY_NAME = "name";
     
     
@@ -97,7 +97,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
          */
         String CREATE_SOUND_TABLE = "CREATE TABLE " + TABLE_SOUND + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," 
-        		+ FKEY_SONGID + " INTEGER,"
         		+ KEY_SOUNDVALUE + " INTEGER,"
         		+ KEY_NAME + " TEXT)";
         

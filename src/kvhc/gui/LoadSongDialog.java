@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import kvhc.adrumdrum.R;
 import kvhc.player.Song;
 import kvhc.util.ISongLoader;
-import kvhc.util.SQLSongLoader;
+import kvhc.util.db.SQLSongLoader;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;

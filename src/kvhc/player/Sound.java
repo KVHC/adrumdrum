@@ -29,7 +29,7 @@ public class Sound {
 	 * Method for geting the id of this sound
 	 * @return the id of this sound
 	 */
-	public int GetId() {
+	public int getId() {
 		return mId;
 	}
 
@@ -37,7 +37,7 @@ public class Sound {
 	 * Change the id of this sound
 	 * @param id The new id of the sound
 	 */
-	public void SetId(int id) {
+	public void setId(int id) {
 		this.mId = id;
 	}
 
@@ -45,7 +45,7 @@ public class Sound {
 	 * Method for getting the name of this sound
 	 * @return The name of this sound
 	 */
-	public String GetName() {
+	public String getName() {
 		return mName;
 	}
 
@@ -53,7 +53,7 @@ public class Sound {
 	 * Change the name of this sound
 	 * @param name The new name of the channel
 	 */
-	public void SetName(String name) {
+	public void setName(String name) {
 		this.mName = name;
 	}
 
@@ -61,7 +61,7 @@ public class Sound {
 	 * Method for getting the id that this sound have in the R class
 	 * @return the id that this sound have in the R class
 	 */
-	public int GetSoundValue() {
+	public int getSoundValue() {
 		return mSoundValue;
 	}
 	
@@ -69,7 +69,7 @@ public class Sound {
 	 * Method for setting the id that this sound have in the R class
 	 * @param soundValue the new value of the sound id in the R class
 	 */
-	public void SetSoundValue(int soundValue) {
+	public void setSoundValue(int soundValue) {
 		mSoundValue = soundValue;
 	}
 	

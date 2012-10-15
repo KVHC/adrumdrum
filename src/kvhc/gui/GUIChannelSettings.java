@@ -13,6 +13,8 @@ import kvhc.adrumdrum.MainActivity;
 import kvhc.adrumdrum.R;
 import kvhc.player.Channel;
 import kvhc.player.Sound;
+import kvhc.player.SoundManager;
+import kvhc.util.AssetManagerModel;
 
 public class GUIChannelSettings extends Activity {
 
@@ -22,6 +24,8 @@ public class GUIChannelSettings extends Activity {
 	private SeekBar mSeekbarPanning;
 	private Spinner mSampleSinner;
 	private Button mButton;
+	
+	private AssetManagerModel<Sound> soundManager = AssetManagerModel.getSoundManager();
 	
 	private MainActivity ma;
 	
@@ -60,77 +64,19 @@ public class GUIChannelSettings extends Activity {
 		mButton.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
-				mChannel.setSound(GUIChannelSettings.GetSoundFromString(String.valueOf(mSampleSinner.getSelectedItem())));
+				mChannel.setSound(getSoundFromString(String.valueOf(mSampleSinner.getSelectedItem())));
 			}
 		});
 		
 	}
 	
-	public static Sound GetSoundFromString(String s) {
+	public Sound getSoundFromString(String s) {
 		
-		//String name = String.valueOf(s.getSelectedItem());
+		// Load the sound from the soundManager
 		String name = s;
-		if("Bassdrum".equals(name)) {
-			return new Sound(1, R.raw.jazzfunkkitbd_01, name);
-		}
+		return soundManager.getValue(name);
 		
-		if("Bell Ride Cymbal".equals(name)) {
-			return new Sound(2, R.raw.jazzfunkkitbellridecym_01, name);
-		} 
-		
-		if("Crash Cymbal 01".equals(name)) {
-			return new Sound(3, R.raw.jazzfunkkitcrashcym_01, name);
-		}
-		
-		if("Crash Cymbal 02".equals(name)) {
-			return new Sound(4, R.raw.jazzfunkkitcrashcym_02, name);
-		}
-		
-        if("Hihat Closed".equals(name)) {
-        	return new Sound(5, R.raw.jazzfunkkitclosedhh_01, name);
-        }
-        
-        if("Hihat Open".equals(name)) {
-        	return new Sound(6, R.raw.jazzfunkkitopenhh_01, name);
-        }
-        
-		if("Ride Cymbal".equals(name)) {
-			return new Sound(7, R.raw.jazzfunkkitridecym_01, name);
-		}
-		
-		if("Snare 01".equals(name)) {
-			return new Sound(8, R.raw.jazzfunkkitsn_01, name);
-		}
-		
-		if("Snare 02".equals(name)) {
-			return new Sound(9, R.raw.jazzfunkkitsn_02, name);
-		}
-		
-		if("Snare 03".equals(name)) {
-			return new Sound(10, R.raw.jazzfunkkitsn_03, name);
-		}
-		
-		if("Splash Cymbal 01".equals(name)) {
-			return new Sound(11, R.raw.jazzfunkkitsplashcym_01, name);
-		}
-		
-		if("Splash Cymbal 02".equals(name)) {
-			return new Sound(12, R.raw.jazzfunkkitsplashcym_02, name);
-		}
-		
-		if("Tomtom 01".equals(name)) {
-			return new Sound(13, R.raw.jazzfunkkittom_01, name);
-		}
-		
-		if("Tomtom 02".equals(name)) {
-			return new Sound(14, R.raw.jazzfunkkittom_02, name);
-		}
-		
-		if("Tomtom 03".equals(name)) {
-			return new Sound(15, R.raw.jazzfunkkittom_03, name);
-		}
-		
-		return null;
+		// Are sounds even loaded? :|
 	}
 	
 	/**

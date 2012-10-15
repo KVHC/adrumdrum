@@ -1,6 +1,7 @@
 package kvhc.player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.text.Editable;
 import android.util.Log;
@@ -8,7 +9,8 @@ import android.util.Log;
 
 public class Song {
 	
-	private ArrayList<Channel> mChannels;
+	private long id;
+	private List<Channel> mChannels;
 	private int numsteps;
 	private String mName;
 	
@@ -112,7 +114,7 @@ public class Song {
 	 * Returns all the channels that the song contains
 	 * @return
 	 */
-	public ArrayList<Channel> getChannels() {
+	public List<Channel> getChannels() {
 		return mChannels;
 	}
 
@@ -190,5 +192,32 @@ public class Song {
 			mChannels.get(i).setMute(true);
 		}
 		mChannels.get(channel).setMute(false);
+	}
+
+	/**
+	 * ID getter (TODO what is ID?)
+	 * @return
+	 */
+	public long getId() {
+		return id;
+	}
+	
+	/**
+	 * ID setter (TODO what is ID?)
+	 * @param id
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	/**
+	 * SETS ALL THE CHANNELS HURRS
+	 * @param channels
+	 */
+	public void setChannels(List<Channel> channels) {
+		mChannels = channels;
+		if(channels.size() > 0)  {
+			numsteps = channels.get(0).getNumberOfSteps();
+		}
 	}
 }

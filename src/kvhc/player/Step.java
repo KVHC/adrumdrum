@@ -10,6 +10,7 @@ public class Step {
 	private boolean mIsActive;
 	private float mVelocity; // Velocity of the step 
 	private int mNumber; // The step number
+	private long id;
 	
 	/**
 	 * Constructor, sets isActive to false by default
@@ -74,5 +75,13 @@ public class Step {
 	 */
 	public void setStepNumber(int stepNumber) {
 		mNumber = stepNumber;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }

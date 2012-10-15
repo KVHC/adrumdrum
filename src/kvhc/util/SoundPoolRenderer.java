@@ -26,7 +26,7 @@ public class SoundPoolRenderer implements ISongRenderer {
 	 * */
 	public void LoadSounds(ArrayList<Sound> sounds) {
 		for(Sound sound : sounds) {
-			mSoundManager.addSound(sound.GetId(), sound.GetSoundValue());
+			mSoundManager.addSound(sound.getId(), sound.getSoundValue());
 		}
 	}
 	
@@ -51,7 +51,7 @@ public class SoundPoolRenderer implements ISongRenderer {
 	public void RenderSongAtStep(Song song, int step) {
 		for (Channel c : song.getChannels()) {
 			if (c.isStepActive(step)&& !c.isMuted()) {
-				mSoundManager.playSound(c.getSound().GetId(), c.getVolumeRight(step), c.getVolumeLeft(step),c.getVolume());
+				mSoundManager.playSound(c.getSound().getId(), c.getVolumeRight(step), c.getVolumeLeft(step),c.getVolume());
 			}
 		}
 	}
