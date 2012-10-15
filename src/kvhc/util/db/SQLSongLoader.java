@@ -28,6 +28,9 @@ public class SQLSongLoader implements ISongLoader {
 		mDBSongHelper = new SongDataSource(context);
 		mDBSoundHelper = new SoundDataSource(context);
 		
+		mDBSongHelper.open();
+		mDBSoundHelper.open();
+		
 		// Set up sound manager
 		soundManager = AssetManagerModel.getSoundManager();
 		for(Sound sound : mDBSoundHelper.getAllSounds()) {
@@ -75,6 +78,7 @@ public class SQLSongLoader implements ISongLoader {
 	 * @return
 	 */
 	public List<Sound> getSoundList() {
+		
 		return mDBSoundHelper.getAllSounds();
 	}
 	

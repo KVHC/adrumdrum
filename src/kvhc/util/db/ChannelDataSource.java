@@ -15,7 +15,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 /**
  * Channel object DAO 
- * @author srejv
+ * @author kvhc
  *
  */
 public class ChannelDataSource {
@@ -25,13 +25,13 @@ public class ChannelDataSource {
 	private StepDataSource dbStepHelper;
 	private SoundDataSource dbSoundHelper;
 	
-	private String[] allColumns = { DatabaseHandler.KEY_ID
-			, DatabaseHandler.KEY_NUMBER 
-			, DatabaseHandler.KEY_VOLUME 
-			, DatabaseHandler.KEY_LEFTPAN
-			, DatabaseHandler.KEY_RIGHTPAN
-			, DatabaseHandler.FKEY_SONGID 
-			, DatabaseHandler.FKEY_SOUNDID };
+	private String[] allColumns = { ChannelSQLiteHelper.COLUMN_ID
+			, ChannelSQLiteHelper.COLUMN_NUMBER 
+			, ChannelSQLiteHelper.COLUMN_VOLUME 
+			, ChannelSQLiteHelper.COLUMN_LEFTPAN
+			, ChannelSQLiteHelper.COLUMN_RIGHTPAN
+			, ChannelSQLiteHelper.FKEY_SONGID 
+			, ChannelSQLiteHelper.FKEY_SOUNDID };
 	
 
 	public ChannelDataSource(Context context) {
@@ -50,16 +50,16 @@ public class ChannelDataSource {
 	
 	public Channel createChannel(Song song, Sound sound, float volume, float rightPan, float leftPan, int number) {
 		ContentValues values = new ContentValues();
-		values.put(DatabaseHandler.FKEY_SONGID, song.getId());
-		values.put(DatabaseHandler.FKEY_SOUNDID, sound.getId());
-		values.put(DatabaseHandler.KEY_VOLUME, volume);
-		values.put(DatabaseHandler.KEY_LEFTPAN, leftPan);
-		values.put(DatabaseHandler.KEY_RIGHTPAN, rightPan);
-		values.put(DatabaseHandler.KEY_VOLUME, volume);
-		values.put(DatabaseHandler.KEY_NUMBER, number);
+		values.put(ChannelSQLiteHelper.FKEY_SONGID, song.getId());
+		values.put(ChannelSQLiteHelper.FKEY_SOUNDID, sound.getId());
+		values.put(ChannelSQLiteHelper.COLUMN_VOLUME, volume);
+		values.put(ChannelSQLiteHelper.COLUMN_LEFTPAN, leftPan);
+		values.put(ChannelSQLiteHelper.COLUMN_RIGHTPAN, rightPan);
+		values.put(ChannelSQLiteHelper.COLUMN_VOLUME, volume);
+		values.put(ChannelSQLiteHelper.COLUMN_NUMBER, number);
 		
-		long insertId = database.insert(DatabaseHandler.TABLE_CHANNEL, null, values);
-		Cursor cursor = database.query(DatabaseHandler.TABLE_CHANNEL, allColumns, DatabaseHandler.KEY_ID + " = " 
+		long insertId = database.insert(ChannelSQLiteHelper.TABLE_CHANNEL, null, values);
+		Cursor cursor = database.query(ChannelSQLiteHelper.TABLE_CHANNEL, allColumns, ChannelSQLiteHelper.COLUMN_ID + " = " 
 						+ insertId, null, null, null, null);
 		
 		cursor.moveToFirst();
@@ -72,13 +72,13 @@ public class ChannelDataSource {
 		long id = channel.getId();
 		
 		// Delete sound
-		database.delete(DatabaseHandler.TABLE_SOUND, DatabaseHandler.KEY_ID + " = " + id, null);
+		database.delete(ChannelSQLiteHelper.TABLE_CHANNEL, ChannelSQLiteHelper.COLUMN_ID + " = " + id, null);
 	}
 	
 	public List<Channel> getAllChannelsForSong(Song song) {
 		List<Channel> channels = new ArrayList<Channel>();
 		
-		Cursor cursor = database.query(DatabaseHandler.TABLE_CHANNEL, allColumns, null,null,null,null,null);
+		Cursor cursor = database.query(ChannelSQLiteHelper.TABLE_CHANNEL, allColumns, null,null,null,null,null);
 		
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()) {
@@ -111,12 +111,24 @@ public class ChannelDataSource {
 	public void save(Song song, Channel channel) {
 		
 		ContentValues values = new ContentValues();
-		values.put(DatabaseHandler.KEY_VOLUME, channel.getChannelVolume());
+		values.put(ChannelSQLiteHelper.COLUMN_LEFTPAN, channel.getLeftPanning());
 		
-		String where = DatabaseHandler.KEY_ID + " = ?";
+		values.put(ChannelSQLiteHelper.COLUMN_NUMBER, channel.getChannelNumber());
+		values.put(ChannelSQLiteHelper.COLUMN_RIGHTPAN, channel.getRightPanning());
+		values.put(ChannelSQLiteHelper.COLUMN_VOLUME, channel.getVolume());
+		
+		if(channel.getSound() != null) {
+			values.put(ChannelSQLiteHelper.COLUMN_NAME, channel.getSound().getName());
+			values.put(ChannelSQLiteHelper.FKEY_SOUNDID, channel.getSound().getId());
+		} else {
+			values.put(ChannelSQLiteHelper.COLUMN_NAME, "");
+			values.put(ChannelSQLiteHelper.FKEY_SOUNDID, 0);
+		}
+		
+		String where = ChannelSQLiteHelper.COLUMN_ID + " = ?";
 		String[] whereArgs = new String[] { String.valueOf(channel.getId() )};
 		
-		long numRows = database.update(DatabaseHandler.TABLE_CHANNEL, values, where, whereArgs);
+		long numRows = database.update(ChannelSQLiteHelper.TABLE_CHANNEL, values, where, whereArgs);
 		
 		if(numRows == 0) {
 			channel = createChannel(song, 
