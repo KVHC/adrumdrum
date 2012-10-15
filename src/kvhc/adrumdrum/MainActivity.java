@@ -26,7 +26,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
 public class MainActivity extends Activity {
@@ -43,10 +42,7 @@ public class MainActivity extends Activity {
         guic = new GUIController(this);
         // Always change media volume and not ringtone volume
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        
-        //Sätter bakgrunden
-        View view = this.getWindow().getDecorView();
-        view.setBackgroundResource(R.drawable.drumkit);
+
     }
 
     /**
