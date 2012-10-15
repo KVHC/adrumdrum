@@ -35,7 +35,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -56,6 +55,7 @@ import kvhc.util.ISongLoader;
 import kvhc.util.ISongRenderer;
 import kvhc.util.db.SQLRenderer;
 import kvhc.util.db.SQLSongLoader;
+import kvhc.util.db.SoundDataSource;
 
 /**
  * Master class of the GUI.
@@ -78,8 +78,8 @@ public class GUIController {
      * This should be done in a different way (?)
      */
     private ArrayList<String> sampleArray = null;
+	SoundDataSource mDBsoundHelper; 
 	
-    
 	/**
 	 * Constructor.
 	 * @param activity the main activity
@@ -93,6 +93,8 @@ public class GUIController {
 		
 		sqlWriter = new SQLRenderer(parentActivity);
 		sqlLoader = new SQLSongLoader(parentActivity);
+		
+		mDBsoundHelper = new SoundDataSource(parentActivity);
 		
 		init();
 	}
@@ -115,56 +117,59 @@ public class GUIController {
 	private void initSong() {
 		// Okay, make a song
 		
-		// Loads the sounds into the application.  
-		SQLSongLoader loader = new SQLSongLoader(parentActivity);
-		ArrayList<Sound> soundList = loader.getSoundList(); // Loads the songs into the sound manager (sneaky way)
-		
-		// Adding sounds to the sound manager because we might now have them or something
+		// Adding sounds to the sound manager because we might now have them or something		
 		Sound s = new Sound(R.raw.jazzfunkkitbd_01, "Bassdrum");
+		mDBsoundHelper.save(s);
 		mSoundManager.setValue("BassDrum", s);
 		
 		s = new Sound(R.raw.jazzfunkkitbellridecym_01, "Ride");
+		mDBsoundHelper.save(s);
 		mSoundManager.setValue("Ride", s);
 		
 		s = new Sound(R.raw.jazzfunkkitclosedhh_01, "Closed hihat");
+		mDBsoundHelper.save(s);
 		mSoundManager.setValue("Closed hihat", s);
 		
 		s = new Sound(R.raw.jazzfunkkitcrashcym_01, "Crash 01");
+		mDBsoundHelper.save(s);
 		mSoundManager.setValue("Crash 01", s);
 		
 		s = new Sound(R.raw.jazzfunkkitcrashcym_02, "Crash 02");
+		mDBsoundHelper.save(s);
 		mSoundManager.setValue("Crash 02", s);
 		
 		s = new Sound(R.raw.jazzfunkkitsn_01, "Snare 01");
+		mDBsoundHelper.save(s);
 		mSoundManager.setValue("Snare 01", s);
 		
 		s = new Sound(R.raw.jazzfunkkitsn_02, "Snare 02");
+		mDBsoundHelper.save(s);
 		mSoundManager.setValue("Snare 02", s);
 		
 		s = new Sound(R.raw.jazzfunkkitsn_03, "Snare 03");
+		mDBsoundHelper.save(s);
 		mSoundManager.setValue("Snare 03", s);
 		
 		s = new Sound(R.raw.jazzfunkkitsplashcym_01, "Splash 01");
+		mDBsoundHelper.save(s);
 		mSoundManager.setValue("Splash 01", s);
 		
 		s = new Sound(R.raw.jazzfunkkitsplashcym_02, "Splash 02");
+		mDBsoundHelper.save(s);
 		mSoundManager.setValue("Splash 02", s);
 		
 		s = new Sound(R.raw.jazzfunkkittom_01, "Tomtom 01");
+		mDBsoundHelper.save(s);
 		mSoundManager.setValue("Tomtom 01", s);
 		
 		s = new Sound(R.raw.jazzfunkkittom_02, "Tomtom 02");
+		mDBsoundHelper.save(s);
 		mSoundManager.setValue("Tomtom 02", s);
 		
 		s = new Sound(R.raw.jazzfunkkittom_03, "Tomtom 03");
+		mDBsoundHelper.save(s);
 		mSoundManager.setValue("Tomtom 03", s);
 		
-		
-		
-		
-		SQLRenderer renderer = new SQLRenderer(parentActivity);
-		renderer.LoadSounds(soundList);
-		renderer.SaveSounds();
 		
 		// Creates list of sounds for channel.
 		ArrayList<Sound> sounds = new ArrayList<Sound>(4);
