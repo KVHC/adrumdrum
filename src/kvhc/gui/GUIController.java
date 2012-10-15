@@ -182,6 +182,8 @@ public class GUIController {
 		ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,song.getNumberOfChannels()-1,this);
 		name.setText(c.getSound().getName());
 		row.addView(name);
+		ChannelMuteButton mute = new ChannelMuteButton(parentActivity,c);
+		row.addView(mute);
 		
 		for(int x = 0; x < song.getNumberOfSteps(); x++) {
 			GUIStepButton box = new GUIStepButton(row.getContext(), song.getNumberOfChannels()-1, x);
@@ -248,8 +250,11 @@ public class GUIController {
 			// Name label/ mute button
 			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,y,this);
 			name.setText(c.getSound().getName());
+			ChannelMuteButton mute = new ChannelMuteButton(parentActivity,c);
 			//name.setOnLongClickListener(channelSettingsListener);
 			row.addView(name);
+			row.addView(mute);
+			
 			
 			// All the steps
 			for(int x = 0; x < song.getNumberOfSteps(); x++) {
