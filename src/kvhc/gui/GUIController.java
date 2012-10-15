@@ -1,5 +1,11 @@
 package kvhc.gui;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -393,12 +399,31 @@ public class GUIController {
 	};
 
 	/**
-	 * Show a Licenses Dialog!
+	 * Shows the GPL in a Dialog.
 	 */
-	public void createAndShowLicensesDialog(){
+	public void createAndShowLicensesDialog(){	
+		InputStream stream = parentActivity.getResources().openRawResource(R.raw.gpl);
+		BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+		StringBuilder sb = new StringBuilder();
+		String line;
+		String gpl;
+
+		// Read the text file line by line and add a line break
+		try {
+			while ((line = br.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			stream.close();
+			br.close();
+		} catch (IOException e) {
+			Log.e("derp", e.getMessage());
+		}
+        gpl = sb.toString();
+		
+        // Create the dialog
 		AlertDialog dialog = new AlertDialog.Builder(parentActivity).create();
 		dialog.setTitle(R.string.licenses);
-		dialog.setMessage("LICENSES HERE");
+		dialog.setMessage(gpl);
 		dialog.setButton(AlertDialog.BUTTON_POSITIVE,"Ok", new DialogInterface.OnClickListener() {
 			
 			public void onClick(DialogInterface dialog, int which) {
