@@ -51,7 +51,10 @@ public class GUIUpdateObserver implements Observer {
 					previousStep = totalSteps;
 				// +1 för att första elementet är en knapp
 				((GUIStepButton)row.getChildAt(previousStep + 1)).setPlaying(false);
+				((GUIStepButton)row.getChildAt(previousStep + 1)).invalidate();
 				((GUIStepButton)row.getChildAt(step + 1)).setPlaying(true);
+				((GUIStepButton)row.getChildAt(step + 1)).invalidate();
+				
 			}
 			current = step + 1;
 		}else {
