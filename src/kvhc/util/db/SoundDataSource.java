@@ -21,8 +21,8 @@ public class SoundDataSource {
 
 	private SQLiteDatabase database;
 	private DatabaseHandler dbHelper;
-	private String[] allColumns = { DatabaseHandler.KEY_ID, DatabaseHandler.KEY_SOUNDVALUE,
-			DatabaseHandler.KEY_NAME };
+	private String[] allColumns = { SoundSQLiteHelper.COLUMN_ID, SoundSQLiteHelper.COLUMN_SOUNDVALUE,
+			SoundSQLiteHelper.COLUMN_NAME };
 	
 	public SoundDataSource(Context context) {
 		dbHelper = new DatabaseHandler(context);
@@ -38,10 +38,10 @@ public class SoundDataSource {
 	
 	public Sound createSound(int soundValue, String name) {
 		ContentValues values = new ContentValues();
-		values.put(DatabaseHandler.KEY_SOUNDVALUE, soundValue);
-		values.put(DatabaseHandler.KEY_NAME, soundValue);
-		long insertId = database.insert(DatabaseHandler.TABLE_SOUND, null, values);
-		Cursor cursor = database.query(DatabaseHandler.TABLE_SOUND, allColumns, DatabaseHandler.KEY_ID + " = " 
+		values.put(SoundSQLiteHelper.COLUMN_SOUNDVALUE, soundValue);
+		values.put(SoundSQLiteHelper.COLUMN_NAME, soundValue);
+		long insertId = database.insert(SoundSQLiteHelper.TABLE_SOUND, null, values);
+		Cursor cursor = database.query(SoundSQLiteHelper.TABLE_SOUND, allColumns, SoundSQLiteHelper.COLUMN_ID + " = " 
 						+ insertId, null, null, null, null);
 		
 		cursor.moveToFirst();
@@ -54,13 +54,13 @@ public class SoundDataSource {
 		long id = sound.getId();
 		
 		// Delete sound
-		database.delete(DatabaseHandler.TABLE_SOUND, DatabaseHandler.KEY_ID + " = " + id, null);
+		database.delete(SoundSQLiteHelper.TABLE_SOUND, SoundSQLiteHelper.COLUMN_ID + " = " + id, null);
 	}
 	
 	public List<Sound> getAllSounds() {
 		List<Sound> sounds = new ArrayList<Sound>();
 		
-		Cursor cursor = database.query(DatabaseHandler.TABLE_SOUND, allColumns, null,null,null,null,null);
+		Cursor cursor = database.query(SoundSQLiteHelper.TABLE_SOUND, allColumns, null,null,null,null,null);
 		
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()) {
@@ -82,9 +82,9 @@ public class SoundDataSource {
 
 	public Sound getSoundFromKey(long soundId) {
 		
-		String where = DatabaseHandler.KEY_ID + " = ?";
+		String where = SoundSQLiteHelper.COLUMN_ID + " = ?";
 		String[] whereArgs = new String[] { String.valueOf(soundId) };
-		Cursor cursor = database.query(DatabaseHandler.TABLE_SOUND, allColumns, where, whereArgs, null,null,null);
+		Cursor cursor = database.query(SoundSQLiteHelper.TABLE_SOUND, allColumns, where, whereArgs, null,null,null);
 		
 		cursor.moveToFirst();
 		Sound sound = cursorToSound(cursor);
@@ -101,14 +101,14 @@ public class SoundDataSource {
 	public void save(Sound sound) {
 		
 		ContentValues values = new ContentValues();
-		values.put(DatabaseHandler.KEY_SOUNDVALUE, sound.getSoundValue());
-		values.put(DatabaseHandler.KEY_NAME, sound.getName());
+		values.put(SoundSQLiteHelper.COLUMN_SOUNDVALUE, sound.getSoundValue());
+		values.put(SoundSQLiteHelper.COLUMN_NAME, sound.getName());
 		
 		
 		if(sound.getId() > 0) {
-			String where = DatabaseHandler.KEY_ID + " = ?";
+			String where = SoundSQLiteHelper.COLUMN_ID + " = ?";
 			String[] whereArgs = new String[] { String.valueOf(sound.getId()) };
-			database.update(DatabaseHandler.TABLE_SOUND, values, where, whereArgs);
+			database.update(SoundSQLiteHelper.TABLE_SOUND, values, where, whereArgs);
 		} else {
 			sound.setId(createSound(sound.getSoundValue(), sound.getName()).getId());
 		}

@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kvhc.player.Channel;
-import kvhc.player.Sound;
 import kvhc.player.Step;
-import android.app.admin.DeviceAdminInfo;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -16,11 +14,11 @@ import android.database.sqlite.SQLiteDatabase;
 public class StepDataSource {
 	private SQLiteDatabase database;
 	private DatabaseHandler dbHelper;
-	private String[] allColumns = { DatabaseHandler.KEY_ID, 
-			DatabaseHandler.KEY_VELOCITY, 
-			DatabaseHandler.KEY_ACTIVE, 
-			DatabaseHandler.KEY_NUMBER,
-			DatabaseHandler.FKEY_CHANNELID};
+	private String[] allColumns = { StepSQLiteHelper.COLUMN_ID, 
+			StepSQLiteHelper.COLUMN_VELOCITY, 
+			StepSQLiteHelper.COLUMN_ACTIVE, 
+			StepSQLiteHelper.COLUMN_NUMBER,
+			StepSQLiteHelper.FKEY_CHANNELID};
 	
 	public StepDataSource(Context context) {
 		dbHelper = new DatabaseHandler(context);
@@ -36,12 +34,12 @@ public class StepDataSource {
 	
 	public Step createStep(float velocity, boolean active, int stepNumber, Channel channel) {
 		ContentValues values = new ContentValues();
-		values.put(DatabaseHandler.KEY_VELOCITY, velocity);
-		values.put(DatabaseHandler.KEY_ACTIVE, active ? 1 : 0);
-		values.put(DatabaseHandler.KEY_NUMBER, stepNumber);
-		values.put(DatabaseHandler.FKEY_CHANNELID, channel.getId());
-		long insertId = database.insert(DatabaseHandler.TABLE_STEP, null, values);
-		Cursor cursor = database.query(DatabaseHandler.TABLE_STEP, allColumns, DatabaseHandler.KEY_ID + " = " 
+		values.put(StepSQLiteHelper.COLUMN_VELOCITY, velocity);
+		values.put(StepSQLiteHelper.COLUMN_ACTIVE, active ? 1 : 0);
+		values.put(StepSQLiteHelper.COLUMN_NUMBER, stepNumber);
+		values.put(StepSQLiteHelper.FKEY_CHANNELID, channel.getId());
+		long insertId = database.insert(StepSQLiteHelper.TABLE_STEP, null, values);
+		Cursor cursor = database.query(StepSQLiteHelper.TABLE_STEP, allColumns, StepSQLiteHelper.COLUMN_ID + " = " 
 						+ insertId, null, null, null, null);
 		
 		cursor.moveToFirst();
@@ -54,15 +52,15 @@ public class StepDataSource {
 		long id = step.getId();
 		
 		// Delete sound
-		database.delete(DatabaseHandler.TABLE_STEP, DatabaseHandler.KEY_ID + " = " + id, null);
+		database.delete(StepSQLiteHelper.TABLE_STEP, StepSQLiteHelper.COLUMN_ID + " = " + id, null);
 	}
 	
 	public List<Step> getAllStepsForChannel(Channel channel) {
 		List<Step> steps = new ArrayList<Step>();
 		
-		String where = DatabaseHandler.FKEY_CHANNELID + " = ? ";
+		String where = StepSQLiteHelper.FKEY_CHANNELID + " = ? ";
 		String[] whereArgs = new String[] { String.valueOf(channel.getId()) };
-		Cursor cursor = database.query(DatabaseHandler.TABLE_STEP, allColumns, where, whereArgs,null,null,null);
+		Cursor cursor = database.query(StepSQLiteHelper.TABLE_STEP, allColumns, where, whereArgs,null,null,null);
 		
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()) {

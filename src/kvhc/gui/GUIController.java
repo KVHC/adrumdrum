@@ -57,8 +57,6 @@ public class GUIController {
 		
 		player.addObserver(new GUIUpdateObserver(parentActivity));
 		
-		sqlWriter = new SQLRenderer(parentActivity);
-		sqlLoader = new SQLSongLoader(parentActivity);
 		
 		mDBsoundHelper = new SoundDataSource(parentActivity);
 		

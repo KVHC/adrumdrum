@@ -21,7 +21,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class SongDataSource {
 	private SQLiteDatabase database;
 	private DatabaseHandler dbHelper;
-	private String[] allColumns = { DatabaseHandler.KEY_ID, DatabaseHandler.KEY_NAME };
+	private String[] allColumns = { SongSQLiteHelper.COLUMN_ID, SongSQLiteHelper.COLUMN_NAME };
 	
 	private ChannelDataSource dbChannelHelper;
 	
@@ -40,9 +40,9 @@ public class SongDataSource {
 	
 	public Song createSong(String name) {
 		ContentValues values = new ContentValues();
-		values.put(DatabaseHandler.KEY_NAME, name);
-		long insertId = database.insert(DatabaseHandler.TABLE_SONG, null, values);
-		Cursor cursor = database.query(DatabaseHandler.TABLE_SONG, allColumns, DatabaseHandler.KEY_ID + " = " 
+		values.put(SongSQLiteHelper.COLUMN_NAME, name);
+		long insertId = database.insert(SongSQLiteHelper.TABLE_SONG, null, values);
+		Cursor cursor = database.query(SongSQLiteHelper.TABLE_SONG, allColumns, SongSQLiteHelper.COLUMN_ID + " = " 
 						+ insertId, null, null, null, null);
 		
 		cursor.moveToFirst();
@@ -53,13 +53,13 @@ public class SongDataSource {
 	
 	public Song save(Song song) {
 		ContentValues values = new ContentValues();
-		values.put(DatabaseHandler.KEY_NAME, song.getName());
+		values.put(SongSQLiteHelper.COLUMN_NAME, song.getName());
 	
 		if(song.getId() > 0) {
 			// Has id
-			String where = DatabaseHandler.KEY_ID + " = ?";
+			String where = SongSQLiteHelper.COLUMN_ID + " = ?";
 			String[] whereArgs = new String[] { String.valueOf(song.getId() )};
-			database.update(DatabaseHandler.TABLE_SONG, values, where, whereArgs);
+			database.update(SongSQLiteHelper.TABLE_SONG, values, where, whereArgs);
 		} else {
 			// doesn't have id
 			Song tmp = createSong(song.getName());
@@ -78,13 +78,13 @@ public class SongDataSource {
 		long id = song.getId();
 		
 		// Delete sound
-		database.delete(DatabaseHandler.TABLE_SONG, DatabaseHandler.KEY_ID + " = " + id, null);
+		database.delete(SongSQLiteHelper.TABLE_SONG, SongSQLiteHelper.COLUMN_ID + " = " + id, null);
 	}
 	
 	public List<Song> getAllSongs() {
 		List<Song> songs = new ArrayList<Song>();
 		
-		Cursor cursor = database.query(DatabaseHandler.TABLE_SONG, allColumns, null,null,null,null,null);
+		Cursor cursor = database.query(SongSQLiteHelper.TABLE_SONG, allColumns, null,null,null,null,null);
 		
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()) {
