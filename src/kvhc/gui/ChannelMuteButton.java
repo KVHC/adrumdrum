@@ -74,6 +74,7 @@ public class ChannelMuteButton extends Button {
 				channel.setMute(true);
 			}
 			isMuted = !isMuted;
+			invalidate();
 		}
 	};
 	

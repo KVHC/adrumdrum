@@ -112,10 +112,8 @@ public class GUIStepButton extends CheckBox {
 	 * Init the paint to paint digits with
 	 */
 	private void initPaint(){
-		// Skapar en färg för att måla texten
-		Paint paint = new Paint();
+		paint = new Paint();
 		paint.setTextSize(20);
-
 	}
 	
 	
@@ -165,6 +163,9 @@ public class GUIStepButton extends CheckBox {
 	 * @param canvas. A canvas to draw the button on
 	 */
 	protected void onDraw(Canvas canvas) {
+		
+
+		paint.setColor(Color.BLACK);
 		
 		// Flyttar siffrorna åt vänster om de är större än tio så att de fortfarande är centrerade
 		float textPosX = 19;
