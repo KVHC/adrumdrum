@@ -161,7 +161,7 @@ public class ChannelDialog extends Dialog{
 				
 			channel.setVolume(volume);
 			
-			guic.invalidateChannelGUI();
+			guic.invalidateAll();
 		}
 
 		public void onStartTrackingTouch(SeekBar arg0) {
@@ -187,7 +187,7 @@ public class ChannelDialog extends Dialog{
 	private View.OnClickListener clearStepsClick = new View.OnClickListener(){
 		public void onClick(View v) {
 			channel.clearAllSteps();
-			guic.redrawChannels();
+			guic.invalidateAll();
 			dismiss();
 		}
 	};
@@ -210,7 +210,7 @@ public class ChannelDialog extends Dialog{
 		public void onClick(View v) {
 			guic.toggleSolo(id);
 			setSoloButtonText();
-			guic.invalidateChannelGUI();
+			guic.invalidateAll();
 		}
 	};
 	

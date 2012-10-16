@@ -208,13 +208,6 @@ public class GUIController {
     }
     
     /**
-     * Invalidates the box containing the channels
-     */
-    public void invalidateChannelGUI(){
-    	parentActivity.findViewById(R.id.ChannelContainer).invalidate();
-    }
-    
-    /**
      * If the channel already is playing solo this method ends the solo and unmute all other channels.
      * If the channel don't play solo this method mute all channels except the given.
      * @param channel the id of the channel to toggle solo on
@@ -319,8 +312,8 @@ public class GUIController {
     }
     
     /**
-     * Method for invalidating all elements in the channel container
-     * We had troubles with this on Samsung phones
+     * Method for invalidating all elements in the channel container.
+     * We had troubles with this on non-Samsung phones.
      */
     public void invalidateAll(){
     	TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
