@@ -186,7 +186,7 @@ public class GUIController {
 		row.addView(mute);
 		
 		for(int x = 0; x < song.getNumberOfSteps(); x++) {
-			GUIStepButton box = new GUIStepButton(row.getContext(), song.getNumberOfChannels()-1, x);
+			GUIStepButton box = new GUIStepButton(row.getContext(), song.getNumberOfChannels()-1, c.getStepAt(x));
 			box.setOnClickListener(stepClickListener);
 			box.setOnLongClickListener(new LongClickStepListener(c.getStepAt(x), parentActivity, this));
 			row.addView(box);
@@ -268,7 +268,7 @@ public class GUIController {
 			// All the steps
 			for(int x = 0; x < song.getNumberOfSteps(); x++) {
 				
-				GUIStepButton box = new GUIStepButton(row.getContext(), y, x, c.isStepActive(x));	// Construction
+				GUIStepButton box = new GUIStepButton(row.getContext(), y, c.getStepAt(x), c.isStepActive(x));	// Construction
 				box.setOnClickListener(stepClickListener);						// Listener
 				box.setOnLongClickListener(new LongClickStepListener(c.getStepAt(x), parentActivity, this));
 				row.addView(box);
@@ -322,7 +322,7 @@ public class GUIController {
             box.reverse();
             
             // Updates the corresponding channel
-            box.SetActive(song.getChannel(box.GetChannel()).toggleStep(box.GetStep()));
+            box.SetActive(song.getChannel(box.GetChannelId()).toggleStep(box.GetStepId()));
         }
     };
 	
