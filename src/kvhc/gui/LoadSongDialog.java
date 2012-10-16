@@ -37,7 +37,7 @@ public class LoadSongDialog extends Dialog {
 	public LoadSongDialog(Context context) {
 		super(context);
 		
-		mSongLoader = new SQLSongLoader(context);
+		
 	}
 	
 	/**
@@ -61,6 +61,9 @@ public class LoadSongDialog extends Dialog {
 		setContentView(R.layout.load_song);
 		setTitle("Load Song");
 		
+		if(mSongLoader == null) {
+			mSongLoader = new SQLSongLoader(getContext());
+		}
 		// Set up the list
 		mList = (ListView)findViewById(R.id.savedSongsList);
 		

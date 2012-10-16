@@ -93,5 +93,13 @@ public class Sound {
 		mSoundValue = soundValue;
 	}
 	
+	/**
+	 * Returns a String version of the Sound
+	 */
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.mName;
+	}
+	
 	
 }

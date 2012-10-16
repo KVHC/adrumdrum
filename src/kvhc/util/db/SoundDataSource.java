@@ -20,12 +20,13 @@ import android.database.sqlite.SQLiteDatabase;
 public class SoundDataSource {
 
 	private SQLiteDatabase database;
-	private DatabaseHandler dbHelper;
+	private SoundSQLiteHelper dbHelper;
 	private String[] allColumns = { SoundSQLiteHelper.COLUMN_ID, SoundSQLiteHelper.COLUMN_SOUNDVALUE,
 			SoundSQLiteHelper.COLUMN_NAME };
 	
+	
 	public SoundDataSource(Context context) {
-		dbHelper = new DatabaseHandler(context);
+		dbHelper = new SoundSQLiteHelper(context);
 	}
 	
 	public void open() throws SQLException {
@@ -39,7 +40,7 @@ public class SoundDataSource {
 	public Sound createSound(int soundValue, String name) {
 		ContentValues values = new ContentValues();
 		values.put(SoundSQLiteHelper.COLUMN_SOUNDVALUE, soundValue);
-		values.put(SoundSQLiteHelper.COLUMN_NAME, soundValue);
+		values.put(SoundSQLiteHelper.COLUMN_NAME, name);
 		long insertId = database.insert(SoundSQLiteHelper.TABLE_SOUND, null, values);
 		Cursor cursor = database.query(SoundSQLiteHelper.TABLE_SOUND, allColumns, SoundSQLiteHelper.COLUMN_ID + " = " 
 						+ insertId, null, null, null, null);
@@ -60,7 +61,8 @@ public class SoundDataSource {
 	public List<Sound> getAllSounds() {
 		List<Sound> sounds = new ArrayList<Sound>();
 		
-		Cursor cursor = database.query(SoundSQLiteHelper.TABLE_SOUND, allColumns, null,null,null,null,null);
+		
+		Cursor cursor = database.query(SoundSQLiteHelper.TABLE_SOUND, allColumns, null, null, null, null, null);
 		
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()) {

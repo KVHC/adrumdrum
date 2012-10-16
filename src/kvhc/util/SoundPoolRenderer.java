@@ -18,9 +18,13 @@
  * along with aDrumDrum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 package kvhc.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import kvhc.player.Channel;
 import kvhc.player.Song;
@@ -34,13 +38,17 @@ import kvhc.player.SoundManager;
  * @author kvhc
  *
  */
+@SuppressLint("UseSparseArrays")
 public class SoundPoolRenderer implements ISongRenderer {
 	
 	private SoundManager mSoundManager;
+	HashMap<Integer, Integer> mSoundMap;
 	
 	public SoundPoolRenderer(Context context) {
 		mSoundManager = new SoundManager();
-        mSoundManager.initSounds(context);
+		mSoundManager.initSounds(context);
+		mSoundMap = new HashMap<Integer, Integer>(16);
+        
 	}
 	
 	/**
@@ -48,8 +56,14 @@ public class SoundPoolRenderer implements ISongRenderer {
 	 * 
 	 * */
 	public void LoadSounds(ArrayList<Sound> sounds) {
+		mSoundMap = new HashMap<Integer, Integer>(sounds.size());
+		int i = 1;
 		for(Sound sound : sounds) {
-			mSoundManager.addSound(sound.getId(), sound.getSoundValue());
+			if(sound != null) {
+				mSoundMap.put(sound.getId(), i);
+				mSoundManager.addSound(i, sound.getSoundValue());
+				i++;
+			}
 		}
 	}
 	
@@ -74,7 +88,10 @@ public class SoundPoolRenderer implements ISongRenderer {
 	public void RenderSongAtStep(Song song, int step) {
 		for (Channel c : song.getChannels()) {
 			if (c.isStepActive(step)&& !c.isMuted()) {
-				mSoundManager.playSound(c.getSound().getId(), c.getVolumeRight(step), c.getVolumeLeft(step),c.getVolume());
+				if(c.getSound() != null) {
+					int soundManagerId = mSoundMap.get(c.getSound().getId());
+					mSoundManager.playSound(soundManagerId, c.getVolumeRight(step), c.getVolumeLeft(step), c.getVolume());
+				}
 			}
 		}
 	}

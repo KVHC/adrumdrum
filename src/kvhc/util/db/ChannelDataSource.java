@@ -20,7 +20,7 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class ChannelDataSource {
 	private SQLiteDatabase database;
-	private DatabaseHandler dbHelper;
+	private ChannelSQLiteHelper dbHelper;
 	
 	private StepDataSource dbStepHelper;
 	private SoundDataSource dbSoundHelper;
@@ -35,7 +35,7 @@ public class ChannelDataSource {
 	
 
 	public ChannelDataSource(Context context) {
-		dbHelper = new DatabaseHandler(context);
+		dbHelper = new ChannelSQLiteHelper(context);
 		dbStepHelper = new StepDataSource(context);
 		dbSoundHelper = new SoundDataSource(context);
 	}
