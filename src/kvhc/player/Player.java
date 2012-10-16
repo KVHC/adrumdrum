@@ -97,6 +97,7 @@ public class Player extends Observable {
 		}
 
 		waitTime = (long)((60.0 / bpm)*1000);
+		waitTime /= 4;
 		mTimer.setTime(waitTime);
 	}
 	
