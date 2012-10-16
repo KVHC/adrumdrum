@@ -20,79 +20,163 @@
 
 package kvhc.util;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.app.Activity;
 import kvhc.adrumdrum.R;
 import kvhc.player.Sound;
 
 public class SoundFetcher extends Activity {
 
-
-	public static Sound GetSoundFromString(String s) {
-		
-		//String name = String.valueOf(s.getSelectedItem());
-		String name = s;
-		if("Bassdrum".equals(name)) {
-			return new Sound(1, R.raw.jazzfunkkitbd_01, name);
-		}
-		
-		if("Bell Ride Cymbal".equals(name)) {
-			return new Sound(2, R.raw.jazzfunkkitbellridecym_01, name);
-		} 
-		
-		if("Crash Cymbal 01".equals(name)) {
-			return new Sound(3, R.raw.jazzfunkkitcrashcym_01, name);
-		}
-		
-		if("Crash Cymbal 02".equals(name)) {
-			return new Sound(4, R.raw.jazzfunkkitcrashcym_02, name);
-		}
-		
-        if("Hihat Closed".equals(name)) {
-        	return new Sound(5, R.raw.jazzfunkkitclosedhh_01, name);
-        }
-        
-        if("Hihat Open".equals(name)) {
-        	return new Sound(6, R.raw.jazzfunkkitopenhh_01, name);
-        }
-        
-		if("Ride Cymbal".equals(name)) {
-			return new Sound(7, R.raw.jazzfunkkitridecym_01, name);
-		}
-		
-		if("Snare 01".equals(name)) {
-			return new Sound(8, R.raw.jazzfunkkitsn_01, name);
-		}
-		
-		if("Snare 02".equals(name)) {
-			return new Sound(9, R.raw.jazzfunkkitsn_02, name);
-		}
-		
-		if("Snare 03".equals(name)) {
-			return new Sound(10, R.raw.jazzfunkkitsn_03, name);
-		}
-		
-		if("Splash Cymbal 01".equals(name)) {
-			return new Sound(11, R.raw.jazzfunkkitsplashcym_01, name);
-		}
-		
-		if("Splash Cymbal 02".equals(name)) {
-			return new Sound(12, R.raw.jazzfunkkitsplashcym_02, name);
-		}
-		
-		if("Tomtom 01".equals(name)) {
-			return new Sound(13, R.raw.jazzfunkkittom_01, name);
-		}
-		
-		if("Tomtom 02".equals(name)) {
-			return new Sound(14, R.raw.jazzfunkkittom_02, name);
-		}
-		
-		if("Tomtom 03".equals(name)) {
-			return new Sound(15, R.raw.jazzfunkkittom_03, name);
-		}
-		
-		return null;
+	
+	
+	private static HashMap<Integer,String> idAndName;
+	private static HashMap<String,Integer> nameAndId;
+	private static HashMap<Integer,Integer> idAndSound;
+	
+	
+	
+	private SoundFetcher(){
+			
 	}
 	
 	
+	private static void initHashMaps(){
+		
+		idAndName =  new HashMap<Integer,String>();
+		nameAndId = new HashMap<String,Integer>();
+		idAndSound = new HashMap<Integer,Integer>();
+		
+		
+		Integer i = 1;
+		
+		idAndName.put(i,"Bassdrum");
+		nameAndId.put("Bassdrum",i);
+		idAndSound.put(i,R.raw.jazzfunkkitbd_01);
+		i++;
+		
+		idAndName.put(i,"Bell Ride Cymbal");
+		nameAndId.put("Bell Ride Cymbal",i);
+		idAndSound.put(i,R.raw.jazzfunkkitbellridecym_01);
+		i++;
+		
+		idAndName.put(i,"Crash Cymbal 01");
+		nameAndId.put("Crash Cymbal 01",i);
+		idAndSound.put(i,R.raw.jazzfunkkitcrashcym_01);
+		i++;
+		
+		idAndName.put(i,"Crash Cymbal 02");
+		nameAndId.put("Crash Cymbal 02",i);
+		idAndSound.put(i,R.raw.jazzfunkkitcrashcym_02);
+		i++;
+
+		idAndName.put(i,"Hihat Closed");
+		nameAndId.put("Hihat Closed",i);
+		idAndSound.put(i,R.raw.jazzfunkkitclosedhh_01);
+		i++;
+		
+		idAndName.put(i,"Hihat Open");
+		nameAndId.put("Hihat Open",i);
+		idAndSound.put(i,R.raw.jazzfunkkitopenhh_01);
+		i++;
+		
+		idAndName.put(i,"Ride Cymbal");
+		nameAndId.put("Ride Cymbal",i);
+		idAndSound.put(i,R.raw.jazzfunkkitridecym_01);
+		i++;
+		
+		idAndName.put(i,"Snare 01");
+		nameAndId.put("Snare 01",i);
+		idAndSound.put(i,R.raw.jazzfunkkitsn_01);
+		i++;
+		
+		idAndName.put(i,"Snare 02");
+		nameAndId.put("Snare 02",i);
+		idAndSound.put(i,R.raw.jazzfunkkitsn_02);
+		i++;
+				
+		idAndName.put(i,"Snare 03");
+		nameAndId.put("Snare 03",i);
+		idAndSound.put(i,R.raw.jazzfunkkitsn_03);
+		i++;
+
+		idAndName.put(i,"Splash Cymbal 01");
+		nameAndId.put("Splash Cymbal 01",i);
+		idAndSound.put(i,R.raw.jazzfunkkitsplashcym_01);
+		i++;
+		
+		idAndName.put(i,"Splash Cymbal 02");
+		nameAndId.put("Splash Cymbal 02",i);
+		idAndSound.put(i,R.raw.jazzfunkkitsplashcym_02);
+		i++;
+		
+		idAndName.put(i,"Tomtom 01");
+		nameAndId.put("Tomtom 01",i);
+		idAndSound.put(i,R.raw.jazzfunkkittom_01);
+		i++;
+
+		idAndName.put(i,"Tomtom 02");
+		nameAndId.put("Tomtom 02",i);
+		idAndSound.put(i,R.raw.jazzfunkkittom_02);
+		i++;
+		
+		idAndName.put(i,"Tomtom 03");
+		nameAndId.put("Tomtom 03",i);
+		idAndSound.put(i,R.raw.jazzfunkkittom_03);
+		
+	}
+	
+	public static ArrayList<String> getNameInOrder(){
+		ArrayList<String> retList = new ArrayList<String>();
+		int i = 1;
+		
+		while (getName(i) != null){
+			retList.add(getName(i));
+			i++;
+		}
+		
+		return retList;
+		
+	}
+	
+	public static String getName(int id){
+		if (idAndName == null){
+			initHashMaps();
+		}
+		
+		return  idAndName.get(id);
+	}
+	
+	
+	public static Integer getSound(int id){
+		if (idAndSound == null){
+			initHashMaps();
+		}
+		
+		return  idAndSound.get(id);
+	}
+
+	
+	public static Integer getId(String name){
+		if (nameAndId == null){
+			initHashMaps();
+		}
+		
+		return  nameAndId.get(name);
+	}
+	
+	
+	
+
+	public static Sound GetSoundFromString(String s) {
+	
+		Integer id = getId(s);
+		if (id == null){
+			return null;
+		}
+		Integer soundId = getSound(id);
+		
+		return new Sound(id, soundId, s);
+	}
 }

@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -121,8 +122,12 @@ public class ChannelDialog extends Dialog{
 	 * Init the spinners in this dialog
 	 */
 	private void initSpinners(){
+		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
+									(this.getContext(), android.R.layout.simple_spinner_dropdown_item, 
+											SoundFetcher.getNameInOrder());
 		Spinner soundSpinner = (Spinner) this.findViewById(R.id.spinner_sample);
-		soundSpinner.setSelection(channel.getSound().getId());
+		soundSpinner.setAdapter(arrayAdapter);
+		soundSpinner.setSelection(channel.getSound().getId() -1 );
 		soundSpinner.setOnItemSelectedListener(sampleSpinnerListener);
 		
 		
@@ -242,8 +247,10 @@ public class ChannelDialog extends Dialog{
 	private OnItemSelectedListener sampleSpinnerListener= new OnItemSelectedListener() {
 	    @Override
 	    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-	    	String name = parentView.getItemAtPosition(position).toString();;
-	        Sound s = SoundFetcher.GetSoundFromString(name);
+	    	
+	    	String name = parentView.getItemAtPosition(position).toString();
+	        
+	    	Sound s = SoundFetcher.GetSoundFromString(name);
 	        
 	        channel.setSound(s);
 	        guic.uppdateButtons();
