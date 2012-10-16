@@ -21,6 +21,7 @@
 package kvhc.gui;
 
 import kvhc.adrumdrum.R;
+import kvhc.player.Step;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -42,154 +43,167 @@ import android.widget.CheckBox;
 @SuppressLint("ViewConstructor")
 public class GUIStepButton extends CheckBox {
 	
-	private int m_ChannelId;
-	private int m_StepId;
+	private int mChannelId;
+	private int mStepId;
 	
-	private boolean m_Active; 
-	private boolean m_Playing;
+	private Step step;
 	
-	private static Bitmap m_buttonOff; 
-	private static Bitmap m_buttonOn;
-	private static Bitmap m_buttonOff_play; 
-	private static Bitmap m_buttonOn_play;
-	private Paint paint; 
+	private boolean mActive; 
+	private boolean mPlaying;
+	
+	private static Bitmap mButtonOff; 
+	private static Bitmap mButtonOn;
+	private static Bitmap mButtonOffPlaying; 
+	private static Bitmap mButtonOnPlaying;
+	private Paint textPaint; 
+	private Paint velocityShade;
 	private static int distanceFromTop = 12;  // så att stepsen ritas i mitten av raden
-	
-	
-	
+
 	
 	/**
-	 * Constructor for the GUIStepButton
-	 * @param context
-	 * @param channelId
-	 * @param stepId
+	 * Constructor for the GUIStepButton.
+	 * @param context the context
+	 * @param channelId the id of the channel this step is part of
+	 * @param step The step this button represents
 	 */
-	public GUIStepButton(Context context, int channelId, int stepId) {
-		super(context);
-		
-		initImages();
-		
-		m_ChannelId = channelId;
-		m_StepId = stepId;
-		m_Active = false;
-	}
-	
-	public GUIStepButton(Context context, int channelId, int stepId, boolean isActive) {
+	public GUIStepButton(Context context, int channelId, Step step) {
 		super(context);
 		
 		initImages();
 		initPaint();
 		
-		m_ChannelId = channelId;
-		m_StepId = stepId;
-		m_Active = isActive;
+		this.step = step;
+		mChannelId = channelId;
+		mStepId = step.getStepId();
+		mActive = false;
+	}
+	
+	/**
+	 * Constructor who also takes an boolean to decide if the button should be shown
+	 * as active or inactive.
+	 * @param context the context
+	 * @param channelId the id of the channel this step is part of
+	 * @param step The step this button represents
+	 * @param isActive whether the button should be shown as active or not
+	 */
+	public GUIStepButton(Context context, int channelId, Step step, boolean isActive) {
+		super(context);
+		
+		initImages();
+		initPaint();
+		
+		this.step = step;
+		mChannelId = channelId;
+		mStepId = step.getStepId();
+		mActive = isActive;
 	}
 	
 	
 	/**
-	 * This method initialize the images that represent different phases of a step
+	 * This method initialize the images that represent different phases of a step.
 	 */
 	private void initImages(){
-		if(GUIStepButton.m_buttonOff == null) {
-			m_buttonOff = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonoff);
+		if(GUIStepButton.mButtonOff == null) {
+			mButtonOff = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonoff);
 		}
 		
-		if(GUIStepButton.m_buttonOn == null) {
-			m_buttonOn = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonon);
+		if(GUIStepButton.mButtonOn == null) {
+			mButtonOn = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonon);
 		}
 		
-		if(GUIStepButton.m_buttonOff_play == null) {
-			m_buttonOff_play = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonoff_active);
+		if(GUIStepButton.mButtonOffPlaying == null) {
+			mButtonOffPlaying = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonoff_active);
 		}
 		
-		if(GUIStepButton.m_buttonOn_play == null) {
-			m_buttonOn_play = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonon_active);
+		if(GUIStepButton.mButtonOnPlaying == null) {
+			mButtonOnPlaying = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonon_active);
 		}
 		
 	}
 
 	/**
-	 * Init the paint to paint digits with
+	 * Init the paint to paint digits and shade boxes with.
 	 */
 	private void initPaint(){
-		paint = new Paint();
-		paint.setTextSize(20);
+		// Skapar en färg för att måla texten
+		textPaint = new Paint();
+		textPaint.setTextSize(20);
+		// Initierar en färg för att shadea knappen
+		velocityShade = new Paint();
 	}
 	
 	
 	/**
-	 * Returns the channel number this View represents 
-	 * @return
+	 * Returns the channel number this View represents.
+	 * @return the channel number this View represents
 	 */
-	public int GetChannel() {
-		return m_ChannelId;
+	public int GetChannelId() {
+		return mChannelId;
 	}
 	
 	/**
-	 * Returns the step number this View represents (might be a stupid idea)
-	 * @return
+	 * Returns the step number this View represents.
+	 * @return the step number this View represents
 	 */
-	public int GetStep() {
-		return m_StepId;
+	public int GetStepId() {
+		return mStepId;
 	}
 	
 	/**
-	 * Sets if the StepButton is to be shown as active or not 
+	 * Sets if the StepButton is to be shown as active or not.
 	 * @param active
 	 */
 	public void SetActive(boolean active) {
-		m_Active = active;
+		mActive = active;
 	}
 	
 	/**
-	 * Change the avtive state of the button to the opposite state
+	 * Change the active state of the button to the opposite state.
 	 */
 	public void reverse() {
-		m_Active = !m_Active;
+		mActive = !mActive;
 	}
 	
 	/**
-	 * Setter for playing variable
+	 * Setter for playing variable.
 	 * @param playing Boolean that represents if the steps being played
 	 */
 	public void setPlaying(boolean playing){
-		m_Playing = playing;
+		mPlaying = playing;
 	}
 	
-	
-	
 	/**
-	 * A method that specifies how the step button should be drawn 
+	 * A method that specifies how the step button should be drawn.
 	 * @param canvas. A canvas to draw the button on
 	 */
 	protected void onDraw(Canvas canvas) {
 		
-
-		paint.setColor(Color.BLACK);
-		
 		// Flyttar siffrorna åt vänster om de är större än tio så att de fortfarande är centrerade
 		float textPosX = 19;
 		float textPosY = 32 + distanceFromTop;
-		if (m_StepId > 8 && m_StepId < 100){
+		if (mStepId > 8 && mStepId < 100){
 			textPosX = 13;
 		}	
 		
+		// Sätter alpha till ett värde mellan 0-255, beroende på velocity.
+		velocityShade.setAlpha((int) (step.getVelocity()*255));
 		
-		if (m_Playing){
-			paint.setColor(Color.RED); // Om steget spelas så ska färgen på siffrorna också vara röda
-			if(m_Active) {
-				canvas.drawBitmap(GUIStepButton.m_buttonOn_play, 0, distanceFromTop, null);
+		if (mPlaying){
+			textPaint.setColor(Color.RED); // Om steget spelas så ska färgen på siffrorna också vara röda
+			if(mActive) {
+				canvas.drawBitmap(GUIStepButton.mButtonOnPlaying, 0, distanceFromTop, velocityShade);
 			} else {
-				canvas.drawBitmap(GUIStepButton.m_buttonOff_play, 0, distanceFromTop, null);
+				canvas.drawBitmap(GUIStepButton.mButtonOffPlaying, 0, distanceFromTop, velocityShade);
 			}
 		} else {
-			if (m_Active){
-				canvas.drawBitmap(GUIStepButton.m_buttonOn, 0, distanceFromTop, null);
+			textPaint.setColor(Color.BLACK);
+			if (mActive){
+				canvas.drawBitmap(GUIStepButton.mButtonOn, 0, distanceFromTop, velocityShade);
 			} else {
-				canvas.drawBitmap(GUIStepButton.m_buttonOff, 0, distanceFromTop, null);
+				canvas.drawBitmap(GUIStepButton.mButtonOff, 0, distanceFromTop, velocityShade);
 			}
 		}
-		canvas.drawText(String.valueOf(m_StepId +1),textPosX,textPosY, paint);
+		canvas.drawText(String.valueOf(mStepId +1),textPosX,textPosY, textPaint);
 		
 	}
 	

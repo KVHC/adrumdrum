@@ -96,6 +96,14 @@ public class Step {
     public Channel getChannel() {
         return channel;
     }
+    
+    /**
+     * Returns the id of the step.
+     * @return the id of the step
+     */
+    public int getStepId() {
+    	return stepid;
+    }
 	
     /**
      * Sets the steps velocity to 100%, the two neighbours to 70% and
