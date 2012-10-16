@@ -148,6 +148,8 @@ public class ChannelDialog extends Dialog{
 			float volume =  progress * 0.01F;
 				
 			channel.setVolume(volume);
+			
+			guic.invalidateChannelGUI();
 		}
 
 		public void onStartTrackingTouch(SeekBar arg0) {

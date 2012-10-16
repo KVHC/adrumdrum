@@ -205,6 +205,14 @@ public class GUIController {
     }
     
     /**
+     * Invalidates the box containing the channels
+     */
+    public void invalidateChannelGUI(){
+    	parentActivity.findViewById(R.id.ChannelContainer).invalidate();
+    }
+
+    
+    /**
      * Create a sample list. Used when adding a new channel or when changing sound sample
      * of an existing channel. This should be done in a different way.
      */

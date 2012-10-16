@@ -23,6 +23,7 @@ package kvhc.gui;
 import kvhc.adrumdrum.R;
 import kvhc.player.Channel;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.view.View;
 import android.widget.Button;
 
@@ -67,12 +68,25 @@ public class ChannelMuteButton extends Button {
 		public void onClick(View v) {
 			if (isMuted) {
 				channel.setMute(false);
-				setBackgroundResource(R.drawable.unmuted);
 			} else {
 				channel.setMute(true);
-				setBackgroundResource(R.drawable.muted);
 			}
 			isMuted = !isMuted;
 		}
 	};
+	
+	
+	protected void onDraw(Canvas canvas) {
+		if (isMuted) {
+			setBackgroundResource(R.drawable.muted);			
+		} else if(channel.getChannelVolume() > 0.75)  {
+			setBackgroundResource(R.drawable.unmuted);
+		} else if(channel.getChannelVolume() > 0.50)  {
+			setBackgroundResource(R.drawable.unmuted);
+		} else if(channel.getChannelVolume() > 0.25)  {
+			setBackgroundResource(R.drawable.muted);
+		} else {
+			setBackgroundResource(R.drawable.muted);
+		}
+	}
 }
