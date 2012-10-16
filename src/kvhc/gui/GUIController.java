@@ -21,64 +21,52 @@
 package kvhc.gui;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.Toast;
-import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
-import kvhc.adrumdrum.MainActivity;
+
 import kvhc.adrumdrum.R;
 import kvhc.player.Channel;
 import kvhc.player.Player;
 import kvhc.player.Song;
 import kvhc.player.Sound;
-import kvhc.player.Step;
 
 /**
- * Master class of the GUI
- *
+ * Master class of the GUI.
  */
 public class GUIController {
 
 	private Player player;
 	private Song song;
-	
 	private TextView tv1;
 	
 	private Activity parentActivity;
 	
+    /**
+     * An array of Strings containing the names of the different sounds.
+     * This should be done in a different way (?)
+     */
+    private ArrayList<String> sampleArray = null;
+	
+    
 	/**
-	 * Constructor
-	 * @param ma the main activity
+	 * Constructor.
+	 * @param activity the main activity
 	 */
 	public GUIController(Activity activity) {
 		parentActivity = activity;
@@ -91,7 +79,7 @@ public class GUIController {
 	}
 	
 	/**
-	 * Init all the init functions
+	 * Init all the init functions.
 	 */
 	private void init(){
 		initSong();
@@ -101,9 +89,8 @@ public class GUIController {
 		initChannels();
 	}
 	
-	
 	/**
-	 * Init sample song 
+	 * Init sample song.
 	 */
 	private void initSong() {
 		// Okay, make a song
@@ -126,17 +113,15 @@ public class GUIController {
 		player.loadSong(song);
 	}
 	
-	
 	/**
-	 * Init the default channel rows
+	 * Init the default channel rows.
 	 */
 	private void initChannels() {
 		redrawChannels();
 	}
-	
-	
+		
 	/**
-	 * Inits a TextView. For testing purposes only atm
+	 * Inits a TextView showing status messages.
 	 */
     private void initText() {
     	tv1 = (TextView)parentActivity.findViewById(R.id.textView1);
@@ -144,29 +129,24 @@ public class GUIController {
 	}
 
     /**
-     * Inits the necessary GUI-buttons (Play/Stop, Add Channel, Remove Step etc)
+     * Inits the necessary GUI-buttons (Play/Stop, Add Channel, Remove Step etc).
      */
 	private void initButtons() {
-		
     	   Button btn1 = (Button)parentActivity.findViewById(R.id.button1);
            btn1.setOnClickListener(btnListener);
            
            Button addChnl = (Button)parentActivity.findViewById(R.id.buttonAddChannel);
            addChnl.setOnClickListener(addChannelListener);
            
-           //Button remChnl = (Button)parentActivity.findViewById(R.id.buttonRemoveChannel);
-           //remChnl.setOnClickListener(removeChannelListener);
-           
            Button addStep = (Button)parentActivity.findViewById(R.id.buttonAddStep);
            addStep.setOnClickListener(addStepListener);
            
            Button remStep = (Button)parentActivity.findViewById(R.id.buttonRemoveStep);
            remStep.setOnClickListener(removeStepListener);
-           
 	}
 	
 	/**
-	 * Inits the BPM-bar
+	 * Inits the BPM-bar.
 	 */
 	private void initBars(){
 		SeekBar bpmBar = (SeekBar)parentActivity.findViewById(R.id.bpmbar);
@@ -188,9 +168,9 @@ public class GUIController {
 	/**
 	 * Adds a new channel.
 	 * Checks the number of steps of the song and adds that many steps,
-	 * adds and links a ChannelButtonGUI to it.
+	 * adds and links a ChannelButtonGUI and a ChannelMuteButton to it.
 	 * 
-	 * @param c the channel to be added
+	 * @param c the Channel to be added
 	 */
 	private void addChannel(Channel c) {
 		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
@@ -213,20 +193,21 @@ public class GUIController {
 		channelContainer.addView(row);
 	}
 	
-    public void removeChannel(int channel) {
-    	if (song.removeChannel(channel)) {
+	/**
+	 * Removes a channel with the specified index.
+	 * @param channelIndex
+	 */
+    public void removeChannel(int channelIndex) {
+    	if (song.removeChannel(channelIndex)) {
     		player.loadSong(song);
     		redrawChannels();
     	}
     }
-	
     
     /**
-     * An array of Strings containing the names of the different sounds.
-     * This should be done in a different way (?)
+     * Create a sample list. Used when adding a new channel or when changing sound sample
+     * of an existing channel. This should be done in a different way.
      */
-    private ArrayList<String> sampleArray = null;
-    
     private void createSampleList() {
     	if(sampleArray == null) {
     		sampleArray = new ArrayList<String>(16);
@@ -266,11 +247,11 @@ public class GUIController {
 			
 			TableRow row = new TableRow(channelContainer.getContext());
 			
-			// Name label/ mute button
+			// Create a ChannelButton and set the name tag
 			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,y,this);
 			name.setText(c.getSound().getName());
+			// Create a ChannelMuteButton
 			ChannelMuteButton mute = new ChannelMuteButton(parentActivity,c);
-			//name.setOnLongClickListener(channelSettingsListener);
 			row.addView(name);
 			row.addView(mute);
 			
@@ -294,8 +275,7 @@ public class GUIController {
 	}
     
     /**
-     * Stops Playback and clears all steps
-     * Redraws all Channels
+     * Stops Playback and clears all steps. Redraws all Channels.
      */
     public void clearAllSteps() {
     	player.stop();
@@ -304,14 +284,14 @@ public class GUIController {
     }
     
 	/**
-	 * Call onStop (might need some special handling here?)
+	 * Call onStop.
 	 */
 	public void onStop() {
     	player.stop();
     }
     
 	/**
-	 * Call onDestroy (might need some special handling here?)
+	 * Call onDestroy.
 	 */
     public void onDestroy() {
     	player.stop();
@@ -323,12 +303,11 @@ public class GUIController {
     //
     
 	/**
-	 * Listener to the step buttons
+	 * Listener to the step buttons.
 	 */
 	private OnClickListener stepClickListener = new OnClickListener() {
 
         public void onClick(View v) {
-        	
         	// Retrieves the checkbox and inverts its value
             GUIStepButton box = (GUIStepButton) v;
             box.reverse();
@@ -340,7 +319,7 @@ public class GUIController {
 	
     
 	/**
-	 * Listener to the Play/Stop-button
+	 * Listener to the Play/Stop-button.
 	 */
     private OnClickListener btnListener = new OnClickListener()
     {
@@ -363,7 +342,6 @@ public class GUIController {
     private OnClickListener addChannelListener = new OnClickListener() {
 		
 		public void onClick(View v) {
-			Button b = (Button) v;
 			
 			// Spinner for sound sample selection
 			createSampleList();
@@ -396,7 +374,7 @@ public class GUIController {
 	};
     
 	/**
-	 * Listener to the add-new-step-button. Redraws all the channels
+	 * Listener to the add-new-step-button. Redraws all the channels.
 	 */
 	private OnClickListener addStepListener = new OnClickListener() {
 		
@@ -410,7 +388,7 @@ public class GUIController {
 	};
 	
 	/**
-	 * Listener to the remove-step-button. Redraws all the channels
+	 * Listener to the remove-step-button. Redraws all the channels.
 	 */
 	private OnClickListener removeStepListener = new OnClickListener() {
 		
@@ -423,14 +401,15 @@ public class GUIController {
 	};
 
 	/**
-	 * Shows the GPL in a Dialog.
+	 * Shows the license(s) in a Dialog.
+	 * Reads a textfile from res/raw, creates a simple dialog and puts the read text in the dialog.
 	 */
 	public void createAndShowLicensesDialog(){	
-		InputStream stream = parentActivity.getResources().openRawResource(R.raw.gpl);
+		InputStream stream = parentActivity.getResources().openRawResource(R.raw.licenses);
 		BufferedReader br = new BufferedReader(new InputStreamReader(stream));
 		StringBuilder sb = new StringBuilder();
 		String line;
-		String gpl;
+		String licenses;
 
 		// Read the text file line by line and add a line break
 		try {
@@ -442,14 +421,13 @@ public class GUIController {
 		} catch (IOException e) {
 			Log.e("derp", e.getMessage());
 		}
-        gpl = sb.toString();
+        licenses = sb.toString();
 		
-        // Create the dialog
+        // Create and show the dialog
 		AlertDialog dialog = new AlertDialog.Builder(parentActivity).create();
 		dialog.setTitle(R.string.licenses);
-		dialog.setMessage(gpl);
+		dialog.setMessage(licenses);
 		dialog.setButton(AlertDialog.BUTTON_POSITIVE,"Ok", new DialogInterface.OnClickListener() {
-			
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
 			}
