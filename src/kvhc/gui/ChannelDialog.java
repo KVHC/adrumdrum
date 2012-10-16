@@ -125,6 +125,8 @@ public class ChannelDialog extends Dialog{
 		soundSpinner.setSelection(channel.getSound().getId());
 		soundSpinner.setOnItemSelectedListener(sampleSpinnerListener);
 		
+		
+		
 	}
 	
 	/**
