@@ -19,7 +19,7 @@ public class SoundSQLiteHelper extends SQLiteOpenHelper {
 			+ TABLE_SOUND + "(" + COLUMN_ID 
 			+ " integer primary key autoincrement, " + COLUMN_SOUNDVALUE
 			+ " integer not null, " + COLUMN_NAME 
-			+ " text not null);";
+			+ " text not null); commit;";
 	
 	
 	public SoundSQLiteHelper(Context context) {

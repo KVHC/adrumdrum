@@ -11,13 +11,13 @@ public class SongSQLiteHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_NAME = "name";
 	
-	private static final String DATABASE_NAME = "adrumdrum.db";
+	private static final String DATABASE_NAME = "adrumdrumsongs.db";
 	private static final int DATABASE_VERSION = 1;
 	
 	private static final String DATABASE_CREATE = "create table "
 			+ TABLE_SONG + "(" 
 			+ COLUMN_ID + " integer primary key autoincrement, "  
-			+ COLUMN_NAME + " text not null" 
+			+ COLUMN_NAME + " text" 
 			+ ");";
 	
 	public SongSQLiteHelper(Context context) {
@@ -27,6 +27,7 @@ public class SongSQLiteHelper extends SQLiteOpenHelper {
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+		Log.e("HUGE SONG ERROR", DATABASE_CREATE);
 		db.execSQL(DATABASE_CREATE);
 	}
 
@@ -36,5 +37,4 @@ public class SongSQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_SONG);
 		onCreate(db);
 	}
-
 }

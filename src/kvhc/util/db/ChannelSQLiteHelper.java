@@ -30,7 +30,7 @@ public class ChannelSQLiteHelper extends SQLiteOpenHelper {
 			+ " double not null," + FKEY_SONGID
 			+ " integer," + FKEY_SOUNDID
 			+ " integer"
-			+");";
+			+"); commit;";
 	
 	/**
 	 * Channel

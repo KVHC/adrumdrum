@@ -24,7 +24,7 @@ public class StepSQLiteHelper extends SQLiteOpenHelper {
 			+ COLUMN_ACTIVE + " integer not null,"
 			+ COLUMN_NUMBER + " integer not null,"
 			+ FKEY_CHANNELID + " integer not null"
-			+ ");";
+			+ "); commit;";
     /**
      * Step
      * 	int id; 

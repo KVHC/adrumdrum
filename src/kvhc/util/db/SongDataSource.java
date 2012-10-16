@@ -41,11 +41,12 @@ public class SongDataSource {
 	
 	public Song createSong(String name) {
 		ContentValues values = new ContentValues();
-		values.put(SongSQLiteHelper.COLUMN_NAME, "'" + name + "'");
+		values.put(SongSQLiteHelper.COLUMN_NAME, name);
 		Song newSong = null;
 		try {
+			open();
 			long insertId = database.insert(SongSQLiteHelper.TABLE_SONG, null, values);
-			
+			Log.w("DERP", "insertid: " + insertId);
 			if(insertId >= 0) {
 				Cursor cursor = database.query(SongSQLiteHelper.TABLE_SONG, allColumns, SongSQLiteHelper.COLUMN_ID + " = " 
 							+ insertId, null, null, null, null);
@@ -57,6 +58,8 @@ public class SongDataSource {
 			}
 		} catch(SQLException e) {
 			Log.e(getClass().toString(), e.toString());
+		} finally {
+			close();
 		}
 		
 		return newSong;
@@ -70,7 +73,10 @@ public class SongDataSource {
 			// Has id
 			String where = SongSQLiteHelper.COLUMN_ID + " = ?";
 			String[] whereArgs = new String[] { String.valueOf(song.getId() )};
+			
+			open();
 			database.update(SongSQLiteHelper.TABLE_SONG, values, where, whereArgs);
+			close();
 		} else {
 			// doesn't have id
 			song = createSong(song.getName());
@@ -117,7 +123,7 @@ public class SongDataSource {
 	private Song cursorToSong(Cursor cursor) {
 		
 		Song song = new Song(4);
-		song.setId((int)cursor.getLong(0));
+		song.setId(cursor.getLong(0));
 		song.setName(cursor.getString(1));
 		
 		dbChannelHelper.open();

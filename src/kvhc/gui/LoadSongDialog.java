@@ -3,11 +3,14 @@ package kvhc.gui;
 import java.util.List;
 
 import kvhc.adrumdrum.R;
+import kvhc.player.Player;
 import kvhc.player.Song;
 import kvhc.util.ISongLoader;
 import kvhc.util.db.SQLSongLoader;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -97,4 +100,17 @@ public class LoadSongDialog extends Dialog {
 	public Song getSong() {
 		return mSong;
 	}
+	
+	private Player mPlayer;
+	public void setPlayer(Player player) {
+		mPlayer = player; 
+	}
+	
+	private OnDismissListener dismissListener = new OnDismissListener() {
+		
+		public void onDismiss(DialogInterface dialog) {
+			mPlayer.stop();
+			mPlayer.loadSong(getSong());
+		}
+	};
 }

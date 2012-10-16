@@ -20,8 +20,6 @@
 
 package kvhc.adrumdrum;
 
-import java.util.List;
-
 import kvhc.gui.GUIController;
 import kvhc.player.Song;
 import kvhc.player.Sound;
@@ -38,7 +36,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
 public class MainActivity extends Activity {
 	
 	private GUIController guic;
@@ -51,8 +48,6 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        System.out.println("Adrumdrum: Started onCreate()");
-
         
         // Always change media volume and not ringtone volume
         setVolumeControlStream(AudioManager.STREAM_MUSIC);

@@ -118,7 +118,6 @@ public class GUIController {
 		// Okay, make a song
 		
 		// Adding sounds to the sound manager because we might now have them or something
-		
 		sqlWriter = new SQLRenderer(parentActivity);
 		sqlLoader = new SQLSongLoader(parentActivity);
 		
@@ -558,17 +557,8 @@ public class GUIController {
 	}
 	
 	public void createAndShowLoadSongDialog() {
-		final LoadSongDialog loadDialog = new LoadSongDialog(parentActivity.getBaseContext());
-		
-		loadDialog.setOnDismissListener(new OnDismissListener() {
-			
-			public void onDismiss(DialogInterface dialog) {
-				player.stop();
-				song = loadDialog.getSong();
-				player.loadSong(song);
-				
-			}
-		});
+		LoadSongDialog loadDialog = new LoadSongDialog(parentActivity.getBaseContext());
+		loadDialog.setPlayer(player);
 		loadDialog.show();
 	}
 }
