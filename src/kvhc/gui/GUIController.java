@@ -318,6 +318,22 @@ public class GUIController {
 		redrawChannels();
     }
     
+    /**
+     * Method for invalidating all elements in the channel container
+     * We had troubles with this on Samsung phones
+     */
+    public void invalidateAll(){
+    	TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
+    	
+    	for (int i = 0; i < channelContainer.getChildCount(); i ++){
+    		TableRow row = (TableRow)channelContainer.getChildAt(i);
+    		for (int j = 0; j < row.getChildCount(); j ++){
+    			row.getChildAt(j).invalidate();
+    		}
+    	}
+    	
+    }
+    
 	/**
 	 * Call onStop.
 	 */
