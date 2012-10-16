@@ -58,6 +58,12 @@ public class ChannelButtonGUI extends Button {
 		setBackgroundResource(R.drawable.wrench);
 	}
 	
+
+	public void uppdate(){
+		setText(channel.getSound().getName());
+	}
+	
+	
 	/**
 	 * Button Listener
 	 */

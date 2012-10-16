@@ -264,6 +264,18 @@ public class GUIController {
     	}
     }
     
+    
+    public void uppdateButtons(){
+    	TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
+    	
+    	for (int i = 0; i < channelContainer.getChildCount(); i++){
+    		TableRow row = (TableRow)channelContainer.getChildAt(i);
+    		ChannelButtonGUI cb = (ChannelButtonGUI) row.getChildAt(0);
+    		cb.uppdate();
+    	}
+    }
+    
+    
     /**
      * Redraws all the Channel and their steps and their ChannelButtons.
      * This is done when adding or removing steps (and would be done if
@@ -434,6 +446,7 @@ public class GUIController {
 			redrawChannels();
 		}
 	};
+	
 
 	/**
 	 * Shows the license(s) in a Dialog.

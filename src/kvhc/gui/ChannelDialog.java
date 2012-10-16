@@ -22,13 +22,18 @@ package kvhc.gui;
 
 import kvhc.adrumdrum.R;
 import kvhc.player.Channel;
+import kvhc.player.Sound;
+import kvhc.util.SoundFetcher;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 /**
@@ -64,6 +69,7 @@ public class ChannelDialog extends Dialog{
         setTitle("Channel Controlls");
         initButtons();
         initBars();
+        initSpinners();
 	}
 	
 	/**
@@ -111,7 +117,20 @@ public class ChannelDialog extends Dialog{
 		
 	}
 	
-	public void setSoloButtonText(){
+	/**
+	 * Init the spinners in this dialog
+	 */
+	private void initSpinners(){
+		Spinner soundSpinner = (Spinner) this.findViewById(R.id.spinner_sample);
+		soundSpinner.setSelection(channel.getSound().getId());
+		soundSpinner.setOnItemSelectedListener(sampleSpinnerListener);
+		
+	}
+	
+	/**
+	 * Set the text on the soloButton 
+	 */
+	private void setSoloButtonText(){
 		if (guic.getSoloChannel() == id){
 			solo.setText("End Solo");
 		} else {
@@ -213,5 +232,31 @@ public class ChannelDialog extends Dialog{
 			guic.invalidateChannelGUI();
 		}
 	};
+	
+	
+	/**
+	 * Listener that sets the sound of the channel to the one selected in the spinner
+	 */
+	private OnItemSelectedListener sampleSpinnerListener= new OnItemSelectedListener() {
+	    @Override
+	    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+	    	String name = parentView.getItemAtPosition(position).toString();;
+	        Sound s = SoundFetcher.GetSoundFromString(name);
+	        
+	        channel.setSound(s);
+	        guic.uppdateButtons();
+	        
+	        tv1.setText(name +" and " +  s.getName()); //DEBUG //TODO
+	        
+	    }
+
+	    @Override
+	    public void onNothingSelected(AdapterView<?> parentView) {
+	        // Nothing to do here
+	    }
+
+
+	};
+	
 	
 }
