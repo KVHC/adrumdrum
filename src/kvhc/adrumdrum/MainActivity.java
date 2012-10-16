@@ -1,7 +1,11 @@
 package kvhc.adrumdrum;
 
+import java.util.List;
+
 import kvhc.gui.GUIController;
 import kvhc.player.Song;
+import kvhc.player.Sound;
+import kvhc.util.db.DatabaseHandler;
 import kvhc.util.db.SQLSongLoader;
 import kvhc.util.db.SoundDataSource;
 import android.media.AudioManager;
@@ -9,7 +13,9 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -19,9 +25,8 @@ public class MainActivity extends Activity {
 	
 	private GUIController guic;
 	
-	SQLSongLoader loader;
 	SoundDataSource mSoundLoader;
-	
+	DatabaseHandler mDBHandler;
 	
     /**
      * Everything that the app have to do then created
@@ -29,12 +34,25 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        System.out.println("Adrumdrum: Started onCreate()");
+        mDBHandler = new DatabaseHandler(this);
+        try {
+        	mDBHandler.onUpgrade(mDBHandler.getWritableDatabase(), 1, 1);
+        } catch(SQLException e) {
+        	Log.w("MainActivity", "Error creating db, might already exist.");
+        }
         
         // Always change media volume and not ringtone volume
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        loader = new SQLSongLoader(this);
+        
         mSoundLoader = new SoundDataSource(this);
-        mSoundLoader.open();
+        try {
+        	mSoundLoader.open();
+        } catch(Exception e) {
+        	// Already created?
+        	Log.e("Main", e.toString());
+        }
+        
         
         if(mSoundLoader.getAllSounds().size() == 0) {
         	mSoundLoader.createSound(R.raw.jazzfunkkitbd_01, "Bassdrum");
@@ -53,9 +71,11 @@ public class MainActivity extends Activity {
         	mSoundLoader.createSound(R.raw.jazzfunkkittom_02, "Tomtom 02");
         	mSoundLoader.createSound(R.raw.jazzfunkkittom_03, "Tomtom 03");
         }
-        
         mSoundLoader.close();
+        
         guic = new GUIController(this);
+        
+        System.out.println("Adrumdrum: Done onCreate()");
     }
 
     /**

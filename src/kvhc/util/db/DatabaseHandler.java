@@ -30,6 +30,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         stepHelper = new StepSQLiteHelper(context);        
     }
     
+    
+    
  // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {

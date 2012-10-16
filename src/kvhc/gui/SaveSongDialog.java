@@ -29,7 +29,7 @@ public class SaveSongDialog extends Dialog {
 		super(context);
 		
 		mSong = song;
-		mSongRenderer = new SQLRenderer(context); 
+		
 	}
 	
 	/**
@@ -40,6 +40,10 @@ public class SaveSongDialog extends Dialog {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.save_song);
         setTitle("Save Song");
+        
+        if(mSongRenderer == null) {
+        	mSongRenderer = new SQLRenderer(getContext());
+        }
         
         // Set up the EditText widget
         mEditSongName = (EditText)findViewById(R.id.editSongName);

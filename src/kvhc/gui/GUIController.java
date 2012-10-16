@@ -1,6 +1,8 @@
 package kvhc.gui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -23,6 +25,8 @@ import kvhc.player.Sound;
 import kvhc.util.AssetManagerModel;
 import kvhc.util.ISongLoader;
 import kvhc.util.ISongRenderer;
+import kvhc.util.db.SQLRenderer;
+import kvhc.util.db.SQLSongLoader;
 import kvhc.util.db.SoundDataSource;
 
 /**
@@ -37,7 +41,8 @@ public class GUIController {
 	private TextView tv1;
 	
 	private Activity parentActivity;
-	private AssetManagerModel<Sound> mSoundManager = AssetManagerModel.getSoundManager();
+	//private AssetManagerModel<Sound> mSoundManager = AssetManagerModel.getSoundManager();
+	private HashMap<String, Sound> mSoundManager;
 	
 	ISongRenderer sqlWriter;
 	ISongLoader sqlLoader;
@@ -80,18 +85,23 @@ public class GUIController {
 		
 		// Adding sounds to the sound manager because we might now have them or something
 		
+		sqlWriter = new SQLRenderer(parentActivity);
+		sqlLoader = new SQLSongLoader(parentActivity);
+		
 		mDBsoundHelper.open();
+		mSoundManager = new HashMap<String, Sound>();
+		//List<Sound> soundss = mDBsoundHelper.getAllSounds();
 		for(Sound sound : mDBsoundHelper.getAllSounds()) {
-			mSoundManager.setValue(song.getName(), sound);
+			mSoundManager.put(sound.getName(), sound);
 		}
 		mDBsoundHelper.close();
 		// Creates list of sounds for channel.
 		ArrayList<Sound> sounds = new ArrayList<Sound>(4);
 		
-		sounds.add(mSoundManager.getValue("Bassdrum"));
-		sounds.add(mSoundManager.getValue("Hihat closed"));
-		sounds.add(mSoundManager.getValue("Snare"));
-		sounds.add(mSoundManager.getValue("Ride"));
+		sounds.add(mSoundManager.get("Bassdrum"));
+		sounds.add(mSoundManager.get("Closed hihat"));
+		sounds.add(mSoundManager.get("Snare 01"));
+		sounds.add(mSoundManager.get("Ride"));
 		
 		// Create channels
 		ArrayList<Channel> channels = new ArrayList<Channel>(sounds.size());
@@ -178,7 +188,11 @@ public class GUIController {
 		// Name label
 
 		ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,song.getNumberOfChannels()-1,this);
-		name.setText(c.getSound().getName());
+		if(c.getSound() != null) {
+			name.setText(c.getSound().getName());
+		} else {
+			name.setText("No Sound");
+		}
 		row.addView(name);
 		
 		for(int x = 0; x < song.getNumberOfSteps(); x++) {
@@ -190,33 +204,6 @@ public class GUIController {
 		channelContainer.addView(row);
 	}
 	
-   
-    /**
-     * An array of Strings containing the names of the different sounds.
-     * This should be done in a different way (?)
-     */
-    private ArrayList<String> sampleArray = null;
-    
-    private void createSampleList() {
-    	if(sampleArray == null) {
-    		sampleArray = new ArrayList<String>(16);
-    		sampleArray.add("Bassdrum");
-    		sampleArray.add("Bell Ride Cymbal");
-    		sampleArray.add("Crash Cymbal 01");
-    		sampleArray.add("Crash Cymbal 02");
-    		sampleArray.add("Hihat Closed");
-    		sampleArray.add("Hihat Open");
-    		sampleArray.add("Ride Cymbal");
-    		sampleArray.add("Snare 01");
-    		sampleArray.add("Snare 02");
-    		sampleArray.add("Snare 03");
-    		sampleArray.add("Splash Cymbal 01");
-    		sampleArray.add("Splash Cymbal 02");
-    		sampleArray.add("Tomtom 01");
-    		sampleArray.add("Tomtom 02");
-    		sampleArray.add("Tomtom 03");
-    	}
-    }
     
     /**
      * Redraws all the Channel and their steps and their ChannelButtons.
@@ -238,7 +225,11 @@ public class GUIController {
 			
 			// Name label/ mute button
 			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,y,this);
-			name.setText(c.getSound().getName());
+			if(c.getSound() != null) {
+				name.setText(c.getSound().getName());
+			} else {
+				name.setText("No Sound");
+			}
 			//name.setOnLongClickListener(channelSettingsListener);
 			row.addView(name);
 			
@@ -339,9 +330,12 @@ public class GUIController {
 		public void onClick(View v) {
 
 			// Spinner for sound sample selection
-			createSampleList();
 			final Spinner input2 = new Spinner(parentActivity);
+			
+			mDBsoundHelper.open();
 			ArrayAdapter<Sound> spinnerArrayAdapter = new ArrayAdapter<Sound>(parentActivity, android.R.layout.simple_spinner_dropdown_item, mDBsoundHelper.getAllSounds());
+			mDBsoundHelper.close();
+			
 			input2.setAdapter(spinnerArrayAdapter);
 			
 			AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity);
@@ -350,7 +344,7 @@ public class GUIController {
 			    public void onClick(DialogInterface dialog, int whichButton) {
 			        
 			    	String name = String.valueOf(input2.getSelectedItem());
-			        Sound s = mSoundManager.getValue(name);
+			        Sound s = mSoundManager.get(name);
 			        
 			        Channel c = new Channel(s, song.getNumberOfSteps());
 			        song.addChannel(c);
@@ -414,8 +408,9 @@ public class GUIController {
 	
 	
 	public void createAndShowSaveSongDialog() {
-		final SaveSongDialog saveDialog = new SaveSongDialog(parentActivity, song);
 		
+		SaveSongDialog saveDialog = new SaveSongDialog(parentActivity, song);
+
 		saveDialog.setOnDismissListener(new OnDismissListener() {
 			
 			public void onDismiss(DialogInterface dialog) {
@@ -426,7 +421,7 @@ public class GUIController {
 	}
 	
 	public void createAndShowLoadSongDialog() {
-		final LoadSongDialog loadDialog = new LoadSongDialog(parentActivity);
+		final LoadSongDialog loadDialog = new LoadSongDialog(parentActivity.getBaseContext());
 		
 		loadDialog.setOnDismissListener(new OnDismissListener() {
 			

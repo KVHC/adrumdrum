@@ -42,7 +42,9 @@ public class SQLRenderer implements ISongRenderer {
 	}
 	
 	public void RenderSong(Song song) {
+		dbSongHelper.open();
 		song = dbSongHelper.save(song);
+		dbSongHelper.close();
 	}
 	
 	public void RenderSongAtStep(Song song, int step) {

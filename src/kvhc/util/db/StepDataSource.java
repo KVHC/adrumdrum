@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class StepDataSource {
 	private SQLiteDatabase database;
-	private DatabaseHandler dbHelper;
+	private StepSQLiteHelper dbHelper;
 	private String[] allColumns = { StepSQLiteHelper.COLUMN_ID, 
 			StepSQLiteHelper.COLUMN_VELOCITY, 
 			StepSQLiteHelper.COLUMN_ACTIVE, 
@@ -21,7 +21,7 @@ public class StepDataSource {
 			StepSQLiteHelper.FKEY_CHANNELID};
 	
 	public StepDataSource(Context context) {
-		dbHelper = new DatabaseHandler(context);
+		dbHelper = new StepSQLiteHelper(context);
 	}
 	
 	public void open() throws SQLException {

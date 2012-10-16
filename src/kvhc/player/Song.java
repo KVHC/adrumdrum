@@ -29,8 +29,20 @@ public class Song {
 	 * @param channels
 	 */
 	public Song(ArrayList<Channel> channels) {
-		mChannels = channels;
-		numsteps = mChannels.get(0).getNumberOfSteps();
+		if(channels == null) {
+			
+			numsteps = 16;
+			mChannels = new ArrayList<Channel>(4);
+			
+		} else {
+		
+			mChannels = channels;
+			if(channels.size() > 0) {
+				numsteps = mChannels.get(0).getNumberOfSteps();
+			} else {
+				numsteps = 16;
+			}
+		}
 	}
 	
 	/**
