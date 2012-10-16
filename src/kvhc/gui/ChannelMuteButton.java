@@ -40,7 +40,6 @@ import android.widget.Button;
 @SuppressLint("ViewConstructor")
 public class ChannelMuteButton extends Button {
 
-	private boolean isMuted;
 	private Channel channel;
 
 	/**
@@ -51,11 +50,10 @@ public class ChannelMuteButton extends Button {
 	public ChannelMuteButton(Context context, Channel channel) {
 		super(context);
 		this.channel = channel;
-		this.isMuted = channel.isMuted();
 		setOnClickListener(onClick);
 		setGravity(20);
 		
-		if (isMuted) {
+		if (channel.isMuted()) {
 			setBackgroundResource(R.drawable.muted);
 		} else {
 			setBackgroundResource(R.drawable.unmuted);
@@ -68,19 +66,18 @@ public class ChannelMuteButton extends Button {
 	private OnClickListener onClick = new OnClickListener() {
 		
 		public void onClick(View v) {
-			if (isMuted) {
+			if (channel.isMuted()) {
 				channel.setMute(false);
 			} else {
 				channel.setMute(true);
 			}
-			isMuted = !isMuted;
 			invalidate();
 		}
 	};
 	
 	
 	protected void onDraw(Canvas canvas) {
-		if (isMuted) {
+		if (channel.isMuted()) {
 			setBackgroundResource(R.drawable.muted);			
 		} else if(channel.getChannelVolume() > 0.75)  {
 			setBackgroundResource(R.drawable.unmuted);

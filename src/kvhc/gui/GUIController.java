@@ -55,6 +55,7 @@ public class GUIController {
 	private Player player;
 	private Song song;
 	private TextView tv1;
+	private int solo;
 	
 	private Activity parentActivity;
 	
@@ -88,6 +89,7 @@ public class GUIController {
 		initButtons();
 		initBars();
 		initChannels();
+		solo = -1;
 	}
 	
 	/**
@@ -210,6 +212,30 @@ public class GUIController {
      */
     public void invalidateChannelGUI(){
     	parentActivity.findViewById(R.id.ChannelContainer).invalidate();
+    }
+    
+    /**
+     * If the channel already is playing solo this method ends the solo and unmute all other channels.
+     * If the channel don't play solo this method mute all channels except the given.
+     * @param channel the id of the channel to toggle solo on
+     */
+    public void toggleSolo(int channel){
+    	if (channel == solo){
+    		song.playAll();
+    		solo = -1;
+    	} else {
+    		song.muteAllChannelsExcept(channel);
+    		solo = channel;
+    	}
+    }
+    
+    /**
+     * A method for getting the id of the channel that playes solo
+     * returns -1 if no channels are playing solo
+     * @return The id of the channel that plays solo
+     */
+    public int getSoloChannel(){
+    	return solo;
     }
 
     

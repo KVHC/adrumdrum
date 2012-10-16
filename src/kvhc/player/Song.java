@@ -209,4 +209,10 @@ public class Song {
 		}
 		mChannels.get(channel).setMute(false);
 	}
+	
+	public void playAll(){
+		for (int i=0;i<mChannels.size();i++) {
+			mChannels.get(i).setMute(false);
+		}
+	}
 }

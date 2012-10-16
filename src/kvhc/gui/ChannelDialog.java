@@ -40,6 +40,7 @@ public class ChannelDialog extends Dialog{
 	private TextView tv1;
 	private int id;
 	private GUIController guic;
+	private Button solo;
 	
 	/**
 	 * The Constructor
@@ -77,6 +78,12 @@ public class ChannelDialog extends Dialog{
 		
 		Button remove = (Button)this.findViewById(R.id.buttonRemove);
 		remove.setOnClickListener(removeClick);
+		
+		solo = (Button)this.findViewById(R.id.buttonSolo);
+		setSoloButtonText();
+		solo.setOnClickListener(soloClick);
+		
+		
 	}
 	
 	/**
@@ -102,6 +109,14 @@ public class ChannelDialog extends Dialog{
 		volumeBar.setProgress((int)(channel.getChannelVolume() * 100));
 		volumeBar.setOnSeekBarChangeListener(volumeListener);
 		
+	}
+	
+	public void setSoloButtonText(){
+		if (guic.getSoloChannel() == id){
+			solo.setText("End Solo");
+		} else {
+			solo.setText("Start Solo");
+		}
 	}
 
 	
@@ -186,6 +201,17 @@ public class ChannelDialog extends Dialog{
 			dismiss();
 		}
 	};
+
 	
+	/**
+	 * Listener to the soloChannel button
+	 */
+	private View.OnClickListener soloClick = new View.OnClickListener(){
+		public void onClick(View v) {
+			guic.toggleSolo(id);
+			setSoloButtonText();
+			guic.invalidateChannelGUI();
+		}
+	};
 	
 }

@@ -33,6 +33,7 @@
 	</TableRow>
 	
 	<TableRow>
+	    <Button	android:id="@+id/buttonSolo" />
 	    <Button android:text="@string/back_button" 
 		    	android:id="@+id/buttonBack" />
 	</TableRow>
