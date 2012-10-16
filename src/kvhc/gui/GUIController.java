@@ -45,6 +45,7 @@ import kvhc.player.Channel;
 import kvhc.player.Player;
 import kvhc.player.Song;
 import kvhc.player.Sound;
+import kvhc.util.SoundFetcher;
 
 /**
  * Master class of the GUI.
@@ -363,7 +364,7 @@ public class GUIController {
 			    public void onClick(DialogInterface dialog, int whichButton) {
 			        
 			    	String name = String.valueOf(input2.getSelectedItem());
-			        Sound s = GUIChannelSettings.GetSoundFromString(name);
+			        Sound s = SoundFetcher.GetSoundFromString(name);
 			        
 			        Channel c = new Channel(s, song.getNumberOfSteps());
 			        song.addChannel(c);

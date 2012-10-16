@@ -22,6 +22,7 @@ package kvhc.gui;
 
 import kvhc.adrumdrum.R;
 import kvhc.player.Channel;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.view.View;
@@ -36,6 +37,7 @@ import android.widget.Button;
  *
  * @author kvhc
  */
+@SuppressLint("ViewConstructor")
 public class ChannelMuteButton extends Button {
 
 	private boolean isMuted;

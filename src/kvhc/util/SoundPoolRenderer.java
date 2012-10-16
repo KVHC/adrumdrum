@@ -21,11 +21,7 @@
 package kvhc.util;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
 import android.content.Context;
-import android.util.Log;
-import kvhc.adrumdrum.R;
 import kvhc.player.Channel;
 import kvhc.player.Song;
 import kvhc.player.Sound;

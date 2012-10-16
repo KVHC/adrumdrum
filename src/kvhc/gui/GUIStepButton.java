@@ -21,13 +21,13 @@
 package kvhc.gui;
 
 import kvhc.adrumdrum.R;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.view.View;
 import android.widget.CheckBox;
 
 
@@ -39,6 +39,7 @@ import android.widget.CheckBox;
  * @author Oscar/kvhc
  *
  */
+@SuppressLint("ViewConstructor")
 public class GUIStepButton extends CheckBox {
 	
 	private int m_ChannelId;
@@ -51,6 +52,7 @@ public class GUIStepButton extends CheckBox {
 	private static Bitmap m_buttonOn;
 	private static Bitmap m_buttonOff_play; 
 	private static Bitmap m_buttonOn_play;
+	private Paint paint; 
 	private static int distanceFromTop = 12;  // så att stepsen ritas i mitten av raden
 	
 	
@@ -76,6 +78,7 @@ public class GUIStepButton extends CheckBox {
 		super(context);
 		
 		initImages();
+		initPaint();
 		
 		m_ChannelId = channelId;
 		m_StepId = stepId;
@@ -103,6 +106,16 @@ public class GUIStepButton extends CheckBox {
 			m_buttonOn_play = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonon_active);
 		}
 		
+	}
+
+	/**
+	 * Init the paint to paint digits with
+	 */
+	private void initPaint(){
+		// Skapar en färg för att måla texten
+		Paint paint = new Paint();
+		paint.setTextSize(20);
+
 	}
 	
 	
@@ -153,10 +166,6 @@ public class GUIStepButton extends CheckBox {
 	 */
 	protected void onDraw(Canvas canvas) {
 		
-		// Skapar en färg för att måla texten
-		Paint paint = new Paint();
-		paint.setTextSize(20);
-
 		// Flyttar siffrorna åt vänster om de är större än tio så att de fortfarande är centrerade
 		float textPosX = 19;
 		float textPosY = 32 + distanceFromTop;

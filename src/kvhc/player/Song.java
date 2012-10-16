@@ -22,7 +22,6 @@ package kvhc.player;
 
 import java.util.ArrayList;
 
-import android.util.Log;
 
 
 public class Song {
