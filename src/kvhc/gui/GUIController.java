@@ -531,12 +531,14 @@ public class GUIController {
 			
 			public void onDismiss(DialogInterface dialog) {
 				
-				Song song = loadDialog.getSong();
+				Song lSong = loadDialog.getSong();
 				
-				if(song != null) {
+				if(lSong != null) {
 					player.stop();
+					song = lSong;
 					player.loadSong(song);
 					redrawChannels();
+					
 				}
 			}
 		});
