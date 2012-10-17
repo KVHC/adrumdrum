@@ -29,7 +29,7 @@ public class Step {
 	
 	private boolean mIsActive;
 	private float mVelocity;
-	private int stepid;
+	//private int stepid;
 	private Channel channel; 
 	private int mNumber; // The step number
 	private long id;
@@ -43,14 +43,13 @@ public class Step {
 		mIsActive = false;
 		mVelocity = 0.7f;
 		this.channel = channel;
-		this.stepid = stepid;
+		this.mNumber = stepid;
 	}
 	
 	public Step() {
 		this.mIsActive = false;
 		this.mVelocity = 0.7f;
 		this.channel = null;
-		this.stepid = 0;
 		this.mNumber = 0;
 		this.id = 0;
 	}
@@ -64,7 +63,7 @@ public class Step {
 	public Step(boolean setActive, Channel channel, int stepid) {
 		mIsActive = setActive;
 		this.channel = channel;
-		this.stepid = stepid;
+		this.mNumber = stepid;
 	}
 	
 	/**
@@ -107,21 +106,13 @@ public class Step {
     public Channel getChannel() {
         return channel;
     }
-    
-    /**
-     * Returns the id of the step.
-     * @return the id of the step
-     */
-    public int getStepId() {
-    	return stepid;
-    }
 	
     /**
      * Sets the steps velocity to 100%, the two neighbours to 70% and
      * the neighbours neighbours to 30%. Activates the mentioned steps.
      */
     public void multiStepVelocitySpike() {
-        channel.multiStepVelocitySpike(stepid);
+        channel.multiStepVelocitySpike(mNumber);
     }
     
     /**
@@ -148,6 +139,20 @@ public class Step {
 		mNumber = stepNumber;
 	}
 
+	/**
+	 * Clones a step
+	 * @see java.lang.Object#clone()
+	 */
+	public Step clone(){
+		
+		Step clone = new Step();
+		clone.mIsActive = this.mIsActive;
+		clone.mVelocity = this.mVelocity;
+		clone.channel = channel;
+		
+		return clone;
+	}
+	
 	public long getId() {
 		return id;
 	}

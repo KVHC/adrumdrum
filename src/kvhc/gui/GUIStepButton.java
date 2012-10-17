@@ -73,7 +73,7 @@ public class GUIStepButton extends CheckBox {
 		
 		this.step = step;
 		mChannelId = channelId;
-		mStepId = step.getStepId();
+		mStepId = step.getStepNumber();
 		mActive = false;
 	}
 	
@@ -93,7 +93,7 @@ public class GUIStepButton extends CheckBox {
 		
 		this.step = step;
 		mChannelId = channelId;
-		mStepId = step.getStepId();
+		mStepId = step.getStepNumber();
 		mActive = isActive;
 	}
 	
