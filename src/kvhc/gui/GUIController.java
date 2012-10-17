@@ -531,7 +531,7 @@ public class GUIController {
 			
 			public void onDismiss(DialogInterface dialog) {
 				
-				song = loadDialog.getSong();
+				Song song = loadDialog.getSong();
 				
 				if(song != null) {
 					player.stop();
