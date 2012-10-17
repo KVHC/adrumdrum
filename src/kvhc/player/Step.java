@@ -1,5 +1,5 @@
 /**
- * aDrumDrum is a stepsequencer for Android.
+ * aDrumDrum is a step sequencer for Android.
  * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
@@ -25,7 +25,7 @@ package kvhc.player;
  * @author kvhc
  *
  */
-public class Step {
+public class Step implements Cloneable {
 	
 	private boolean mIsActive;
 	private float mVelocity;
@@ -123,7 +123,7 @@ public class Step {
     }
 
 	/**
-	 * Get the step number (for saving and loading)
+	 * Get the step number (for saving and loading).
 	 * @return the number of the step in the song. 
 	 */
 	public int getStepNumber() {
@@ -131,7 +131,7 @@ public class Step {
 	}
 	
 	/**
-	 * Set the step number (for saving and loading)
+	 * Set the step number (for saving and loading).
 	 * @param step position number
 	 */
 	public void setStepNumber(int stepNumber) {
@@ -139,7 +139,7 @@ public class Step {
 	}
 
 	/**
-	 * Clones a step
+	 * Clones a step.
 	 * @see java.lang.Object#clone()
 	 */
 	public Step clone(){
@@ -152,10 +152,18 @@ public class Step {
 		return clone;
 	}
 	
+	/**
+	 * Gets the ID of the step (for uniqueness).
+	 * @return
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 * Sets the ID of the step (for uniqueness).
+	 * @param id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}
