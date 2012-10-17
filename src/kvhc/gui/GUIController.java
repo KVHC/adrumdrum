@@ -49,6 +49,7 @@ import kvhc.player.Channel;
 import kvhc.player.Player;
 import kvhc.player.Song;
 import kvhc.player.Sound;
+import kvhc.player.Step;
 import kvhc.util.ISongLoader;
 import kvhc.util.db.SQLSongLoader;
 import kvhc.util.db.SoundDataSource;
@@ -258,6 +259,18 @@ public class GUIController {
      */
     public int getSoloChannel(){
     	return solo;
+    }
+    
+    
+    
+    private void numerateSteps(){
+    	for (Channel c: song.getChannels()){
+    		int number = 0;
+    		for (Step s : c.getSteps()){
+    			s.setStepNumber(number);
+    			number++;
+    		}
+    	}
     }
 
 
@@ -536,6 +549,7 @@ public class GUIController {
 				if(lSong != null) {
 					player.stop();
 					song = lSong;
+					numerateSteps();
 					player.loadSong(song);
 					redrawChannels();
 					
