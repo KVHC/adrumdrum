@@ -31,8 +31,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
-import android.content.Intent;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -48,12 +46,7 @@ import kvhc.player.Channel;
 import kvhc.player.Player;
 import kvhc.player.Song;
 import kvhc.player.Sound;
-//import kvhc.util.SoundFetcher;
-import kvhc.player.Step;
-import kvhc.util.AssetManagerModel;
 import kvhc.util.ISongLoader;
-import kvhc.util.ISongRenderer;
-import kvhc.util.db.SQLRenderer;
 import kvhc.util.db.SQLSongLoader;
 import kvhc.util.db.SoundDataSource;
 
@@ -77,8 +70,7 @@ public class GUIController {
      * An array of Strings containing the names of the different sounds.
      * This should be done in a different way (?)
      */
-    private ArrayList<String> sampleArray = null;
-	SoundDataSource mDBsoundHelper; 
+	private SoundDataSource mDBsoundHelper; 
 	
 	/**
 	 * Constructor.
@@ -218,7 +210,7 @@ public class GUIController {
 			name.setText("No Sound");
 		}
 		row.addView(name);
-		ChannelMuteButton mute = new ChannelMuteButton(parentActivity,c);
+		ChannelMuteButton mute = new ChannelMuteButton(parentActivity,c,this);
 		row.addView(mute);
 		
 		for(int x = 0; x < song.getNumberOfSteps(); x++) {
@@ -264,31 +256,6 @@ public class GUIController {
     	return solo;
     }
 
-    
-    /**
-     * Create a sample list. Used when adding a new channel or when changing sound sample
-     * of an existing channel. This should be done in a different way.
-     */
-    private void createSampleList() {
-    	if(sampleArray == null) {
-    		sampleArray = new ArrayList<String>(16);
-    		sampleArray.add("Bassdrum");
-    		sampleArray.add("Bell Ride Cymbal");
-    		sampleArray.add("Crash Cymbal 01");
-    		sampleArray.add("Crash Cymbal 02");
-    		sampleArray.add("Hihat Closed");
-    		sampleArray.add("Hihat Open");
-    		sampleArray.add("Ride Cymbal");
-    		sampleArray.add("Snare 01");
-    		sampleArray.add("Snare 02");
-    		sampleArray.add("Snare 03");
-    		sampleArray.add("Splash Cymbal 01");
-    		sampleArray.add("Splash Cymbal 02");
-    		sampleArray.add("Tomtom 01");
-    		sampleArray.add("Tomtom 02");
-    		sampleArray.add("Tomtom 03");
-    	}
-    }
 
 	
     
@@ -316,7 +283,7 @@ public class GUIController {
 
 			name.setText(c.getSound().getName());
 			// Create a ChannelMuteButton
-			ChannelMuteButton mute = new ChannelMuteButton(parentActivity,c);
+			ChannelMuteButton mute = new ChannelMuteButton(parentActivity,c,this);
 
 			if(c.getSound() != null) {
 				name.setText(c.getSound().getName());
@@ -368,6 +335,11 @@ public class GUIController {
     		}
     	}
     	
+    }
+    
+    
+    public void stopSolo(){
+    	solo = -1;
     }
     
 	/**

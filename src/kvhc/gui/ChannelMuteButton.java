@@ -41,14 +41,16 @@ import android.widget.Button;
 public class ChannelMuteButton extends Button {
 
 	private Channel channel;
-
+	private GUIController guic;
+	
 	/**
 	 * Constructor.
 	 * @param context the context
 	 * @param channel the Channel to control
 	 */
-	public ChannelMuteButton(Context context, Channel channel) {
+	public ChannelMuteButton(Context context, Channel channel,GUIController guic) {
 		super(context);
+		this.guic = guic;
 		this.channel = channel;
 		setOnClickListener(onClick);
 		setGravity(20);
@@ -71,6 +73,7 @@ public class ChannelMuteButton extends Button {
 			} else {
 				channel.setMute(true);
 			}
+			guic.stopSolo();
 			invalidate();
 		}
 	};
