@@ -1,4 +1,4 @@
-package kvhc.gui;
+package kvhc.dialogs;
 
 import kvhc.adrumdrum.R;
 import kvhc.player.Song;

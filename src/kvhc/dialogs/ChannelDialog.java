@@ -18,9 +18,10 @@
  * along with aDrumDrum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package kvhc.gui;
+package kvhc.dialogs;
 
 import kvhc.adrumdrum.R;
+import kvhc.gui.GUIController;
 import kvhc.player.Channel;
 import android.app.Activity;
 import android.app.Dialog;
@@ -29,7 +30,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.TextView;
 
 /**
  * A dialog about channel settings
@@ -37,7 +37,6 @@ import android.widget.TextView;
 public class ChannelDialog extends Dialog{
 
 	private Channel channel;
-	private TextView tv1;
 	private int id;
 	private GUIController guic;
 	private Button solo;
@@ -49,7 +48,6 @@ public class ChannelDialog extends Dialog{
 	 */
 	public ChannelDialog(Activity parrentActivity, Channel channel,	int id, GUIController guic) {
 		super(parrentActivity);
-		tv1 = (TextView)parrentActivity.findViewById(R.id.textView1); //DEBUG
 		this.id = id;
 		this.guic = guic;
 		this.channel = channel;
@@ -138,7 +136,6 @@ public class ChannelDialog extends Dialog{
 			}
 			
 			channel.setPanning(right, left);
-			tv1.setText("Panned " + channel.getLeftPanning() + "L " + channel.getRightPanning() + "R");
 		}
 
 

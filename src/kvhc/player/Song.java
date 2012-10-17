@@ -23,8 +23,6 @@ package kvhc.player;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.text.Editable;
-import android.util.Log;
 
 public class Song {
 	

@@ -1,4 +1,4 @@
-package kvhc.gui;
+package kvhc.dialogs;
 
 import java.util.List;
 

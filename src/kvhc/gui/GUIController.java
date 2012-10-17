@@ -42,6 +42,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import kvhc.adrumdrum.R;
+import kvhc.dialogs.LoadSongDialog;
+import kvhc.dialogs.SaveSongDialog;
 import kvhc.player.Channel;
 import kvhc.player.Player;
 import kvhc.player.Song;

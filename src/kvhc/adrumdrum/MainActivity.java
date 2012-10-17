@@ -21,9 +21,6 @@
 package kvhc.adrumdrum;
 
 import kvhc.gui.GUIController;
-import kvhc.player.Song;
-import kvhc.player.Sound;
-import kvhc.util.db.SQLSongLoader;
 import kvhc.util.db.ChannelSQLiteHelper;
 import kvhc.util.db.SongSQLiteHelper;
 import kvhc.util.db.SoundDataSource;
@@ -31,10 +28,6 @@ import kvhc.util.db.StepSQLiteHelper;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
