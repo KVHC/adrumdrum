@@ -10,6 +10,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class StepDataSource {
 	private SQLiteDatabase database;
@@ -33,12 +34,20 @@ public class StepDataSource {
 	}
 	
 	public Step createStep(float velocity, boolean active, int stepNumber, Channel channel) {
+		
+		if(channel.getId() == 0) {
+			return null;
+		}
+		
 		ContentValues values = new ContentValues();
 		values.put(StepSQLiteHelper.COLUMN_VELOCITY, velocity);
 		values.put(StepSQLiteHelper.COLUMN_ACTIVE, active ? 1 : 0);
 		values.put(StepSQLiteHelper.COLUMN_NUMBER, stepNumber);
 		values.put(StepSQLiteHelper.FKEY_CHANNELID, channel.getId());
+		
+		
 		long insertId = database.insert(StepSQLiteHelper.TABLE_STEP, null, values);
+		Log.w("StepData", "Insert step: " + insertId);
 		Cursor cursor = database.query(StepSQLiteHelper.TABLE_STEP, allColumns, StepSQLiteHelper.COLUMN_ID + " = " 
 						+ insertId, null, null, null, null);
 		
@@ -54,13 +63,19 @@ public class StepDataSource {
 		// Delete sound
 		database.delete(StepSQLiteHelper.TABLE_STEP, StepSQLiteHelper.COLUMN_ID + " = " + id, null);
 	}
-	
+		
 	public List<Step> getAllStepsForChannel(Channel channel) {
+		
 		List<Step> steps = new ArrayList<Step>();
 		
-		String where = StepSQLiteHelper.FKEY_CHANNELID + " = ? ";
+		if(channel == null || channel.getId() == 0) {
+			return steps;
+		}
+		
+		String where = StepSQLiteHelper.FKEY_CHANNELID + "=?";
 		String[] whereArgs = new String[] { String.valueOf(channel.getId()) };
-		Cursor cursor = database.query(StepSQLiteHelper.TABLE_STEP, allColumns, where, whereArgs,null,null,null);
+		String orderBy = StepSQLiteHelper.COLUMN_NUMBER + " ASC";
+		Cursor cursor = database.query(StepSQLiteHelper.TABLE_STEP, allColumns, where, whereArgs, null, null, orderBy);
 		
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()) {
@@ -70,7 +85,36 @@ public class StepDataSource {
 		}
 		
 		cursor.close();
+		Log.w("StepData", "Number of steps: " + steps.size() + " for channel id: " + channel.getId());
 		return steps;
+	}
+	
+	private void updateStep(Step step, Channel channel) {
+		ContentValues values = new ContentValues();
+		values.put(StepSQLiteHelper.COLUMN_VELOCITY, step.getVelocity());
+		values.put(StepSQLiteHelper.COLUMN_ACTIVE, step.isActive());
+		values.put(StepSQLiteHelper.COLUMN_NUMBER, step.getStepNumber());
+		values.put(StepSQLiteHelper.FKEY_CHANNELID, channel.getId());
+		
+		String where = StepSQLiteHelper.COLUMN_ID + " = ?";
+		String[] whereArgs = new String[] { String.valueOf(step.getId()) }; 
+		database.update(StepSQLiteHelper.TABLE_STEP, values, where, whereArgs);
+	}
+	
+	
+	public void save(Step step, Channel channel) {
+		
+		if(channel.getId() == 0) {
+			// Channel doesn't have any ID, not worth saving.
+			return;
+		}
+		
+		if(step.getId() > 0) {
+			updateStep(step, channel);
+		} else {
+			Step tmp = createStep(step.getVelocity(), step.isActive(), step.getStepNumber(), channel);
+			step.setId(tmp.getId());
+		}
 	}
 	
 	private Step cursorToStep(Cursor cursor) {

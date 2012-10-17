@@ -83,6 +83,7 @@ public class SongDataSource {
 		}
 		
 		if(song == null) {
+			Log.e("SongDataSource", "NULL SONG");
 			// Error in creation of song
 			// Abort and return null
 			return null;

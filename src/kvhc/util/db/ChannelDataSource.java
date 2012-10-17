@@ -12,6 +12,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 /**
  * Channel object DAO 
@@ -51,14 +52,22 @@ public class ChannelDataSource {
 	public Channel createChannel(Song song, Sound sound, float volume, float rightPan, float leftPan, int number) {
 		ContentValues values = new ContentValues();
 		values.put(ChannelSQLiteHelper.FKEY_SONGID, song.getId());
-		values.put(ChannelSQLiteHelper.FKEY_SOUNDID, sound.getId());
+		
 		values.put(ChannelSQLiteHelper.COLUMN_VOLUME, volume);
 		values.put(ChannelSQLiteHelper.COLUMN_LEFTPAN, leftPan);
 		values.put(ChannelSQLiteHelper.COLUMN_RIGHTPAN, rightPan);
 		values.put(ChannelSQLiteHelper.COLUMN_VOLUME, volume);
 		values.put(ChannelSQLiteHelper.COLUMN_NUMBER, number);
 		
+		if(sound != null) {
+			values.put(ChannelSQLiteHelper.FKEY_SOUNDID, sound.getId());
+		} else {
+			values.put(ChannelSQLiteHelper.FKEY_SOUNDID, -1);
+		}
+		
 		long insertId = database.insert(ChannelSQLiteHelper.TABLE_CHANNEL, null, values);
+		
+		Log.w("ChannelData", "Insert channel id: " + insertId);
 		Cursor cursor = database.query(ChannelSQLiteHelper.TABLE_CHANNEL, allColumns, ChannelSQLiteHelper.COLUMN_ID + " = " 
 						+ insertId, null, null, null, null);
 		
@@ -78,7 +87,9 @@ public class ChannelDataSource {
 	public List<Channel> getAllChannelsForSong(Song song) {
 		List<Channel> channels = new ArrayList<Channel>();
 		
-		Cursor cursor = database.query(ChannelSQLiteHelper.TABLE_CHANNEL, allColumns, null,null,null,null,null);
+		String where = ChannelSQLiteHelper.FKEY_SONGID + " = ?";
+		String[] whereArgs = new String[] { String.valueOf(song.getId()) };
+		Cursor cursor = database.query(ChannelSQLiteHelper.TABLE_CHANNEL, allColumns, where, whereArgs, null,null, ChannelSQLiteHelper.COLUMN_NUMBER + " ASC");
 		
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()) {
@@ -86,57 +97,70 @@ public class ChannelDataSource {
 			channels.add(channel);
 			cursor.moveToNext();
 		}
-		
 		cursor.close();
+		
+		Log.w("ChannelData", "Antal: " + channels.size());
 		return channels;
 	}
 	
 	private Channel cursorToChannel(Cursor cursor) {
+		if(cursor.getCount() == 0) return null;
 		
 		Channel channel = new Channel();
 		
-		channel.setId(cursor.getInt(0));
+		long channelId = cursor.getLong(0);
+		long soundId = cursor.getLong(6);
+		
+		channel.setId(channelId);
 		channel.setPanning((float)cursor.getDouble(4), (float)cursor.getDouble(5));
 		channel.setVolume((float)cursor.getDouble(2)); 
+		channel.setChannelNumber(cursor.getInt(1));
 		
-		List<Step> steps = dbStepHelper.getAllStepsForChannel(channel);
-		channel.setSteps(steps); // GET STEPS
+		if(channelId >= 0) {
+			dbStepHelper.open();
+			List<Step> steps = dbStepHelper.getAllStepsForChannel(channel);
+			dbStepHelper.close();
+			Log.w("Channel ds", "Loading steps for channel: " + channelId + " with steps: " + steps.size());
+			channel.setSteps(steps); // GET STEPS
+		}
 		
-		Sound sound = dbSoundHelper.getSoundFromKey(cursor.getLong(6));
-		channel.setSound(sound); // GET SOUND
+		if(soundId >= 0) {
+			dbSoundHelper.open();
+			Sound sound = dbSoundHelper.getSoundFromKey(soundId);
+			dbSoundHelper.close();
+			channel.setSound(sound); // GET SOUND
+		} else {
+			channel.setSound(null);
+		}
 		
 		return channel;
 	}
 
 	public void save(Song song, Channel channel) {
 		
-		ContentValues values = new ContentValues();
-		values.put(ChannelSQLiteHelper.COLUMN_LEFTPAN, channel.getLeftPanning());
+		if(song.getId() == 0) return;
 		
+		ContentValues values = new ContentValues();
 		values.put(ChannelSQLiteHelper.COLUMN_NUMBER, channel.getChannelNumber());
 		values.put(ChannelSQLiteHelper.COLUMN_RIGHTPAN, channel.getRightPanning());
+		values.put(ChannelSQLiteHelper.COLUMN_LEFTPAN, channel.getLeftPanning());
 		values.put(ChannelSQLiteHelper.COLUMN_VOLUME, channel.getVolume());
 		
 		if(channel.getSound() != null) {
-			values.put(ChannelSQLiteHelper.COLUMN_NAME, channel.getSound().getName());
 			values.put(ChannelSQLiteHelper.FKEY_SOUNDID, channel.getSound().getId());
 		} else {
-			values.put(ChannelSQLiteHelper.COLUMN_NAME, "");
 			values.put(ChannelSQLiteHelper.FKEY_SOUNDID, 0);
 		}
 		
-		String where = ChannelSQLiteHelper.COLUMN_ID + " = ?";
-		String[] whereArgs = new String[] { String.valueOf(channel.getId() )};
+		if(channel.getId() > 0) {
+			String where = ChannelSQLiteHelper.COLUMN_ID + " = ?";
+			String[] whereArgs = new String[] { String.valueOf(channel.getId() )};
 		
-		long numRows = database.update(ChannelSQLiteHelper.TABLE_CHANNEL, values, where, whereArgs);
-		
-		if(numRows == 0) {
-			channel = createChannel(song, 
-					channel.getSound(), 
-					channel.getVolume(), 
-					channel.getRightPanning(), 
-					channel.getLeftPanning(), 
-					channel.getChannelNumber());
+			database.update(ChannelSQLiteHelper.TABLE_CHANNEL, values, where, whereArgs);
+		} else {
+			Channel tmp = createChannel(song, channel.getSound(), channel.getVolume(), channel.getRightPanning(), channel.getLeftPanning(), channel.getChannelNumber());
+			
+			channel.setId(tmp.getId());
 		}
 	}
 }

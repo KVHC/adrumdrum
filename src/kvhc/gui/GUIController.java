@@ -26,7 +26,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -73,7 +72,6 @@ public class GUIController {
 	//private AssetManagerModel<Sound> mSoundManager = AssetManagerModel.getSoundManager();
 	private HashMap<String, Sound> mSoundManager;
 	
-	ISongRenderer sqlWriter;
 	ISongLoader sqlLoader;
 	
     /**
@@ -118,12 +116,11 @@ public class GUIController {
 		// Okay, make a song
 		
 		// Adding sounds to the sound manager because we might now have them or something
-		sqlWriter = new SQLRenderer(parentActivity);
 		sqlLoader = new SQLSongLoader(parentActivity);
 		
 		mDBsoundHelper.open();
 		mSoundManager = new HashMap<String, Sound>();
-		//List<Sound> soundss = mDBsoundHelper.getAllSounds();
+
 		for(Sound sound : mDBsoundHelper.getAllSounds()) {
 			mSoundManager.put(sound.getName(), sound);
 		}
@@ -301,7 +298,7 @@ public class GUIController {
      * This is done when adding or removing steps (and would be done if
      * we implemented removeChannel()). 
      * 
-     * Now it redraws all the channels and steps, this is not really neccessary
+     * Now it redraws all the channels and steps, this is not really necessary
      * THIS IS VERY OPTIMIZABLE
      */
     public void redrawChannels() {
@@ -310,6 +307,7 @@ public class GUIController {
 		channelContainer.removeAllViewsInLayout();
 		
 		int y = 0;
+		
 		for(Channel c: song.getChannels()) {
 			
 			TableRow row = new TableRow(channelContainer.getContext());
@@ -544,21 +542,28 @@ public class GUIController {
 	
 	
 	public void createAndShowSaveSongDialog() {
-		
 		SaveSongDialog saveDialog = new SaveSongDialog(parentActivity, song);
-
-		saveDialog.setOnDismissListener(new OnDismissListener() {
-			
-			public void onDismiss(DialogInterface dialog) {
-				sqlWriter.RenderSong(song);
-			}
-		});
 		saveDialog.show();
 	}
 	
+	
 	public void createAndShowLoadSongDialog() {
-		LoadSongDialog loadDialog = new LoadSongDialog(parentActivity.getBaseContext());
-		loadDialog.setPlayer(player);
+		final LoadSongDialog loadDialog = new LoadSongDialog(parentActivity);
+		
+		loadDialog.setOnDismissListener(new OnDismissListener() {
+			
+			public void onDismiss(DialogInterface dialog) {
+				
+				song = loadDialog.getSong();
+				
+				if(song != null) {
+					player.stop();
+					player.loadSong(song);
+					redrawChannels();
+				}
+			}
+		});
+		
 		loadDialog.show();
 	}
 }

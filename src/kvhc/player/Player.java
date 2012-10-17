@@ -30,7 +30,7 @@ import android.content.Context;
 public class Player extends Observable {
 	
 	// Channel Renderer
-	ISongRenderer mChannelRender;
+	ISongRenderer mSongRender;
 	
 	// Timing
 	Runnable r;
@@ -52,7 +52,7 @@ public class Player extends Observable {
 	 */
 	public Player(Context context) {
 		
-		mChannelRender = new SoundPoolRenderer(context);
+		mSongRender = new SoundPoolRenderer(context);
 		waitTime = 500;
 		
 		currentStep = 0;
@@ -75,7 +75,7 @@ public class Player extends Observable {
 	 */
 	public void loadSong(Song newSong) {
 		song = newSong;
-		mChannelRender.LoadSounds(song.GetSounds());
+		mSongRender.LoadSounds(song.GetSounds());
 	}
 	
 	/**
@@ -87,7 +87,7 @@ public class Player extends Observable {
 			setChanged();
 			notifyObservers(currentStep);
 			
-			mChannelRender.RenderSongAtStep(song, currentStep);
+			mSongRender.RenderSongAtStep(song, currentStep);
 			
 			currentStep++;
 
@@ -153,7 +153,7 @@ public class Player extends Observable {
 	}
 	
 	/**
-	 * Method for seeing if the player is runing or not
+	 * Method for seeing if the player is running or not
 	 * @return true if the player is running, else false
 	 */
 	public boolean isPlaying() {
