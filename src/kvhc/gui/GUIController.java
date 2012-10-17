@@ -289,7 +289,7 @@ public class GUIController {
 				
 				GUIStepButton box = new GUIStepButton(row.getContext(), y, c.getStepAt(x), c.isStepActive(x));	// Construction
 				box.setOnClickListener(stepClickListener);						// Listener
-				box.setOnLongClickListener(new LongClickStepListener(c.getStepAt(x), parentActivity, this));
+				box.setOnLongClickListener(stepLongClickListener);
 				row.addView(box);
 				
 			}
