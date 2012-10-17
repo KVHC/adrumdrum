@@ -32,6 +32,7 @@ import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -190,7 +191,7 @@ public class GUIController {
 		for(int x = 0; x < song.getNumberOfSteps(); x++) {
 			GUIStepButton box = new GUIStepButton(row.getContext(), song.getNumberOfChannels()-1, c.getStepAt(x));
 			box.setOnClickListener(stepClickListener);
-			box.setOnLongClickListener(new LongClickStepListener(c.getStepAt(x), parentActivity, this));
+			box.setOnLongClickListener(stepLongClickListener);
 			row.addView(box);
 		}
 		channelContainer.addView(row);
@@ -283,7 +284,6 @@ public class GUIController {
 			row.addView(name);
 			row.addView(mute);
 			
-			
 			// All the steps
 			for(int x = 0; x < song.getNumberOfSteps(); x++) {
 				
@@ -357,10 +357,23 @@ public class GUIController {
             box.reverse();
             
             // Updates the corresponding channel
-            box.SetActive(song.getChannel(box.GetChannelId()).toggleStep(box.GetStepId()));
+            box.setActive(song.getChannel(box.getChannelId()).toggleStep(box.getStepId()));
         }
     };
-	
+    
+    /**
+     * LongClick Listener to the step button. Creates and shows a StepDialog.
+     */
+	private OnLongClickListener stepLongClickListener = new OnLongClickListener() {
+		
+		public boolean onLongClick(View v) {
+			GUIStepButton gsb = (GUIStepButton) v;
+			StepDialog vd = new StepDialog(parentActivity, gsb.getStep(), GUIController.this);
+			vd.show();
+			
+			return true;
+		}
+	};
     
 	/**
 	 * Listener to the Play/Stop-button.
@@ -377,8 +390,7 @@ public class GUIController {
     			tv1.setText("Playing");
     		}
 		}
-    };
-    
+    }; 
     
     /**
      * Listener to the add-new-channel-button. Doesn't redraw the old channels.

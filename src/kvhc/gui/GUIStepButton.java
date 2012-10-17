@@ -137,7 +137,7 @@ public class GUIStepButton extends CheckBox {
 	 * Returns the channel number this View represents.
 	 * @return the channel number this View represents
 	 */
-	public int GetChannelId() {
+	public int getChannelId() {
 		return mChannelId;
 	}
 	
@@ -145,15 +145,23 @@ public class GUIStepButton extends CheckBox {
 	 * Returns the step number this View represents.
 	 * @return the step number this View represents
 	 */
-	public int GetStepId() {
+	public int getStepId() {
 		return mStepId;
+	}
+	
+	/**
+	 * Returns the Step this button represents.
+	 * @return the step this button represents.
+	 */
+	public Step getStep() {
+		return step;
 	}
 	
 	/**
 	 * Sets if the StepButton is to be shown as active or not.
 	 * @param active
 	 */
-	public void SetActive(boolean active) {
+	public void setActive(boolean active) {
 		mActive = active;
 	}
 	
@@ -204,7 +212,6 @@ public class GUIStepButton extends CheckBox {
 			}
 		}
 		canvas.drawText(String.valueOf(mStepId +1),textPosX,textPosY, textPaint);
-		
 	}
 	
 }
