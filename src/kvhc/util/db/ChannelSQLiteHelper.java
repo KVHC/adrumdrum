@@ -50,7 +50,6 @@ public class ChannelSQLiteHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(DATABASE_CREATE);
-
 	}
 
 	@Override
@@ -59,5 +58,4 @@ public class ChannelSQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_CHANNEL);
 		onCreate(db);
 	}
-
 }
