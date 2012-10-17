@@ -257,31 +257,4 @@ public class Song {
 			numsteps = channels.get(0).getNumberOfSteps();
 		}
 	}
-
-	/**
-	 * ID getter (TODO what is ID?)
-	 * @return
-	 */
-	public long getId() {
-		return id;
-	}
-	
-	/**
-	 * ID setter (TODO what is ID?)
-	 * @param id
-	 */
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	/**
-	 * SETS ALL THE CHANNELS HURRS
-	 * @param channels
-	 */
-	public void setChannels(List<Channel> channels) {
-		mChannels = channels;
-		if(channels.size() > 0)  {
-			numsteps = channels.get(0).getNumberOfSteps();
-		}
-	}
 }

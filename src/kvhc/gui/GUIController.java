@@ -48,7 +48,7 @@ import kvhc.player.Channel;
 import kvhc.player.Player;
 import kvhc.player.Song;
 import kvhc.player.Sound;
-import kvhc.util.SoundFetcher;
+//import kvhc.util.SoundFetcher;
 import kvhc.player.Step;
 import kvhc.util.AssetManagerModel;
 import kvhc.util.ISongLoader;
@@ -224,7 +224,6 @@ public class GUIController {
 		for(int x = 0; x < song.getNumberOfSteps(); x++) {
 			GUIStepButton box = new GUIStepButton(row.getContext(), song.getNumberOfChannels()-1, c.getStepAt(x));
 			box.setOnClickListener(stepClickListener);
-			box.setOnLongClickListener(stepLongClickListener);
 			row.addView(box);
 		}
 		channelContainer.addView(row);
@@ -334,7 +333,6 @@ public class GUIController {
 				
 				GUIStepButton box = new GUIStepButton(row.getContext(), y, c.getStepAt(x), c.isStepActive(x));	// Construction
 				box.setOnClickListener(stepClickListener);						// Listener
-				box.setOnLongClickListener(stepLongClickListener);
 				row.addView(box);
 				
 			}
@@ -406,19 +404,6 @@ public class GUIController {
         }
     };
     
-    /**
-     * LongClick Listener to the step button. Creates and shows a StepDialog.
-     */
-	private OnLongClickListener stepLongClickListener = new OnLongClickListener() {
-		
-		public boolean onLongClick(View v) {
-			GUIStepButton gsb = (GUIStepButton) v;
-			StepDialog vd = new StepDialog(parentActivity, gsb.getStep(), GUIController.this);
-			vd.show();
-			
-			return true;
-		}
-	};
     
 	/**
 	 * Listener to the Play/Stop-button.
@@ -460,8 +445,8 @@ public class GUIController {
 
 			        
 			    	String name = String.valueOf(input2.getSelectedItem());
-			        Sound s = SoundFetcher.GetSoundFromString(name);
-			        Sound s2 = mSoundManager.getValue(name);
+			        //Sound s = SoundFetcher.GetSoundFromString(name);
+			        Sound s = mSoundManager.get(name);
 			        
 			        Channel c = new Channel(s, song.getNumberOfSteps());
 			        song.addChannel(c);

@@ -90,7 +90,6 @@ public class Step {
 	public float getVelocity() {
 		return mVelocity;
 	}
-<<<<<<< HEAD
 	
     /**
      * Returns the channel the step is on.
