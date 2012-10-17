@@ -1,9 +1,28 @@
+/**
+ * aDrumDrum is a step sequencer for Android.
+ * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
+ *
+ * This file is part of aDrumDrum.
+ *
+ * aDrumDrum is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * aDrumDrum is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with aDrumDrum.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package kvhc.util.db;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import kvhc.player.Channel;
 import kvhc.player.Song;
 import android.content.ContentValues;
 import android.content.Context;
@@ -24,21 +43,34 @@ public class SongDataSource {
 	private SongSQLiteHelper dbHelper;
 	private String[] allColumns = { SongSQLiteHelper.COLUMN_ID, SongSQLiteHelper.COLUMN_NAME };
 	
-	private ChannelDataSource dbChannelHelper;
-	
+	/**
+	 * Default Constructor, needs the context to be able to use the db. 
+	 * @param context
+	 */
 	public SongDataSource(Context context) {
 		dbHelper = new SongSQLiteHelper(context);
-		dbChannelHelper = new ChannelDataSource(context);
 	}
 	
+	/**
+	 * Opens the db for transactions.
+	 * @throws SQLException
+	 */
 	public void open() throws SQLException {
 		database = dbHelper.getWritableDatabase();
 	}
 	
+	/**
+	 * Closes the db connection.
+	 */
 	public void close() {
 		dbHelper.close();
 	}
 	
+	/**
+	 * Creates a new Song in the db.
+	 * @param name The name of the Song.
+	 * @return
+	 */
 	public Song createSong(String name) {
 		ContentValues values = new ContentValues();
 		values.put(SongSQLiteHelper.COLUMN_NAME, name);
@@ -65,6 +97,12 @@ public class SongDataSource {
 		return newSong;
 	}
 	
+	/**
+	 * Saves a Song to the db, if it doesn't exist it's created. 
+	 * 
+	 * @param song The song to save. 
+	 * @return
+	 */
 	public Song save(Song song) {
 		ContentValues values = new ContentValues();
 		values.put(SongSQLiteHelper.COLUMN_NAME, song.getName());
@@ -84,16 +122,8 @@ public class SongDataSource {
 		
 		if(song == null) {
 			Log.e("SongDataSource", "NULL SONG");
-			// Error in creation of song
-			// Abort and return null
 			return null;
 		}
-		
-		dbChannelHelper.open();
-		for(Channel channel : song.getChannels()) {
-			dbChannelHelper.save(song, channel);
-		}
-		dbChannelHelper.close();
 		
 		return song;
 	}
@@ -126,11 +156,6 @@ public class SongDataSource {
 		Song song = new Song(4);
 		song.setId(cursor.getLong(0));
 		song.setName(cursor.getString(1));
-		
-		dbChannelHelper.open();
-		List<Channel> channels = dbChannelHelper.getAllChannelsForSong(song);
-		song.setChannels(channels);
-		dbChannelHelper.close();
 		
 		return song;
 	}

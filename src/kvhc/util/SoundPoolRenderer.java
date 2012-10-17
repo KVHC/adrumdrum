@@ -1,5 +1,5 @@
 /**
- * aDrumDrum is a stepsequencer for Android.
+ * aDrumDrum is a step sequencer for Android.
  * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
@@ -60,7 +60,7 @@ public class SoundPoolRenderer implements ISongRenderer {
 		int i = 1;
 		for(Sound sound : sounds) {
 			if(sound != null) {
-				mSoundMap.put(sound.getId(), i);
+				mSoundMap.put((int)sound.getId(), i);
 				mSoundManager.addSound(i, sound.getSoundValue());
 				i++;
 			}

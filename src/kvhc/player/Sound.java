@@ -29,7 +29,7 @@ package kvhc.player;
 public class Sound {
 
 	
-	private int mId; // Id in the other system
+	private long mId; // Id in the other system
 	private int mSoundValue; // The location of the soundfile in an integer (from raw atm, probably should be object)
 	private String mName;
 	
@@ -44,12 +44,18 @@ public class Sound {
 		mSoundValue = soundValue;
 		mName = name;
 	}
-
+	
+	public Sound(long id) {
+		mId = id;
+		mSoundValue = 0;
+		mName = "";
+	}
+	
 	/**
 	 * Method for geting the id of this sound.
 	 * @return the id of this sound
 	 */
-	public int getId() {
+	public long getId() {
 		return mId;
 	}
 
@@ -57,7 +63,7 @@ public class Sound {
 	 * Change the id of this sound.
 	 * @param id The new id of the sound
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.mId = id;
 	}
 

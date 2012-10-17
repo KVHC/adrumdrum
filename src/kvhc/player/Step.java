@@ -29,7 +29,6 @@ public class Step {
 	
 	private boolean mIsActive;
 	private float mVelocity;
-	//private int stepid;
 	private Channel channel; 
 	private int mNumber; // The step number
 	private long id;
@@ -49,6 +48,7 @@ public class Step {
 	public Step() {
 		this.mIsActive = false;
 		this.mVelocity = 0.7f;
+		this.channel = null;
 		this.mNumber = 0;
 		this.id = 0;
 	}
@@ -98,6 +98,22 @@ public class Step {
 		return mVelocity;
 	}
 	
+    /**
+     * Returns the channel the step is on.
+     * @return the parent channel.
+     */
+    public Channel getChannel() {
+        return channel;
+    }
+	
+    /**
+     * Sets the steps velocity to 100%, the two neighbours to 70% and
+     * the neighbours neighbours to 30%. Activates the mentioned steps.
+     */
+    public void multiStepVelocitySpike() {
+        channel.multiStepVelocitySpike(mNumber);
+    }
+    
     /**
      * Resets the step to default values (Velocity=70%, step inactive).
      */

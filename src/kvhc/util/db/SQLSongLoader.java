@@ -1,3 +1,23 @@
+/**
+ * aDrumDrum is a step sequencer for Android.
+ * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
+ *
+ * This file is part of aDrumDrum.
+ *
+ * aDrumDrum is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * aDrumDrum is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with aDrumDrum.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package kvhc.util.db;
 
 import java.util.List;
@@ -56,8 +76,9 @@ public class SQLSongLoader implements ISongLoader {
 		// Set up variables
 		String name;
 		
-		mDBSongHelper.open();
-		mSongs = getSongList(null);
+		if(mSongs == null || mSongs.size() == 0) {
+			mSongs = getSongList(null);
+		}
 		
 		// Get arguments
 		switch(args.length) {
@@ -75,27 +96,11 @@ public class SQLSongLoader implements ISongLoader {
 		Song loadedSong = null;
 		for(Song song : mSongs) {
 			if(song.getName().equals(name)) {
-				loadedSong  = song;
+				loadedSong = song;
 				break;
 			}
 		}
-		mDBSongHelper.close();
-		
-		// Loading channels 
-		mDBChannelHelper.open();
-		List<Channel> channels = mDBChannelHelper.getAllChannelsForSong(loadedSong);
-		mDBChannelHelper.close();
-		
-		// Loading steps
-		mDBStepHelper.open();
-		for(Channel channel : channels) {
-			channel.setSteps(mDBStepHelper.getAllStepsForChannel(channel));
-		}
-		mDBStepHelper.close();
-		
-		// SET THE MOTHERFUCKING CHANNELS OH YEAH
-		loadedSong.setChannels(channels);
-		
+
 		// ADrumDrumWars - Return of the Song
 		return loadedSong;
 	}
@@ -122,6 +127,29 @@ public class SQLSongLoader implements ISongLoader {
 		mDBSongHelper.open();
 		List<Song> songs = mDBSongHelper.getAllSongs();
 		mDBSongHelper.close();
+		
+		// Loopa fram allt och fyll. ;)
+		for(Song song : songs) {
+			// Loading channels 
+			mDBChannelHelper.open();
+			List<Channel> channels = mDBChannelHelper.getAllChannelsForSong(song);
+			mDBChannelHelper.close();
+			
+			// Loading steps
+			mDBStepHelper.open();
+			for(Channel channel : channels) {
+				// Sound har id men inget innehåll, måste sätta det
+				channel.setSound(mDBSoundHelper.getSoundFromKey(channel.getSound().getId()));
+				
+				// och gärna alla steps också
+				channel.setSteps(mDBStepHelper.getAllStepsForChannel(channel));
+			}
+			mDBStepHelper.close();
+			
+			song.setChannels(channels);
+		}
+		
+		mSongs = songs;
 		
 		return songs;
 	}
