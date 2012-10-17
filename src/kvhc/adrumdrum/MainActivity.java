@@ -18,6 +18,7 @@
  * along with aDrumDrum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+<<<<<<< HEAD
 package kvhc.adrumdrum;
 
 import kvhc.gui.GUIController;
@@ -26,10 +27,16 @@ import kvhc.player.Sound;
 import kvhc.util.db.SQLSongLoader;
 import kvhc.util.db.ChannelSQLiteHelper;
 import kvhc.util.db.SongSQLiteHelper;
+=======
+import kvhc.gui.GUIController;
+import kvhc.util.db.ChannelSQLiteHelper;
+import kvhc.util.db.SongSQLiteHelper;
+>>>>>>> 86804c52d155eabd388549747ad273d8c0b517e0
 import kvhc.util.db.SoundDataSource;
 import kvhc.util.db.StepSQLiteHelper;
 import android.media.AudioManager;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -38,6 +45,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+=======
+import android.app.Activity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+>>>>>>> 86804c52d155eabd388549747ad273d8c0b517e0
 
 public class MainActivity extends Activity {
 	
@@ -54,7 +67,11 @@ public class MainActivity extends Activity {
         
         // Always change media volume and not ringtone volume
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
+<<<<<<< HEAD
         
+=======
+        
+>>>>>>> 86804c52d155eabd388549747ad273d8c0b517e0
         mSoundLoader = new SoundDataSource(this);
         try {
         	mSoundLoader.open();
@@ -87,9 +104,15 @@ public class MainActivity extends Activity {
             StepSQLiteHelper stepHelper = new StepSQLiteHelper(this);
             stepHelper.onUpgrade(stepHelper.getWritableDatabase(), 1, 3);
         }
+<<<<<<< HEAD
         
         mSoundLoader.close();
         guic = new GUIController(this);
+=======
+        mSoundLoader.close();
+        
+        guic = new GUIController(this);
+>>>>>>> 86804c52d155eabd388549747ad273d8c0b517e0
     }
 
     /**

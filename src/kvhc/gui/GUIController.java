@@ -43,7 +43,6 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import kvhc.adrumdrum.R;
 import kvhc.player.Channel;
 import kvhc.player.Player;
@@ -56,7 +55,7 @@ import kvhc.util.ISongLoader;
 import kvhc.util.ISongRenderer;
 import kvhc.util.db.SQLRenderer;
 import kvhc.util.db.SQLSongLoader;
-
+import kvhc.util.db.SoundDataSource;
 
 /**
  * Master class of the GUI.
@@ -292,6 +291,7 @@ public class GUIController {
     	}
     }
 
+	
     
     /**
      * Redraws all the Channel and their steps and their ChannelButtons.
@@ -443,7 +443,7 @@ public class GUIController {
     private OnClickListener addChannelListener = new OnClickListener() {
 		
 		public void onClick(View v) {
-			
+
 			// Spinner for sound sample selection
 			final Spinner input2 = new Spinner(parentActivity);
 			
@@ -457,6 +457,7 @@ public class GUIController {
 			builder.setView(input2);	
 			builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int whichButton) {
+
 			        
 			    	String name = String.valueOf(input2.getSelectedItem());
 			        Sound s = SoundFetcher.GetSoundFromString(name);
@@ -477,7 +478,7 @@ public class GUIController {
 			
 		}
 	};
-	
+
 	/**
 	 * Listener to the add-new-step-button. Redraws all the channels.
 	 */

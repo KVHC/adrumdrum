@@ -59,7 +59,6 @@ public class GUIStepButton extends CheckBox {
 	private Paint velocityShade;
 	private static int distanceFromTop = 12;  // så att stepsen ritas i mitten av raden
 
-
 	/**
 	 * Constructor for the GUIStepButton.
 	 * @param context the context

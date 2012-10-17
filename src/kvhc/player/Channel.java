@@ -385,4 +385,48 @@ public class Channel {
 		mChannelNumber = channelNumber;
 	}
 
+	/**
+	 * Returns the ID of the channel
+	 * @return
+	 */
+	public long getId() {
+		return mId;
+	}
+
+	/**
+	 * Sets the ID for the Channel
+	 * @param id
+	 */
+	public void setId(long id) {
+		mId = id;
+	}
+
+	/**
+	 * Set all the steps at once.
+	 * @param steps
+	 */
+	public void setSteps(List<Step> steps) {
+		if(steps == null) return;
+		
+		mSteps = steps;
+		numSteps = steps.size();
+	}
+
+	/**
+	 * Position of channel in song in database....?
+	 * Could be used for ordering, i dunno.
+	 */
+	private int mChannelNumber;
+	public int getChannelNumber() {
+		return mChannelNumber;
+	}
+	
+	/**
+	 * 
+	 * @param channelNumber
+	 */
+	public void setChannelNumber(int channelNumber) {
+		mChannelNumber = channelNumber;
+	}
+
 }
