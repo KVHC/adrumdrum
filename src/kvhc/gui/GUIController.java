@@ -331,6 +331,17 @@ public class GUIController {
 	}
     
     /**
+     * Sets the steps velocity to 100%, the two neighbours to 70% and
+     * the neighbours neighbours to 30%. Activates the mentioned steps.
+     * @param channelId on which channel to set the spike
+     * @param stepid on which step to set the spike
+     */
+    public void setSpike(int channelId, int stepid){
+    	song.getChannel(channelId).multiStepVelocitySpike(stepid);
+    }
+    
+    
+    /**
      * Stops Playback and clears all steps. Redraws all Channels.
      */
     public void clearAllSteps() {
@@ -401,7 +412,7 @@ public class GUIController {
 
 		public boolean onLongClick(View v) {
 			GUIStepButton gsb = (GUIStepButton) v;
-			StepDialog vd = new StepDialog(parentActivity, gsb.getStep(), GUIController.this);
+			StepDialog vd = new StepDialog(parentActivity, gsb.getStep(), GUIController.this , gsb.getChannelId(),gsb.getStepId());
 			vd.show();
 
 			return true;

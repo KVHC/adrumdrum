@@ -37,6 +37,7 @@ public class StepDialog extends Dialog {
 	private Button back;
 	private Button spike;
 	private GUIController guic;
+	private int channel, stepnr;
 	
 	/**
 	 * The constructor
@@ -44,10 +45,12 @@ public class StepDialog extends Dialog {
 	 * @param step The step to display settings for
 	 * @param guic The GUIController
 	 */
-	public StepDialog(Activity parrentActivity, Step step, GUIController guic) {
+	public StepDialog(Activity parrentActivity, Step step, GUIController guic, int channel, int stepnr) {
 		super(parrentActivity);
 		this.step = step;
 		this.guic = guic;
+		this.channel = channel;
+		this.stepnr = stepnr;
 		
 	}
 
@@ -115,7 +118,7 @@ public class StepDialog extends Dialog {
      */
     private View.OnClickListener spikeClick = new View.OnClickListener(){
         public void onClick(View v) {
-            step.multiStepVelocitySpike();
+            guic.setSpike(channel,stepnr);
             SeekBar velocityBar = (SeekBar)findViewById(R.id.seekbarVelocity);
             velocityBar.setProgress(100);
             guic.redrawChannels();

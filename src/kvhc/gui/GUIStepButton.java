@@ -179,6 +179,9 @@ public class GUIStepButton extends CheckBox {
 		mPlaying = playing;
 	}
 	
+	
+	
+	
 	/**
 	 * A method that specifies how the step button should be drawn.
 	 * @param canvas. A canvas to draw the button on
