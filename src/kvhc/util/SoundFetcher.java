@@ -24,7 +24,7 @@ import android.app.Activity;
 import kvhc.adrumdrum.R;
 import kvhc.player.Sound;
 
-//public class SoundFetcher extends Activity {
+public class SoundFetcher extends Activity {
 
 
 	public static Sound GetSoundFromString(String s) {

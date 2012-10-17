@@ -46,6 +46,15 @@ public class Step {
 		this.stepid = stepid;
 	}
 	
+	public Step() {
+		this.mIsActive = false;
+		this.mVelocity = 0.7f;
+		this.channel = null;
+		this.stepid = 0;
+		this.mNumber = 0;
+		this.id = 0;
+	}
+	
 	/**
 	 * Constructor.
 	 * @param SetActive True to enable the step, false otherwise.
