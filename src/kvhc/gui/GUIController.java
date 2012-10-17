@@ -224,6 +224,8 @@ public class GUIController {
 			row.addView(box);
 		}
 		channelContainer.addView(row);
+		
+		player.loadSong(song); // Ladda in alla ljud...?
 	}
 	
 	/**

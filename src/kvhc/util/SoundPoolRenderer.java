@@ -42,12 +42,12 @@ import kvhc.player.SoundManager;
 public class SoundPoolRenderer implements ISongRenderer {
 	
 	private SoundManager mSoundManager;
-	HashMap<Integer, Integer> mSoundMap;
+	HashMap<Long, Integer> mSoundMap;
 	
 	public SoundPoolRenderer(Context context) {
 		mSoundManager = new SoundManager();
 		mSoundManager.initSounds(context);
-		mSoundMap = new HashMap<Integer, Integer>(16);
+		mSoundMap = new HashMap<Long, Integer>(16);
         
 	}
 	
@@ -56,11 +56,11 @@ public class SoundPoolRenderer implements ISongRenderer {
 	 * 
 	 * */
 	public void LoadSounds(ArrayList<Sound> sounds) {
-		mSoundMap = new HashMap<Integer, Integer>(sounds.size());
+		mSoundMap = new HashMap<Long, Integer>(sounds.size());
 		int i = 1;
 		for(Sound sound : sounds) {
 			if(sound != null) {
-				mSoundMap.put((int)sound.getId(), i);
+				mSoundMap.put(sound.getId(), i);
 				mSoundManager.addSound(i, sound.getSoundValue());
 				i++;
 			}
@@ -87,7 +87,7 @@ public class SoundPoolRenderer implements ISongRenderer {
 	 */
 	public void RenderSongAtStep(Song song, int step) {
 		for (Channel c : song.getChannels()) {
-			if (c.isStepActive(step)&& !c.isMuted()) {
+			if (c.isStepActive(step) && !c.isMuted()) {
 				if(c.getSound() != null) {
 					int soundManagerId = mSoundMap.get(c.getSound().getId());
 					mSoundManager.playSound(soundManagerId, c.getVolumeRight(step), c.getVolumeLeft(step), c.getVolume());

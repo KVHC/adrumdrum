@@ -137,6 +137,7 @@ public class SQLSongLoader implements ISongLoader {
 			
 			// Loading steps
 			mDBStepHelper.open();
+			mDBSoundHelper.open();
 			for(Channel channel : channels) {
 				// Sound har id men inget innehåll, måste sätta det
 				channel.setSound(mDBSoundHelper.getSoundFromKey(channel.getSound().getId()));
@@ -144,6 +145,7 @@ public class SQLSongLoader implements ISongLoader {
 				// och gärna alla steps också
 				channel.setSteps(mDBStepHelper.getAllStepsForChannel(channel));
 			}
+			mDBSoundHelper.close();
 			mDBStepHelper.close();
 			
 			song.setChannels(channels);
