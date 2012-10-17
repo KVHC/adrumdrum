@@ -1,7 +1,10 @@
 package kvhc.adrumdrum;
 
 import kvhc.gui.GUIController;
+import kvhc.util.db.ChannelSQLiteHelper;
+import kvhc.util.db.SongSQLiteHelper;
 import kvhc.util.db.SoundDataSource;
+import kvhc.util.db.StepSQLiteHelper;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.app.Activity;
@@ -33,7 +36,6 @@ public class MainActivity extends Activity {
         	Log.e("Main", e.toString());
         }
         
-        
         if(mSoundLoader.getAllSounds().size() == 0) {
         	mSoundLoader.createSound(R.raw.jazzfunkkitbd_01, "Bassdrum");
         	mSoundLoader.createSound(R.raw.jazzfunkkitbellridecym_01, "Bell Ride");
@@ -50,12 +52,17 @@ public class MainActivity extends Activity {
         	mSoundLoader.createSound(R.raw.jazzfunkkittom_01, "Tomtom 01");
         	mSoundLoader.createSound(R.raw.jazzfunkkittom_02, "Tomtom 02");
         	mSoundLoader.createSound(R.raw.jazzfunkkittom_03, "Tomtom 03");
+        	
+        	ChannelSQLiteHelper channelHelper = new ChannelSQLiteHelper(this);
+            channelHelper.onUpgrade(channelHelper.getWritableDatabase(), 1, 3);
+            SongSQLiteHelper songHelper = new SongSQLiteHelper(this);
+            songHelper.onUpgrade(songHelper.getWritableDatabase(), 1, 3);
+            StepSQLiteHelper stepHelper = new StepSQLiteHelper(this);
+            stepHelper.onUpgrade(stepHelper.getWritableDatabase(), 1, 3);
         }
         mSoundLoader.close();
         
         guic = new GUIController(this);
-        
-        System.out.println("Adrumdrum: Done onCreate()");
     }
 
     /**

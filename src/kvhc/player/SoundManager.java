@@ -1,6 +1,7 @@
 package kvhc.player;
 
 import java.util.HashMap;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -15,6 +16,7 @@ import android.media.SoundPool;
  * @author Martin Breuer
  *
  */
+@SuppressLint("UseSparseArrays")
 public class SoundManager {
 	private  SoundPool mSoundPool;
 	private  HashMap<Integer, Integer> mSoundPoolMap;
@@ -31,7 +33,7 @@ public class SoundManager {
 	public void initSounds(Context theContext) {
 	    mContext = theContext;
 	    mSoundPool = new SoundPool(24, AudioManager.STREAM_MUSIC, 0);
-	    mSoundPoolMap = new HashMap<Integer, Integer>();
+	    mSoundPoolMap = new HashMap<Integer, Integer>(16);
 	    mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
 	}
 	

@@ -32,9 +32,6 @@ public class GUIStepButton extends CheckBox {
 	private static Bitmap m_buttonOn_play;
 	private static int distanceFromTop = 12;  // så att stepsen ritas i mitten av raden
 	
-	
-	
-	
 	/**
 	 * Constructor for the GUIStepButton
 	 * @param context
@@ -110,7 +107,7 @@ public class GUIStepButton extends CheckBox {
 	}
 	
 	/**
-	 * Change the avtive state of the button to the opposite state
+	 * Change the active state of the button to the opposite state
 	 */
 	public void reverse() {
 		m_Active = !m_Active;

@@ -23,8 +23,7 @@ public class ChannelSQLiteHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_CREATE = "create table "
 			+ TABLE_CHANNEL + "(" + COLUMN_ID 
 			+ " integer primary key autoincrement, " + COLUMN_NUMBER
-			+ " integer not null, " + COLUMN_NAME 
-			+ " text not null," + COLUMN_LEFTPAN 
+			+ " integer not null, " + COLUMN_LEFTPAN 
 			+ " double not null, " + COLUMN_RIGHTPAN
 			+ " double not null, " + COLUMN_VOLUME
 			+ " double not null," + FKEY_SONGID

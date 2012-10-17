@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Channel {
 	
-	//private int soundId;
+	private long mId;
 	private int numSteps;
 	private List<Step> mSteps;
 	private boolean mute;
@@ -281,26 +281,38 @@ public class Channel {
 	}
 	
 	/**
-	 * Method for getting an arraylist with all the Channels Steps
-	 * @return an arraylist with all the Channels Steps
+	 * Method for getting n list with all the Channels Steps
+	 * @return a list with all the Channels Steps
 	 */
 	public List<Step> getSteps() {
 		return mSteps;
 	}
 
-	// TODO: Fix docs
-	private int mId;
+	/**
+	 * Returns the ID of the channel
+	 * @return
+	 */
 	public long getId() {
-		// TODO Auto-generated method stub
 		return mId;
 	}
 
-	public void setId(int id) {
+	/**
+	 * Sets the ID for the Channel
+	 * @param id
+	 */
+	public void setId(long id) {
 		mId = id;
 	}
 
+	/**
+	 * Set all the steps at once.
+	 * @param steps
+	 */
 	public void setSteps(List<Step> steps) {
+		if(steps == null) return;
+		
 		mSteps = steps;
+		numSteps = steps.size();
 	}
 
 	/**
@@ -309,10 +321,13 @@ public class Channel {
 	 */
 	private int mChannelNumber;
 	public int getChannelNumber() {
-		// TODO Auto-generated method stub
 		return mChannelNumber;
 	}
 	
+	/**
+	 * 
+	 * @param channelNumber
+	 */
 	public void setChannelNumber(int channelNumber) {
 		mChannelNumber = channelNumber;
 	}

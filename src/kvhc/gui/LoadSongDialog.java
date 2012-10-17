@@ -3,14 +3,11 @@ package kvhc.gui;
 import java.util.List;
 
 import kvhc.adrumdrum.R;
-import kvhc.player.Player;
 import kvhc.player.Song;
 import kvhc.util.ISongLoader;
 import kvhc.util.db.SQLSongLoader;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,8 +36,6 @@ public class LoadSongDialog extends Dialog {
 	
 	public LoadSongDialog(Context context) {
 		super(context);
-		
-		
 	}
 	
 	/**
@@ -56,8 +51,9 @@ public class LoadSongDialog extends Dialog {
 		return mSongList;
 	}
 	
-	
-	
+	/**
+	 * 
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		// Set up the view
 		super.onCreate(savedInstanceState);
@@ -67,50 +63,41 @@ public class LoadSongDialog extends Dialog {
 		if(mSongLoader == null) {
 			mSongLoader = new SQLSongLoader(getContext());
 		}
+		
 		// Set up the list
 		mList = (ListView)findViewById(R.id.savedSongsList);
-		
 		songNames = new String[getSongs().size()];
 		int i = 0;
 		for(Song song : getSongs()) {
 			songNames[i++] = song.getName();
 		}
 		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-				  R.layout.song_list_item, R.id.savedSongsList, songNames);
-
-		mList.setAdapter(adapter);
+		if(i > 0) {
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), 
+					R.layout.song_list_item, R.id.textViewSongName, songNames);
+			
+			mList.setAdapter(adapter);
 		
-		mList.setOnItemClickListener(new OnItemClickListener() {
-
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long id) {
-				
-				String name = songNames[position];
-				
-				String[] args = new String[] { name };
-				
-				mSong = mSongLoader.loadSong(args);
-				
-				dismiss();
-			}
-		});
+			mList.setOnItemClickListener(new OnItemClickListener() {
+	
+				public void onItemClick(AdapterView<?> parent, View view, int position,
+						long id) {
+					
+					String name = songNames[position];
+					String[] args = new String[] { name };
+					mSong = mSongLoader.loadSong(args);
+					dismiss();
+					
+				}
+			});
+		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Song getSong() {
 		return mSong;
-	}
-	
-	private Player mPlayer;
-	public void setPlayer(Player player) {
-		mPlayer = player; 
-	}
-	
-	private OnDismissListener dismissListener = new OnDismissListener() {
-		
-		public void onDismiss(DialogInterface dialog) {
-			mPlayer.stop();
-			mPlayer.loadSong(getSong());
-		}
-	};
+	}	
 }
