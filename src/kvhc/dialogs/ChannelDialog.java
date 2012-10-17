@@ -23,13 +23,19 @@ package kvhc.dialogs;
 import kvhc.adrumdrum.R;
 import kvhc.gui.GUIController;
 import kvhc.player.Channel;
+import kvhc.player.Sound;
+import kvhc.util.ISongLoader;
+import kvhc.util.db.SQLSongLoader;
+import kvhc.util.db.SoundDataSource;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.Spinner;
 
 /**
  * A dialog about channel settings
@@ -40,6 +46,7 @@ public class ChannelDialog extends Dialog{
 	private int id;
 	private GUIController guic;
 	private Button solo;
+	private SoundDataSource mDBSoundHelper; // Denna borde inte vara här EGENKLIEN, borde vara i någon sound manager...
 	
 	/**
 	 * The Constructor
@@ -62,10 +69,37 @@ public class ChannelDialog extends Dialog{
         setTitle("Channel Controlls");
         initButtons();
         initBars();
+        initSpinner();
 	}
 	
 	/**
-	 * Init the buttons in this dialog
+	 * Initializes the Spinner and chooses the value.
+	 * 
+	 * TODO: Optimize?
+	 */
+	private void initSpinner() {
+		mDBSoundHelper = new SoundDataSource(getContext());
+        
+        String soundName = channel.getSound().getName();
+        
+        mDBSoundHelper.open();
+		ArrayAdapter<Sound> spinnerArrayAdapter = new ArrayAdapter<Sound>(getContext(), android.R.layout.simple_spinner_dropdown_item, mDBSoundHelper.getAllSounds());
+		mDBSoundHelper.close();
+        
+        Spinner samples = (Spinner)findViewById(R.id.spinner_sample);
+        samples.setAdapter(spinnerArrayAdapter);
+        
+        int sampleSize = samples.getAdapter().getCount();
+        for(int i = 0; i < sampleSize; i++) {
+        	if(samples.getAdapter().getItem(i).toString().equals(soundName)) {
+        		samples.setSelection(i);
+        		break;
+        	}
+        }
+	}
+	
+	/**
+	 * Initialize the buttons in this dialog.
 	 */
 	private void initButtons(){
 		Button back = (Button)this.findViewById(R.id.buttonBack);
@@ -80,12 +114,10 @@ public class ChannelDialog extends Dialog{
 		solo = (Button)this.findViewById(R.id.buttonSolo);
 		setSoloButtonText();
 		solo.setOnClickListener(soloClick);
-		
-		
 	}
 	
 	/**
-	 * Init the progressbars in this dialog
+	 * Initialize the progress bars in this dialog.
 	 */
 	private void initBars(){
 		SeekBar panningBar = (SeekBar)this.findViewById(R.id.seekbarChannelPanning);
@@ -109,6 +141,9 @@ public class ChannelDialog extends Dialog{
 		
 	}
 	
+	/**
+	 * Sets the solo button text depending on if it's solo or not.
+	 */
 	public void setSoloButtonText(){
 		if (guic.getSoloChannel() == id){
 			solo.setText("End Solo");

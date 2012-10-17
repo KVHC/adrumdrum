@@ -447,21 +447,21 @@ public class GUIController {
 		public void onClick(View v) {
 
 			// Spinner for sound sample selection
-			final Spinner input2 = new Spinner(parentActivity);
+			final Spinner input = new Spinner(parentActivity);
 			
 			mDBsoundHelper.open();
 			ArrayAdapter<Sound> spinnerArrayAdapter = new ArrayAdapter<Sound>(parentActivity, android.R.layout.simple_spinner_dropdown_item, mDBsoundHelper.getAllSounds());
 			mDBsoundHelper.close();
 			
-			input2.setAdapter(spinnerArrayAdapter);
+			input.setAdapter(spinnerArrayAdapter);
 			
 			AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity);
-			builder.setView(input2);	
+			builder.setView(input);	
 			builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int whichButton) {
 
 			        
-			    	String name = String.valueOf(input2.getSelectedItem());
+			    	String name = String.valueOf(input.getSelectedItem());
 			        //Sound s = SoundFetcher.GetSoundFromString(name);
 			        Sound s = mSoundManager.get(name);
 			        

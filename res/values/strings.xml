@@ -21,23 +21,6 @@
     <string name="clear_steps">Clear Steps</string>
     <string name="spike_button">MultiStepVelocitySpike!</string>
     <string name="samples_prompt">Choose a sample</string>
-    <string-array name="samples">
-        <item>Bassdrum</item>
-        <item>Bell Ride Cymbal</item>
-        <item>Crash Cymbal 01</item>
-        <item>Crash Cymbal 02</item>
-        <item>Hihat Closed</item>
-        <item>Hihat Open</item>
-        <item>Ride Cymbal</item>
-        <item>Snare 01</item>
-        <item>Snare 02</item>
-        <item>Snare 03</item>
-        <item>Splash Cymbal 01</item>
-        <item>Splash Cymbal 02</item>
-        <item>Tomtom 01</item>
-        <item>Tomtom 02</item>
-        <item>Tomtom 03</item>
-    </string-array>
     <string name="licenses">Licenses</string>
     <string name="remove_Button">Remove this channel</string>
     <string name="save_song_option">Save Song</string>

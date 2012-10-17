@@ -116,7 +116,10 @@ public class Player extends Observable {
 			return;
 		}
 
-		waitTime = (long)((60.0 / bpm)*1000);
+		// 15 / bpm after discussion with drummer Simon Planhage
+		// It was 60.0 / bpm, but it was 4 times too fast. 
+		// SO now we know why it's 15.
+		waitTime = (long)((15.0 / bpm)*1000);
 		waitTime /= 4;
 		mTimer.setTime(waitTime);
 	}
