@@ -71,7 +71,7 @@ public class ChannelDialog extends Dialog{
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.channel_settings);
-        setTitle("Channel Controlls");
+        setTitle("Channel Settings");
         initButtons();
         initBars();
         initSpinner();
