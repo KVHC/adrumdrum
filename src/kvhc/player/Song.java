@@ -117,7 +117,7 @@ public class Song {
 	 * @param numberOfStepsToRemove
 	 */
 	public void removeSteps(int numberOfStepsToRemove) {
-		if (!mChannels.isEmpty() && numberOfStepsToRemove <= mChannels.get(0).getNumberOfSteps()) {
+		if (!mChannels.isEmpty() && numberOfStepsToRemove <= mChannels.get(0).getNumberOfSteps() - 1) {
 			for (int i = 0; i < mChannels.size(); i++) {
 				mChannels.get(i).resizeBy(-numberOfStepsToRemove);
 			}

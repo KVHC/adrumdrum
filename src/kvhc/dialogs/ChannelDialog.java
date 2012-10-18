@@ -24,8 +24,6 @@ import kvhc.adrumdrum.R;
 import kvhc.gui.GUIController;
 import kvhc.player.Channel;
 import kvhc.player.Sound;
-import kvhc.util.ISongLoader;
-import kvhc.util.db.SQLSongLoader;
 import kvhc.util.db.SoundDataSource;
 import android.app.Activity;
 import android.app.Dialog;
