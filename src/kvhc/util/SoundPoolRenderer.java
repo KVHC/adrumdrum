@@ -30,6 +30,7 @@ import kvhc.player.Channel;
 import kvhc.player.Song;
 import kvhc.player.Sound;
 import kvhc.player.SoundManager;
+import kvhc.util.db.SoundDataSource;
 
 /**
  * Uses SoundPool for android as output for RenderSong and RenderSongAtStep 
@@ -44,11 +45,14 @@ public class SoundPoolRenderer implements ISongRenderer {
 	private SoundManager mSoundManager;
 	HashMap<Long, Integer> mSoundMap;
 	
+	private SoundDataSource mDBSoundHelper;
+	
 	public SoundPoolRenderer(Context context) {
 		mSoundManager = new SoundManager();
 		mSoundManager.initSounds(context);
 		mSoundMap = new HashMap<Long, Integer>(16);
         
+		mDBSoundHelper = new SoundDataSource(context);
 	}
 	
 	/**
@@ -57,14 +61,18 @@ public class SoundPoolRenderer implements ISongRenderer {
 	 * */
 	public void LoadSounds(ArrayList<Sound> sounds) {
 		mSoundMap = new HashMap<Long, Integer>(sounds.size());
+		
 		int i = 1;
-		for(Sound sound : sounds) {
+		
+		mDBSoundHelper.open();
+		for(Sound sound : mDBSoundHelper.getAllSounds()) {
 			if(sound != null) {
 				mSoundMap.put(sound.getId(), i);
 				mSoundManager.addSound(i, sound.getSoundValue());
 				i++;
 			}
 		}
+		mDBSoundHelper.close();
 	}
 	
 

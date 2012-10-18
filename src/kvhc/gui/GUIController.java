@@ -264,7 +264,6 @@ public class GUIController {
     }
     
     
-    
     private void numerateSteps(){
     	for (Channel c: song.getChannels()){
     		int number = 0;
@@ -309,7 +308,6 @@ public class GUIController {
 			} else {
 				name.setText("No Sound");
 			}
-			//name.setOnLongClickListener(channelSettingsListener);
 
 			row.addView(name);
 			row.addView(mute);
@@ -560,16 +558,19 @@ public class GUIController {
 				Song lSong = loadDialog.getSong();
 				
 				if(lSong != null) {
-					player.stop();
-					song = lSong;
-					numerateSteps();
-					player.loadSong(song);
-					redrawChannels();
-					
+					reloadSong(lSong);
 				}
 			}
 		});
 		
 		loadDialog.show();
+	}
+	
+	public void reloadSong(Song song) {
+		player.stop();
+		this.song = song;
+		numerateSteps();
+		player.loadSong(song);
+		redrawChannels();
 	}
 }

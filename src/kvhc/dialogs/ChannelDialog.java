@@ -20,6 +20,8 @@
 
 package kvhc.dialogs;
 
+import java.util.List;
+
 import kvhc.adrumdrum.R;
 import kvhc.gui.GUIController;
 import kvhc.player.Channel;
@@ -30,7 +32,11 @@ import kvhc.util.db.SoundDataSource;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -47,6 +53,8 @@ public class ChannelDialog extends Dialog{
 	private GUIController guic;
 	private Button solo;
 	private SoundDataSource mDBSoundHelper; // Denna borde inte vara här EGENKLIEN, borde vara i någon sound manager...
+	
+	private static List<Sound> sounds;
 	
 	/**
 	 * The Constructor
@@ -82,11 +90,16 @@ public class ChannelDialog extends Dialog{
         
         String soundName = channel.getSound().getName();
         
-        mDBSoundHelper.open();
-		ArrayAdapter<Sound> spinnerArrayAdapter = new ArrayAdapter<Sound>(getContext(), android.R.layout.simple_spinner_dropdown_item, mDBSoundHelper.getAllSounds());
-		mDBSoundHelper.close();
         
-        Spinner samples = (Spinner)findViewById(R.id.spinner_sample);
+        if(sounds == null) {
+        	mDBSoundHelper.open();
+        	sounds = mDBSoundHelper.getAllSounds();
+        	mDBSoundHelper.close();
+        }
+        
+		ArrayAdapter<Sound> spinnerArrayAdapter = new ArrayAdapter<Sound>(getContext(), android.R.layout.simple_spinner_dropdown_item, sounds);
+		
+        final Spinner samples = (Spinner)findViewById(R.id.spinner_sample);
         samples.setAdapter(spinnerArrayAdapter);
         
         int sampleSize = samples.getAdapter().getCount();
@@ -96,6 +109,21 @@ public class ChannelDialog extends Dialog{
         		break;
         	}
         }
+        
+        samples.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			public void onItemSelected(AdapterView<?> adapterVie, View view,
+					int position, long arg3) {
+				
+				Log.w("ChannelDialog", sounds.get(position).toString() + " är ljudet?");
+				Log.w("ChannelDialog", sounds.get(position).getId() + " är ljudet?");
+				channel.setSound(sounds.get(position));
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				return;
+			}
+		});
 	}
 	
 	/**
