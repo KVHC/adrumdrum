@@ -115,12 +115,7 @@ public class Player extends Observable {
 			stop();
 			return;
 		}
-
-		// 15 / bpm after discussion with drummer Simon Planhage
-		// It was 60.0 / bpm, but it was 4 times too fast. 
-		// SO now we know why it's 15.
-		waitTime = (long)((15.0 / bpm)*1000);
-		waitTime /= 4;
+		waitTime = (long)((60.0 / bpm)*1000);
 		mTimer.setTime(waitTime);
 	}
 	
@@ -128,9 +123,13 @@ public class Player extends Observable {
 	 * Sets the bpm in a given range (used by progress bars)
 	 * The bpm starts as 60 and each increase in the parameter increase the bpm by 6
 	 * @param p. The bpm are calculated with 60 + 6 * p
+	 * @return the bpm set to the player
 	 */
-	public void setBPMInRange(int p){
-		setWaitTimeByBPM(60 + p*6);
+	public int setBPMInRange(int p){
+		
+		int bpm = 30 + 3 * p;
+		setWaitTimeByBPM(bpm);
+		return(bpm);
 	}
 	
 	/**
