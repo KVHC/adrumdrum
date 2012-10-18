@@ -13,6 +13,20 @@ Paketet adrumdrum innehåller bara programmets main klass.
 
 
 
+#----kvhc.gui.dialogs----#
+I paketet dialogs ligger alla dialoger som används av programmet. 
+
+
+	*----ChannelDialog----*
+	En dialog över olika kanalinställningar
+
+
+	*----StepDialog----*
+	En dialog som ändrar värden på ett Step. Startas av en GUIStepButton
+
+
+
+
 #----kvhc.gui----#
 Här finns de klasser som används för att skapa ett GUI. Här finns det även 
 klasser som används för att uppdatera och ändra i GUI:t
@@ -47,23 +61,8 @@ klasser som används för att uppdatera och ändra i GUI:t
 
 
 
-#----kvhc.gui.dialogs----#
-I paketet dialogs ligger alla dialoger som används av programmet. 
-
-
-	*----ChannelDialog----*
-	En dialog över olika kanalinställningar
-
-
-	*----StepDialog----*
-	En dialog som ändrar värden på ett Step. Startas av en GUIStepButton
-
-
-
-
 #----kvhc.player----#
 Paketet player innehåller de klasser som styr spelaren och 
-
 
 	*----Player----*
 	Player spelar upp en angiven Song. Player sköter vad som ska spelas upp 
@@ -97,8 +96,8 @@ Paketet player innehåller de klasser som styr spelaren och
 
 
 
+
 #----kvhc.util----#
-I paketet util finns de generell klasserna som  
 
 
 #----kvhc.util.db----#

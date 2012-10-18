@@ -60,6 +60,13 @@ public class ChannelButtonGUI extends Button {
 	}
 	
 	/**
+	 * 
+	 */
+	public void updateName(){
+		setText(channel.getSound().getName());
+	}
+	
+	/**
 	 * Button Listener
 	 */
 	private OnClickListener onClick = new OnClickListener() {

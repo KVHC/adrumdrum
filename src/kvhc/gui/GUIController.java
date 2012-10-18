@@ -239,6 +239,23 @@ public class GUIController {
     	}
     }
     
+    	
+	/**
+	 * Update the name on the GUI-button
+	 * @param channelId 
+	 */
+	public void updateButtonGUI(int channelId){
+		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
+  
+    	if (channelId <  channelContainer.getChildCount()){
+    		TableRow row = (TableRow)channelContainer.getChildAt(channelId);
+    		ChannelButtonGUI guib = (ChannelButtonGUI) row.getChildAt(0);
+    		guib.updateName();
+    	}
+	}
+
+    
+    
     /**
      * If the channel already is playing solo this method ends the solo and unmute all other channels.
      * If the channel don't play solo this method mute all channels except the given.

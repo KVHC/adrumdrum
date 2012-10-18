@@ -118,6 +118,7 @@ public class ChannelDialog extends Dialog{
 				Log.w("ChannelDialog", sounds.get(position).toString() + " är ljudet?");
 				Log.w("ChannelDialog", sounds.get(position).getId() + " är ljudet?");
 				channel.setSound(sounds.get(position));
+				guic.updateButtonGUI(id);
 			}
 
 			public void onNothingSelected(AdapterView<?> arg0) {
@@ -179,7 +180,7 @@ public class ChannelDialog extends Dialog{
 			solo.setText("Start Solo");
 		}
 	}
-
+	
 	
 	/**
 	 * A listener that changes the panning on the channel
