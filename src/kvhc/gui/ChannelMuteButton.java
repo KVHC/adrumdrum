@@ -55,11 +55,7 @@ public class ChannelMuteButton extends Button {
 		setOnClickListener(onClick);
 		setGravity(20);
 		
-		if (channel.isMuted()) {
-			setBackgroundResource(R.drawable.muted);
-		} else {
-			setBackgroundResource(R.drawable.unmuted);
-		}
+		drawChannels();
 	}
 	
 	/**
@@ -78,18 +74,30 @@ public class ChannelMuteButton extends Button {
 		}
 	};
 	
-	
-	protected void onDraw(Canvas canvas) {
+
+	/**
+	 * Draws different symbols on the button depending on the volume of the channel
+	 */
+	private void drawChannels(){
 		if (channel.isMuted()) {
 			setBackgroundResource(R.drawable.muted);			
 		} else if(channel.getChannelVolume() > 0.75)  {
-			setBackgroundResource(R.drawable.unmuted);
+			setBackgroundResource(R.drawable.volume_full);
 		} else if(channel.getChannelVolume() > 0.50)  {
-			setBackgroundResource(R.drawable.unmuted);
+			setBackgroundResource(R.drawable.volume_middle);
 		} else if(channel.getChannelVolume() > 0.25)  {
-			setBackgroundResource(R.drawable.muted);
+			setBackgroundResource(R.drawable.volume_low);
 		} else {
-			setBackgroundResource(R.drawable.muted);
+			setBackgroundResource(R.drawable.volume_nothing);
 		}
+	}
+	
+	
+	/**
+	 * This method are called every time the gui are invalidated. 
+	 * Draws sound symbols on the mute-button
+	 */
+	protected void onDraw(Canvas canvas) {
+		drawChannels();
 	}
 }
