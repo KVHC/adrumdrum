@@ -1,5 +1,5 @@
 /**
- * aDrumDrum is a stepsequencer for Android.
+ * aDrumDrum is a step sequencer for Android.
  * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
@@ -65,7 +65,6 @@ public class GUIController {
 	private int solo;
 	
 	private Activity parentActivity;
-	//private AssetManagerModel<Sound> mSoundManager = AssetManagerModel.getSoundManager();
 	private HashMap<String, Sound> mSoundManager;
 	
 	ISongLoader sqlLoader;
@@ -162,7 +161,7 @@ public class GUIController {
      */
 	private void initButtons() {
     	   Button btn1 = (Button)parentActivity.findViewById(R.id.button1);
-           btn1.setOnClickListener(btnListener);
+           btn1.setOnClickListener(playOrStopClickListener);
            
            Button addChnl = (Button)parentActivity.findViewById(R.id.buttonAddChannel);
            addChnl.setOnClickListener(addChannelListener);
@@ -196,7 +195,6 @@ public class GUIController {
         });
     	
     }
-	
 	
 	/**
 	 * Adds a new channel.
@@ -241,8 +239,7 @@ public class GUIController {
     		player.loadSong(song);
     		redrawChannels();
     	}
-    }
-    
+    }   
     	
 	/**
 	 * Update the name on the GUI-button
@@ -257,8 +254,6 @@ public class GUIController {
     		guib.updateName();
     	}
 	}
-
-    
     
     /**
      * If the channel already is playing solo this method ends the solo and unmute all other channels.
@@ -294,10 +289,7 @@ public class GUIController {
     		}
     	}
     }
-
-
-	
-    
+	   
     /**
      * Redraws all the Channel and their steps and their ChannelButtons.
      * This is done when adding or removing steps (and would be done if
@@ -346,7 +338,6 @@ public class GUIController {
 			y++;
 		}
 
-
 		channelContainer.setVisibility(View.VISIBLE);
 		channelContainer.invalidate();
 	}
@@ -373,7 +364,7 @@ public class GUIController {
     
     /**
      * Method for invalidating all elements in the channel container.
-     * We had troubles with this on non-Samsung phones.
+     * This fixes some trouble we had on non-Samsung phones.
      */
     public void invalidateAll(){
     	TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
@@ -387,7 +378,10 @@ public class GUIController {
     	
     }
     
-    
+    /**
+     * If solo-mode has been enabled previously, this resets the solo-variable.
+     * solo represents a channel number if it is higher than or equal to 0.
+     */
     public void stopSolo(){
     	solo = -1;
     }
@@ -444,7 +438,7 @@ public class GUIController {
 	/**
 	 * Listener to the Play/Stop-button.
 	 */
-    private OnClickListener btnListener = new OnClickListener()
+    private OnClickListener playOrStopClickListener = new OnClickListener()
     {
 		public void onClick(View v) {
 			if (player.isPlaying()) {
@@ -508,6 +502,7 @@ public class GUIController {
 		public void onClick(View v) {
 			// Add one step to the song and gui
 			player.stop();
+			tv1.setText("Stopped");
 			song.addSteps(1);
 			player.loadSong(song);
 			redrawChannels();
@@ -521,6 +516,7 @@ public class GUIController {
 		
 		public void onClick(View v) {
 			player.stop();
+			tv1.setText("Stopped");
 			song.removeSteps(1);
 			player.loadSong(song);
 			redrawChannels();
@@ -562,13 +558,17 @@ public class GUIController {
 		dialog.show();
 	}
 	
-	
+	/**
+	 * Creates a SaveSongDialog and shows it.
+	 */
 	public void createAndShowSaveSongDialog() {
 		SaveSongDialog saveDialog = new SaveSongDialog(parentActivity, song);
 		saveDialog.show();
 	}
 	
-	
+	/**
+	 * Creates a LoadSongDialog and shows it.
+	 */
 	public void createAndShowLoadSongDialog() {
 		final LoadSongDialog loadDialog = new LoadSongDialog(parentActivity);
 		
@@ -587,6 +587,10 @@ public class GUIController {
 		loadDialog.show();
 	}
 	
+	/**
+	 * Reloads a given song. Calls numerateSteps so all the steps isn't step number one.
+	 * @param song the Song to reload
+	 */
 	public void reloadSong(Song song) {
 		player.stop();
 		this.song = song;
