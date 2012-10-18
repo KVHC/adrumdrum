@@ -23,9 +23,9 @@ package kvhc.util.db;
 import java.util.List;
 
 import android.content.Context;
-import kvhc.player.Channel;
-import kvhc.player.Song;
-import kvhc.player.Sound;
+import kvhc.models.Channel;
+import kvhc.models.Song;
+import kvhc.models.Sound;
 import kvhc.util.AssetManagerModel;
 import kvhc.util.ISongLoader;
 

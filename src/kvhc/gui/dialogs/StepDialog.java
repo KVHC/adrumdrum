@@ -18,7 +18,7 @@
  * along with aDrumDrum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package kvhc.dialogs;
+package kvhc.gui.dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -29,7 +29,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import kvhc.adrumdrum.R;
 import kvhc.gui.GUIController;
-import kvhc.player.Step;
+import kvhc.models.Step;
 
 public class StepDialog extends Dialog {
 

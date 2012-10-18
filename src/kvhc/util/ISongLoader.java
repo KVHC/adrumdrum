@@ -2,7 +2,7 @@ package kvhc.util;
 
 import java.util.List;
 
-import kvhc.player.Song;
+import kvhc.models.Song;
 
 /**
  * An interface for loading a song, or an "importer". 

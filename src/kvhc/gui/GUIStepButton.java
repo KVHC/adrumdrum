@@ -21,7 +21,7 @@
 package kvhc.gui;
 
 import kvhc.adrumdrum.R;
-import kvhc.player.Step;
+import kvhc.models.Step;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;

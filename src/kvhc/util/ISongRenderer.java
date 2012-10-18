@@ -22,8 +22,8 @@ package kvhc.util;
 
 import java.util.ArrayList;
 
-import kvhc.player.Song;
-import kvhc.player.Sound;
+import kvhc.models.Song;
+import kvhc.models.Sound;
 
 public interface ISongRenderer {
 	

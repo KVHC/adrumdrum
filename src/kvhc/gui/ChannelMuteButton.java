@@ -21,7 +21,7 @@
 package kvhc.gui;
 
 import kvhc.adrumdrum.R;
-import kvhc.player.Channel;
+import kvhc.models.Channel;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;

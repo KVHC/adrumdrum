@@ -2,8 +2,8 @@ package kvhc.util;
 
 import java.util.HashMap;
 
-import kvhc.player.Song;
-import kvhc.player.Sound;
+import kvhc.models.Song;
+import kvhc.models.Sound;
 
 /**
  * A Class for the management of sounds. Singleton

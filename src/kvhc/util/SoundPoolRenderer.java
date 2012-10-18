@@ -26,10 +26,9 @@ import java.util.HashMap;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import kvhc.player.Channel;
-import kvhc.player.Song;
-import kvhc.player.Sound;
-import kvhc.player.SoundManager;
+import kvhc.models.Channel;
+import kvhc.models.Song;
+import kvhc.models.Sound;
 import kvhc.util.db.SoundDataSource;
 
 /**

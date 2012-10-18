@@ -21,8 +21,8 @@
 package kvhc.gui;
 
 import kvhc.adrumdrum.R;
-import kvhc.dialogs.ChannelDialog;
-import kvhc.player.Channel;
+import kvhc.gui.dialogs.ChannelDialog;
+import kvhc.models.Channel;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;

@@ -23,8 +23,8 @@ package kvhc.util.db;
 import java.util.ArrayList;
 import java.util.List;
 
-import kvhc.player.Channel;
-import kvhc.player.Step;
+import kvhc.models.Channel;
+import kvhc.models.Step;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

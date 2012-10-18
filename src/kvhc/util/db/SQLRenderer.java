@@ -25,10 +25,10 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.util.Log;
 
-import kvhc.player.Channel;
-import kvhc.player.Song;
-import kvhc.player.Sound;
-import kvhc.player.Step;
+import kvhc.models.Channel;
+import kvhc.models.Song;
+import kvhc.models.Sound;
+import kvhc.models.Step;
 import kvhc.util.ISongRenderer;
 
 
