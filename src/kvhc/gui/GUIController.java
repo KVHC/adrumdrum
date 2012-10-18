@@ -178,7 +178,10 @@ public class GUIController {
 	 * Inits the BPM-bar.
 	 */
 	private void initBars(){
+
 		SeekBar bpmBar = (SeekBar)parentActivity.findViewById(R.id.bpmbar);
+		player.setBPMInRange(30);
+		bpmBar.setProgress(30);
     	
     	bpmBar.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
 
@@ -191,6 +194,7 @@ public class GUIController {
 			public void onStartTrackingTouch(SeekBar arg0) {}
 			public void onStopTrackingTouch(SeekBar arg0) {}
         });
+    	
     }
 	
 	
