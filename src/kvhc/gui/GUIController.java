@@ -183,8 +183,8 @@ public class GUIController {
     	bpmBar.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
 
 			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
-				player.setBPMInRange(progress);
-				tv1.setText("BPM is: " + (60 + progress*6));
+				int bpm = player.setBPMInRange(progress);
+				tv1.setText("BPM is: " + bpm);
 				
 			}
 
