@@ -1,5 +1,5 @@
 /**
- * aDrumDrum is a stepsequencer for Android.
+ * aDrumDrum is a step sequencer for Android.
  * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
@@ -28,20 +28,28 @@ import kvhc.util.ISongRenderer;
 import kvhc.util.SoundPoolRenderer;
 import android.content.Context;
 
+/**
+ * Class representing a player. 
+ * It knows the current step and if it is playing. 
+ * Notifies observers when it changes step.
+ * 
+ * @author kvhc
+ */
 public class Player extends Observable {
 	
+	// Default variables
+	private static final int DEFAULT_WAITTIME = 500;
+	
 	// Channel Renderer
-	ISongRenderer mSongRender;
+	private ISongRenderer mSongRender;
 	
 	// Timing
-	Runnable r;
-	AndroidTimer mTimer;
-	private long waitTime; // Milliseconds
+	private Runnable r;
+	private AndroidTimer mTimer;
+	private long waitTime; // in milliseconds
 	
 	// Sounds
-	Song song = null;
-	float rightSound;
-	float leftSound;
+	private Song song = null;
 	
 	// State
 	private int currentStep;
@@ -52,14 +60,11 @@ public class Player extends Observable {
 	 * @param context from witch to play the sounds in.
 	 */
 	public Player(Context context) {
-		
 		mSongRender = new SoundPoolRenderer(context);
-		waitTime = 500;
+		waitTime = DEFAULT_WAITTIME;
 		
 		currentStep = 0;
 		isPlaying = false;
-		rightSound = (float) 1.0;
-		leftSound = (float) 1.0;
         
         r = new Runnable(){
     		public void run() {
@@ -80,7 +85,9 @@ public class Player extends Observable {
 	}
 	
 	/**
-	 * Play the next step of the song and moves forward to the next
+	 * Play the current step of the song and moves forward to the next.
+	 * Only changes to the next step if the Player is playing (CAPTAIN OBVIOUS).
+	 * Notifies observers (for example Views in the GUI) about the step change.
 	 */
 	private void nextStep() {
 		if (isPlaying && song != null) {
@@ -99,19 +106,18 @@ public class Player extends Observable {
 	}
 	
 	/**
-	 * Get the number of the current step
+	 * Get the number of the current step.
 	 */
 	public int getActiveStep() {
 		return currentStep; 
 	}
 
-	
 	/**
-	 * Sets the bpm of the player
-	 * @param bpm 
+	 * Sets the bpm (Beats Per Minute) of the player.
+	 * This calculates and sets the waitTime (time between two sounds play) of the timer.
+	 * @param bpm the bpm to set
 	 */
 	public void setWaitTimeByBPM(int bpm) {
-		
 		if (bpm <= 0){
 			stop();
 			return;
@@ -121,20 +127,20 @@ public class Player extends Observable {
 	}
 	
 	/**
-	 * Sets the bpm in a given range (used by progress bars)
-	 * The bpm starts as 60 and each increase in the parameter increase the bpm by 6
-	 * @param p. The bpm are calculated with 60 + 6 * p
+	 * Sets the bpm in a given range (p). This method is called from progress bars in the GUI
+	 * whos range is between 0 and 100.
+	 * The bpm starts as 30 and each increase in the parameter increase the bpm by 3.
+	 * @param p The bpm are calculated with 30 + 3 * p
 	 * @return the bpm set to the player
 	 */
-	public int setBPMInRange(int p){
-		
+	public int setBPMInRange(int p) {
 		int bpm = 30 + 3 * p;
 		setWaitTimeByBPM(bpm);
 		return(bpm);
 	}
 	
 	/**
-	 * Starts the player
+	 * Starts the player and its timer.
 	 */
 	public void play() {
 		isPlaying = true;
@@ -142,11 +148,11 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * Stops the player
-	 * Also notifies all observers with a -1
+	 * Stops the player.
+	 * Also notifies all observers with (-1).
 	 */
 	public void stop() {
-		if(isPlaying){
+		if (isPlaying){
 			isPlaying = false;
 			currentStep = 0;
 			mTimer.stop();
@@ -156,7 +162,7 @@ public class Player extends Observable {
 	}
 	
 	/**
-	 * Method for seeing if the player is running or not
+	 * Method for seeing if the player is running or not.
 	 * @return true if the player is running, else false
 	 */
 	public boolean isPlaying() {
