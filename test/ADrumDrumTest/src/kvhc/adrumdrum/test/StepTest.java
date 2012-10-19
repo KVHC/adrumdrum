@@ -1,5 +1,5 @@
 /**
- * aDrumDrum is a stepsequencer for Android.
+ * aDrumDrum is a step sequencer for Android.
  * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
@@ -22,23 +22,33 @@ package kvhc.adrumdrum.test;
 
 import junit.framework.Assert;
 import android.test.AndroidTestCase;
+import kvhc.models.Step;
+import kvhc.models.Channel;
 
-import kvhc.player.*;
-
+/**
+ * Test class for kvhc.models.Step.
+ * @author kvhc
+ */
 public class StepTest extends AndroidTestCase {
 	
 	Channel testChannel = new Channel();
-	
+	/**
+	 * Tests the constructor that takes a Channel and an Int.
+	 */
 	public void testStep() {
-		Assert.assertNotNull(new Step(testChannel,1));
+		Assert.assertNotNull(new Step(testChannel, 1));
 	}
-
+	/**
+	 * Tests the constructor which takes Boolean, Channel, Int,
+	 * and sets the step active if the Boolean is true.
+	 */
 	public void testStepBoolean() {
-		Step step = new Step(true,testChannel,1);
-		
+		Step step = new Step(true, testChannel, 1);
 		Assert.assertTrue(step.isActive());
 	}
-
+	/**
+	 * Tests the setActive method.
+	 */
 	public void testSetActive() {
 		Step step = new Step(testChannel,1);
 		Assert.assertFalse(step.isActive());
@@ -46,10 +56,11 @@ public class StepTest extends AndroidTestCase {
 		step.setActive(true);
 		Assert.assertTrue(step.isActive());
 	}
-
+	/**
+	 * Tests the setVelocity/getVelocity methods
+	 */
 	public void testSetVel() {
 		Step step = new Step(testChannel,1);
-		
 		float testVel = 0.333f; //new Random().nextFloat();
 		step.setVelolcity(testVel);
 		

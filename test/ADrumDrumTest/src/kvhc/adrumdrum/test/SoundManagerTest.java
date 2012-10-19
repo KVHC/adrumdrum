@@ -1,5 +1,5 @@
 /**
- * aDrumDrum is a stepsequencer for Android.
+ * aDrumDrum is a step sequencer for Android.
  * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
@@ -20,7 +20,7 @@
 package kvhc.adrumdrum.test;
 
 import android.test.AndroidTestCase;
-import kvhc.player.SoundManager;
+import kvhc.util.SoundManager;
 import junit.framework.Assert;
 
 /**
