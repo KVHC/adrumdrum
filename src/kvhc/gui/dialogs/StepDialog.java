@@ -1,5 +1,5 @@
 /**
- * aDrumDrum is a stepsequencer for Android.
+ * aDrumDrum is a step sequencer for Android.
  * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
@@ -31,11 +31,16 @@ import kvhc.adrumdrum.R;
 import kvhc.gui.GUIController;
 import kvhc.models.Step;
 
+/**
+ * StepDialog appears if you do LongClick on a GUIStepButton.
+ * Shows some step settings and actions.
+ */
 public class StepDialog extends Dialog {
 
+	private static final int MAX_PERCENT = 100;
+	private static final float ONE_PERCENT = 0.01f;
+	
 	private Step step;
-	private Button back;
-	private Button spike;
 	private GUIController guic;
 	private int channel, stepnr;
 	
@@ -51,11 +56,10 @@ public class StepDialog extends Dialog {
 		this.guic = guic;
 		this.channel = channel;
 		this.stepnr = stepnr;
-		
 	}
 
 	/**
-	 * What to do then a new StepDialog are created
+	 * What to do when a new StepDialog are created.
 	 */
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -66,34 +70,34 @@ public class StepDialog extends Dialog {
 	}
 	
 	/**
-	 * Init the buttons in the StepDialog
+	 * Initialize the buttons.
 	 */
 	private void initButtons(){
-		back = (Button)this.findViewById(R.id.buttonBack);
+		Button back = (Button)this.findViewById(R.id.buttonBack);
 		back.setOnClickListener(backClick);
 		
-		spike = (Button)this.findViewById(R.id.buttonSpike);
+		Button spike = (Button)this.findViewById(R.id.buttonSpike);
 	    spike.setOnClickListener(spikeClick);
 	}
 	
 	/**
-	 * Init the progresspar in the StepDialog
+	 * Initialize the progresspar.
 	 */
 	private void initBars(){
 		SeekBar velocityBar = (SeekBar)this.findViewById(R.id.seekbarVelocity);
-		velocityBar.setProgress((int)(step.getVelocity() * 100));
+		velocityBar.setProgress((int)(step.getVelocity() * MAX_PERCENT));
 		velocityBar.setOnSeekBarChangeListener(velocityListener);
 	}
 	
 	
 	/**
-	 * A Listener for what to do then the velocity bar are changed
+	 * A Listener for what to do when the velocity bar are changed.
 	 */
 	private OnSeekBarChangeListener velocityListener = new OnSeekBarChangeListener() {
 
 		public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 			
-			step.setVelolcity(progress * 0.01F);
+			step.setVelolcity(progress * ONE_PERCENT);
 		}
 
 		public void onStartTrackingTouch(SeekBar arg0) {
@@ -105,7 +109,7 @@ public class StepDialog extends Dialog {
 
     
 	/**
-	 * A on click listener that close this dialog
+	 * An on click listener that close this dialog.
 	 */
 	private View.OnClickListener backClick = new View.OnClickListener(){
 		public void onClick(View v) {
@@ -114,16 +118,15 @@ public class StepDialog extends Dialog {
 	};	
 	
     /**
-     * A on click listener that SPIKES the step
+     * An on click listener that SPIKES the step.
      */
     private View.OnClickListener spikeClick = new View.OnClickListener(){
         public void onClick(View v) {
             guic.setSpike(channel,stepnr);
             SeekBar velocityBar = (SeekBar)findViewById(R.id.seekbarVelocity);
-            velocityBar.setProgress(100);
+            velocityBar.setProgress(MAX_PERCENT);
             guic.redrawChannels();
         }
     };
-	
 	
 }

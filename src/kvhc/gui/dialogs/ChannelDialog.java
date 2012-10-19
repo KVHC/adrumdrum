@@ -1,5 +1,5 @@
 /**
- * aDrumDrum is a stepsequencer for Android.
+ * aDrumDrum is a step sequencer for Android.
  * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
@@ -41,22 +41,26 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 
 /**
- * A dialog about channel settings
+ * A dialog with channel settings for a specific Channel.
  */
 public class ChannelDialog extends Dialog{
 
+	private static final int MAX = 100;
+	private static final float ONE_PERCENT = 0.01f;
+	
 	private Channel channel;
 	private int id;
 	private GUIController guic;
 	private Button solo;
-	private SoundDataSource mDBSoundHelper; // Denna borde inte vara här EGENKLIEN, borde vara i någon sound manager...
 	
 	private static List<Sound> sounds;
 	
 	/**
-	 * The Constructor
+	 * The Constructor.
 	 * @param parrentActivity The activity that started this dialog
 	 * @param channel The channel to change the settings for
+	 * @param id of the Channel
+	 * @param guic GUIController to send instructions to
 	 */
 	public ChannelDialog(Activity parrentActivity, Channel channel,	int id, GUIController guic) {
 		super(parrentActivity);
@@ -66,7 +70,7 @@ public class ChannelDialog extends Dialog{
 	}
 	
 	/**
-	 * What should happen then a new dialog is created
+	 * What should happen then a new dialog is created.
 	 */
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -79,11 +83,9 @@ public class ChannelDialog extends Dialog{
 	
 	/**
 	 * Initializes the Spinner and chooses the value.
-	 * 
-	 * TODO: Optimize?
 	 */
 	private void initSpinner() {
-		mDBSoundHelper = new SoundDataSource(getContext());
+		SoundDataSource mDBSoundHelper = new SoundDataSource(getContext());
         
         String soundName = channel.getSound().getName();
         
@@ -152,19 +154,18 @@ public class ChannelDialog extends Dialog{
 		float left = channel.getLeftPanning();	
 		
 		if (right > left){
-			panningBar.setProgress(200 - (int)(left * 100));
+			panningBar.setProgress(200 - (int)(left * MAX));
 		} else if(right < left) {
-			panningBar.setProgress((int)(right * 100));
+			panningBar.setProgress((int)(right * MAX));
 		} else {
-			panningBar.setProgress(100);
+			panningBar.setProgress(MAX);
 		}
 		
 		panningBar.setOnSeekBarChangeListener(panningListener);		
 		
 		SeekBar volumeBar = (SeekBar)this.findViewById(R.id.seekbarChannelVolume);
-		volumeBar.setProgress((int)(channel.getChannelVolume() * 100));
-		volumeBar.setOnSeekBarChangeListener(volumeListener);
-		
+		volumeBar.setProgress((int)(channel.getChannelVolume() * MAX));
+		volumeBar.setOnSeekBarChangeListener(volumeListener);	
 	}
 	
 	/**
@@ -178,27 +179,25 @@ public class ChannelDialog extends Dialog{
 		}
 	}
 	
-	
 	/**
 	 * A listener that changes the panning on the channel
 	 */
-	OnSeekBarChangeListener panningListener = new OnSeekBarChangeListener() {
+	private OnSeekBarChangeListener panningListener = new OnSeekBarChangeListener() {
 
 		public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 			float right; 
 			float left;
 			
-			if (progress >= 100){
+			if (progress >= MAX){
 				right = 1.0F;
-				left = 1.0F - 0.01F * (progress - 100);   
+				left = 1.0F - ONE_PERCENT * (progress - MAX);   
 			}else{
-				right = 0.01F * progress;
+				right = ONE_PERCENT * progress;
 				left = 1.0F;
 			}
 			
 			channel.setPanning(right, left);
 		}
-
 
 		public void onStartTrackingTouch(SeekBar arg0) {
 		}
@@ -207,15 +206,14 @@ public class ChannelDialog extends Dialog{
 		}
     };
     
-    
     /**
-     * A listener that change the volume of the channel
+     * A listener that change the volume of the channel.
      */
-	OnSeekBarChangeListener volumeListener = new OnSeekBarChangeListener() {
+	private OnSeekBarChangeListener volumeListener = new OnSeekBarChangeListener() {
 
 		public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 			
-			float volume =  progress * 0.01F;
+			float volume =  progress * ONE_PERCENT;
 				
 			channel.setVolume(volume);
 			
@@ -231,7 +229,7 @@ public class ChannelDialog extends Dialog{
 	
 	
 	/**
-	 * A on click listener that close this dialog
+	 * A on click listener that close this dialog.
 	 */
 	private View.OnClickListener backClick = new View.OnClickListener(){
 		public void onClick(View v) {
@@ -240,7 +238,7 @@ public class ChannelDialog extends Dialog{
 	};
 	
 	/**
-	 * Listener to the clearSteps button
+	 * Listener to the clearSteps button.
 	 */
 	private View.OnClickListener clearStepsClick = new View.OnClickListener(){
 		public void onClick(View v) {
@@ -251,7 +249,7 @@ public class ChannelDialog extends Dialog{
 	};
 	
 	/**
-	 * Listener to the removeChannel button
+	 * Listener to the removeChannel button.
 	 */
 	private View.OnClickListener removeClick = new View.OnClickListener(){
 		public void onClick(View v) {
@@ -262,7 +260,7 @@ public class ChannelDialog extends Dialog{
 
 	
 	/**
-	 * Listener to the soloChannel button
+	 * Listener to the soloChannel button.
 	 */
 	private View.OnClickListener soloClick = new View.OnClickListener(){
 		public void onClick(View v) {

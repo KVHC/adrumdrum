@@ -1,5 +1,5 @@
 /**
- * aDrumDrum is a stepsequencer for Android.
+ * aDrumDrum is a step sequencer for Android.
  * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
@@ -20,7 +20,6 @@
 
 package kvhc.models;
 
-
 /**
  * Model of a sound (used by Channel).
  * @author srejv
@@ -28,16 +27,18 @@ package kvhc.models;
  */
 public class Sound {
 
-	
-	private long mId; // Id in the other system
-	private int mSoundValue; // The location of the soundfile in an integer (from raw atm, probably should be object)
+	// Identification
+	private long mId;
 	private String mName;
 	
+	// The location of the soundfile in an integer (from raw)
+	private int mSoundValue;
+	
 	/**
-	 * The constructor of a Sound.
-	 * @param id The id of this sound
+	 * Constructor of a Sound.
+	 * Initiates the ID to (-1).
 	 * @param soundValue The value of the sound in the R class
-	 * @param name
+	 * @param name the name of the sound
 	 */
 	public Sound(int soundValue, String name) {
 		mId = -1;
@@ -45,6 +46,10 @@ public class Sound {
 		mName = name;
 	}
 	
+	/**
+	 * Constructor of a Sound. 
+	 * @param id the ID of the Sound
+	 */
 	public Sound(long id) {
 		mId = id;
 		mSoundValue = 0;
@@ -52,7 +57,7 @@ public class Sound {
 	}
 	
 	/**
-	 * Method for geting the id of this sound.
+	 * Method for getting the id of this sound.
 	 * @return the id of this sound
 	 */
 	public long getId() {
@@ -100,12 +105,10 @@ public class Sound {
 	}
 	
 	/**
-	 * Returns a String version of the Sound
+	 * Returns the name of the Sound.
 	 */
 	public String toString() {
-		// TODO Auto-generated method stub
 		return this.mName;
 	}
-	
 	
 }

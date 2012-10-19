@@ -33,9 +33,7 @@ import android.widget.CheckBox;
 
 
 /**
- * GUIStepButton
- * 
- * A View for the steps 
+ * GUIStepButton is a View representing a step.
  * 
  * @author Oscar/kvhc
  *
@@ -43,21 +41,26 @@ import android.widget.CheckBox;
 @SuppressLint("ViewConstructor")
 public class GUIStepButton extends CheckBox {
 	
+	// Default variables
+	private static final int DISTANCE_FROM_TOP = 12;
+	private static final int TEXT_SIZE = 20;
+	
+	// Identification
 	private int mChannelId;
 	private int mStepId;
-	
 	private Step step;
 	
+	// State
 	private boolean mActive; 
 	private boolean mPlaying;
 	
+	// Icons and Paint
 	private static Bitmap mButtonOff; 
 	private static Bitmap mButtonOn;
 	private static Bitmap mButtonOffPlaying; 
 	private static Bitmap mButtonOnPlaying;
 	private Paint textPaint; 
 	private Paint velocityShade;
-	private static int distanceFromTop = 12;  // så att stepsen ritas i mitten av raden
 
 	/**
 	 * Constructor for the GUIStepButton.
@@ -97,7 +100,6 @@ public class GUIStepButton extends CheckBox {
 		mActive = isActive;
 	}
 	
-	
 	/**
 	 * This method initialize the images that represent different phases of a step.
 	 */
@@ -116,17 +118,16 @@ public class GUIStepButton extends CheckBox {
 		
 		if(GUIStepButton.mButtonOnPlaying == null) {
 			mButtonOnPlaying = BitmapFactory.decodeResource(getResources(), R.drawable.stepbuttonon_active);
-		}
-		
+		}	
 	}
 
 	/**
-	 * Init the paint to paint digits and shade boxes with.
+	 * Initialize paint to paint digits and shade boxes with.
 	 */
 	private void initPaint(){
 		// Skapar en färg för att måla texten
 		textPaint = new Paint();
-		textPaint.setTextSize(20);
+		textPaint.setTextSize(TEXT_SIZE);
 		// Initierar en färg för att shadea knappen
 		velocityShade = new Paint();
 	}
@@ -179,9 +180,6 @@ public class GUIStepButton extends CheckBox {
 		mPlaying = playing;
 	}
 	
-	
-	
-	
 	/**
 	 * A method that specifies how the step button should be drawn.
 	 * @param canvas. A canvas to draw the button on
@@ -190,7 +188,7 @@ public class GUIStepButton extends CheckBox {
 		
 		// Flyttar siffrorna åt vänster om de är större än tio så att de fortfarande är centrerade
 		float textPosX = 19;
-		float textPosY = 32 + distanceFromTop;
+		float textPosY = 32 + DISTANCE_FROM_TOP;
 		if (mStepId > 8 && mStepId < 100){
 			textPosX = 13;
 		}	
@@ -201,16 +199,16 @@ public class GUIStepButton extends CheckBox {
 		if (mPlaying){
 			textPaint.setColor(Color.RED); // Om steget spelas så ska färgen på siffrorna också vara röda
 			if(mActive) {
-				canvas.drawBitmap(GUIStepButton.mButtonOnPlaying, 0, distanceFromTop, velocityShade);
+				canvas.drawBitmap(GUIStepButton.mButtonOnPlaying, 0, DISTANCE_FROM_TOP, velocityShade);
 			} else {
-				canvas.drawBitmap(GUIStepButton.mButtonOffPlaying, 0, distanceFromTop, velocityShade);
+				canvas.drawBitmap(GUIStepButton.mButtonOffPlaying, 0, DISTANCE_FROM_TOP, velocityShade);
 			}
 		} else {
 			textPaint.setColor(Color.BLACK);
 			if (mActive){
-				canvas.drawBitmap(GUIStepButton.mButtonOn, 0, distanceFromTop, velocityShade);
+				canvas.drawBitmap(GUIStepButton.mButtonOn, 0, DISTANCE_FROM_TOP, velocityShade);
 			} else {
-				canvas.drawBitmap(GUIStepButton.mButtonOff, 0, distanceFromTop, velocityShade);
+				canvas.drawBitmap(GUIStepButton.mButtonOff, 0, DISTANCE_FROM_TOP, velocityShade);
 			}
 		}
 		canvas.drawText(String.valueOf(mStepId +1),textPosX,textPosY, textPaint);

@@ -1,3 +1,23 @@
+/**
+ * aDrumDrum is a step sequencer for Android.
+ * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
+ *
+ * This file is part of aDrumDrum.
+ *
+ * aDrumDrum is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * aDrumDrum is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with aDrumDrum.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package kvhc.gui.dialogs;
 
 import java.util.List;
@@ -28,31 +48,18 @@ public class LoadSongDialog extends Dialog {
 	private ISongLoader mSongLoader = null;
 	private Song mSong = null;
 	private List<Song> mSongList = null;
-	
-	
-	// ListView and its content data (more or less) 
-	private ListView mList = null; 
 	private String[] songNames = null;
 	
+	/**
+	 * Constructor
+	 * @param context the context
+	 */
 	public LoadSongDialog(Context context) {
 		super(context);
 	}
 	
 	/**
-	 * Creates a list of the song names
-	 * @return an array of song names list
-	 */
-	private List<Song> getSongs() {
-		
-		if(mSongList == null) {
-			mSongList = mSongLoader.getSongList(null);
-		}
-		
-		return mSongList;
-	}
-	
-	/**
-	 * 
+	 * onCreate
 	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		// Set up the view
@@ -65,7 +72,7 @@ public class LoadSongDialog extends Dialog {
 		}
 		
 		// Set up the list
-		mList = (ListView)findViewById(R.id.savedSongsList);
+		ListView mList = (ListView)findViewById(R.id.savedSongsList);
 		songNames = new String[getSongs().size()];
 		int i = 0;
 		for(Song song : getSongs()) {
@@ -94,8 +101,19 @@ public class LoadSongDialog extends Dialog {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Creates a list of the song names.
+	 * @return an array of song names list
+	 */
+	private List<Song> getSongs() {
+		if(mSongList == null) {
+			mSongList = mSongLoader.getSongList(null);
+		}
+		return mSongList;
+	}
+	
+	/**
+	 * Returns the Song created.
+	 * @return the Song created
 	 */
 	public Song getSong() {
 		return mSong;

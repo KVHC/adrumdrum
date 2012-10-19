@@ -1,5 +1,5 @@
 /**
- * aDrumDrum is a stepsequencer for Android.
+ * aDrumDrum is a step sequencer for Android.
  * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
@@ -35,6 +35,7 @@ import android.widget.TableRow;
  */
 public class GUIUpdateObserver implements Observer {
 	
+	private static final int START_OF_STEPINDEX = 3;
 	private Activity parentActivity;
 	private int current;
 	
@@ -49,9 +50,7 @@ public class GUIUpdateObserver implements Observer {
 	/**
 	 * This method should be called every time the player go to the next step
 	 * It marks the current step with a red line in the GUI
-	 * A -1 as parameter marks a stop in the player
-	 * 
-	 * TODO(update): This method have to be optimized
+	 * A (-1) as parameter marks a stop in the player
 	 */
 	public void update(Observable observable, Object data) {
 		
@@ -63,12 +62,11 @@ public class GUIUpdateObserver implements Observer {
 			
 			for (int i = 0; i < channelContainer.getChildCount(); i++) {
 				TableRow row = (TableRow) channelContainer.getChildAt(i);
-				// Den magiska 3:an är kommer från att det finns mer än steps i raden
-				// (ett okänt och channelbutton + mutebutton)
-				if (row.getChildCount() <= 3) {
+				
+				if (row.getChildCount() <= START_OF_STEPINDEX) {
 					break;
 				}
-				int totalSteps = row.getChildCount() - 3; 
+				int totalSteps = row.getChildCount() - START_OF_STEPINDEX; 
 				int previousStep = (step - 1);
 				if (previousStep < 0) {
 					previousStep = totalSteps;
@@ -84,7 +82,7 @@ public class GUIUpdateObserver implements Observer {
 			if (current > 0) {
 				for (int i = 0; i < channelContainer.getChildCount(); i++){
 					TableRow row = (TableRow) channelContainer.getChildAt(i);
-					if (row.getChildCount() <= 3) {
+					if (row.getChildCount() <= START_OF_STEPINDEX) {
 						break;
 					}
 					((GUIStepButton)row.getChildAt(current)).setPlaying(false);

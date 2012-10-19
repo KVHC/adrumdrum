@@ -60,7 +60,7 @@ public class Channel {
 	 * Sets the Sound of the channel to null.
 	 */
 	public Channel() {
-		this(null, DEFAULT_NUMBER_OF_STEPS); // 0 = inget ljud? 
+		this(null, DEFAULT_NUMBER_OF_STEPS); 
 	}
 	
 	/**
@@ -68,7 +68,7 @@ public class Channel {
 	 * @param sound the sound of the channel
 	 */
 	public Channel(Sound sound) {
-		this(sound, DEFAULT_NUMBER_OF_STEPS); // Ni vet
+		this(sound, DEFAULT_NUMBER_OF_STEPS);
 	}
 	
 	/**

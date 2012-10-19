@@ -36,6 +36,7 @@ import android.widget.Button;
  */
 public class ChannelButtonGUI extends Button {
 
+	private static final int MARGIN = 20;
 	private Channel channel;
 	private Activity mainActivity;
 	private int id;
@@ -46,7 +47,7 @@ public class ChannelButtonGUI extends Button {
 	 * @param context the main activity
 	 * @param channel the Channel to control
 	 * @param id The id of the channel
-	 * @param A GUI controller to send to the Channel Dialog
+	 * @param guic A GUIController to send to the ChannelDialog
 	 */
 	public ChannelButtonGUI(Context context, Channel channel, int id, GUIController guic) {
 		super(context);
@@ -55,12 +56,12 @@ public class ChannelButtonGUI extends Button {
 		this.id = id;
 		this.guic = guic;
 		setOnClickListener(onClick);
-		setGravity(20);
+		setGravity(MARGIN);
 		setBackgroundResource(R.drawable.wrench);
 	}
 	
 	/**
-	 * 
+	 * Updates the Channel name, usually the name of the Sound in the Channel.
 	 */
 	public void updateName(){
 		setText(channel.getSound().getName());

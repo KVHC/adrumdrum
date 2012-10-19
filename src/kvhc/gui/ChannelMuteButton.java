@@ -1,5 +1,5 @@
 /**
- * aDrumDrum is a stepsequencer for Android.
+ * aDrumDrum is a step sequencer for Android.
  * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
@@ -31,14 +31,14 @@ import android.widget.Button;
 /**
  * Button to mute or unmute a Channel.
  * 
- * The .png files that are used by this class are under the creative common licens and 
- * were created by Interactivemania - http://www.interactivemania.com and
- * Downloaded from http://www.iconfinder.com/
- *
  * @author kvhc
  */
 @SuppressLint("ViewConstructor")
 public class ChannelMuteButton extends Button {
+
+	private static final float VOLUME_LIMIT_FULL = 0.75f;
+	private static final float VOLUME_LIMIT_MIDDLE = 0.50f;
+	private static final float VOLUME_LIMIT_LOW = 0.25f;
 
 	private Channel channel;
 	private GUIController guic;
@@ -47,13 +47,13 @@ public class ChannelMuteButton extends Button {
 	 * Constructor.
 	 * @param context the context
 	 * @param channel the Channel to control
+	 * @param guic GUIController to tell if solo mode is no more
 	 */
-	public ChannelMuteButton(Context context, Channel channel,GUIController guic) {
+	public ChannelMuteButton(Context context, Channel channel, GUIController guic) {
 		super(context);
 		this.guic = guic;
 		this.channel = channel;
 		setOnClickListener(onClick);
-		setGravity(20);
 		
 		drawChannels();
 	}
@@ -74,24 +74,22 @@ public class ChannelMuteButton extends Button {
 		}
 	};
 	
-
 	/**
-	 * Draws different symbols on the button depending on the volume of the channel
+	 * Draws different symbols on the button depending on the volume of the channel.
 	 */
 	private void drawChannels(){
 		if (channel.isMuted()) {
 			setBackgroundResource(R.drawable.muted);			
-		} else if(channel.getChannelVolume() > 0.75)  {
+		} else if(channel.getChannelVolume() > VOLUME_LIMIT_FULL)  {
 			setBackgroundResource(R.drawable.volume_full);
-		} else if(channel.getChannelVolume() > 0.50)  {
+		} else if(channel.getChannelVolume() > VOLUME_LIMIT_MIDDLE)  {
 			setBackgroundResource(R.drawable.volume_middle);
-		} else if(channel.getChannelVolume() > 0.25)  {
+		} else if(channel.getChannelVolume() > VOLUME_LIMIT_LOW)  {
 			setBackgroundResource(R.drawable.volume_low);
 		} else {
 			setBackgroundResource(R.drawable.volume_nothing);
 		}
 	}
-	
 	
 	/**
 	 * This method are called every time the gui are invalidated. 

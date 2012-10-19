@@ -49,9 +49,7 @@ import kvhc.models.Channel;
 import kvhc.models.Song;
 import kvhc.models.Sound;
 import kvhc.models.Step;
-import kvhc.util.ISongLoader;
 import kvhc.util.Player;
-import kvhc.util.db.SQLSongLoader;
 import kvhc.util.db.SoundDataSource;
 
 /**
@@ -59,6 +57,11 @@ import kvhc.util.db.SoundDataSource;
  */
 public class GUIController {
 
+	// Default variables
+	private static final int DEFAULT_NUMBER_OF_STEPS = 8;
+	private static final int DEFAULT_NUMBER_OF_CHANNELS = 4;
+	private static final int DEFAULT_BPM_PERCENTAGE_OF_MAX = 40;
+	
 	private Player player;
 	private Song song;
 	private TextView tv1;
@@ -66,8 +69,6 @@ public class GUIController {
 	
 	private Activity parentActivity;
 	private HashMap<String, Sound> mSoundManager;
-	
-	ISongLoader sqlLoader;
 	
     /**
      * An array of Strings containing the names of the different sounds.
@@ -83,7 +84,6 @@ public class GUIController {
 		parentActivity = activity;
 		
 		this.player = new Player(parentActivity.getBaseContext());
-		
 		player.addObserver(new GUIUpdateObserver(parentActivity));
 		
 		mDBsoundHelper = new SoundDataSource(parentActivity);
@@ -92,7 +92,7 @@ public class GUIController {
 	}
 	
 	/**
-	 * Init all the init functions.
+	 * Initialize all the init functions.
 	 */
 	private void init(){
 		initSong();
@@ -104,13 +104,10 @@ public class GUIController {
 	}
 	
 	/**
-	 * Init sample song.
+	 * Initialize sample song.
 	 */
 	private void initSong() {
 		// Okay, make a song
-		
-		// Adding sounds to the sound manager because we might now have them or something
-		sqlLoader = new SQLSongLoader(parentActivity);
 		
 		mDBsoundHelper.open();
 		mSoundManager = new HashMap<String, Sound>();
@@ -119,8 +116,9 @@ public class GUIController {
 			mSoundManager.put(sound.getName(), sound);
 		}
 		mDBsoundHelper.close();
+		
 		// Creates list of sounds for channel.
-		ArrayList<Sound> sounds = new ArrayList<Sound>(4);
+		ArrayList<Sound> sounds = new ArrayList<Sound>(DEFAULT_NUMBER_OF_CHANNELS);
 		
 		sounds.add(mSoundManager.get("Bassdrum"));
 		sounds.add(mSoundManager.get("Closed hihat"));
@@ -133,7 +131,7 @@ public class GUIController {
 		// No saved song yet so this is how we roll.
 		for (int i=0; i < sounds.size(); i++)  {
 			// Adds a new channel
-			channels.add(new Channel(sounds.get(i), 8));
+			channels.add(new Channel(sounds.get(i), DEFAULT_NUMBER_OF_STEPS));
 		}
 		
 		song = new Song(channels);
@@ -142,14 +140,14 @@ public class GUIController {
 	}
 	
 	/**
-	 * Init the default channel rows.
+	 * Initialize the default channel rows.
 	 */
 	private void initChannels() {
 		redrawChannels();
 	}
 		
 	/**
-	 * Inits a TextView showing status messages.
+	 * Initialize a TextView showing status messages.
 	 */
     private void initText() {
     	tv1 = (TextView)parentActivity.findViewById(R.id.textView1);
@@ -157,7 +155,7 @@ public class GUIController {
 	}
 
     /**
-     * Inits the necessary GUI-buttons (Play/Stop, Add Channel, Remove Step etc).
+     * Initialize the necessary GUI-buttons (Play/Stop, Add Channel, Remove Step etc).
      */
 	private void initButtons() {
     	   Button btn1 = (Button)parentActivity.findViewById(R.id.button1);
@@ -174,13 +172,13 @@ public class GUIController {
 	}
 	
 	/**
-	 * Inits the BPM-bar.
+	 * Initialize the BPM-bar.
 	 */
 	private void initBars(){
 
 		SeekBar bpmBar = (SeekBar)parentActivity.findViewById(R.id.bpmbar);
-		player.setBPMInRange(30);
-		bpmBar.setProgress(30);
+		player.setBPMInRange(DEFAULT_BPM_PERCENTAGE_OF_MAX);
+		bpmBar.setProgress(DEFAULT_BPM_PERCENTAGE_OF_MAX);
     	
     	bpmBar.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
 
@@ -197,18 +195,16 @@ public class GUIController {
     }
 	
 	/**
-	 * Adds a new channel.
+	 * Adds a new channel to the GUI.
 	 * Checks the number of steps of the song and adds that many steps,
-	 * adds and links a ChannelButtonGUI and a ChannelMuteButton to it.
-	 * 
+	 * adds and links a ChannelButtonGUI and a ChannelMuteButton to it. 
 	 * @param c the Channel to be added
 	 */
 	private void addChannel(Channel c) {
 		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
-		
 		TableRow row = new TableRow(channelContainer.getContext());
 		
-		// Name label
+		// Add ChannelButtonGUI and set its name label
 		ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,song.getNumberOfChannels()-1,this);
 		if(c.getSound() != null) {
 			name.setText(c.getSound().getName());
@@ -216,9 +212,12 @@ public class GUIController {
 			name.setText("No Sound");
 		}
 		row.addView(name);
+		
+		//Add ChannelMuteButton
 		ChannelMuteButton mute = new ChannelMuteButton(parentActivity,c,this);
 		row.addView(mute);
 		
+		// Add all the steps respective GUIStepButton and set their Listeners
 		for(int x = 0; x < song.getNumberOfSteps(); x++) {
 			GUIStepButton box = new GUIStepButton(row.getContext(), song.getNumberOfChannels()-1, c.getStepAt(x));
 			box.setOnClickListener(stepClickListener);
@@ -227,7 +226,8 @@ public class GUIController {
 		}
 		channelContainer.addView(row);
 		
-		player.loadSong(song); // Ladda in alla ljud...?
+		// Load the extended Song
+		player.loadSong(song);
 	}
 	
 	/**
@@ -271,15 +271,29 @@ public class GUIController {
     }
     
     /**
-     * A method for getting the id of the channel that playes solo
-     * returns -1 if no channels are playing solo
-     * @return The id of the channel that plays solo
+     * A method for getting the id of the channel that playes solo.
+     * Returns -1 if no channels are playing solo.
+     * @return The id of the channel that plays solo or zero if no Channel is
      */
     public int getSoloChannel(){
     	return solo;
     }
     
+	/**
+	 * Reloads a given song. Calls numerateSteps so all the steps isn't step number one.
+	 * @param song the Song to reload
+	 */
+	public void reloadSong(Song song) {
+		player.stop();
+		this.song = song;
+		numerateSteps();
+		player.loadSong(song);
+		redrawChannels();
+	}
     
+    /**
+     * Numerate the steps. Used when Loading a song from the database.
+     */
     private void numerateSteps(){
     	for (Channel c: song.getChannels()){
     		int number = 0;
@@ -292,10 +306,9 @@ public class GUIController {
 	   
     /**
      * Redraws all the Channel and their steps and their ChannelButtons.
-     * This is done when adding or removing steps (and would be done if
-     * we implemented removeChannel()). 
+     * This is done when adding or removing steps.
      * 
-     * Now it redraws all the channels and steps, this is not really necessary
+     * It redraws all the channels and steps, this is not really necessary.
      * THIS IS VERY OPTIMIZABLE
      */
     public void redrawChannels() {
@@ -311,8 +324,8 @@ public class GUIController {
 			
 			// Create a ChannelButton and set the name tag
 			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,y,this);
-
 			name.setText(c.getSound().getName());
+			
 			// Create a ChannelMuteButton
 			ChannelMuteButton mute = new ChannelMuteButton(parentActivity,c,this);
 
@@ -352,7 +365,6 @@ public class GUIController {
     	song.getChannel(channelId).multiStepVelocitySpike(stepid);
     }
     
-    
     /**
      * Stops Playback and clears all steps. Redraws all Channels.
      */
@@ -375,7 +387,6 @@ public class GUIController {
     			row.getChildAt(j).invalidate();
     		}
     	}
-    	
     }
     
     /**
@@ -427,7 +438,7 @@ public class GUIController {
 
 		public boolean onLongClick(View v) {
 			GUIStepButton gsb = (GUIStepButton) v;
-			StepDialog vd = new StepDialog(parentActivity, gsb.getStep(), GUIController.this , gsb.getChannelId(),gsb.getStepId());
+			StepDialog vd = new StepDialog(parentActivity, gsb.getStep(), GUIController.this, gsb.getChannelId(), gsb.getStepId());
 			vd.show();
 
 			return true;
@@ -475,7 +486,6 @@ public class GUIController {
 
 			        
 			    	String name = String.valueOf(input.getSelectedItem());
-			        //Sound s = SoundFetcher.GetSoundFromString(name);
 			        Sound s = mSoundManager.get(name);
 			        
 			        Channel c = new Channel(s, song.getNumberOfSteps());
@@ -500,7 +510,7 @@ public class GUIController {
 	private OnClickListener addStepListener = new OnClickListener() {
 		
 		public void onClick(View v) {
-			// Add one step to the song and gui
+			// Add one step to the Song and GUI
 			player.stop();
 			tv1.setText("Stopped");
 			song.addSteps(1);
@@ -586,16 +596,5 @@ public class GUIController {
 		
 		loadDialog.show();
 	}
-	
-	/**
-	 * Reloads a given song. Calls numerateSteps so all the steps isn't step number one.
-	 * @param song the Song to reload
-	 */
-	public void reloadSong(Song song) {
-		player.stop();
-		this.song = song;
-		numerateSteps();
-		player.loadSong(song);
-		redrawChannels();
-	}
+
 }
