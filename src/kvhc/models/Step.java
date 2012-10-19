@@ -27,6 +27,9 @@ package kvhc.models;
  */
 public class Step implements Cloneable {
 	
+	// Default variables
+	private static final float DEFAULT_VELOCITY = 0.7f;
+	
 	private boolean mIsActive;
 	private float mVelocity;
 	private Channel channel; 
@@ -40,14 +43,14 @@ public class Step implements Cloneable {
 	 */
 	public Step(Channel channel, int stepid) {
 		mIsActive = false;
-		mVelocity = 0.7f;
+		mVelocity = DEFAULT_VELOCITY;
 		this.channel = channel;
 		this.mNumber = stepid;
 	}
 	
 	public Step() {
 		this.mIsActive = false;
-		this.mVelocity = 0.7f;
+		this.mVelocity = DEFAULT_VELOCITY;
 		this.channel = null;
 		this.mNumber = 0;
 		this.id = 0;
@@ -119,7 +122,7 @@ public class Step implements Cloneable {
      */
     public void reset() {
     	mIsActive = false;
-		mVelocity = 0.7f;
+		mVelocity = DEFAULT_VELOCITY;
     }
 
 	/**

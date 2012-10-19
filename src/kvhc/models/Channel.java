@@ -1,5 +1,5 @@
 /**
- * aDrumDrum is a stepsequencer for Android.
+ * aDrumDrum is a step sequencer for Android.
  * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
@@ -23,48 +23,58 @@ package kvhc.models;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * The Channel class manages a channel containing a number
- * of steps and a sound to play for each active step
+ * The Channel class manages a channel containing a number of steps 
+ * and a sound to play whenever one of its step is played.
  * 
  * @author kvhc
  *
  */
 public class Channel {
 	
+	// Default variables
+	private static final int DEFAULT_NUMBER_OF_STEPS = 16;
+	private static final float SPIKE_VELOCITY_CENTER = 1.0f;
+	private static final float SPIKE_VELOCITY_INNER = 0.7f;
+	private static final float SPIKE_VELOCITY_OUTER = 0.3f;
+
+	// Identification
 	private long mId;
+	private int mChannelNumber;
+	
+	// Steps
 	private int numSteps;
 	private List<Step> mSteps;
-	private boolean mute;
 	
+	// Volume variables
 	private float volume;
 	private float leftPan;
 	private float rightPan;
+	private boolean mute;
 	
+	// The sound to play
 	private Sound mSound;
 	
 	/**
-	 * Constructor for an empty channel
-	 * Default number of steps: 16
+	 * Constructor for an empty channel.
+	 * Sets the Sound of the channel to null.
 	 */
 	public Channel() {
-		this(null, 16); // 0 = inget ljud? 
+		this(null, DEFAULT_NUMBER_OF_STEPS); // 0 = inget ljud? 
 	}
 	
 	/**
-	 * Constructor for a channel with a sound
-	 * Default number of steps: 16
-	 * @param soundId
+	 * Constructor for a channel with a sound.
+	 * @param sound the sound of the channel
 	 */
 	public Channel(Sound sound) {
-		this(sound, 16); // Ni vet
+		this(sound, DEFAULT_NUMBER_OF_STEPS); // Ni vet
 	}
 	
 	/**
-	 * Constructor for a channel with a sound and a specific number of steps
-	 * @param soundId
-	 * @param steps
+	 * Constructor for a channel with a sound and a specific number of steps.
+	 * @param sound the sound of the Channel
+	 * @param steps the number of steps the channel should consist of
 	 */
 	public Channel(Sound sound, int steps) {
 		mSound = sound;
@@ -85,19 +95,19 @@ public class Channel {
 	}
 	
 	/**
-	 * Returns true if the step is active
-	 * @param i
-	 * @return
+	 * Returns true if the step is active.
+	 * @param step the step to check
+	 * @return true if the step is active, false otherwise
 	 */
-	public boolean isStepActive(int i) {
-		if( i >= numSteps || i < 0) {
+	public boolean isStepActive(int step) {
+		if (step >= numSteps || step < 0) {
 			return false;
 		}
-		return mSteps.get(i).isActive();
+		return mSteps.get(step).isActive();
 	}
 	
 	/**
-	 * Sets all steps to inactive
+	 * Resets all steps. Sets them inactive and with default volume. 
 	 */
 	public void clearAllSteps() {
 		for (Step step : mSteps) {
@@ -106,7 +116,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Sets the Sound of the Channel
+	 * Sets the Sound of the Channel.
 	 * @param sound the sound to be used
 	 */
 	public void setSound(Sound sound) {
@@ -115,16 +125,16 @@ public class Channel {
 	
 	/**
 	 * Method that returns the sound of the step.
-	 * @return the sound of the step
+	 * @return the Sound of the step
 	 */
 	public Sound getSound() {
 		return mSound;
 	}
 	
 	/**
-	 * Toggles a step between active or inactive
-	 * If it's active, it is set to inactive and vice versa
-	 * @param step what step
+	 * Toggles a step between active or inactive.
+	 * If it's active, it is set to inactive and vice versa.
+	 * @param step what step to toggle
 	 * @return whether it's active or not after the operation
 	 */
 	public boolean toggleStep(int step) {
@@ -136,8 +146,8 @@ public class Channel {
 	}
 	
 	/**
-	 * Sets a specific step to active or not
-	 * @param step what step
+	 * Sets a specific step to active or not.
+	 * @param step what step to set
 	 * @param active boolean whether the step should be active or not
 	 */
 	public void setStep(int step, boolean active) {
@@ -148,7 +158,7 @@ public class Channel {
 	 * Sets a specific step to active or not active and with a specific velocity ("volume")
 	 * @param step what step
 	 * @param active boolean whether the step should be active or not
-	 * @param velocity velocity ("volume") of the step
+	 * @param velocity velocity ("volume") of the step, between 0 and 1
 	 */
 	public void setStep(int step, boolean active, float velocity) {
 		mSteps.get(step).setActive(active);
@@ -157,7 +167,7 @@ public class Channel {
 	
 	/**
 	 * Get the left speakers volume of a separate step in the channel
-	 * Is computed by multiplying the channel volume by the steps velocity ("volume")
+	 * Is computed by multiplying the channel volume by the steps velocity and the left panning.
 	 * 
 	 * @param step what step
 	 * @return a float between 0 and 1
@@ -165,7 +175,6 @@ public class Channel {
 	public float getVolumeLeft(int step) {
 		if (mute) {
 			return 0.0f;
-			
 		}
 		if (step >= mSteps.size()|| step < 0) {
 			return 0.0f;
@@ -191,9 +200,10 @@ public class Channel {
 	 * @return a float between 0 and 1
 	 */
 	public float getVolumeRight(int step) {
-		if(mute) return 0.0f;
-		
-		if(step >= mSteps.size() || step < 0) {
+		if (mute) {
+			return 0.0f;
+		}
+		if (step >= mSteps.size() || step < 0) {
 			return 0.0f; 
 		}
 		
@@ -207,8 +217,9 @@ public class Channel {
 	 * @return a float between 0 and 1
 	 */
 	public float getVolume() {
-		if(mute) return 0.0f;
-		
+		if (mute) {
+			return 0.0f;
+		}
 		return volume;
 	}
 	
@@ -222,7 +233,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Sets mute to true or false
+	 * Sets mute to true or false.
 	 * @param mute
 	 */
 	public void setMute(boolean mute){
@@ -230,7 +241,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Method for seeing if the channel is muted or not
+	 * Method for seeing if the channel is muted or not.
 	 * @return a boolean whether the channel is muted or not
 	 */
 	public boolean isMuted(){
@@ -238,7 +249,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Method for getting the number of steps in the channel
+	 * Method for getting the number of steps in the channel.
 	 * @return the number of steps in the channel
 	 */
 	public int getNumberOfSteps() {
@@ -254,7 +265,7 @@ public class Channel {
 	}
 
 	/**
-	 * Sets the panning of the right and left speaker
+	 * Sets the panning of the right and left speaker.
 	 * @param rightLevel
 	 * @param leftLevel
 	 */
@@ -264,7 +275,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Method for getting the Left Panning of the Channel
+	 * Method for getting the Left Panning of the Channel.
 	 * @return the Left Panning of the Channel
 	 */
 	public float getLeftPanning() {
@@ -272,7 +283,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Method for getting the Right Panning of the Channel
+	 * Method for getting the Right Panning of the Channel.
 	 * @return the Right Panning of the Channel
 	 */
 	public float getRightPanning() {
@@ -280,8 +291,8 @@ public class Channel {
 	}
 
 	/**
-	 * Resizes the number of Steps in the Channel
-	 * resizeByAmount may be a positive or negative number
+	 * Resizes the number of Steps in the Channel.
+	 * resizeByAmount may be a positive or negative number.
 	 * 
 	 * @param resizeByAmount the number of steps to be added or removed
 	 */
@@ -320,28 +331,28 @@ public class Channel {
      */
     public void multiStepVelocitySpike(int stepid) {
     	
-        mSteps.get(stepid).setVelolcity(1.0f);
+        mSteps.get(stepid).setVelolcity(SPIKE_VELOCITY_CENTER);
         mSteps.get(stepid).setActive(true);
         if (stepid-1 >= 0 && stepid-1 < numSteps) {
             mSteps.get(stepid-1).setActive(true);
-            mSteps.get(stepid-1).setVelolcity(0.7f);
+            mSteps.get(stepid-1).setVelolcity(SPIKE_VELOCITY_INNER);
             if (stepid-2 >= 0 && stepid-2 < numSteps) {
                 mSteps.get(stepid-2).setActive(true);
-                mSteps.get(stepid-2).setVelolcity(0.3f);
+                mSteps.get(stepid-2).setVelolcity(SPIKE_VELOCITY_OUTER);
             }
         }
         if (stepid+1 >= 0 && stepid+1 < numSteps) {
             mSteps.get(stepid+1).setActive(true);
-            mSteps.get(stepid+1).setVelolcity(0.7f);
+            mSteps.get(stepid+1).setVelolcity(SPIKE_VELOCITY_INNER);
             if (stepid+2 >= 0 && stepid+2 < numSteps) {
                 mSteps.get(stepid+2).setActive(true);
-                mSteps.get(stepid+2).setVelolcity(0.3f);
+                mSteps.get(stepid+2).setVelolcity(SPIKE_VELOCITY_OUTER);
             }
         }
     }
     
 	/**
-	 * Returns the ID of the channel
+	 * Returns the ID of the channel.
 	 * @return
 	 */
 	public long getId() {
@@ -349,8 +360,8 @@ public class Channel {
 	}
 
 	/**
-	 * Sets the ID for the Channel
-	 * @param id
+	 * Sets the ID for the Channel.
+	 * @param id the ID of the channel
 	 */
 	public void setId(long id) {
 		mId = id;
@@ -358,26 +369,26 @@ public class Channel {
 
 	/**
 	 * Set all the steps at once.
-	 * @param steps
+	 * @param steps a list of step to use in the Channel
 	 */
 	public void setSteps(List<Step> steps) {
-		if(steps == null) return;
+		if(steps == null) {
+			return;
+		}
 		
 		mSteps = steps;
 		numSteps = steps.size();
 	}
 
 	/**
-	 * Position of channel in song in database....?
-	 * Could be used for ordering, i dunno.
+	 * Position of channel in song in database.
 	 */
-	private int mChannelNumber;
 	public int getChannelNumber() {
 		return mChannelNumber;
 	}
 	
 	/**
-	 * 
+	 * Sets the number of the Channel.
 	 * @param channelNumber
 	 */
 	public void setChannelNumber(int channelNumber) {

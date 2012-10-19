@@ -53,7 +53,7 @@ public class Player extends Observable {
 	
 	// State
 	private int currentStep;
-	boolean isPlaying;
+	private boolean isPlaying;
 	
 	/**
 	 * The constructor for creating a player
@@ -81,7 +81,7 @@ public class Player extends Observable {
 	 */
 	public void loadSong(Song newSong) {
 		song = newSong;
-		mSongRender.LoadSounds(song.GetSounds());
+		mSongRender.LoadSounds(song.getSounds());
 	}
 	
 	/**

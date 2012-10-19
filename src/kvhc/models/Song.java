@@ -1,5 +1,5 @@
 /**
- * aDrumDrum is a stepsequencer for Android.
+ * aDrumDrum is a step sequencer for Android.
  * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
@@ -20,11 +20,19 @@
 
 package kvhc.models;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Song class manages a collection of Channels. 
+ * @author kvhc
+ *
+ */
 public class Song {
+	
+	// Default variables
+	private static final int DEFAULT_NUMBER_OF_STEPS = 16;
+	private static final int DEFAULT_NUMBER_OF_CHANNELS = 4;
 	
 	private long id;
 	private List<Channel> mChannels;
@@ -37,7 +45,7 @@ public class Song {
 	 */
 	public Song(int numChannels) {
 		
-		numsteps = 16;
+		numsteps = DEFAULT_NUMBER_OF_STEPS;
 		mChannels = new ArrayList<Channel>(numChannels);
 		
 		for (int i = 0; i < numChannels; i++) {
@@ -46,28 +54,25 @@ public class Song {
 	}
 	
 	/**
-	 * Creates a song based on an array of channels
+	 * Creates a song based on an array of channels.
 	 * @param channels
 	 */
 	public Song(ArrayList<Channel> channels) {
-		if(channels == null) {
-			
-			numsteps = 16;
-			mChannels = new ArrayList<Channel>(4);
-			
+		if (channels == null) {		
+			numsteps = DEFAULT_NUMBER_OF_STEPS;
+			mChannels = new ArrayList<Channel>(DEFAULT_NUMBER_OF_CHANNELS);	
 		} else {
-		
 			mChannels = channels;
 			if(channels.size() > 0) {
 				numsteps = mChannels.get(0).getNumberOfSteps();
 			} else {
-				numsteps = 16;
+				numsteps = DEFAULT_NUMBER_OF_STEPS;
 			}
 		}
 	}
 	
 	/**
-	 * Add an empty channel to the song
+	 * Add an empty channel to the song.
 	 */
 	public void addChannel() {
 		Channel c = new Channel(null, numsteps);
@@ -75,36 +80,30 @@ public class Song {
 	}
 	
 	/**
-	 * Add a created channel to the song
-	 * @param c. The channel that should be added
+	 * Add a created channel to the song.
+	 * @param c The channel that should be added
 	 */
 	public void addChannel(Channel c) {
 		mChannels.add(c);
 	}
 	
-	
 	/**
-	 * Removed channel based on the channel object. 
-	 * 
-	 * TODO: Implement equals on channel?
-	 * @param c
-	 * @throws Exception
+	 * Removes a channel on the given index.
+	 * @param channel the index of the channel to remove
+	 * @return true if a channel was successfully removed
 	 */
-	public void removeChannel(Channel c) throws Exception {
-		for (int i = 0; i < mChannels.size(); i++) {
-			if (mChannels.get(i).equals(c)) {
-				mChannels.remove(i);
-				// Vet inte om detta ändrar på ordningen i arraylist? Vill ha länkad så det inte gör något. 
-				// Kanske om man fixar med en iterator? Detta är bara ett exempel
-			}
+	public boolean removeChannel(int channelIndex) {
+		if (channelIndex >= mChannels.size() ||  mChannels.size() <= 1 ) {
+			return false;
+		} else {
+			mChannels.remove(channelIndex);
 		}
-		throw new Exception("Not implemented yet.");
+		return true;
 	}
-	
 
 	/**
-	 * Append a number of steps to all channels
-	 * @param numberOfStepsToAdd
+	 * Append a number of steps to all channels.
+	 * @param numberOfStepsToAdd the number of steps to add to each channel
 	 */
 	public void addSteps(int numberOfStepsToAdd) {
 		for(Channel c : mChannels) {
@@ -113,7 +112,7 @@ public class Song {
 	}
 	
 	/**
-	 * Remove a number of steps from all channels
+	 * Remove a number of steps from all channels.
 	 * @param numberOfStepsToRemove
 	 */
 	public void removeSteps(int numberOfStepsToRemove) {
@@ -124,6 +123,9 @@ public class Song {
 		}
 	}
 	
+	/**
+	 * Resets all steps in all Channels.
+	 */
 	public void clearAllSteps() {
 		for (Channel channel : mChannels) {
 			channel.clearAllSteps();
@@ -131,33 +133,33 @@ public class Song {
 	}
 	
 	/**
-	 * Returns a specified channel
-	 * @param channelNumber
-	 * @return
+	 * Returns a specified channel by index.
+	 * @param channelIndex index of the channel to return
+	 * @return the channel asked for
 	 */
-	public Channel getChannel(int channelNumber) {
-		return mChannels.get(channelNumber);
+	public Channel getChannel(int channelIndex) {
+		return mChannels.get(channelIndex);
 	}
 	
 	/**
-	 * Returns all the channels that the song contains
-	 * @return
+	 * Returns all the channels that the song contains.
+	 * @return the List of Channels the Song contains
 	 */
 	public List<Channel> getChannels() {
 		return mChannels;
 	}
 
 	/**
-	 * Returns the number of channels in the song
-	 * @return
+	 * Returns the number of channels in the song.
+	 * @returnthe number of channels in the song
 	 */
 	public int getNumberOfChannels() {
 		return mChannels.size();
 	}
 
 	/**
-	 * Returns the number of steps in this song
- 	 * @return
+	 * Returns the number of steps in this song.
+ 	 * @return the number of steps in this song
 	 */
 	public int getNumberOfSteps() {
 		if (mChannels.size() <= 0) {
@@ -170,7 +172,7 @@ public class Song {
 	 * Returns all the sounds loaded for all the channels
 	 * @return
 	 */
-	public ArrayList<Sound> GetSounds() {
+	public ArrayList<Sound> getSounds() {
 		ArrayList<Sound> sounds = new ArrayList<Sound>(mChannels.size());
 		
 		for (Channel c : mChannels) {
@@ -178,19 +180,6 @@ public class Song {
 		}
 		
 		return sounds;
-	}
-		
-	/**
-	 * Removes a channel on the given number
-	 * @param channel The number of the channel to remove
-	 */
-	public boolean removeChannel(int channel) {
-		if (channel >= mChannels.size() ||  mChannels.size() <= 1 ){
-			return false;
-		} else {
-			mChannels.remove(channel);
-		}
-		return true;
 	}
 	
 	/**
@@ -223,6 +212,9 @@ public class Song {
 		mChannels.get(channel).setMute(false);
 	}
 	
+	/**
+	 * Unmutes all Channels in the Song.
+	 */
 	public void playAll(){
 		for (int i=0;i<mChannels.size();i++) {
 			mChannels.get(i).setMute(false);
@@ -230,28 +222,28 @@ public class Song {
 	}
 
 	/**
-	 * ID getter (TODO what is ID?)
-	 * @return
+	 * Returns the ID of the Song.
+	 * @return ID of the Song
 	 */
 	public long getId() {
 		return id;
 	}
 	
 	/**
-	 * ID setter (TODO what is ID?)
-	 * @param id
+	 * Sets the ID of the Song.
+	 * @param id ID to be set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
 	/**
-	 * SETS ALL THE CHANNELS HURRS
-	 * @param channels
+	 * Sets a given List of Channels to used by the Song.
+	 * @param channels list of channels to be used
 	 */
 	public void setChannels(List<Channel> channels) {
 		mChannels = channels;
-		if(channels.size() > 0)  {
+		if (channels.size() > 0) {
 			numsteps = channels.get(0).getNumberOfSteps();
 		}
 	}
