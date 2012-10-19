@@ -165,8 +165,8 @@ public class Channel {
 	public float getVolumeLeft(int step) {
 		if (mute) {
 			return 0.0f;
+			
 		}
-		
 		if (step >= mSteps.size()|| step < 0) {
 			return 0.0f;
 		}

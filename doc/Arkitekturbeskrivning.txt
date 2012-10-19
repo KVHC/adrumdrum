@@ -1,6 +1,6 @@
 ---------------Arkitekturbeskrivning adrumdrum----------------------------------
 
-Projektet adrummdrum innehåller 6 stycken olika paket 
+Projektet adrummdrum innehåller 7 stycken olika paket 
 
 
 #----kvhc.adrumdrum----#
@@ -27,22 +27,24 @@ klasser som används för att uppdatera och ändra i GUI:t
 
 
 	*----ChannelButtonGUI----*
-	Ett gui för att representera en knapp som man kan klicka på för att få upp
-	kanalinställningar eller muta kanalen
+	En klass som ärver Button. GUI för att representera en knapp som man kan 
+	klicka på för att få upp	kanalinställningar där man kan ändra volym och ljud.
+
+
+	*----ChannelMuteButton----*
+	En klass som ärver Button. Klickar man på knappen så ska kanalen byta
+	mellan att vara mutad eller inte. Ska även innehålla en ikon som 
+	reflekterar över hur hög volym kanalen har.
 
 
 	*----GUIStepButton----*
-	En klass som beskriver hur ett step ska se ut. Sköter aktivering/avaktivering 
-	av ett step när den blir klickad på. Vid ett "långt" klick visas en StepDialog 
+	En klass som beskriver hur ett step ska se ut. Sköter aktivering och 	 
+	avaktivering av ett step när den blir klickad på. Vid ett "långt" 
+	klick visas en StepDialog 
 
 
 	*----GUIUpdateObsever----*
 	En Observer som updaterar GUI:t med information som skickas av player
-
-
-	*----LongClickStepListener----*
-	En step listener som utför det som ska göras vid ett "långt" klick 
-	på en GUIStepButton
 
 
 
@@ -59,16 +61,18 @@ I paketet dialogs ligger alla dialoger som används av programmet.
 	En dialog som ändrar värden på ett Step. Startas av en GUIStepButton
 
 
+	*----SavaSongDialog----*
+	En dialog där användaren kan ange ett namn på låten som de vill spara
+
+	*----LoadSongDialog----*
+	En dialog där användaren kan se vilka låtar som finns sparade i en lista 
+	och välja vilken låt som ska laddas genom att klicka på den. 
 
 
-#----kvhc.player----#
+
+
+#----kvhc.model----#
 Paketet player innehåller de klasser som styr spelaren och 
-
-
-	*----Player----*
-	Player spelar upp en angiven Song. Player sköter vad som ska spelas upp 
-	och när det ska göras. En Player har en SoundManager som sköter 
-	uppspelningen av ljud
 
 
 	*----Song----*
@@ -91,47 +95,50 @@ Paketet player innehåller de klasser som styr spelaren och
 	Ett sound är en "Wrapper klass" för ett ljud
 
 
+
+
+#----kvhc.util----#
+I paketet util finns de generell klasser som modellerar de verktyg som vi 
+behöver för adrumdrum
+
+
+	*----Player----*
+	Player spelar upp en angiven Song. Player sköter vad som ska spelas upp 
+	och när det ska göras. En Player har en SoundManager som sköter 
+	uppspelningen av ljud
+
+
 	*----SoundManager----*
 	SoundManager sköter all uppspelning av ljud
 
 
+	*----AndroidTimer----*
+	En timer som kör en Runnable varje gång som "tiden går ut". Används av 
+	player för att styra tiden mellan varje uppspelning av nästa steg.
 
 
-#----kvhc.util----#
-I paketet util finns de generell klasserna som  
+	*----AssetManagerModel----*
+	En klass för att hantera ljud. Klassen är en singelton.
 
+
+	*----ISongLoader----*
+	Ett interface för att ladda en låt. Används för att kunna spela upp 
+	låten med olika bibliotek eller på olika sätt.
+
+
+	*----ISongRenderer----*
+	Ett interface för att rendera en song. 
+
+	
+	*----SoundPoolRenderer----*
+	Implementerar ISongRenderer. Renderar ljud och spelar upp dem genom 
+	att använda en SoundManager
+	
 
 #----kvhc.util.db----#
+util.db innehåller de klasser som används för att skriva och läsa från databasen
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-*----AndroidTimer----*
-En timer som kör en Runnable varje gång som "tiden går ut". Används av player 
-för att styra tiden mellan varje uppspelning av nästa steg.
-
-
-
-
-ISongRenderer
-
-PdRenderer
-
-SoundPoolRenderer
-
-SQLRenderer
-
-DatabaseHandler
 
