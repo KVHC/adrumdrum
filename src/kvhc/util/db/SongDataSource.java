@@ -72,13 +72,14 @@ public class SongDataSource {
 	 * @param name The name of the Song.
 	 * @return The ID of the song in the database.
 	 */
-	private long createSong(String name) {
+	private long createSong(String name, int bpm) {
 		
 		// Create value table.
 		ContentValues values = new ContentValues();
 		
 		// Fill value table.
 		values.put(SongSQLiteHelper.COLUMN_NAME, name);
+		values.put(SongSQLiteHelper.COLUMN_BPM, name);
 		
 		// Run query
 		long insertId = database.insert(SongSQLiteHelper.TABLE_SONG, null, values);
@@ -103,6 +104,7 @@ public class SongDataSource {
 			// Create value table.
 			ContentValues values = new ContentValues();
 			values.put(SongSQLiteHelper.COLUMN_NAME, song.getName());
+			values.put(SongSQLiteHelper.COLUMN_BPM, song.getBpm());
 			
 			// Set up update query.
 			String where = SongSQLiteHelper.COLUMN_ID + " = ?";
@@ -112,7 +114,7 @@ public class SongDataSource {
 			database.update(SongSQLiteHelper.TABLE_SONG, values, where, whereArgs);
 		} else {
 			// No, it's not the database.
-			long newSongId = createSong(song.getName());
+			long newSongId = createSong(song.getName(), song.getBpm());
 			song.setId(newSongId);
 		}
 	}
@@ -167,6 +169,7 @@ public class SongDataSource {
 		// Set up properties.
 		song.setId(cursor.getLong(0));
 		song.setName(cursor.getString(1));
+		song.setBpm(cursor.getInt(2));
 		
 		// Return song object.
 		return song;

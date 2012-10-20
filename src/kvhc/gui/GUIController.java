@@ -179,11 +179,13 @@ public class GUIController {
 		SeekBar bpmBar = (SeekBar)parentActivity.findViewById(R.id.bpmbar);
 		player.setBPMInRange(DEFAULT_BPM_PERCENTAGE_OF_MAX);
 		bpmBar.setProgress(DEFAULT_BPM_PERCENTAGE_OF_MAX);
-    	
+		song.setBpm(DEFAULT_BPM_PERCENTAGE_OF_MAX);
+		
     	bpmBar.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
 
 			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 				int bpm = player.setBPMInRange(progress);
+				song.setBpm(progress);
 				tv1.setText("BPM is: " + bpm);
 				
 			}
@@ -288,6 +290,10 @@ public class GUIController {
 		this.song = song;
 		numerateSteps();
 		player.loadSong(song);
+
+		SeekBar bpmBar = (SeekBar)parentActivity.findViewById(R.id.bpmbar);
+		bpmBar.setProgress(song.getBpm());
+
 		redrawChannels();
 	}
     
@@ -356,8 +362,8 @@ public class GUIController {
 	}
     
     /**
-     * Sets the steps velocity to 100%, the two neighbours to 70% and
-     * the neighbours neighbours to 30%. Activates the mentioned steps.
+     * Sets the steps velocity to 100%, the two neighbors to 70% and
+     * the neighbors neighbors to 30%. Activates the mentioned steps.
      * @param channelId on which channel to set the spike
      * @param stepid on which step to set the spike
      */

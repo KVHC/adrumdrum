@@ -81,6 +81,7 @@ public class Player extends Observable {
 	public void loadSong(Song newSong) {
 		song = newSong;
 		mSongRender.loadSounds(song.getSounds());
+		setBPMInRange(song.getBpm());
 	}
 	
 	/**

@@ -41,6 +41,7 @@ public class SongSQLiteHelper extends SQLiteOpenHelper {
 	// Table columns.
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_NAME = "name";
+	public static final String COLUMN_BPM = "bpm";
 	
 	// Database info.
 	private static final String DATABASE_NAME = "adrumdrumsongs.db";
@@ -50,7 +51,8 @@ public class SongSQLiteHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_CREATE = "create table "
 			+ TABLE_SONG + "(" 
 			+ COLUMN_ID + " integer primary key autoincrement, "  
-			+ COLUMN_NAME + " text" 
+			+ COLUMN_NAME + " text, "
+			+ COLUMN_BPM + " integer not null"
 			+ ");";
 	
 	/**

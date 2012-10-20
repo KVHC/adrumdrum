@@ -36,8 +36,9 @@ public class Song {
 	
 	private long id;
 	private List<Channel> mChannels;
-	private int numsteps;
+	private int mNumsteps;
 	private String mName;
+	private int mBpm;
 	
 	/**
 	 * Creates a song with a set number of channels
@@ -45,11 +46,12 @@ public class Song {
 	 */
 	public Song(int numChannels) {
 		
-		numsteps = DEFAULT_NUMBER_OF_STEPS;
+		mNumsteps = DEFAULT_NUMBER_OF_STEPS;
 		mChannels = new ArrayList<Channel>(numChannels);
+		mBpm = 120;
 		
 		for (int i = 0; i < numChannels; i++) {
-			mChannels.add(new Channel(null, numsteps));
+			mChannels.add(new Channel(null, mNumsteps));
 		}
 	}
 	
@@ -59,23 +61,24 @@ public class Song {
 	 */
 	public Song(ArrayList<Channel> channels) {
 		if (channels == null) {		
-			numsteps = DEFAULT_NUMBER_OF_STEPS;
+			mNumsteps = DEFAULT_NUMBER_OF_STEPS;
 			mChannels = new ArrayList<Channel>(DEFAULT_NUMBER_OF_CHANNELS);	
 		} else {
 			mChannels = channels;
 			if(channels.size() > 0) {
-				numsteps = mChannels.get(0).getNumberOfSteps();
+				mNumsteps = mChannels.get(0).getNumberOfSteps();
 			} else {
-				numsteps = DEFAULT_NUMBER_OF_STEPS;
+				mNumsteps = DEFAULT_NUMBER_OF_STEPS;
 			}
 		}
+		mBpm = 120;
 	}
 	
 	/**
 	 * Add an empty channel to the song.
 	 */
 	public void addChannel() {
-		Channel c = new Channel(null, numsteps);
+		Channel c = new Channel(null, mNumsteps);
 		mChannels.add(c);
 	}
 	
@@ -244,7 +247,23 @@ public class Song {
 	public void setChannels(List<Channel> channels) {
 		mChannels = channels;
 		if (channels.size() > 0) {
-			numsteps = channels.get(0).getNumberOfSteps();
+			mNumsteps = channels.get(0).getNumberOfSteps();
 		}
+	}
+
+	/**
+	 * Gets the set BPM of the song.
+	 * @return
+	 */
+	public int getBpm() {
+		return mBpm;
+	}
+
+	/**
+	 * Sets the BPM of the song.
+	 * @param mBpm
+	 */
+	public void setBpm(int mBpm) {
+		this.mBpm = mBpm;
 	}
 }
