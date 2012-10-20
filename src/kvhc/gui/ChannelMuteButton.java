@@ -60,6 +60,7 @@ public class ChannelMuteButton extends Button {
 	
 	/**
 	 * Button Listener.
+	 * Toggle between muted and unmuted on click
 	 */
 	private OnClickListener onClick = new OnClickListener() {
 		
