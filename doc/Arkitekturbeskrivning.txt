@@ -138,7 +138,96 @@ behöver för adrumdrum
 #----kvhc.util.db----#
 util.db innehåller de klasser som används för att skriva och läsa från databasen
 
-
-
-
-
+  *----SQLRenderer----*
+  Sparar en Song med allt innehåll (Channels och Steps, properties) till databasen.
+  Sparar även ljud till databasen (loadSound sparar, olyckligt).
+  
+  *----SQLSongLoader----*
+  Laddar en Song med allt innehåll (Channels och Steps, properties) från databasen.
+  Laddar även ljud från databasen. 
+  
+  *----SoundSQLiteHelper----*
+  Ärver från SQLiteOpenHelper.
+  Klass som innehåller tabelldata för Sound. Skapar tabellen om den inte finns. 
+  Hanterar databas uppkoppling så att man kan köra queries mot databasen.
+  Kolumner:
+    * _id
+    * sound_value
+    * name
+  
+  *----SoundDataSource----*
+  Data Access Object för Sound. Sparar, laddar och tar bort Sound-objekt från databasen. 
+  Viktigt: Kom ihåg att köra open() innan du använder någon metod och close() efter att 
+  du är klar, annars är det inte möjligt att köra queries mot databasen.
+  Viktiga metoder:
+    * save
+    * getAllSongs
+    * deleteSong
+  
+  *----SongSQLiteHelper----*
+  Ärver från SQLiteOpenHelper.
+  Klass som innehåller tabelldata för Sound. Skapar tabellen om den inte finns. 
+  Hanterar databas uppkoppling så att man kan köra queries mot databasen.
+  Kolumner:
+    * _id
+    * name
+    * bpm
+    
+  *----SongDataSource----*
+  Data Access Object för Song. Sparar, laddar och tar bort Song-objekt från databasen. 
+  Viktigt: Kom ihåg att köra open() innan du använder någon metod och close() efter att 
+  du är klar, annars är det inte möjligt att köra queries mot databasen.
+  Viktiga metoder:
+    * save
+    * getAllSounds
+    * getSoundFromKey
+    * deleteSound
+  
+  *----ChannelSQLiteHelper----*
+  Ärver från SQLiteOpenHelper.
+  Klass som innehåller tabelldata för Sound. Skapar tabellen om den inte finns. 
+  Hanterar databas uppkoppling så att man kan köra queries mot databasen.
+  Kolumner:
+    * _id
+    * number
+    * volume
+    * leftpan
+    * rightpan
+    * mute
+    
+  Foreign keys:
+    * song_id
+    * sound_id
+    
+  *----ChannelDataSource----*
+  Data Access Object för Channel. Sparar, laddar och tar bort Channel-objekt från databasen. 
+  Viktigt: Kom ihåg att köra open() innan du använder någon metod och close() efter att 
+  du är klar, annars är det inte möjligt att köra queries mot databasen.
+  Viktiga metoder:
+    * save
+    * getAllChannelsForSong
+    * deleteChannel
+  
+  *----StepSQLiteHelper----*
+  Ärver från SQLiteOpenHelper.
+  Klass som innehåller tabelldata för Sound. Skapar tabellen om den inte finns. 
+  Hanterar databas uppkoppling så att man kan köra queries mot databasen.
+  Kolumner:
+    * _id
+    * number
+    * active
+    * velocity
+    
+   Foreign keys:
+    * channel_id
+  
+  *----StepDataSource----*
+  Data Access Object för Channel. Sparar, laddar och tar bort Channel-objekt från databasen. 
+  Viktigt: Kom ihåg att köra open() innan du använder någon metod och close() efter att 
+  du är klar, annars är det inte möjligt att köra queries mot databasen.
+  Viktiga metoder:
+    * save
+    * getAllStepsForChannel
+    * deleteStep
+    
+    
