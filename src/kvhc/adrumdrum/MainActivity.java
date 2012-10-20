@@ -1,5 +1,5 @@
 /**
- * aDrumDrum is a stepsequencer for Android.
+ * aDrumDrum is a step sequencer for Android.
  * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
@@ -33,14 +33,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/**
+ * Main class.
+ * @author kvhc
+ */
 public class MainActivity extends Activity {
 	
 	private GUIController guic;
 	
-	SoundDataSource mSoundLoader;
+	private SoundDataSource mSoundLoader;
 	
     /**
-     * Everything that the app have to do then created
+     * Everything that the app have to do when created
      */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +107,7 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * The things that should be done then the app are stopped
+     * The things that should be done when the app are stopped
      */
     public void onStop() {
     	guic.onStop();

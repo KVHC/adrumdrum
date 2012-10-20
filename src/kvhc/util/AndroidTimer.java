@@ -60,7 +60,7 @@ public class AndroidTimer {
 	/**
 	 * Stops the timer
 	 */
-	public void stop(){
+	public void stop() {
 		enabled = false;
 	}
 	
@@ -68,7 +68,6 @@ public class AndroidTimer {
 	 * Starts the timer
 	 */
 	public void start() {
-		
 		if (enabled) {
 			return;
 		}
@@ -92,12 +91,16 @@ public class AndroidTimer {
 		this.job = job;
 	}
 	
+	/**
+	 * Sets the waittime between every "tick".
+	 * @param time the waittime between every "tick"
+	 */
 	public void setTime(long time) {
 		this.time = time;
 	}
 	
 	/**
-	 * A private class used too loop the the job
+	 * A private class used to loop the job.
 	 */
 	private Runnable timer = new Runnable() {
 		public void run() {

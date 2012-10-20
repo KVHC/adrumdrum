@@ -25,11 +25,33 @@ import java.util.ArrayList;
 import kvhc.models.Song;
 import kvhc.models.Sound;
 
+/**
+ * Interface to render a song.
+ * Classes implements this to ensure they have all
+ * the necessary functions to render a Song.
+ * 
+ * @author kvhc
+ *
+ */
 public interface ISongRenderer {
 	
+	/**
+	 * Renders a whole song
+	 * @param song Song the render.
+	 */
 	void renderSong(Song song);
+	
+	/**
+	 * Render song at a specific step.
+	 * @param song Song to use
+	 * @param step the specific step
+	 */
 	void renderSongAtStep(Song song, int step);
 	
+	/**
+	 * Load sound from an ArrayList of Sound.
+	 * @param soundList a list of Sounds
+	 */
 	void loadSounds(ArrayList<Sound> soundList);
 	
 }
