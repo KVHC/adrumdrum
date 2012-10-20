@@ -24,6 +24,7 @@ import junit.framework.Assert;
 import android.test.AndroidTestCase;
 import kvhc.models.Step;
 import kvhc.models.Channel;
+import java.util.Random;
 
 /**
  * Test class for kvhc.models.Step.
@@ -31,13 +32,14 @@ import kvhc.models.Channel;
  */
 public class StepTest extends AndroidTestCase {
 	
-	Channel testChannel = new Channel();
+	private Channel testChannel = new Channel();
 	/**
 	 * Tests the constructor that takes a Channel and an Int.
 	 */
 	public void testStep() {
 		Assert.assertNotNull(new Step(testChannel, 1));
 	}
+	
 	/**
 	 * Tests the constructor which takes Boolean, Channel, Int,
 	 * and sets the step active if the Boolean is true.
@@ -46,6 +48,7 @@ public class StepTest extends AndroidTestCase {
 		Step step = new Step(true, testChannel, 1);
 		Assert.assertTrue(step.isActive());
 	}
+	
 	/**
 	 * Tests the setActive method.
 	 */
@@ -56,12 +59,13 @@ public class StepTest extends AndroidTestCase {
 		step.setActive(true);
 		Assert.assertTrue(step.isActive());
 	}
+	
 	/**
 	 * Tests the setVelocity/getVelocity methods
 	 */
 	public void testSetVel() {
 		Step step = new Step(testChannel,1);
-		float testVel = 0.333f; //new Random().nextFloat();
+		float testVel = new Random().nextFloat();
 		step.setVelolcity(testVel);
 		
 		Assert.assertEquals("Current Velocity", testVel, step.getVelocity());

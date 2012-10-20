@@ -30,14 +30,13 @@ import kvhc.util.AndroidTimer;
  *
  */
 public class AndroidTimerTest extends AndroidTestCase {
-	int count=0;//used to test observable/observer-pattern
 	/**
 	 * Tests the constructor.
 	 */
 	public void testConstructor() {
 		Runnable testJob = new Runnable() {
 			public void run() {
-				count++;
+				;
 			}
 		};
 		AndroidTimer testAT = new AndroidTimer(testJob, (long) 1);
@@ -49,7 +48,7 @@ public class AndroidTimerTest extends AndroidTestCase {
 	public void testStartStop() {
 		Runnable testJob = new Runnable() {
 			public void run() {
-				count++;
+				;
 			}
 		};
 		AndroidTimer testAT = new AndroidTimer(testJob, (long) 1);
@@ -66,7 +65,7 @@ public class AndroidTimerTest extends AndroidTestCase {
 		//first runnable to construct with
 		Runnable testJob = new Runnable() {
 			public void run() {
-				count++;
+				;
 			}
 		};
 		AndroidTimer testAT = new AndroidTimer(testJob, (long) 1);
@@ -74,7 +73,7 @@ public class AndroidTimerTest extends AndroidTestCase {
 		//new Runnable to change to
 		Runnable testJob2 = new Runnable() {
 			public void run() {
-				count--;
+				;
 			}
 		};
 		//changing Job shouldn't break anything
