@@ -21,6 +21,7 @@
 package kvhc.adrumdrum;
 
 import kvhc.gui.GUIController;
+import kvhc.models.Sound;
 import kvhc.util.db.ChannelSQLiteHelper;
 import kvhc.util.db.SongSQLiteHelper;
 import kvhc.util.db.SoundDataSource;
@@ -57,21 +58,37 @@ public class MainActivity extends Activity {
         }
         
         if(mSoundLoader.getAllSounds().size() == 0) {
-        	mSoundLoader.createSound(R.raw.jazzfunkkitbd_01, "Bassdrum");
-        	mSoundLoader.createSound(R.raw.jazzfunkkitbellridecym_01, "Bell Ride");
-        	mSoundLoader.createSound(R.raw.jazzfunkkitclosedhh_01, "Closed hihat");
-        	mSoundLoader.createSound(R.raw.jazzfunkkitcrashcym_01, "Crash 01");
-        	mSoundLoader.createSound(R.raw.jazzfunkkitcrashcym_02, "Crash 02");
-        	mSoundLoader.createSound(R.raw.jazzfunkkitopenhh_01, "Open hihat");
-        	mSoundLoader.createSound(R.raw.jazzfunkkitridecym_01, "Ride");
-        	mSoundLoader.createSound(R.raw.jazzfunkkitsn_01, "Snare 01");
-        	mSoundLoader.createSound(R.raw.jazzfunkkitsn_02, "Snare 02");
-        	mSoundLoader.createSound(R.raw.jazzfunkkitsn_03, "Snare 03");
-        	mSoundLoader.createSound(R.raw.jazzfunkkitsplashcym_01, "Splash 01");
-        	mSoundLoader.createSound(R.raw.jazzfunkkitsplashcym_02, "Splash 02");
-        	mSoundLoader.createSound(R.raw.jazzfunkkittom_01, "Tomtom 01");
-        	mSoundLoader.createSound(R.raw.jazzfunkkittom_02, "Tomtom 02");
-        	mSoundLoader.createSound(R.raw.jazzfunkkittom_03, "Tomtom 03");
+        	
+        	Sound s = new Sound(R.raw.jazzfunkkitbd_01, "Bassdrum");
+        	mSoundLoader.save(s);
+        	s = new Sound(R.raw.jazzfunkkitbellridecym_01, "Bell Ride");
+        	mSoundLoader.save(s);
+        	s = new Sound(R.raw.jazzfunkkitclosedhh_01, "Closed hihat");
+        	mSoundLoader.save(s);
+        	s = new Sound(R.raw.jazzfunkkitcrashcym_01, "Crash 01");
+        	mSoundLoader.save(s);
+        	s = new Sound(R.raw.jazzfunkkitcrashcym_02, "Crash 02");
+        	mSoundLoader.save(s);
+        	s = new Sound(R.raw.jazzfunkkitopenhh_01, "Open hihat");
+        	mSoundLoader.save(s);
+        	s = new Sound(R.raw.jazzfunkkitridecym_01, "Ride");
+        	mSoundLoader.save(s);
+        	s = new Sound(R.raw.jazzfunkkitsn_01, "Snare 01");
+        	mSoundLoader.save(s);
+        	s = new Sound(R.raw.jazzfunkkitsn_02, "Snare 02");
+        	mSoundLoader.save(s);
+        	s = new Sound(R.raw.jazzfunkkitsn_03, "Snare 03");
+        	mSoundLoader.save(s);
+        	s = new Sound(R.raw.jazzfunkkitsplashcym_01, "Splash 01");
+        	mSoundLoader.save(s);
+        	s = new Sound(R.raw.jazzfunkkitsplashcym_02, "Splash 02");
+        	mSoundLoader.save(s);
+        	s = new Sound(R.raw.jazzfunkkittom_01, "Tomtom 01");
+        	mSoundLoader.save(s);
+        	s = new Sound(R.raw.jazzfunkkittom_01, "Tomtom 02");
+        	mSoundLoader.save(s);
+        	s = new Sound(R.raw.jazzfunkkittom_01, "Tomtom 03");
+        	mSoundLoader.save(s);
         	
         	ChannelSQLiteHelper channelHelper = new ChannelSQLiteHelper(this);
             channelHelper.onUpgrade(channelHelper.getWritableDatabase(), 1, 3);

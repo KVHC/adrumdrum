@@ -44,7 +44,7 @@ public class SQLSongLoader implements ISongLoader {
 	
 	/**
 	 * Constructor.
-	 * @param context the Context
+	 * @param context the Context of the activity.
 	 */
 	public SQLSongLoader(Context context) {
 		
@@ -77,6 +77,7 @@ public class SQLSongLoader implements ISongLoader {
 		// Set up variables
 		String name;
 		
+		// This might be stupid.
 		if(mSongs == null || mSongs.size() == 0) {
 			mSongs = getSongList(null);
 		}
@@ -108,7 +109,7 @@ public class SQLSongLoader implements ISongLoader {
 	
 	/**
 	 * Gets a list of all the sounds in the database.
-	 * @return
+	 * @return List of all the sounds found in the databse.
 	 */
 	public List<Sound> getSoundList() {
 		
@@ -125,25 +126,26 @@ public class SQLSongLoader implements ISongLoader {
 	 */
 	public List<Song> getSongList(Object[] args) {
 		
+		// Get list of all songs.
 		mDBSongHelper.open();
 		List<Song> songs = mDBSongHelper.getAllSongs();
 		mDBSongHelper.close();
 		
-		// Loopa fram allt och fyll. ;)
+		// Fill all the songs with data.
 		for(Song song : songs) {
-			// Loading channels 
+			// Loading channels.
 			mDBChannelHelper.open();
 			List<Channel> channels = mDBChannelHelper.getAllChannelsForSong(song);
 			mDBChannelHelper.close();
 			
-			// Loading steps
+			// Loading steps and sound.
 			mDBStepHelper.open();
 			mDBSoundHelper.open();
 			for(Channel channel : channels) {
-				// Sound har id men inget innehåll, måste sätta det
+				// Sound has ID but no content. Get the sound from the database.
 				channel.setSound(mDBSoundHelper.getSoundFromKey(channel.getSound().getId()));
 				
-				// och gärna alla steps också
+				// Get all the steps from the database.
 				channel.setSteps(mDBStepHelper.getAllStepsForChannel(channel));
 			}
 			mDBSoundHelper.close();
@@ -152,6 +154,7 @@ public class SQLSongLoader implements ISongLoader {
 			song.setChannels(channels);
 		}
 		
+		// Set song list. 
 		mSongs = songs;
 		
 		return songs;

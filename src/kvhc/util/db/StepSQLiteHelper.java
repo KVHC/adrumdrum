@@ -27,22 +27,30 @@ import android.util.Log;
 
 /**
  * Helper class to save a Step to database.
+ * Contains the information about the Step table structure and 
+ * creates the table if it doesn't exist upon initialization. 
+ * 
  * @author kvhc
- *
  */
 public class StepSQLiteHelper extends SQLiteOpenHelper {
 
-	// Strings for database
+	// Table name
 	public static final String TABLE_STEP = "songs";
+	
+	// Table columns
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_NUMBER = "number";
 	public static final String COLUMN_ACTIVE = "active";
 	public static final String COLUMN_VELOCITY = "velocity";
+	
+	// Foreign keys
 	public static final String FKEY_CHANNELID = "channel_id";
 	
+	// Database info
 	private static final String DATABASE_NAME = "adrumdrum.db";
 	private static final int DATABASE_VERSION = 1;
 	
+	// Table creation string.
 	private static final String DATABASE_CREATE = "create table "
 			+ TABLE_STEP + "(" 
 			+ COLUMN_ID + " integer primary key autoincrement, "  
@@ -62,7 +70,7 @@ public class StepSQLiteHelper extends SQLiteOpenHelper {
     
 	/**
 	 * Constructor.
-	 * @param context
+	 * @param context Needs context for use of database.
 	 */
 	public StepSQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -76,7 +84,7 @@ public class StepSQLiteHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		Log.w(SoundSQLiteHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion +  ", which will destroy all data");
+		Log.w(StepSQLiteHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion +  ", which will destroy all data");
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_STEP);
 		onCreate(db);
 	}

@@ -30,7 +30,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 /**
  * DataSource object for Step model.
@@ -49,7 +48,7 @@ public class StepDataSource {
 	
 	/**
 	 * Constructor.
-	 * @param context
+	 * @param context Current context, needed for database usage.
 	 */
 	public StepDataSource(Context context) {
 		dbHelper = new StepSQLiteHelper(context);
@@ -70,97 +69,171 @@ public class StepDataSource {
 		dbHelper.close();
 	}
 	
-	public Step createStep(float velocity, boolean active, int stepNumber, Channel channel) {
+	/**
+	 * Creates a step from the parameters and adds it to the database.
+	 * Returns the newly added Step with ID from the database.
+	 * 
+	 * @param velocity Step velocity
+	 * @param active Is the step active?
+	 * @param stepNumber The number of the step.
+	 * @param channel Channel the step belongs to.
+	 * @return The step as it exists in the database.
+	 */
+	private long createStep(float velocity, boolean active, int stepNumber, Channel channel) {
 		
+		// Is the channel in the database?
 		if(channel.getId() == 0) {
-			return null;
+			// Nope. It's a loose step. Don't add.
+			return 0;
 		}
 		
+		// Create a value table.
 		ContentValues values = new ContentValues();
 		values.put(StepSQLiteHelper.COLUMN_VELOCITY, velocity);
 		values.put(StepSQLiteHelper.COLUMN_ACTIVE, active ? 1 : 0);
 		values.put(StepSQLiteHelper.COLUMN_NUMBER, stepNumber);
 		values.put(StepSQLiteHelper.FKEY_CHANNELID, channel.getId());
 		
-		
+		// Insert into the database.
 		long insertId = database.insert(StepSQLiteHelper.TABLE_STEP, null, values);
-		Log.w("StepData", "Insert step: " + insertId);
-		Cursor cursor = database.query(StepSQLiteHelper.TABLE_STEP, allColumns, StepSQLiteHelper.COLUMN_ID + " = " 
-						+ insertId, null, null, null, null);
 		
-		cursor.moveToFirst();
-		Step newStep = cursorToStep(cursor);
-		cursor.close();
-		return newStep;
+		// Return step id.
+		return insertId;
 	}
 	
+	/**
+	 * Deletes a step from the database.
+	 * @param step
+	 */
 	public void deleteStep(Step step) {
+		// Get the id
 		long id = step.getId();
 		
-		// Delete sound
+		// Delete step
 		database.delete(StepSQLiteHelper.TABLE_STEP, StepSQLiteHelper.COLUMN_ID + " = " + id, null);
 	}
-		
+	
+	/**
+	 * Creates and returns a list of all the steps that are owned in the 
+	 * specified channel. 
+	 * 
+	 * If the Channel object doesn't have an id (not loaded from the db) 
+	 * it will return an empty list of steps. 
+	 * 
+	 * @param channel The Channel to load steps from.
+	 * @return A list of steps.
+	 */
 	public List<Step> getAllStepsForChannel(Channel channel) {
 		
+		// Create a list for the steps.
 		List<Step> steps = new ArrayList<Step>();
 		
+		// Does the channel exist? 
 		if(channel == null || channel.getId() == 0) {
+			// Nope, return an empty list of steps.
 			return steps;
 		}
 		
+		// Set up the selection query
 		String where = StepSQLiteHelper.FKEY_CHANNELID + "=?";
 		String[] whereArgs = new String[] { String.valueOf(channel.getId()) };
 		String orderBy = StepSQLiteHelper.COLUMN_NUMBER + " ASC";
+		
+		// Execute the query
 		Cursor cursor = database.query(StepSQLiteHelper.TABLE_STEP, allColumns, where, whereArgs, null, null, orderBy);
 		
+		// Load all the steps that are found
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()) {
 			Step step = cursorToStep(cursor);
 			steps.add(step);
 			cursor.moveToNext();
 		}
-		
 		cursor.close();
-		Log.w("StepData", "Number of steps: " + steps.size() + " for channel id: " + channel.getId());
+		
+		// Return the steps.
 		return steps;
 	}
 	
+	/**
+	 * Updates a step with the parameters from the Step object and
+	 * Channel object.
+	 * @param step The Step to update.
+	 * @param channel The Channel the Step belongs to.
+	 */
 	private void updateStep(Step step, Channel channel) {
+		
+		// Does the step exist?
+		if(step == null || step.getId() == 0) {
+			// The step doesn't exist. Don't update.
+			return;
+		}
+		
+		// Does the channel exist?
+		if(channel == null || channel.getId() == 0) {
+			// The channel doesn't exist. Don't update.
+			return;
+		}
+		
+		// Set up the update values.
 		ContentValues values = new ContentValues();
 		values.put(StepSQLiteHelper.COLUMN_VELOCITY, step.getVelocity());
 		values.put(StepSQLiteHelper.COLUMN_ACTIVE, step.isActive());
 		values.put(StepSQLiteHelper.COLUMN_NUMBER, step.getStepNumber());
 		values.put(StepSQLiteHelper.FKEY_CHANNELID, channel.getId());
 		
+		// Set up the update query.
 		String where = StepSQLiteHelper.COLUMN_ID + " = ?";
-		String[] whereArgs = new String[] { String.valueOf(step.getId()) }; 
+		String[] whereArgs = new String[] { String.valueOf(step.getId()) };
+		
+		// Run update query.
 		database.update(StepSQLiteHelper.TABLE_STEP, values, where, whereArgs);
 	}
 	
-	
+	/**
+	 * Saves a step to the database. If the step exists (read has an ID), it updates
+	 * the step. If it doesn't exist it is created and an ID is set on the step.
+	 * @param step The Step to save.
+	 * @param channel The Channel the Step belongs to.
+	 */
 	public void save(Step step, Channel channel) {
 		
+		// Does the channel exist in the database?
 		if(channel.getId() == 0) {
-			// Channel doesn't have any ID, not worth saving.
+			// Channel doesn't have an ID, not in database.
+			// Don't save. (Throw error?)
 			return;
 		}
 		
+		// Does the step already exist?
 		if(step.getId() > 0) {
+			// Update the step.
 			updateStep(step, channel);
 		} else {
-			Step tmp = createStep(step.getVelocity(), step.isActive(), step.getStepNumber(), channel);
-			step.setId(tmp.getId());
+			// The step doesn't exist, create it.
+			long newStepId = createStep(step.getVelocity(), step.isActive(), step.getStepNumber(), channel);
+			step.setId(newStepId); 
 		}
 	}
 	
+	/**
+	 * Creates a step from a Cursor object.
+	 * 
+	 * @param cursor The Cursor object pointing to a row in the Step table.
+	 * @return A new step.
+	 */
 	private Step cursorToStep(Cursor cursor) {
+		
+		// Create new step.
 		Step step = new Step();
+		
+		// Set up properties.
 		step.setId(cursor.getLong(0));
 		step.setActive(cursor.getInt(2) > 0);
 		step.setStepNumber(cursor.getInt(3));
 		step.setVelolcity((float)cursor.getDouble(1));
 		
+		// Return the new step.
 		return step;
 	}
 }

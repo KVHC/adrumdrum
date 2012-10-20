@@ -26,20 +26,27 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * Helper Class to save a Song to database.
+ * Helper database class for the Song model.
+ * Contains the Song table structure and creation of the 
+ * table in the database.
+ * 
  * @author kvhc
  *
  */
 public class SongSQLiteHelper extends SQLiteOpenHelper {
 
-	// Strings for database
+	// Table name.
 	public static final String TABLE_SONG = "songs";
+	
+	// Table columns.
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_NAME = "name";
 	
+	// Database info.
 	private static final String DATABASE_NAME = "adrumdrumsongs.db";
 	private static final int DATABASE_VERSION = 1;
 	
+	// Table creation string.
 	private static final String DATABASE_CREATE = "create table "
 			+ TABLE_SONG + "(" 
 			+ COLUMN_ID + " integer primary key autoincrement, "  
@@ -47,8 +54,8 @@ public class SongSQLiteHelper extends SQLiteOpenHelper {
 			+ ");";
 	
 	/**
-	 * Constructor
-	 * @param context
+	 * Constructor.
+	 * @param context Context needed for the database usage.
 	 */
 	public SongSQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -57,13 +64,12 @@ public class SongSQLiteHelper extends SQLiteOpenHelper {
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		Log.e("HUGE SONG ERROR", DATABASE_CREATE);
 		db.execSQL(DATABASE_CREATE);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		Log.w(SoundSQLiteHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion +  ", which will destroy all data");
+		Log.w(SongSQLiteHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion +  ", which will destroy all data");
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_SONG);
 		onCreate(db);
 	}

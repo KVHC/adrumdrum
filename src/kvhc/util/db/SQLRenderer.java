@@ -40,6 +40,7 @@ import kvhc.util.ISongRenderer;
 public class SQLRenderer implements ISongRenderer {
 	
 	private ArrayList<Sound> mSounds;
+	
 	private SongDataSource dbSongHelper;
 	private ChannelDataSource dbChannelHelper;
 	private StepDataSource dbStepHelper;
@@ -58,6 +59,7 @@ public class SQLRenderer implements ISongRenderer {
 
 	/**
 	 * Loads Sounds, ISongRenderer implementation.
+	 * Saves them to the database.
 	 */
 	public void loadSounds(ArrayList<Sound> soundList) {
 		mSounds = soundList;
@@ -72,17 +74,18 @@ public class SQLRenderer implements ISongRenderer {
 	 */
 	public void renderSong(Song song) {
 		
+		// Save to the song table.
 		dbSongHelper.open();
-		Song tmp = dbSongHelper.save(song);
+		dbSongHelper.save(song);
 		dbSongHelper.close();
-		
-		song.setId(tmp.getId());
 		
 		dbChannelHelper.open();
 		dbStepHelper.open();
 		for (Channel channel : song.getChannels()) {
+			// Save ALL the channels! .o/
 			dbChannelHelper.save(song, channel);
 			
+			// Save ALL the steps! .o/
 			Log.w("SQLRender", "Save steps: " + channel.getSteps().size());
 			for (Step step : channel.getSteps()) {
 				dbStepHelper.save(step, channel);
@@ -90,10 +93,9 @@ public class SQLRenderer implements ISongRenderer {
 		}
 		dbStepHelper.close();
 		dbChannelHelper.close();		
-		
 	}
 	
 	public void renderSongAtStep(Song song, int step) {
-		//TODO: Add implementation?  Will we use this? Seems unessesary.	
+		//TODO: Add implementation?  Will we use this? Seems unessesary for this implementation.
 	}
 }

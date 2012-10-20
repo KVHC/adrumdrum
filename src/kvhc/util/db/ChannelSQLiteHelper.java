@@ -26,35 +26,44 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * Helper class to save a Channel to database.
+ * Helper database class for the Channel.
+ * Contains the Channel table structure and creation of the 
+ * table in the database.
  * 
  * @author kvhc
  */
 public class ChannelSQLiteHelper extends SQLiteOpenHelper {
 
-	// Strings for Database
+	// Table name
 	public static final String TABLE_CHANNEL = "channels";
+	
+	// Table columns
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_NUMBER = "number";
-	public static final String COLUMN_NAME = "name";
 	public static final String COLUMN_VOLUME = "volume";
 	public static final String COLUMN_LEFTPAN = "leftpan";
 	public static final String COLUMN_RIGHTPAN = "rightpan";
+	public static final String COLUMN_MUTE = "mute";
+	
+	// Foreign keys
 	public static final String FKEY_SONGID= "song_id";
 	public static final String FKEY_SOUNDID = "sound_id";
 	
+	// Database properties
 	private static final String DATABASE_NAME = "adrumdrum.db";
 	private static final int DATABASE_VERSION = 1;
 	
+	// Table creation string
 	private static final String DATABASE_CREATE = "create table "
-			+ TABLE_CHANNEL + "(" + COLUMN_ID 
-			+ " integer primary key autoincrement, " + COLUMN_NUMBER
-			+ " integer not null, " + COLUMN_LEFTPAN 
-			+ " double not null, " + COLUMN_RIGHTPAN
-			+ " double not null, " + COLUMN_VOLUME
-			+ " double not null," + FKEY_SONGID
-			+ " integer," + FKEY_SOUNDID
-			+ " integer"
+			+ TABLE_CHANNEL + "(" 
+			+ COLUMN_ID + " integer primary key autoincrement, " 
+			+ COLUMN_NUMBER + " integer not null, " 
+			+ COLUMN_LEFTPAN + " double not null, " 
+			+ COLUMN_RIGHTPAN + " double not null, " 
+			+ COLUMN_VOLUME + " double not null, " 
+			+ COLUMN_MUTE + " integer not null, "
+			+ FKEY_SONGID + " integer, " 
+			+ FKEY_SOUNDID + " integer"
 			+"); commit;";
     
 	/**
@@ -73,7 +82,7 @@ public class ChannelSQLiteHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		Log.w(SoundSQLiteHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion +  ", which will destroy all data");
+		Log.w(ChannelSQLiteHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion +  ", which will destroy all data");
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_CHANNEL);
 		onCreate(db);
 	}

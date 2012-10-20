@@ -26,21 +26,27 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * Helper class to save a Sound to database.
+ * Helper database class for the Sound object.
+ * Contains the Sound table structure and creation of the 
+ * table in the database.
+ * 
  * @author kvhc
- *
  */
 public class SoundSQLiteHelper extends SQLiteOpenHelper {
 
-	// Strings for database
+	// Table name.
 	public static final String TABLE_SOUND = "sounds";
+	
+	// Table columns.
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_SOUNDVALUE = "sound_value";
 	public static final String COLUMN_NAME = "name";
 	
+	// Database information.
 	private static final String DATABASE_NAME = "adrumdrum.db";
 	private static final int DATABASE_VERSION = 1;
 	
+	// Table creation string.
 	private static final String DATABASE_CREATE = "create table "
 			+ TABLE_SOUND + "(" + COLUMN_ID 
 			+ " integer primary key autoincrement, " + COLUMN_SOUNDVALUE
@@ -49,7 +55,7 @@ public class SoundSQLiteHelper extends SQLiteOpenHelper {
 	
 	/**
 	 * Constructor.
-	 * @param context
+	 * @param context Context needed for the database usage.
 	 */
 	public SoundSQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);

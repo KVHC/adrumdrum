@@ -29,29 +29,30 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 /**
- * DataSource object for Song model
- * CRUD operations
- *  
+ * DataSource object for Song model.
+ * CRUD operations.
+ * 
  * @author kvhc
  */
 public class SongDataSource {
+	
+	// Properties
 	private SQLiteDatabase database;
 	private SongSQLiteHelper dbHelper;
 	private String[] allColumns = { SongSQLiteHelper.COLUMN_ID, SongSQLiteHelper.COLUMN_NAME };
 	
 	/**
-	 * Default Constructor, needs the context to be able to use the db. 
-	 * @param context
+	 * Default Constructor, needs the context to be able to use the database. 
+	 * @param context Current context, needed for database usage.
 	 */
 	public SongDataSource(Context context) {
 		dbHelper = new SongSQLiteHelper(context);
 	}
 	
 	/**
-	 * Opens the db for transactions.
+	 * Opens the database for transactions.
 	 * @throws SQLException
 	 */
 	public void open() throws SQLException {
@@ -59,116 +60,115 @@ public class SongDataSource {
 	}
 	
 	/**
-	 * Closes the db connection.
+	 * Closes the database connection.
 	 */
 	public void close() {
 		dbHelper.close();
 	}
 	
 	/**
-	 * Creates a new Song in the db.
+	 * Creates a new Song in the database.
+	 * 
 	 * @param name The name of the Song.
-	 * @return
+	 * @return The ID of the song in the database.
 	 */
-	public Song createSong(String name) {
-		ContentValues values = new ContentValues();
-		values.put(SongSQLiteHelper.COLUMN_NAME, name);
-		Song newSong = null;
-		try {
-			open();
-			long insertId = database.insert(SongSQLiteHelper.TABLE_SONG, null, values);
-			Log.w("DERP", "insertid: " + insertId);
-			if (insertId >= 0) {
-				Cursor cursor = database.query(SongSQLiteHelper.TABLE_SONG, allColumns, SongSQLiteHelper.COLUMN_ID + " = " 
-							+ insertId, null, null, null, null);
-			
-				cursor.moveToFirst();
-				newSong = cursorToSong(cursor);
-				cursor.close();
-				
-			}
-		} catch(SQLException e) {
-			Log.e(getClass().toString(), e.toString());
-		} finally {
-			close();
-		}
+	private long createSong(String name) {
 		
-		return newSong;
+		// Create value table.
+		ContentValues values = new ContentValues();
+		
+		// Fill value table.
+		values.put(SongSQLiteHelper.COLUMN_NAME, name);
+		
+		// Run query
+		long insertId = database.insert(SongSQLiteHelper.TABLE_SONG, null, values);
+		
+		// Return the newly inserted song's id.
+		return insertId;
 	}
 	
 	/**
-	 * Saves a Song to the db, if it doesn't exist it's created. 
+	 * Saves a Song to the database, if it doesn't exist an id is set on the
+	 * object.  
 	 * 
 	 * @param song The song to save. 
-	 * @return
+	 * @return Nothing.
 	 */
-	public Song save(Song song) {
-		ContentValues values = new ContentValues();
-		values.put(SongSQLiteHelper.COLUMN_NAME, song.getName());
-	
+	public void save(Song song) {
+		
+		// Does the song have an id?	
 		if (song.getId() > 0) {
-			// Has id
+			// Yes, which means it's in the database. Update.
+			
+			// Create value table.
+			ContentValues values = new ContentValues();
+			values.put(SongSQLiteHelper.COLUMN_NAME, song.getName());
+			
+			// Set up update query.
 			String where = SongSQLiteHelper.COLUMN_ID + " = ?";
 			String[] whereArgs = new String[] { String.valueOf(song.getId() )};
 			
-			open();
+			// Run query.
 			database.update(SongSQLiteHelper.TABLE_SONG, values, where, whereArgs);
-			close();
 		} else {
-			// doesn't have id
-			song = createSong(song.getName());
+			// No, it's not the database.
+			long newSongId = createSong(song.getName());
+			song.setId(newSongId);
 		}
-		
-		if (song == null) {
-			Log.e("SongDataSource", "NULL SONG");
-			return null;
-		}
-		
-		return song;
 	}
 	
 	/**
 	 * Deletes a song from database.
-	 * @param song song to be deleted
+	 * @param song Song to be deleted.
 	 */
 	public void deleteSong(Song song) {
+		// Get song id.
 		long id = song.getId();
 		
-		// Delete sound
+		// Delete song.
 		database.delete(SongSQLiteHelper.TABLE_SONG, SongSQLiteHelper.COLUMN_ID + " = " + id, null);
 	}
 	
 	/**
-	 * Returns a list of all songs.
+	 * Returns a list of all songs in the database.
 	 * @return a list of all songs.
 	 */
 	public List<Song> getAllSongs() {
+		
+		// Create list for the songs.
 		List<Song> songs = new ArrayList<Song>();
 		
+		// Run selection query.
 		Cursor cursor = database.query(SongSQLiteHelper.TABLE_SONG, allColumns, null,null,null,null,null);
 		
+		// Fill list with songs.
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()) {
 			Song song = cursorToSong(cursor);
 			songs.add(song);
 			cursor.moveToNext();
 		}
-		
 		cursor.close();
+		
+		// Return the song list.
 		return songs;
 	}
 	
 	/**
-	 * Get the Song pointed to by the Cursor.
-	 * @param cursor
-	 * @return Song pointed to by the Cursor
+	 * Creates a Song based on the row the database cursor is pointing to.
+	 * @param cursor Cursor pointing at a row in the Songs table. 
+	 * @return Song pointed to by the Cursor.
 	 */
 	private Song cursorToSong(Cursor cursor) {
 		
+		// Create song.
 		Song song = new Song(4);
+		
+		// Set up properties.
 		song.setId(cursor.getLong(0));
 		song.setName(cursor.getString(1));
 		
+		// Return song object.
 		return song;
 	}
 }
