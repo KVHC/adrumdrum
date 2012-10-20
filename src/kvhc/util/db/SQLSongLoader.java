@@ -78,10 +78,8 @@ public class SQLSongLoader implements ISongLoader {
 		// Set up variables
 		String name;
 		
-		// This might be stupid.
-		if(mSongs == null || mSongs.size() == 0) {
-			getSongList(null);
-		}
+		getSongList(null);
+
 		
 		// Get arguments
 		switch(args.length) {
@@ -139,6 +137,10 @@ public class SQLSongLoader implements ISongLoader {
 		
 		// Fill all the songs with data.
 		for(Song song : songs) {
+			if(mSongs.contains(song)) {
+				continue;
+			}
+			
 			// Loading channels.
 			mDBChannelHelper.open();
 			List<Channel> channels = mDBChannelHelper.getAllChannelsForSong(song);

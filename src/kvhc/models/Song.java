@@ -266,4 +266,14 @@ public class Song {
 	public void setBpm(int mBpm) {
 		this.mBpm = mBpm;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o instanceof Song)
+		{
+			Song song = (Song)o;
+			return mName.equals(song.getName());
+		}
+		return false;
+	}
 }
