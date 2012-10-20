@@ -267,6 +267,10 @@ public class Song {
 		this.mBpm = mBpm;
 	}
 	
+	/**
+	 * Compare a song for equality
+	 * @param Song to compare to
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if(o instanceof Song)
@@ -275,5 +279,12 @@ public class Song {
 			return mName.equals(song.getName());
 		}
 		return false;
+	}
+	/**
+	 * Returns the hashcode of the Song
+	 */
+	@Override
+	public int hashCode() {
+		return((int)id);
 	}
 }
