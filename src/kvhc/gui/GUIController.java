@@ -91,6 +91,10 @@ public class GUIController {
 		init();
 	}
 	
+	
+	//----------------------------------------------------------------------
+	// Methods that initialize the GUIcontroller
+	
 	/**
 	 * Initialize all the init functions.
 	 */
@@ -196,6 +200,11 @@ public class GUIController {
     	
     }
 	
+	
+	//-------------------------------------------------------------------
+	// Methods for modifying the song
+	
+	
 	/**
 	 * Adds a new channel to the GUI.
 	 * Checks the number of steps of the song and adds that many steps,
@@ -243,20 +252,7 @@ public class GUIController {
     	}
     }   
     	
-	/**
-	 * Update the name on the GUI-button
-	 * @param channelId 
-	 */
-	public void updateButtonGUI(int channelId){
-		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
-  
-    	if (channelId <  channelContainer.getChildCount()){
-    		TableRow row = (TableRow)channelContainer.getChildAt(channelId);
-    		ChannelButtonGUI guib = (ChannelButtonGUI) row.getChildAt(0);
-    		guib.updateName();
-    	}
-	}
-    
+	
     /**
      * If the channel already is playing solo this method ends the solo and unmute all other channels.
      * If the channel don't play solo this method mute all channels except the given.
@@ -280,6 +276,16 @@ public class GUIController {
     public int getSoloChannel(){
     	return solo;
     }
+
+    
+    /**
+     * If solo-mode has been enabled previously, this resets the solo-variable.
+     * solo represents a channel number if it is higher than or equal to 0.
+     */
+    public void stopSolo(){
+    	solo = -1;
+    }
+  
     
 	/**
 	 * Reloads a given song. Calls numerateSteps so all the steps isn't step number one.
@@ -296,7 +302,31 @@ public class GUIController {
 
 		redrawChannels();
 	}
+	
+	
+	/**
+     * Sets the steps velocity to 100%, the two neighbors to 70% and
+     * the neighbors neighbors to 30%. Activates the mentioned steps.
+     * @param channelId on which channel to set the spike
+     * @param stepid on which step to set the spike
+     */
+    public void setSpike(int channelId, int stepid){
+    	song.getChannel(channelId).multiStepVelocitySpike(stepid);
+    }
     
+    /**
+     * Stops Playback and clears all steps. Redraws all Channels.
+     */
+    public void clearAllSteps() {
+    	player.stop();
+		song.clearAllSteps();
+		redrawChannels();
+    }
+ 
+	
+	//-----------------------------------------------------------------------
+	// Methods for updating the GUI
+	
     /**
      * Numerate the steps. Used when Loading a song from the database.
      */
@@ -361,24 +391,21 @@ public class GUIController {
 		channelContainer.invalidate();
 	}
     
-    /**
-     * Sets the steps velocity to 100%, the two neighbors to 70% and
-     * the neighbors neighbors to 30%. Activates the mentioned steps.
-     * @param channelId on which channel to set the spike
-     * @param stepid on which step to set the spike
-     */
-    public void setSpike(int channelId, int stepid){
-    	song.getChannel(channelId).multiStepVelocitySpike(stepid);
-    }
     
     /**
-     * Stops Playback and clears all steps. Redraws all Channels.
-     */
-    public void clearAllSteps() {
-    	player.stop();
-		song.clearAllSteps();
-		redrawChannels();
-    }
+	 * Update the name on the GUI-button
+	 * @param channelId 
+	 */
+	public void updateButtonGUI(int channelId){
+		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
+  
+    	if (channelId <  channelContainer.getChildCount()){
+    		TableRow row = (TableRow)channelContainer.getChildAt(channelId);
+    		ChannelButtonGUI guib = (ChannelButtonGUI) row.getChildAt(0);
+    		guib.updateName();
+    	}
+	}
+    
     
     /**
      * Method for invalidating all elements in the channel container.
@@ -395,13 +422,9 @@ public class GUIController {
     	}
     }
     
-    /**
-     * If solo-mode has been enabled previously, this resets the solo-variable.
-     * solo represents a channel number if it is higher than or equal to 0.
-     */
-    public void stopSolo(){
-    	solo = -1;
-    }
+    
+    //-------------------------------------------------------------------------
+    // Methods for what to do then the GUIControler are destroyed
     
 	/**
 	 * Call onStop.
@@ -417,10 +440,9 @@ public class GUIController {
     	player.stop();
     }
     
-    
-    //
-    // Listeners:
-    //
+   
+    //------------------------------------------------------------------------------------
+    // Listeners:    
     
 	/**
 	 * Listener to the step buttons.
@@ -444,7 +466,8 @@ public class GUIController {
 
 		public boolean onLongClick(View v) {
 			GUIStepButton gsb = (GUIStepButton) v;
-			StepDialog vd = new StepDialog(parentActivity, gsb.getStep(), GUIController.this, gsb.getChannelId(), gsb.getStepId());
+			StepDialog vd = new StepDialog(parentActivity, gsb.getStep(), 
+								GUIController.this, gsb.getChannelId(), gsb.getStepId());
 			vd.show();
 
 			return true;
@@ -537,6 +560,10 @@ public class GUIController {
 		}
 	};
 
+	
+	//-----------------------------------------------------------------------------------
+	// Methods for showing dialogs
+	
 	/**
 	 * Shows the license(s) in a Dialog.
 	 * Reads a textfile from res/raw, creates a simple dialog and puts the read text in the dialog.

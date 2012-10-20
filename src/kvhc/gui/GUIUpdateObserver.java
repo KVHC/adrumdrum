@@ -36,6 +36,7 @@ import android.widget.TableRow;
 public class GUIUpdateObserver implements Observer {
 	
 	private static final int START_OF_STEPINDEX = 3;
+	private static final int NUMBER_OF_STARTING_BUTTONS = 2;
 	private Activity parentActivity;
 	private int current;
 	
@@ -60,18 +61,23 @@ public class GUIUpdateObserver implements Observer {
 		
 		if (step >= 0){
 			
+			// For every row
 			for (int i = 0; i < channelContainer.getChildCount(); i++) {
 				TableRow row = (TableRow) channelContainer.getChildAt(i);
 				
+				// If there are no steps
 				if (row.getChildCount() <= START_OF_STEPINDEX) {
 					break;
 				}
 				int totalSteps = row.getChildCount() - START_OF_STEPINDEX; 
 				int previousStep = (step - 1);
+				
+				// If there are no previos step
 				if (previousStep < 0) {
 					previousStep = totalSteps;
 				}
-				// +2 för att första två elementen är knappar
+				
+				// Add 2 becouse of the buttons in the beginning of each row
 				((GUIStepButton)row.getChildAt(previousStep + 2)).setPlaying(false);
 				((GUIStepButton)row.getChildAt(previousStep + 2)).invalidate();
 				((GUIStepButton)row.getChildAt(step + 2)).setPlaying(true);
@@ -90,6 +96,7 @@ public class GUIUpdateObserver implements Observer {
 				}
 			}
 		}
+		// Redraw the channelContainer
 		channelContainer.invalidate();
 	}
 	
