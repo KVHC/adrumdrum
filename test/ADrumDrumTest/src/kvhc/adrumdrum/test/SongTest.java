@@ -19,6 +19,8 @@
  */
 package kvhc.adrumdrum.test;
 
+import java.util.Random;
+
 import junit.framework.Assert;
 import kvhc.models.Channel;
 import kvhc.models.Song;
@@ -168,9 +170,7 @@ public class SongTest extends AndroidTestCase {
 		Assert.assertEquals(defaultNumberOfSteps-3, s.getNumberOfSteps());
 	}
 	
-	/**
-	 * 
-	 */
+
 }
 
 

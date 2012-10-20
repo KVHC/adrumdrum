@@ -23,6 +23,7 @@ import junit.framework.Assert;
 import android.test.AndroidTestCase;
 import java.util.Random;
 import kvhc.models.Channel;
+import kvhc.models.Song;
 import kvhc.models.Sound;
 
 /**
@@ -118,6 +119,45 @@ public class ChannelTest extends AndroidTestCase {
         testChannel.resizeBy(0 - (before + 1));
         after = testChannel.getNumberOfSteps();
         Assert.assertEquals(before, after);
-    } 
+    }
+    
+	/**
+	 * Tests multiStepVelocitySpike()
+	 */
+	public void testMultiStepVelocitySpike() {
+		Channel c = new Channel();
+		
+		int middleStep = DEFAULT_NUMBER_OF_STEPS/2; 
+		c.multiStepVelocitySpike(middleStep);
+		
+		Assert.assertEquals(1.0f, c.getStepAt(middleStep).getVelocity());
+		Assert.assertEquals(0.7f, c.getStepAt(middleStep-1).getVelocity());
+		Assert.assertEquals(0.7f, c.getStepAt(middleStep+1).getVelocity());
+		Assert.assertEquals(0.3f, c.getStepAt(middleStep-2).getVelocity());
+		Assert.assertEquals(0.3f, c.getStepAt(middleStep+2).getVelocity());	
+	}
+	
+	/**
+	 * Tests toggleStep(int)
+	 */
+	public void testToggleStep() {
+		Channel c = new Channel();
+		c.setStep(0, true);
+		c.toggleStep(0);
+		c.toggleStep(1);
+		
+		Assert.assertEquals(false, c.isStepActive(0));
+		Assert.assertEquals(true, c.isStepActive(1));
+	}
+	
+	public void testSetAndGetVolume() {
+		Channel c = new Channel();
+		c.setVolume(1.0f);
+		Assert.assertEquals(c.getVolume(), 1.0f);
+		c.setVolume(0.1f);
+		Assert.assertEquals(c.getVolume(), 0.1f);
+	}
+	
+	
 }
 
