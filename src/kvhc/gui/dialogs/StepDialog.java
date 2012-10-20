@@ -108,6 +108,8 @@ public class StepDialog extends Dialog {
     };
 
     
+    // Different on click listeners 
+    
 	/**
 	 * An on click listener that close this dialog.
 	 */

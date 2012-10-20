@@ -171,7 +171,7 @@ public class ChannelDialog extends Dialog{
 	/**
 	 * Sets the solo button text depending on if it's solo or not.
 	 */
-	public void setSoloButtonText(){
+	private void setSoloButtonText(){
 		if (guic.getSoloChannel() == id){
 			solo.setText("End Solo");
 		} else {
@@ -227,6 +227,7 @@ public class ChannelDialog extends Dialog{
 		}
     };
 	
+    // Different on click listeners
 	
 	/**
 	 * A on click listener that close this dialog.
@@ -237,6 +238,7 @@ public class ChannelDialog extends Dialog{
 		}
 	};
 	
+		
 	/**
 	 * Listener to the clearSteps button.
 	 */

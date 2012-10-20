@@ -68,7 +68,7 @@ I paketet dialogs ligger alla dialoger som används av programmet.
 
 	*----ChannelDialog----*
 	En dialog över olika kanalinställningar
-
+	
 
 	*----StepDialog----*
 	En dialog som ändrar värden på ett Step. Startas av en GUIStepButton
@@ -90,23 +90,48 @@ Paketet player innehåller de klasser som styr spelaren och
 
 	*----Song----*
 	Song används för att modellera antalet kanaler och hur många steg varje 
-	kanal har. 
+	kanal har.
+	Viktiga metoder:
+		* addChannel
+		* removeChannel
+		* getNumberOfChannels
+		* addSteps
+		* removeSteps
+		* getNumberOfSteps
+		* clearAllSteps
+		* getSounds
 
 
 	*----Channel----*
 	En Channel innehåller ett visst antal Steps. I en Channel finns det även
 	variabler och metoder för att ändra kanalvolym, uppspelningsljud och 
 	panning
+	Viktiga metoder:
+		* setStep
+		* toggleStep
+		* getStepAt
+		* getSteps
+		* getNumberOfSteps
+		* resizeBy
 
 
 	*----Step----*
 	Ett Step är en modell för en ruta som man kan markera som aktiv eller inte. 
 	Step innehåller också ett värde för hur hög ljuduppspelningen ska vara.
+	Viktiga metoder:
+		* setActive
+		* isActive
+		* reset
+		* getId
+		* clone
 
 
 	*----Sound----*
 	Ett sound är en "Wrapper klass" för ett ljud
-
+	Viktiga metoder:
+		* getId
+		* getSoundValue
+		* getName
 
 
 

@@ -72,12 +72,12 @@ public class GUIUpdateObserver implements Observer {
 				int totalSteps = row.getChildCount() - START_OF_STEPINDEX; 
 				int previousStep = (step - 1);
 				
-				// If there are no previos step
+				// If there are no previous step
 				if (previousStep < 0) {
 					previousStep = totalSteps;
 				}
 				
-				// Add 2 becouse of the buttons in the beginning of each row
+				// Add 2 because of the buttons in the beginning of each row
 				((GUIStepButton)row.getChildAt(previousStep + 2)).setPlaying(false);
 				((GUIStepButton)row.getChildAt(previousStep + 2)).invalidate();
 				((GUIStepButton)row.getChildAt(step + 2)).setPlaying(true);
