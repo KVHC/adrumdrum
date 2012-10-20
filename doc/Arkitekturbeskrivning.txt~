@@ -118,11 +118,20 @@ Paketet player innehåller de klasser som styr spelaren och
 	*----Step----*
 	Ett Step är en modell för en ruta som man kan markera som aktiv eller inte. 
 	Step innehåller också ett värde för hur hög ljuduppspelningen ska vara.
+	Viktiga metoder:
+		* setActive
+		* isActive
+		* reset
+		* getId
+		* clone
 
 
 	*----Sound----*
 	Ett sound är en "Wrapper klass" för ett ljud
-
+	Viktiga metoder:
+		* getId
+		* getSoundValue
+		* getName
 
 
 
@@ -135,15 +144,28 @@ behöver för adrumdrum
 	Player spelar upp en angiven Song. Player sköter vad som ska spelas upp 
 	och när det ska göras. En Player har en SoundManager som sköter 
 	uppspelningen av ljud
+		* play
+		* stop
+		* isPlaying
+		* setWaitTimeByBPM
+		* getActiveStep
+		
 
 
 	*----SoundManager----*
 	SoundManager sköter all uppspelning av ljud
-
+	Viktiga metoder:
+		* playSound
+		
 
 	*----AndroidTimer----*
 	En timer som kör en Runnable varje gång som "tiden går ut". Används av 
 	player för att styra tiden mellan varje uppspelning av nästa steg.
+	Viktiga metoder:
+		* start
+		* stop
+		* running
+		* changeJob	
 
 
 	*----AssetManagerModel----*

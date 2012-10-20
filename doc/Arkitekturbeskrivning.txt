@@ -144,25 +144,39 @@ behöver för adrumdrum
 	Player spelar upp en angiven Song. Player sköter vad som ska spelas upp 
 	och när det ska göras. En Player har en SoundManager som sköter 
 	uppspelningen av ljud
+		* play
+		* stop
+		* isPlaying
+		* setWaitTimeByBPM
+		* getActiveStep
+		
 
 
 	*----SoundManager----*
 	SoundManager sköter all uppspelning av ljud
-
+	Viktiga metoder:
+		* playSound
+		
 
 	*----AndroidTimer----*
 	En timer som kör en Runnable varje gång som "tiden går ut". Används av 
 	player för att styra tiden mellan varje uppspelning av nästa steg.
+	Viktiga metoder:
+		* start
+		* stop
+		* running
+		* changeJob	
 
 
 	*----AssetManagerModel----*
 	En klass för att hantera ljud. Klassen är en singelton.
-
+	Viktiga metoder
+		* getInstance
 
 	*----ISongLoader----*
 	Ett interface för att ladda en låt. Används för att kunna spela upp 
 	låten med olika bibliotek eller på olika sätt.
-
+		
 
 	*----ISongRenderer----*
 	Ett interface för att rendera en song. 
@@ -171,7 +185,10 @@ behöver för adrumdrum
 	*----SoundPoolRenderer----*
 	Implementerar ISongRenderer. Renderar ljud och spelar upp dem genom 
 	att använda en SoundManager
-	
+	Viktiga metoder:	
+		* renderSong
+		* renderSongAtStep
+
 
 #----kvhc.util.db----#
 util.db innehåller de klasser som används för att skriva och läsa från databasen
