@@ -3,338 +3,663 @@
   <class id="1" corner="BOTTOM_RIGHT" language="java" name="kvhc.adrumdrum.MainActivity" 
     project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/adrumdrum/MainActivity.java" 
     binary="false">    
-    <position height="-1" width="-1" x="287" y="432"/>    
+    <position height="-1" width="-1" x="2438" y="119"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="2" corner="BOTTOM_RIGHT" language="java" name="kvhc.gui.StepDialog" project="kvhc.adrumdrum.MainActivity" 
-    file="/kvhc.adrumdrum.MainActivity/src/kvhc/gui/StepDialog.java" binary="false">    
-    <position height="-1" width="-1" x="1194" y="154"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <class id="3" corner="BOTTOM_RIGHT" language="java" name="kvhc.gui.ChannelButtonGUI" 
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="kvhc.gui.ChannelButtonGUI" 
     project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/gui/ChannelButtonGUI.java" 
     binary="false">    
-    <position height="-1" width="-1" x="1490" y="112"/>    
+    <position height="-1" width="-1" x="3146" y="446"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="4" corner="BOTTOM_RIGHT" language="java" name="kvhc.gui.GUIStepButton" 
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="kvhc.gui.GUIStepButton" 
     project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/gui/GUIStepButton.java" 
     binary="false">    
-    <position height="-1" width="-1" x="2083" y="265"/>    
+    <position height="-1" width="-1" x="2508" y="584"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="5" corner="BOTTOM_RIGHT" language="java" name="kvhc.gui.ChannelDialog" 
-    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/gui/ChannelDialog.java" 
-    binary="false">    
-    <position height="-1" width="-1" x="1802" y="197"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <class id="6" corner="BOTTOM_RIGHT" language="java" name="kvhc.gui.GUIUpdateObserver" 
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="kvhc.gui.GUIUpdateObserver" 
     project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/gui/GUIUpdateObserver.java" 
     binary="false">    
-    <position height="-1" width="-1" x="2335" y="104"/>    
+    <position height="-1" width="-1" x="2276" y="425"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="7" corner="BOTTOM_RIGHT" language="java" name="kvhc.gui.GUIController" 
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="kvhc.gui.GUIController" 
     project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/gui/GUIController.java" 
     binary="false">    
-    <position height="-1" width="-1" x="906" y="625"/>    
+    <position height="-1" width="-1" x="1953" y="689"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="8" corner="BOTTOM_RIGHT" language="java" name="kvhc.gui.ChannelMuteButton" 
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="kvhc.gui.ChannelMuteButton" 
     project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/gui/ChannelMuteButton.java" 
     binary="false">    
-    <position height="-1" width="-1" x="2341" y="299"/>    
+    <position height="-1" width="-1" x="2814" y="452"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="9" corner="BOTTOM_RIGHT" language="java" name="kvhc.player.Player" project="kvhc.adrumdrum.MainActivity" 
-    file="/kvhc.adrumdrum.MainActivity/src/kvhc/player/Player.java" binary="false">    
-    <position height="-1" width="-1" x="854" y="1348"/>    
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="kvhc.gui.dialogs.LoadSongDialog" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/gui/dialogs/LoadSongDialog.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="2270" y="939"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="10" corner="BOTTOM_RIGHT" language="java" name="kvhc.player.Step" project="kvhc.adrumdrum.MainActivity" 
-    file="/kvhc.adrumdrum.MainActivity/src/kvhc/player/Step.java" binary="false">    
-    <position height="-1" width="-1" x="2003" y="1143"/>    
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="kvhc.gui.dialogs.StepDialog" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/gui/dialogs/StepDialog.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="2509" y="973"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="11" corner="BOTTOM_RIGHT" language="java" name="kvhc.player.Song" project="kvhc.adrumdrum.MainActivity" 
-    file="/kvhc.adrumdrum.MainActivity/src/kvhc/player/Song.java" binary="false">    
-    <position height="-1" width="-1" x="1125" y="1369"/>    
+  <class id="9" corner="BOTTOM_RIGHT" language="java" name="kvhc.gui.dialogs.SaveSongDialog" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/gui/dialogs/SaveSongDialog.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="2766" y="922"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="12" corner="BOTTOM_RIGHT" language="java" name="kvhc.player.Channel" project="kvhc.adrumdrum.MainActivity" 
-    file="/kvhc.adrumdrum.MainActivity/src/kvhc/player/Channel.java" binary="false">    
-    <position height="-1" width="-1" x="1656" y="1283"/>    
+  <class id="10" corner="BOTTOM_RIGHT" language="java" name="kvhc.gui.dialogs.ChannelDialog" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/gui/dialogs/ChannelDialog.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="3046" y="1018"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="13" corner="BOTTOM_RIGHT" language="java" name="kvhc.player.Sound" project="kvhc.adrumdrum.MainActivity" 
-    file="/kvhc.adrumdrum.MainActivity/src/kvhc/player/Sound.java" binary="false">    
-    <position height="-1" width="-1" x="1391" y="1465"/>    
+  <class id="11" corner="BOTTOM_RIGHT" language="java" name="kvhc.models.Step" project="kvhc.adrumdrum.MainActivity" 
+    file="/kvhc.adrumdrum.MainActivity/src/kvhc/models/Step.java" binary="false">    
+    <position height="-1" width="-1" x="2150" y="1891"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <interface id="14" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.ISongRenderer" 
+  <class id="12" corner="BOTTOM_RIGHT" language="java" name="kvhc.models.Sound" project="kvhc.adrumdrum.MainActivity" 
+    file="/kvhc.adrumdrum.MainActivity/src/kvhc/models/Sound.java" binary="false">    
+    <position height="-1" width="-1" x="2385" y="1843"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="13" corner="BOTTOM_RIGHT" language="java" name="kvhc.models.Song" project="kvhc.adrumdrum.MainActivity" 
+    file="/kvhc.adrumdrum.MainActivity/src/kvhc/models/Song.java" binary="false">    
+    <position height="-1" width="-1" x="1584" y="1976"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="14" corner="BOTTOM_RIGHT" language="java" name="kvhc.models.Channel" project="kvhc.adrumdrum.MainActivity" 
+    file="/kvhc.adrumdrum.MainActivity/src/kvhc/models/Channel.java" binary="false">    
+    <position height="-1" width="-1" x="1879" y="2074"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="15" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.Player" project="kvhc.adrumdrum.MainActivity" 
+    file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/Player.java" binary="false">    
+    <position height="-1" width="-1" x="349" y="1458"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="16" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.ISongRenderer" 
     project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/ISongRenderer.java" 
     binary="false">    
-    <position height="-1" width="-1" x="649" y="1629"/>    
+    <position height="-1" width="-1" x="637" y="1373"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </interface>  
-  <class id="15" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.SoundPoolRenderer" 
+  <class id="17" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.SoundPoolRenderer" 
     project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/SoundPoolRenderer.java" 
     binary="false">    
-    <position height="-1" width="-1" x="164" y="1811"/>    
+    <position height="-1" width="-1" x="123" y="1176"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="16" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.PdRenderer" project="kvhc.adrumdrum.MainActivity" 
-    file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/PdRenderer.java" binary="false">    
-    <position height="-1" width="-1" x="401" y="1802"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <class id="17" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.SQLRenderer" 
-    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/SQLRenderer.java" 
-    binary="false">    
-    <position height="-1" width="-1" x="866" y="1800"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <class id="18" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.SoundFetcher" 
-    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/SoundFetcher.java" 
-    binary="false">    
-    <position height="-1" width="-1" x="637" y="1785"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <class id="19" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.AndroidTimer" 
+  <class id="18" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.AndroidTimer" 
     project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/AndroidTimer.java" 
     binary="false">    
-    <position height="-1" width="-1" x="387" y="1530"/>    
+    <position height="-1" width="-1" x="106" y="1689"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="20" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.DatabaseHandler" 
-    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/DatabaseHandler.java" 
+  <class id="19" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.SoundManager" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/SoundManager.java" 
     binary="false">    
-    <position height="-1" width="-1" x="1097" y="1976"/>    
+    <position height="-1" width="-1" x="385" y="1199"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <realization id="21">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="14"/>  
-  </realization>  
-  <association id="22">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="23" name="guic"/>      
-      <multiplicity id="24" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="25">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="14"/>  
-  </realization>  
-  <association id="26">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="27" name="guic"/>      
-      <multiplicity id="28" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="29">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="30" name="song"/>      
-      <multiplicity id="31" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
+  <class id="20" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.AssetManagerModel" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/AssetManagerModel.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="111" y="1407"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="21" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.ISongLoader" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/ISongLoader.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="614" y="1146"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="22" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.db.SoundDataSource" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/db/SoundDataSource.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="532" y="528"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="23" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.db.SQLRenderer" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/db/SQLRenderer.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="770" y="301"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="24" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.db.StepSQLiteHelper" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/db/StepSQLiteHelper.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="783" y="822"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="25" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.db.ChannelDataSource" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/db/ChannelDataSource.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="1278" y="519"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="26" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.db.SongSQLiteHelper" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/db/SongSQLiteHelper.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="1035" y="805"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="27" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.db.ChannelSQLiteHelper" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/db/ChannelSQLiteHelper.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="1287" y="848"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="28" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.db.StepDataSource" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/db/StepDataSource.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="773" y="528"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="29" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.db.SongDataSource" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/db/SongDataSource.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="1007" y="519"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="30" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.db.SQLSongLoader" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/db/SQLSongLoader.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="998" y="301"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="31" corner="BOTTOM_RIGHT" language="java" name="kvhc.util.db.SoundSQLiteHelper" 
+    project="kvhc.adrumdrum.MainActivity" file="/kvhc.adrumdrum.MainActivity/src/kvhc/util/db/SoundSQLiteHelper.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="531" y="805"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
   <association id="32">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="33" name="mTimer"/>      
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="33" name="guic"/>      
       <multiplicity id="34" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="19" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="35">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="36" name="mSounds"/>      
-      <multiplicity id="37" minimum="0" maximum="2147483647"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="36" name="mSong"/>      
+      <multiplicity id="37" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="13" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="38">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="39" name="guic"/>      
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="39" name="mSongManager"/>      
       <multiplicity id="40" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="20" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="41">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="42" name="step"/>      
-      <multiplicity id="43" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="44">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="45" name="channel"/>      
-      <multiplicity id="46" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="47">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="48" name="mChannelRender"/>      
-      <multiplicity id="49" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="50">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="51" name="channel"/>      
-      <multiplicity id="52" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="53">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="54" name="mChannels"/>      
-      <multiplicity id="55" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="56">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="57" name="guic"/>      
-      <multiplicity id="58" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="59">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="60" name="step"/>      
-      <multiplicity id="61" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="62">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="63" name="player"/>      
-      <multiplicity id="64" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="65">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="66" name="channel"/>      
-      <multiplicity id="67" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="68">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="69" name="mSteps"/>      
-      <multiplicity id="70" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="71">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="72" name="song"/>      
-      <multiplicity id="73" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="42" name="mSteps"/>      
+      <multiplicity id="43" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="74">    
-    <end type="SOURCE" refId="15"/>    
-    <end type="TARGET" refId="14"/>  
+  <association id="44">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="45" name="song"/>      
+      <multiplicity id="46" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="47">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="48" name="player"/>      
+      <multiplicity id="49" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="50">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="51" name="channel"/>      
+      <multiplicity id="52" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="53">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="21"/>  
   </realization>  
-  <association id="75">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="76" name="channel"/>      
-      <multiplicity id="77" minimum="0" maximum="1"/>    
+  <association id="54">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="55" name="channel"/>      
+      <multiplicity id="56" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="57">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="58" name="step"/>      
+      <multiplicity id="59" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="60">    
+    <end type="SOURCE" refId="29" navigable="false">      
+      <attribute id="61" name="dbHelper"/>      
+      <multiplicity id="62" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="63">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="64" name="mSounds"/>      
+      <multiplicity id="65" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <association id="66">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="67" name="channel"/>      
+      <multiplicity id="68" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="69">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="70" name="guic"/>      
+      <multiplicity id="71" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="72">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="73" name="mInstance"/>      
+      <multiplicity id="74" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="75">    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="76" name="mDBSoundHelper"/>      
+      <multiplicity id="77" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <association id="78">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="79" name="mSound"/>      
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="79" name="channel"/>      
       <multiplicity id="80" minimum="0" maximum="1"/>    
     </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="81">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="82" name="guic"/>      
+      <multiplicity id="83" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="84">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="85" name="dbSongHelper"/>      
+      <multiplicity id="86" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="87">    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="88" name="mDBSongHelper"/>      
+      <multiplicity id="89" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="90">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="91" name="song"/>      
+      <multiplicity id="92" minimum="0" maximum="1"/>    
+    </end>    
     <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="93">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="94" name="step"/>      
+      <multiplicity id="95" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="96">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="97" name="mChannels"/>      
+      <multiplicity id="98" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="99">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="100" name="dbChannelHelper"/>      
+      <multiplicity id="101" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="102">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="103" name="mSongRender"/>      
+      <multiplicity id="104" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="105">    
+    <end type="SOURCE" refId="28" navigable="false">      
+      <attribute id="106" name="dbHelper"/>      
+      <multiplicity id="107" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="108">    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="109" name="dbHelper"/>      
+      <multiplicity id="110" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="111">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="112" name="mDBsoundHelper"/>      
+      <multiplicity id="113" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="114">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="115" name="dbStepHelper"/>      
+      <multiplicity id="116" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="117">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="118" name="mSoundManager"/>      
+      <multiplicity id="119" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="120">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="121" name="mSoundManager"/>      
+      <multiplicity id="122" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="123">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="124" name="sounds"/>      
+      <multiplicity id="125" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="126">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="16"/>  
+  </realization>  
+  <association id="127">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="128" name="mSongRenderer"/>      
+      <multiplicity id="129" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="130">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="131" name="guic"/>      
+      <multiplicity id="132" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="133">    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="134" name="mDBStepHelper"/>      
+      <multiplicity id="135" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="136">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="137" name="mSongLoader"/>      
+      <multiplicity id="138" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="139">    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="140" name="mSongs"/>      
+      <multiplicity id="141" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="142">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="16"/>  
+  </realization>  
+  <association id="143">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="144" name="dbHelper"/>      
+      <multiplicity id="145" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="146">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="147" name="dbSoundHelper"/>      
+      <multiplicity id="148" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="149">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="150" name="mSoundManager"/>      
+      <multiplicity id="151" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="152">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="153" name="mSoundLoader"/>      
+      <multiplicity id="154" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="155">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="156" name="mSong"/>      
+      <multiplicity id="157" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="158">    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="159" name="mDBChannelHelper"/>      
+      <multiplicity id="160" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="161">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="162" name="guic"/>      
+      <multiplicity id="163" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="164">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="165" name="mSound"/>      
+      <multiplicity id="166" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="167">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="168" name="mDBSoundHelper"/>      
+      <multiplicity id="169" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="170">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="171" name="mSongList"/>      
+      <multiplicity id="172" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="173">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="174" name="mTimer"/>      
+      <multiplicity id="175" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
