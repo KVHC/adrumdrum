@@ -35,7 +35,7 @@ import kvhc.models.Sound;
 public class ChannelTest extends AndroidTestCase {
     
 	private String testString = "test";
-	private final int DEFAULT_NUMBER_OF_STEPS=16;
+	private static final int DEFAULT_NUMBER_OF_STEPS=16;
 	
 	/**
      * Test the parameterless constructor.
