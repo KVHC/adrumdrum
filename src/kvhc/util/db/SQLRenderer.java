@@ -79,6 +79,8 @@ public class SQLRenderer implements ISongRenderer {
 		dbSongHelper.save(song);
 		dbSongHelper.close();
 		
+		Log.w("SqLRenderer", "Song ID is: " + song.getId());
+		
 		dbChannelHelper.open();
 		dbStepHelper.open();
 		for (Channel channel : song.getChannels()) {

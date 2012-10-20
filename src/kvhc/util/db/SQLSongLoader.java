@@ -23,6 +23,7 @@ package kvhc.util.db;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import kvhc.models.Channel;
 import kvhc.models.Song;
 import kvhc.models.Sound;
@@ -79,7 +80,7 @@ public class SQLSongLoader implements ISongLoader {
 		
 		// This might be stupid.
 		if(mSongs == null || mSongs.size() == 0) {
-			mSongs = getSongList(null);
+			getSongList(null);
 		}
 		
 		// Get arguments
@@ -99,6 +100,11 @@ public class SQLSongLoader implements ISongLoader {
 		for(Song song : mSongs) {
 			if(song.getName().equals(name)) {
 				loadedSong = song;
+				
+				Log.w("SQLSongLoader", "Id: " + song.getId());
+				Log.w("SQLSongLoader", "Name: " + song.getName());
+				Log.w("SQLSongLoader", "NumChannels: " + song.getNumberOfChannels());
+				Log.w("SQLSongLoader", "NumSteps: " + song.getNumberOfSteps());
 				break;
 			}
 		}

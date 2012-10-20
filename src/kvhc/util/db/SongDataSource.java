@@ -41,7 +41,10 @@ public class SongDataSource {
 	// Properties
 	private SQLiteDatabase database;
 	private SongSQLiteHelper dbHelper;
-	private String[] allColumns = { SongSQLiteHelper.COLUMN_ID, SongSQLiteHelper.COLUMN_NAME };
+	private String[] allColumns = { 
+			SongSQLiteHelper.COLUMN_ID, 
+			SongSQLiteHelper.COLUMN_NAME, 
+			SongSQLiteHelper.COLUMN_BPM };
 	
 	/**
 	 * Default Constructor, needs the context to be able to use the database. 
@@ -79,7 +82,7 @@ public class SongDataSource {
 		
 		// Fill value table.
 		values.put(SongSQLiteHelper.COLUMN_NAME, name);
-		values.put(SongSQLiteHelper.COLUMN_BPM, name);
+		values.put(SongSQLiteHelper.COLUMN_BPM, bpm);
 		
 		// Run query
 		long insertId = database.insert(SongSQLiteHelper.TABLE_SONG, null, values);

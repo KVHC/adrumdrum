@@ -31,6 +31,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 /**
  * Channel object DAO.
@@ -93,7 +94,7 @@ public class ChannelDataSource {
 	private long createChannel(Song song, Sound sound, float volume, float rightPan, float leftPan, int number, boolean mute) {
 		
 		// Does the song exist?
-		if(song != null && song.getId() != 0) {
+		if(song == null || song.getId() == 0) {
 			// Nope, don't add to the database.
 			return 0;
 		}
@@ -161,6 +162,8 @@ public class ChannelDataSource {
 		// Run query.
 		Cursor cursor = database.query(ChannelSQLiteHelper.TABLE_CHANNEL, allColumns, where, whereArgs, 
 				null,null, orderBy);
+		
+		Log.w("ChannelDataSource", "Number of Channels found: " + cursor.getCount());
 		
 		// Fill the list.
 		cursor.moveToFirst();
