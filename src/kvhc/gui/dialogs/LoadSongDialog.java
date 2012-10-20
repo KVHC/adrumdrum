@@ -65,7 +65,7 @@ public class LoadSongDialog extends Dialog {
 		// Set up the view
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.load_song);
-		setTitle("Load Song");
+		setTitle("Load Beat");
 		
 		if(mSongLoader == null) {
 			mSongLoader = new SQLSongLoader(getContext());

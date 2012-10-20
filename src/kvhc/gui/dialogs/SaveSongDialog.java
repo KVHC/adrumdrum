@@ -59,7 +59,7 @@ public class SaveSongDialog extends Dialog {
 		// Set up the dialog
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.save_song);
-        setTitle("Save Song");
+        setTitle("Save Beat");
         
         if(mSongRenderer == null) {
         	mSongRenderer = new SQLRenderer(getContext());

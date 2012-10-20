@@ -23,6 +23,6 @@
     <string name="samples_prompt">Choose a sample</string>
     <string name="licenses">Licenses</string>
     <string name="remove_Button">Remove this channel</string>
-    <string name="save_song_option">Save Song</string>
-    <string name="load_song_option">Load Song</string>
+    <string name="save_song_option">Save Beat</string>
+    <string name="load_song_option">Load Beat</string>
 </resources>
