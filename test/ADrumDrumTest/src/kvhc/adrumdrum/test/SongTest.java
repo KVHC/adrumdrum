@@ -31,7 +31,7 @@ import android.test.AndroidTestCase;
  */
 public class SongTest extends AndroidTestCase {
 
-	private final int NUMBER_OF_CHANNELS = 4;
+	private static final int NUMBER_OF_CHANNELS = 4;
 	
 	/**
 	 * Tests constructor with numChannels-parameter
