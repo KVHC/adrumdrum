@@ -31,12 +31,14 @@ import android.test.AndroidTestCase;
  */
 public class SongTest extends AndroidTestCase {
 
+	private final int NUMBER_OF_CHANNELS = 4;
+	
 	/**
 	 * Tests constructor with numChannels-parameter
 	 */
 	public void testFirstConstructor() {
-		Song s = new Song(4);
-		Assert.assertEquals(4, s.getNumberOfChannels());
+		Song s = new Song(NUMBER_OF_CHANNELS);
+		Assert.assertEquals(NUMBER_OF_CHANNELS, s.getNumberOfChannels());
 		Assert.assertNotNull(s);
 		Assert.assertNull(s.getChannel(0).getSound());
 	}
@@ -46,8 +48,8 @@ public class SongTest extends AndroidTestCase {
 	 * @throws Exception 
 	 */
 	public void testRemoveChannel() throws Exception {
-		Song s = new Song(4);
-		Assert.assertEquals(4, s.getNumberOfChannels());
+		Song s = new Song(NUMBER_OF_CHANNELS);
+		Assert.assertEquals(NUMBER_OF_CHANNELS, s.getNumberOfChannels());
 		s.removeChannel(s.getNumberOfChannels()-1);
 		s.removeChannel(s.getNumberOfChannels()-1);
 		s.removeChannel(s.getNumberOfChannels()-1);
@@ -58,12 +60,12 @@ public class SongTest extends AndroidTestCase {
 	 * Tests addChannel()
 	 */
 	public void testAddChannel() {
-		Song s = new Song(4);
+		Song s = new Song(NUMBER_OF_CHANNELS);
 		
-		Assert.assertEquals(4, s.getNumberOfChannels());
+		Assert.assertEquals(NUMBER_OF_CHANNELS, s.getNumberOfChannels());
 		s.addChannel();
 		s.addChannel();
-		Assert.assertEquals(6, s.getNumberOfChannels());
+		Assert.assertEquals(NUMBER_OF_CHANNELS + 2, s.getNumberOfChannels());
 	}
 }
 

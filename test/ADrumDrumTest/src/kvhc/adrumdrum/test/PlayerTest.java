@@ -24,7 +24,9 @@ import kvhc.util.Player;
 import kvhc.models.Channel;
 import kvhc.models.Sound;
 import junit.framework.Assert;
-import java.util.*;
+import java.util.Observer;
+import java.util.Observable;
+import java.util.ArrayList;
 
 
 /**
@@ -36,7 +38,7 @@ import java.util.*;
  */
 public class PlayerTest extends AndroidTestCase implements Observer {
 	
-	int count;
+	private int count;
 	
 	/**
 	 * Tests the constructor of Player.

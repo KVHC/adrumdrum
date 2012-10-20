@@ -21,7 +21,7 @@ package kvhc.adrumdrum.test;
 
 import junit.framework.Assert;
 import android.test.AndroidTestCase;
-
+import java.util.Random;
 import kvhc.models.Channel;
 import kvhc.models.Sound;
 
@@ -33,13 +33,17 @@ import kvhc.models.Sound;
  *
  */
 public class ChannelTest extends AndroidTestCase {
-    /**
+    
+	private String testString = "test";
+	private final int DEFAULT_NUMBER_OF_STEPS=16;
+	
+	/**
      * Test the parameterless constructor.
      */
     public void testFirstConstructor() {
         Channel c = new Channel();
         Assert.assertNotNull(c);
-        Assert.assertEquals(16, c.getNumberOfSteps());
+        Assert.assertEquals(DEFAULT_NUMBER_OF_STEPS, c.getNumberOfSteps());
         Assert.assertNull(c.getSound());
     }
     /**
@@ -47,24 +51,25 @@ public class ChannelTest extends AndroidTestCase {
      */
     public void testSecondConstructor() {
         //Init
-    	Sound testSound = new Sound(1, "test");
+    	Sound testSound = new Sound(1, testString);
         Channel testChannel = new Channel(testSound);
         //Assert
         Assert.assertNotNull(testChannel);
-        Assert.assertEquals(16, testChannel.getNumberOfSteps());
+        Assert.assertEquals(DEFAULT_NUMBER_OF_STEPS, testChannel.getNumberOfSteps());
         Assert.assertNotNull(testChannel.getSound());
-        Assert.assertEquals("test", testChannel.getSound().getName());
+        Assert.assertEquals(testString, testChannel.getSound().getName());
     }
     /**
      * Test the constructor which takes a sound object and a number of steps.
      */
     public void testThirdConstructor() {
-        Sound testSound = new Sound(1, "test");
-        Channel testChannel = new Channel(testSound,8);
+    	int steps=8;
+        Sound testSound = new Sound(1, testString);
+        Channel testChannel = new Channel(testSound,steps);
         Assert.assertNotNull(testChannel);
-        Assert.assertEquals(8, testChannel.getNumberOfSteps());
+        Assert.assertEquals(steps, testChannel.getNumberOfSteps());
         Assert.assertNotNull(testChannel.getSound());
-        Assert.assertEquals("test", testChannel.getSound().getName());
+        Assert.assertEquals(testString, testChannel.getSound().getName());
     }
     /**
      * Test the IsStepActive method for all steps.
@@ -73,7 +78,7 @@ public class ChannelTest extends AndroidTestCase {
         Channel testChannel = new Channel();
         testChannel.clearAllSteps();
         //test for all steps
-        for (int i = 0; i<16; i++) {
+        for (int i = 0; i<DEFAULT_NUMBER_OF_STEPS; i++) {
             Assert.assertEquals(testChannel.isStepActive(i),
             		testChannel.getSteps().get(i).isActive());
         }
@@ -84,11 +89,11 @@ public class ChannelTest extends AndroidTestCase {
      */
     public void testPanning() {
         Channel testChannel = new Channel();
-        float RIGHTTESTLEVEL = (float)0.20;//THESE SHOULD BE RANDOM
-        float LEFTTESTLEVEL = (float)0.30;
-        testChannel.setPanning(RIGHTTESTLEVEL, LEFTTESTLEVEL); 
-        Assert.assertEquals(RIGHTTESTLEVEL, testChannel.getRightPanning());
-        Assert.assertEquals(LEFTTESTLEVEL, testChannel.getLeftPanning());
+        float rightTestLevel = new Random().nextFloat();
+        float leftTestLevel = new Random().nextFloat();;
+        testChannel.setPanning(rightTestLevel, leftTestLevel); 
+        Assert.assertEquals(rightTestLevel, testChannel.getRightPanning());
+        Assert.assertEquals(leftTestLevel, testChannel.getLeftPanning());
     }
     /**
      * Tests the resizeBy method in 3 different ways.

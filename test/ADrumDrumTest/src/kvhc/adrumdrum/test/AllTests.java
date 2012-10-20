@@ -24,9 +24,17 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 import android.test.suitebuilder.TestSuiteBuilder;
 
-
+/**
+ * TestSuite that builds all of the test classes.
+ * @author kvhc
+ */
 public class AllTests extends TestSuite {
+    /**
+     * Builds all of the test classes.
+     *  @return TestSuite
+     */
 	public static Test suite() {
-		return new TestSuiteBuilder(AllTests.class).includeAllPackagesUnderHere().build();
+		return new TestSuiteBuilder(AllTests.class).
+					includeAllPackagesUnderHere().build();
 	}
 }
