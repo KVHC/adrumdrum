@@ -44,7 +44,10 @@ public class SoundDataSource {
 	private String[] allColumns = { SoundSQLiteHelper.COLUMN_ID, SoundSQLiteHelper.COLUMN_SOUNDVALUE,
 			SoundSQLiteHelper.COLUMN_NAME };
 	
-	
+	/**
+	 * Constructor.
+	 * @param context
+	 */
 	public SoundDataSource(Context context) {
 		dbHelper = new SoundSQLiteHelper(context);
 	}
@@ -126,15 +129,13 @@ public class SoundDataSource {
 		values.put(SoundSQLiteHelper.COLUMN_SOUNDVALUE, sound.getSoundValue());
 		values.put(SoundSQLiteHelper.COLUMN_NAME, sound.getName());
 		
-		
-		if(sound.getId() > 0) {
+		if (sound.getId() > 0) {
 			String where = SoundSQLiteHelper.COLUMN_ID + " = ?";
 			String[] whereArgs = new String[] { String.valueOf(sound.getId()) };
 			database.update(SoundSQLiteHelper.TABLE_SOUND, values, where, whereArgs);
 		} else {
 			sound.setId(createSound(sound.getSoundValue(), sound.getName()).getId());
 		}
-		
 		
 	}
 }

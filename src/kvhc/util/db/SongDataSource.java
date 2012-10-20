@@ -36,7 +36,6 @@ import android.util.Log;
  * CRUD operations
  *  
  * @author kvhc
- *
  */
 public class SongDataSource {
 	private SQLiteDatabase database;
@@ -79,7 +78,7 @@ public class SongDataSource {
 			open();
 			long insertId = database.insert(SongSQLiteHelper.TABLE_SONG, null, values);
 			Log.w("DERP", "insertid: " + insertId);
-			if(insertId >= 0) {
+			if (insertId >= 0) {
 				Cursor cursor = database.query(SongSQLiteHelper.TABLE_SONG, allColumns, SongSQLiteHelper.COLUMN_ID + " = " 
 							+ insertId, null, null, null, null);
 			
@@ -107,7 +106,7 @@ public class SongDataSource {
 		ContentValues values = new ContentValues();
 		values.put(SongSQLiteHelper.COLUMN_NAME, song.getName());
 	
-		if(song.getId() > 0) {
+		if (song.getId() > 0) {
 			// Has id
 			String where = SongSQLiteHelper.COLUMN_ID + " = ?";
 			String[] whereArgs = new String[] { String.valueOf(song.getId() )};
@@ -120,7 +119,7 @@ public class SongDataSource {
 			song = createSong(song.getName());
 		}
 		
-		if(song == null) {
+		if (song == null) {
 			Log.e("SongDataSource", "NULL SONG");
 			return null;
 		}
@@ -128,6 +127,10 @@ public class SongDataSource {
 		return song;
 	}
 	
+	/**
+	 * Deletes a song from database.
+	 * @param song song to be deleted
+	 */
 	public void deleteSong(Song song) {
 		long id = song.getId();
 		
@@ -135,6 +138,10 @@ public class SongDataSource {
 		database.delete(SongSQLiteHelper.TABLE_SONG, SongSQLiteHelper.COLUMN_ID + " = " + id, null);
 	}
 	
+	/**
+	 * Returns a list of all songs.
+	 * @return a list of all songs.
+	 */
 	public List<Song> getAllSongs() {
 		List<Song> songs = new ArrayList<Song>();
 		
@@ -151,6 +158,11 @@ public class SongDataSource {
 		return songs;
 	}
 	
+	/**
+	 * Get the Song pointed to by the Cursor.
+	 * @param cursor
+	 * @return Song pointed to by the Cursor
+	 */
 	private Song cursorToSong(Cursor cursor) {
 		
 		Song song = new Song(4);

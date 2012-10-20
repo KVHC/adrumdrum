@@ -25,8 +25,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * Helper class to save a Channel to database.
+ * 
+ * @author kvhc
+ */
 public class ChannelSQLiteHelper extends SQLiteOpenHelper {
 
+	// Strings for Database
 	public static final String TABLE_CHANNEL = "channels";
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_NUMBER = "number";
@@ -50,23 +56,16 @@ public class ChannelSQLiteHelper extends SQLiteOpenHelper {
 			+ " integer," + FKEY_SOUNDID
 			+ " integer"
 			+"); commit;";
-	
-	/**
-	 * Channel
-	 *   
-	 *   int id
-	 *   int number (channel number in song)
-	 *   float volume
-	 *   float leftPan
-	 *   float rightPan
-	 *   fkey int soundId
-	 *   fkey int songId
-	 */
     
+	/**
+	 * Constructor.
+	 * @param context
+	 */
 	public ChannelSQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 	
+
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(DATABASE_CREATE);

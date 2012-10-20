@@ -484,7 +484,6 @@ public class GUIController {
 			builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int whichButton) {
 
-			        
 			    	String name = String.valueOf(input.getSelectedItem());
 			        Sound s = mSoundManager.get(name);
 			        
@@ -500,7 +499,6 @@ public class GUIController {
 			
 			builder.create();
 			builder.show();
-			
 		}
 	};
 

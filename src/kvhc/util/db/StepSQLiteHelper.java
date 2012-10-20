@@ -25,8 +25,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * Helper class to save a Step to database.
+ * @author kvhc
+ *
+ */
 public class StepSQLiteHelper extends SQLiteOpenHelper {
 
+	// Strings for database
 	public static final String TABLE_STEP = "songs";
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_NUMBER = "number";
@@ -54,6 +60,10 @@ public class StepSQLiteHelper extends SQLiteOpenHelper {
      *  int fkey channelId
      */
     
+	/**
+	 * Constructor.
+	 * @param context
+	 */
 	public StepSQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}

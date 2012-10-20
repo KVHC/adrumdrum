@@ -9,9 +9,8 @@ import kvhc.models.Sound;
  * A Class for the management of sounds. Singleton
  * 
  * @author kvhc
- *
  */
-public class AssetManagerModel<T> {
+public final class AssetManagerModel<T> {
 	
 	private HashMap<String, T> mSoundMap;
 	
@@ -21,6 +20,9 @@ public class AssetManagerModel<T> {
 	private static AssetManagerModel<Sound> mSoundManager;
 	private static AssetManagerModel<Song> mSongManager;
 	
+	/**
+	 * Empty Constructor.
+	 */
 	private AssetManagerModel() {
 	}
 	
@@ -43,9 +45,9 @@ public class AssetManagerModel<T> {
 	 * @return 
 	 */
 	public static AssetManagerModel<Sound> getSoundManager() {
-		if(mSoundManager == null)
+		if(mSoundManager == null) {
 			mSoundManager = new AssetManagerModel<Sound>().getInstance();
-		
+		}
 		return mSoundManager; 
 	}
 	
@@ -62,12 +64,11 @@ public class AssetManagerModel<T> {
 	}
 	
 	/**
-	 * Returns the value found by the key
-	 * @param key 
+	 * Returns the value found by the key.
+	 * @param key the key to success
 	 * @return null if there exists no key
 	 */
 	public T getValue(String key) {
-		
 		if(mSoundMap.containsKey(key)) {
 			return mSoundMap.get(key);
 		}
@@ -76,12 +77,11 @@ public class AssetManagerModel<T> {
 	}
 
 	/**
-	 * Set a value for a key, if the key exists, updates its reference
+	 * Set a value for a key, if the key exists, updates its reference.
 	 * @param key
 	 * @param value
 	 */
 	public void setValue(String key, T value) {
-		
 		mSoundMap.put(key, value);
 	}
 }

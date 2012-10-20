@@ -25,8 +25,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * Helper Class to save a Song to database.
+ * @author kvhc
+ *
+ */
 public class SongSQLiteHelper extends SQLiteOpenHelper {
 
+	// Strings for database
 	public static final String TABLE_SONG = "songs";
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_NAME = "name";
@@ -40,6 +46,10 @@ public class SongSQLiteHelper extends SQLiteOpenHelper {
 			+ COLUMN_NAME + " text" 
 			+ ");";
 	
+	/**
+	 * Constructor
+	 * @param context
+	 */
 	public SongSQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}

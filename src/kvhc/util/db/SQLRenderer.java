@@ -31,16 +31,13 @@ import kvhc.models.Sound;
 import kvhc.models.Step;
 import kvhc.util.ISongRenderer;
 
-
 /**
  * A SQL implementation of the ISongRenderer interface, for saving songs to 
  * the database. 
  * 
  * @author kvhc
- *
  */
 public class SQLRenderer implements ISongRenderer {
-	
 	
 	private ArrayList<Sound> mSounds;
 	private SongDataSource dbSongHelper;
@@ -49,7 +46,7 @@ public class SQLRenderer implements ISongRenderer {
 	private SoundDataSource dbSoundHelper;
 	
 	/**
-	 * constructor
+	 * Constructor.
 	 * @param context Android context for some activity or view, parent...
 	 */
 	public SQLRenderer(Context context) {
@@ -59,8 +56,10 @@ public class SQLRenderer implements ISongRenderer {
 		dbStepHelper = new StepDataSource(context);
 	}
 
-	/*  ISongRenderer implementation  */
-	public void LoadSounds(ArrayList<Sound> soundList) {
+	/**
+	 * Loads Sounds, ISongRenderer implementation.
+	 */
+	public void loadSounds(ArrayList<Sound> soundList) {
 		mSounds = soundList;
 		
 		for(Sound sound : mSounds) {
@@ -68,7 +67,10 @@ public class SQLRenderer implements ISongRenderer {
 		}
 	}
 	
-	public void RenderSong(Song song) {
+	/**
+	 * Renders a song to database, ISongRender implementation.
+	 */
+	public void renderSong(Song song) {
 		
 		dbSongHelper.open();
 		Song tmp = dbSongHelper.save(song);
@@ -78,22 +80,20 @@ public class SQLRenderer implements ISongRenderer {
 		
 		dbChannelHelper.open();
 		dbStepHelper.open();
-		for(Channel channel : song.getChannels()) {
+		for (Channel channel : song.getChannels()) {
 			dbChannelHelper.save(song, channel);
 			
 			Log.w("SQLRender", "Save steps: " + channel.getSteps().size());
-			for(Step step : channel.getSteps()) {
+			for (Step step : channel.getSteps()) {
 				dbStepHelper.save(step, channel);
 			}
 		}
 		dbStepHelper.close();
-		dbChannelHelper.close();
-		
-		
+		dbChannelHelper.close();		
 		
 	}
 	
-	public void RenderSongAtStep(Song song, int step) {
+	public void renderSongAtStep(Song song, int step) {
 		//TODO: Add implementation?  Will we use this? Seems unessesary.	
 	}
 }

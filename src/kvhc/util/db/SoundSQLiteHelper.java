@@ -25,8 +25,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * Helper class to save a Sound to database.
+ * @author kvhc
+ *
+ */
 public class SoundSQLiteHelper extends SQLiteOpenHelper {
 
+	// Strings for database
 	public static final String TABLE_SOUND = "sounds";
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_SOUNDVALUE = "sound_value";
@@ -41,7 +47,10 @@ public class SoundSQLiteHelper extends SQLiteOpenHelper {
 			+ " integer not null, " + COLUMN_NAME 
 			+ " text not null); commit;";
 	
-	
+	/**
+	 * Constructor.
+	 * @param context
+	 */
 	public SoundSQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}

@@ -44,7 +44,6 @@ public class Player extends Observable {
 	private ISongRenderer mSongRender;
 	
 	// Timing
-	private Runnable r;
 	private AndroidTimer mTimer;
 	private long waitTime; // in milliseconds
 	
@@ -66,7 +65,7 @@ public class Player extends Observable {
 		currentStep = 0;
 		isPlaying = false;
         
-        r = new Runnable(){
+		Runnable r = new Runnable(){
     		public void run() {
     			nextStep();
     		}
@@ -81,7 +80,7 @@ public class Player extends Observable {
 	 */
 	public void loadSong(Song newSong) {
 		song = newSong;
-		mSongRender.LoadSounds(song.getSounds());
+		mSongRender.loadSounds(song.getSounds());
 	}
 	
 	/**
@@ -95,7 +94,7 @@ public class Player extends Observable {
 			setChanged();
 			notifyObservers(currentStep);
 			
-			mSongRender.RenderSongAtStep(song, currentStep);
+			mSongRender.renderSongAtStep(song, currentStep);
 			
 			currentStep++;
 

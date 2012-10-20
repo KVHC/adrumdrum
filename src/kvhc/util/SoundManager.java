@@ -1,5 +1,5 @@
 /**
- * aDrumDrum is a stepsequencer for Android.
+ * aDrumDrum is a step sequencer for Android.
  * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
@@ -38,20 +38,19 @@ import android.media.SoundPool;
  */
 @SuppressLint("UseSparseArrays")
 public class SoundManager {
-	private  SoundPool mSoundPool;
-	private  HashMap<Integer, Integer> mSoundPoolMap;
-	private  AudioManager  mAudioManager;
-	private  Context mContext;
+	private SoundPool mSoundPool;
+	private HashMap<Integer, Integer> mSoundPoolMap;
+	private AudioManager  mAudioManager;
+	private Context mContext;
 	
 	
 	/**
 	 * Initiate a SoundManager.
 	 * 
-	 * @param theContext Context for the audio service.
+	 * @param context Context for the audio service.
 	 */
-	
-	public void initSounds(Context theContext) {
-	    mContext = theContext;
+	public void initSounds(Context context) {
+	    mContext = context;
 	    mSoundPool = new SoundPool(24, AudioManager.STREAM_MUSIC, 0);
 	    mSoundPoolMap = new HashMap<Integer, Integer>(16);
 	    mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
@@ -61,21 +60,23 @@ public class SoundManager {
 	 * Add a sound to a SoundManager.
 	 * 
 	 * @param index index of the sound added.
-	 * @param SoundID resource ID.
+	 * @param soundID resource ID.
 	 */
-	public void addSound(int index, int SoundID)
-	{
-	    mSoundPoolMap.put(index, mSoundPool.load(mContext, SoundID, 1));
+	public void addSound(int index, int soundID) {
+	    mSoundPoolMap.put(index, mSoundPool.load(mContext, soundID, 1));
 	}
 	
 	/**
 	 * Play a sound.
+	 * All volume values are floats between 0 and 1.
+	 * Volume for right/left speaker are multiplied by the "global" volume.
 	 * 
-	 * @param index a sound to play.
-	 * @param right right volume.
-	 * @param left left volume.
+	 * @param index index of the sound to play
+	 * @param right right volume
+	 * @param left left volume
+	 * @param volume "global" volume
 	 */
-	public void playSound(int index,float right, float left, float volume)
+	public void playSound(int index, float right, float left, float volume)
 	{
 		if(mSoundPoolMap.get(index) != null) {
 			float streamVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);

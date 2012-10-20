@@ -1,5 +1,5 @@
 /**
- * aDrumDrum is a stepsequencer for Android.
+ * aDrumDrum is a step sequencer for Android.
  * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
@@ -22,9 +22,8 @@ package kvhc.util;
 import android.os.Handler;
 
 /***
- * 
- * @author Niclas
  * A class representing a timer
+ * @author Niclas 
  */
 public class AndroidTimer {
 
@@ -41,7 +40,7 @@ public class AndroidTimer {
 	 * every time the timer ticks
 	 * @param time: How long time between every timer tick, the time are in milliseconds
 	 */
-	public AndroidTimer(Handler handler, Runnable job, long time){
+	public AndroidTimer(Handler handler, Runnable job, long time) {
 		this.handler = handler;
 		this.job = job;
 		this.time = time;
@@ -54,9 +53,8 @@ public class AndroidTimer {
 	 * every time the timer ticks
 	 * @param time: How long time between every timer tick, the time are in milliseconds
 	 */
-	public AndroidTimer(Runnable job, long time){
-		this(new Handler() , job, time);
-		
+	public AndroidTimer(Runnable job, long time) {
+		this(new Handler(), job, time);
 	}
 	
 	/**
@@ -69,11 +67,11 @@ public class AndroidTimer {
 	/**
 	 * Starts the timer
 	 */
-	public void start(){
+	public void start() {
 		
-		if(enabled)
+		if (enabled) {
 			return;
-		
+		}
 		enabled = true;
 		handler.postDelayed(timer,time);
 	}
@@ -82,7 +80,7 @@ public class AndroidTimer {
 	 * Checks if the timer are running
 	 * @return True if the timer are running, else false
 	 */
-	public boolean running(){
+	public boolean running() {
 		return enabled;
 	}
 	
@@ -90,7 +88,7 @@ public class AndroidTimer {
 	 * Change the Runnable object that are used every timer tick
 	 * @param job: A Runnable object that should be used eery timer tick
 	 */
-	public void changeJob(Runnable job){
+	public void changeJob(Runnable job) {
 		this.job = job;
 	}
 	
@@ -101,10 +99,9 @@ public class AndroidTimer {
 	/**
 	 * A private class used too loop the the job
 	 */
-	private Runnable timer = new Runnable(){
-		//@Override
+	private Runnable timer = new Runnable() {
 		public void run() {
-			if(enabled){
+			if (enabled) {
 				handler.post(job);
 				handler.postDelayed(this,time);
 			}

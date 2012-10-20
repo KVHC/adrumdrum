@@ -32,6 +32,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+/**
+ * DataSource object for Step model.
+ * @author kvhc
+ */
 public class StepDataSource {
 	
 	private SQLiteDatabase database;
@@ -43,14 +47,25 @@ public class StepDataSource {
 			StepSQLiteHelper.COLUMN_NUMBER,
 			StepSQLiteHelper.FKEY_CHANNELID};
 	
+	/**
+	 * Constructor.
+	 * @param context
+	 */
 	public StepDataSource(Context context) {
 		dbHelper = new StepSQLiteHelper(context);
 	}
 	
+	/**
+	 * Opens the database for usage.
+	 * @throws SQLException
+	 */
 	public void open() throws SQLException {
 		database = dbHelper.getWritableDatabase();
 	}
 	
+	/**
+	 * Closes the database.
+	 */
 	public void close() {
 		dbHelper.close();
 	}

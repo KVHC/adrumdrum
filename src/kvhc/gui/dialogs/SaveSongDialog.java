@@ -80,7 +80,7 @@ public class SaveSongDialog extends Dialog {
 			mSong.setName(mEditSongName.getText().toString());
 			
 			// Render the song through the interface
-			mSongRenderer.RenderSong(mSong);
+			mSongRenderer.renderSong(mSong);
 			
 			dismiss();
 		}

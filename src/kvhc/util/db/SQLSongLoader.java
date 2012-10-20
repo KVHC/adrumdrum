@@ -30,21 +30,22 @@ import kvhc.util.AssetManagerModel;
 import kvhc.util.ISongLoader;
 
 /**
- * Used for loading a song from SQL
+ * Used for loading a song from SQL.
  * @author kvhc
- *
  */
 public class SQLSongLoader implements ISongLoader {
 
 	private List<Song> mSongs;
-	
-	private AssetManagerModel<Sound> soundManager;
 	
 	private SongDataSource mDBSongHelper;
 	private SoundDataSource mDBSoundHelper;
 	private ChannelDataSource mDBChannelHelper;
 	private StepDataSource mDBStepHelper;
 	
+	/**
+	 * Constructor.
+	 * @param context the Context
+	 */
 	public SQLSongLoader(Context context) {
 		
 		// Set up the DAO
@@ -57,7 +58,7 @@ public class SQLSongLoader implements ISongLoader {
 		mDBSoundHelper.open();
 		
 		// Set up sound manager
-		soundManager = AssetManagerModel.getSoundManager();
+		AssetManagerModel<Sound> soundManager = AssetManagerModel.getSoundManager();
 		for(Sound sound : mDBSoundHelper.getAllSounds()) {
 			soundManager.setValue(sound.getName(), sound);
 		}
@@ -106,7 +107,7 @@ public class SQLSongLoader implements ISongLoader {
 	}
 	
 	/**
-	 * Gets a list of all the sounds in the database
+	 * Gets a list of all the sounds in the database.
 	 * @return
 	 */
 	public List<Sound> getSoundList() {
@@ -120,7 +121,7 @@ public class SQLSongLoader implements ISongLoader {
 	
 	
 	/**
-	 * Returns a list of songs
+	 * Returns a list of songs.
 	 */
 	public List<Song> getSongList(Object[] args) {
 		
