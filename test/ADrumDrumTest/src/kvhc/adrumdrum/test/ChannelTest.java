@@ -36,6 +36,7 @@ public class ChannelTest extends AndroidTestCase {
     
 	private String testString = "test";
 	private static final int DEFAULT_NUMBER_OF_STEPS=16;
+	private static final int TEST_NUMBER_OF_STEPS=8;
 	
 	/**
      * Test the parameterless constructor.
@@ -63,11 +64,10 @@ public class ChannelTest extends AndroidTestCase {
      * Test the constructor which takes a sound object and a number of steps.
      */
     public void testThirdConstructor() {
-    	int steps=8;
         Sound testSound = new Sound(1, testString);
-        Channel testChannel = new Channel(testSound,steps);
+        Channel testChannel = new Channel(testSound,TEST_NUMBER_OF_STEPS);
         Assert.assertNotNull(testChannel);
-        Assert.assertEquals(steps, testChannel.getNumberOfSteps());
+        Assert.assertEquals(TEST_NUMBER_OF_STEPS, testChannel.getNumberOfSteps());
         Assert.assertNotNull(testChannel.getSound());
         Assert.assertEquals(testString, testChannel.getSound().getName());
     }
@@ -90,7 +90,7 @@ public class ChannelTest extends AndroidTestCase {
     public void testPanning() {
         Channel testChannel = new Channel();
         float rightTestLevel = new Random().nextFloat();
-        float leftTestLevel = new Random().nextFloat();;
+        float leftTestLevel = new Random().nextFloat();
         testChannel.setPanning(rightTestLevel, leftTestLevel); 
         Assert.assertEquals(rightTestLevel, testChannel.getRightPanning());
         Assert.assertEquals(leftTestLevel, testChannel.getLeftPanning());
