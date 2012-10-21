@@ -30,6 +30,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 /**
  * DataSource object for Step model.
@@ -227,11 +228,16 @@ public class StepDataSource {
 		// Create new step.
 		Step step = new Step();
 		
+		Log.i("StepDataSource", "Creating step id: " + cursor.getLong(StepSQLiteHelper.Columns.ID.index()));
+		Log.i("StepDataSource", "Is Active: " + cursor.getInt(StepSQLiteHelper.Columns.Active.index()));
+		Log.i("StepDataSource", "Step number: " + cursor.getInt(StepSQLiteHelper.Columns.Number.index()));
+		Log.i("StepDataSource", "Velolcity: " + cursor.getDouble(StepSQLiteHelper.Columns.Velocity.index()));
+		
 		// Set up properties.
-		step.setId(cursor.getLong(0));
-		step.setActive(cursor.getInt(2) > 0);
-		step.setStepNumber(cursor.getInt(3));
-		step.setVelolcity((float)cursor.getDouble(1));
+		step.setId(cursor.getLong(StepSQLiteHelper.Columns.ID.index()));
+		step.setActive(cursor.getInt(StepSQLiteHelper.Columns.Active.index()) > 0);
+		step.setStepNumber(cursor.getInt(StepSQLiteHelper.Columns.Number.index()));
+		step.setVelolcity((float)cursor.getDouble(StepSQLiteHelper.Columns.Velocity.index()));
 		
 		// Return the new step.
 		return step;

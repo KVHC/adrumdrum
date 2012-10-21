@@ -170,9 +170,9 @@ public class SongDataSource {
 		Song song = new Song(4);
 		
 		// Set up properties.
-		song.setId(cursor.getLong(0));
-		song.setName(cursor.getString(1));
-		song.setBpm(cursor.getInt(2));
+		song.setId(cursor.getLong(SongSQLiteHelper.Columns.ID.index()));
+		song.setName(cursor.getString(SongSQLiteHelper.Columns.Name.index()));
+		song.setBpm(cursor.getInt(SongSQLiteHelper.Columns.BPM.index()));
 		
 		// Return song object.
 		return song;

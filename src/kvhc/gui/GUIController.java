@@ -292,15 +292,33 @@ public class GUIController {
 	 * @param song the Song to reload
 	 */
 	public void reloadSong(Song song) {
+		// Do we want to continue playing? Yes? No?
+		boolean isPlaying = player.isPlaying();
 		player.stop();
+		
+		Log.w("GUIController", "Song to be loaded: " + song.getId());
+		Log.w("GUIController", "Song bpm: " + song.getBpm());
+		Log.w("GUIController", "Song name: " + song.getName());
+		Log.w("GUIController", "Number of channels: " + song.getNumberOfChannels());
+		Log.w("GUIController", "Get number of steps: " + song.getNumberOfSteps());
+		
+		
+		// Add the song to the GUI 
 		this.song = song;
 		numerateSteps();
-		player.loadSong(song);
-
+		redrawChannels();
 		SeekBar bpmBar = (SeekBar)parentActivity.findViewById(R.id.bpmbar);
 		bpmBar.setProgress(song.getBpm());
+		
+		// Load the newly loaded song into the player
 
-		redrawChannels();
+		player.loadSong(song);
+		
+		// Start playing again if it way playing before. New sneaky feature.
+		// This will soooo be deleted soon! C-;
+		if(isPlaying) {
+			player.play();
+		}
 	}
 	
 	
@@ -360,7 +378,6 @@ public class GUIController {
 			
 			// Create a ChannelButton and set the name tag
 			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,y,this);
-			name.setText(c.getSound().getName());
 			
 			// Create a ChannelMuteButton
 			ChannelMuteButton mute = new ChannelMuteButton(parentActivity,c,this);

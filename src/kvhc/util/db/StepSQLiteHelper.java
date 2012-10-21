@@ -50,6 +50,37 @@ public class StepSQLiteHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "adrumdrum.db";
 	private static final int DATABASE_VERSION = 1;
 	
+	/**
+	 * Column enumerator which contains the column index corresponding to if you select * channels (hopefully).
+	 * 
+	 * @author kvhc
+	 */
+	public static enum Columns {
+		ID  (0),
+		Velocity (1),
+		Active (2),
+		Number(3), 
+		ChannelId (4);
+		
+		private final int index;
+		
+	    /**
+	     * Enumerator column index constructor.
+	     * @param index The position of the column in the database table channels.
+	     */
+		Columns(int index) {
+	        this.index = index;
+	    }
+		
+		/**
+		 * Returns the enumerator index.
+		 * @return The The position of the column in the database table channels.
+		 */
+	    public int index() { 
+	        return index; 
+	    }
+	};
+	
 	// Table creation string.
 	private static final String DATABASE_CREATE = "create table "
 			+ TABLE_STEP + "(" 

@@ -139,10 +139,10 @@ public class SoundDataSource {
 	private Sound cursorToSound(Cursor cursor) {
 		
 		// Create sound.
-		Sound sound = new Sound(cursor.getInt(1),cursor.getString(2));
+		Sound sound = new Sound(cursor.getInt(SoundSQLiteHelper.Columns.SoundValue.index()),cursor.getString(SoundSQLiteHelper.Columns.Name.index()));
 		
 		// Set properties.
-		sound.setId((int)cursor.getLong(0));
+		sound.setId((int)cursor.getLong(SoundSQLiteHelper.Columns.ID.index()));
 		
 		// Return sound.
 		return sound;

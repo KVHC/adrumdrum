@@ -49,6 +49,40 @@ public class ChannelSQLiteHelper extends SQLiteOpenHelper {
 	public static final String FKEY_SONGID= "song_id";
 	public static final String FKEY_SOUNDID = "sound_id";
 	
+	/**
+	 * Column enumerator which contains the column index corresponding to if you select * channels (hopefully).
+	 * 
+	 * @author kvhc
+	 */
+	public static enum Columns {
+		ID  (0),
+		Number (1),
+		Volume (2),
+		LeftPanning (3),
+		RightPanning (4),
+		Mute (5),
+		SongId (6),
+		SoundId (7);
+		
+		private final int index;
+		
+	    /**
+	     * Enumerator column index constructor.
+	     * @param index The position of the Column in the database.
+	     */
+		Columns(int index) {
+	        this.index = index;
+	    }
+		
+		/**
+		 * Returns the enumerator index.
+		 * @return The The position of the Column in the database.
+		 */
+	    public int index() { 
+	        return index; 
+	    }
+	};
+	
 	// Database properties
 	private static final String DATABASE_NAME = "adrumdrum.db";
 	private static final int DATABASE_VERSION = 1;

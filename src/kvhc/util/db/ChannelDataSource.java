@@ -42,14 +42,14 @@ public class ChannelDataSource {
 	private SQLiteDatabase database;
 	private ChannelSQLiteHelper dbHelper;
 	
-	private String[] allColumns = { ChannelSQLiteHelper.COLUMN_ID
-			, ChannelSQLiteHelper.COLUMN_NUMBER 
-			, ChannelSQLiteHelper.COLUMN_VOLUME 
-			, ChannelSQLiteHelper.COLUMN_LEFTPAN
-			, ChannelSQLiteHelper.COLUMN_RIGHTPAN
-			, ChannelSQLiteHelper.COLUMN_MUTE
-			, ChannelSQLiteHelper.FKEY_SONGID 
-			, ChannelSQLiteHelper.FKEY_SOUNDID };
+	private String[] allColumns = { ChannelSQLiteHelper.COLUMN_ID , 
+			ChannelSQLiteHelper.COLUMN_NUMBER, 
+			ChannelSQLiteHelper.COLUMN_VOLUME, 
+			ChannelSQLiteHelper.COLUMN_LEFTPAN, 
+			ChannelSQLiteHelper.COLUMN_RIGHTPAN, 
+			ChannelSQLiteHelper.COLUMN_MUTE, 
+			ChannelSQLiteHelper.FKEY_SONGID, 
+			ChannelSQLiteHelper.FKEY_SOUNDID };
 	
 
 	/**
@@ -193,15 +193,17 @@ public class ChannelDataSource {
 		Channel channel = new Channel();
 		
 		// Get the foreign keys.
-		long channelId = cursor.getLong(0);
-		long soundId = cursor.getLong(6);
+		long channelId = cursor.getLong(ChannelSQLiteHelper.Columns.ID.index());
+		long soundId = cursor.getLong(ChannelSQLiteHelper.Columns.SoundId.index());
 		
 		// Set the properties.
 		channel.setId(channelId);
-		channel.setPanning((float)cursor.getDouble(4), (float)cursor.getDouble(5));
-		channel.setVolume((float)cursor.getDouble(2)); 
-		channel.setChannelNumber(cursor.getInt(1));
-		channel.setMute(cursor.getInt(6) == 1);
+		channel.setPanning(
+				(float)cursor.getDouble(ChannelSQLiteHelper.Columns.RightPanning.index()), 
+				(float)cursor.getDouble(ChannelSQLiteHelper.Columns.LeftPanning.index()));
+		channel.setVolume((float)cursor.getDouble(ChannelSQLiteHelper.Columns.Volume.index())); 
+		channel.setChannelNumber(cursor.getInt(ChannelSQLiteHelper.Columns.Number.index()));
+		channel.setMute(cursor.getInt(ChannelSQLiteHelper.Columns.Mute.index()) == 1);
 		
 		// Set up foreign key objects.
 		channel.setSteps(null);

@@ -20,6 +20,7 @@
 
 package kvhc.util.db;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -134,13 +135,12 @@ public class SQLSongLoader implements ISongLoader {
 		mDBSongHelper.open();
 		List<Song> songs = mDBSongHelper.getAllSongs();
 		mDBSongHelper.close();
-		
+		if(mSongs == null) { 
+			// First time through this function it WILL be null. Sorry about that. :<
+			mSongs = new ArrayList<Song>(0);
+		} 
 		// Fill all the songs with data.
 		for(Song song : songs) {
-			if(mSongs.contains(song)) {
-				continue;
-			}
-			
 			// Loading channels.
 			mDBChannelHelper.open();
 			List<Channel> channels = mDBChannelHelper.getAllChannelsForSong(song);
@@ -151,6 +151,7 @@ public class SQLSongLoader implements ISongLoader {
 			mDBSoundHelper.open();
 			for(Channel channel : channels) {
 				// Sound has ID but no content. Get the sound from the database.
+				Log.w("SQLSongLoader", "Channel Id: " + channel.getId() + ". Sound id: " + channel.getSound().getId());
 				channel.setSound(mDBSoundHelper.getSoundFromKey(channel.getSound().getId()));
 				
 				// Get all the steps from the database.
