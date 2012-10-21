@@ -1,3 +1,22 @@
+/**
+ * aDrumDrum is a step sequencer for Android.
+ * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
+ *
+ * This file is part of aDrumDrum.
+ *
+ * aDrumDrum is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * aDrumDrum is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with aDrumDrum.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package kvhc.util;
 
 import java.util.HashMap;
@@ -31,18 +50,16 @@ public final class AssetManagerModel<T> {
 	 * @return A reference to the singleton SoundManager object
 	 */
 	private AssetManagerModel<T> getInstance() {
-		// TODO: might not be neccessary?
 		if(mInstance == null) {
 			mInstance = new AssetManagerModel<T>();
 			mInstance.mSoundMap = mSoundMap = new HashMap<String, T>(16);
 		}
-		
 		return mInstance;
 	}
 	
 	/**
-	 * Gets the singleton Sound Manager
-	 * @return 
+	 * Gets the singleton Sound Manager.
+	 * @return an instance of the Sound manager.
 	 */
 	public static AssetManagerModel<Sound> getSoundManager() {
 		if(mSoundManager == null) {
@@ -52,14 +69,13 @@ public final class AssetManagerModel<T> {
 	}
 	
 	/**
-	 * Gets the singleton Song Manager
-	 * @return
+	 * Gets the singleton Song Manager.
+	 * @return an instance of the Song manager.
 	 */
 	public static AssetManagerModel<Song> getSongManager() {
 		if(mSongManager == null) {
 			mSongManager = new AssetManagerModel<Song>().getInstance();
 		}
-		
 		return mSongManager;
 	}
 	
@@ -78,8 +94,8 @@ public final class AssetManagerModel<T> {
 
 	/**
 	 * Set a value for a key, if the key exists, updates its reference.
-	 * @param key
-	 * @param value
+	 * @param key the key to use
+	 * @param value a Sound or a Song
 	 */
 	public void setValue(String key, T value) {
 		mSoundMap.put(key, value);
