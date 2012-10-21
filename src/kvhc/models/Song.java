@@ -59,7 +59,7 @@ public class Song {
 	 * Creates a song based on an array of channels.
 	 * @param channels
 	 */
-	public Song(ArrayList<Channel> channels) {
+	public Song(List<Channel> channels) {
 		if (channels == null) {		
 			mNumsteps = DEFAULT_NUMBER_OF_STEPS;
 			mChannels = new ArrayList<Channel>(DEFAULT_NUMBER_OF_CHANNELS);	
@@ -175,8 +175,8 @@ public class Song {
 	 * Returns all the sounds loaded for all the channels
 	 * @return
 	 */
-	public ArrayList<Sound> getSounds() {
-		ArrayList<Sound> sounds = new ArrayList<Sound>(mChannels.size());
+	public List<Sound> getSounds() {
+		List<Sound> sounds = new ArrayList<Sound>(mChannels.size());
 		
 		for (Channel c : mChannels) {
 			sounds.add(c.getSound());

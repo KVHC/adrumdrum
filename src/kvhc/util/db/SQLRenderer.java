@@ -20,7 +20,7 @@
 
 package kvhc.util.db;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
@@ -39,7 +39,7 @@ import kvhc.util.ISongRenderer;
  */
 public class SQLRenderer implements ISongRenderer {
 	
-	private ArrayList<Sound> mSounds;
+	private List<Sound> mSounds;
 	
 	private SongDataSource dbSongHelper;
 	private ChannelDataSource dbChannelHelper;
@@ -61,7 +61,7 @@ public class SQLRenderer implements ISongRenderer {
 	 * Loads Sounds, ISongRenderer implementation.
 	 * Saves them to the database.
 	 */
-	public void loadSounds(ArrayList<Sound> soundList) {
+	public void loadSounds(List<Sound> soundList) {
 		mSounds = soundList;
 		
 		for(Sound sound : mSounds) {

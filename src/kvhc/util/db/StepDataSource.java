@@ -41,6 +41,7 @@ public class StepDataSource {
 	private SQLiteDatabase database;
 	private StepSQLiteHelper dbHelper;
 	
+	
 	private String[] allColumns = { StepSQLiteHelper.COLUMN_ID, 
 			StepSQLiteHelper.COLUMN_VELOCITY, 
 			StepSQLiteHelper.COLUMN_ACTIVE, 
@@ -111,7 +112,7 @@ public class StepDataSource {
 		long id = step.getId();
 		
 		// Delete step
-		database.delete(StepSQLiteHelper.TABLE_STEP, StepSQLiteHelper.COLUMN_ID + " = " + id, null);
+		database.delete(StepSQLiteHelper.TABLE_STEP, StepSQLiteHelper.COLUMN_ID + StepSQLiteHelper.EQUALS_TO + id, null);
 	}
 	
 	/**
@@ -136,7 +137,7 @@ public class StepDataSource {
 		}
 		
 		// Set up the selection query
-		String where = StepSQLiteHelper.FKEY_CHANNELID + "=?";
+		String where = StepSQLiteHelper.FKEY_CHANNELID + StepSQLiteHelper.EQUALS_TO_PARAMETER;
 		String[] whereArgs = new String[] { String.valueOf(channel.getId()) };
 		String orderBy = StepSQLiteHelper.COLUMN_NUMBER + " ASC";
 		
@@ -184,7 +185,7 @@ public class StepDataSource {
 		values.put(StepSQLiteHelper.FKEY_CHANNELID, channel.getId());
 		
 		// Set up the update query.
-		String where = StepSQLiteHelper.COLUMN_ID + " = ?";
+		String where = StepSQLiteHelper.COLUMN_ID + StepSQLiteHelper.EQUALS_TO_PARAMETER;
 		String[] whereArgs = new String[] { String.valueOf(step.getId()) };
 		
 		// Run update query.
@@ -228,10 +229,10 @@ public class StepDataSource {
 		// Create new step.
 		Step step = new Step();
 		
-		Log.i("StepDataSource", "Creating step id: " + cursor.getLong(StepSQLiteHelper.Columns.ID.index()));
-		Log.i("StepDataSource", "Is Active: " + cursor.getInt(StepSQLiteHelper.Columns.Active.index()));
-		Log.i("StepDataSource", "Step number: " + cursor.getInt(StepSQLiteHelper.Columns.Number.index()));
-		Log.i("StepDataSource", "Velolcity: " + cursor.getDouble(StepSQLiteHelper.Columns.Velocity.index()));
+		Log.d(getClass().toString(), "Creating step id: " + cursor.getLong(StepSQLiteHelper.Columns.ID.index()));
+		Log.d(getClass().toString(), "Is Active: " + cursor.getInt(StepSQLiteHelper.Columns.Active.index()));
+		Log.d(getClass().toString(), "Step number: " + cursor.getInt(StepSQLiteHelper.Columns.Number.index()));
+		Log.d(getClass().toString(), "Velolcity: " + cursor.getDouble(StepSQLiteHelper.Columns.Velocity.index()));
 		
 		// Set up properties.
 		step.setId(cursor.getLong(StepSQLiteHelper.Columns.ID.index()));

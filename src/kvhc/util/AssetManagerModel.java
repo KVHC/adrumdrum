@@ -1,6 +1,7 @@
 package kvhc.util;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import kvhc.models.Song;
 import kvhc.models.Sound;
@@ -12,7 +13,7 @@ import kvhc.models.Sound;
  */
 public final class AssetManagerModel<T> {
 	
-	private HashMap<String, T> mSoundMap;
+	private Map<String, T> mSoundMap;
 	
 	private AssetManagerModel<T> mInstance;
 	

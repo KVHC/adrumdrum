@@ -20,7 +20,7 @@
 
 package kvhc.util;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import kvhc.models.Song;
 import kvhc.models.Sound;
@@ -52,6 +52,6 @@ public interface ISongRenderer {
 	 * Load sound from an ArrayList of Sound.
 	 * @param soundList a list of Sounds
 	 */
-	void loadSounds(ArrayList<Sound> soundList);
+	void loadSounds(List<Sound> soundList);
 	
 }
