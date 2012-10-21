@@ -161,8 +161,6 @@ public class SongDataSourceTest extends AndroidTestCase {
 		Random random = new Random();
 		SongDataSource songs = new SongDataSource(mContext);
 		int randomChannel = random.nextInt(MAX_RANDOM_TEST_NUMBER_OF_CHANNELS);
-		int amountOfSongs = random.nextInt();
-		List<Song> testList;
 		// Test exception when database not opened
 		boolean didThrow = false;
 		try {

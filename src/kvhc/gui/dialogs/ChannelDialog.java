@@ -185,11 +185,8 @@ public class ChannelDialog extends Dialog{
 	 * A listener that changes the panning on the channel
 	 */
 	private OnSeekBarChangeListener panningListener = new OnSeekBarChangeListener() {
-
 		public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
-			float right; 
-			float left;
-			
+			float right, left;
 			if (progress >= MAX){
 				right = 1.0F;
 				left = 1.0F - ONE_PERCENT * (progress - MAX);   
@@ -197,7 +194,6 @@ public class ChannelDialog extends Dialog{
 				right = ONE_PERCENT * progress;
 				left = 1.0F;
 			}
-			
 			channel.setPanning(right, left);
 		}
 

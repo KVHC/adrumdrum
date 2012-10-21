@@ -186,6 +186,7 @@ public class ChannelDataSourceTest extends AndroidTestCase {
 		ChannelDataSource channels = new ChannelDataSource(mContext);
 		Channel channel = null;
 		int insertChannelNumber = random.nextInt(MAX_RANDOM_TEST_VAR);
+		int numberOfChannelsToAdd = random.nextInt(MAX_RANDOM_TEST_VAR);
 		boolean insertMute = random.nextInt() % 2 == 0;
 		float insertRightPan = random.nextFloat();
 		float insertLeftPan = random.nextFloat();
@@ -206,25 +207,26 @@ public class ChannelDataSourceTest extends AndroidTestCase {
 		channels.save(null, null);
 		Assert.assertTrue(true); // Hopefully no crash.
 		// Test song no id, channel null
-		channels.save(new Song(4), null);
+		
+		channels.save(new Song(numberOfChannelsToAdd), null);
 		Assert.assertTrue(true); // Hopefully no crash.
 		// Test song id, channel null
-		song = new Song(4);
+		song = new Song(numberOfChannelsToAdd );
 		song.setId(random.nextLong());
 		channels.save(song, null);
 		// Test song null, channel no id
 		channel = new Channel();
 		Assert.assertTrue(channel.getId() == 0);
-		channels.save(new Song(4), channel);
+		channels.save(new Song(numberOfChannelsToAdd), channel);
 		Assert.assertTrue(channel.getId() == 0);
 		// Test song no id, channel no id
 		channel = new Channel();
 		Assert.assertTrue(channel.getId() == 0);
-		channels.save(new Song(4), channel);
+		channels.save(new Song(numberOfChannelsToAdd ), channel);
 		Assert.assertTrue(channel.getId() > 0);
 		// Test song id, channel no id
 		channel = new Channel();
-		song = new Song(4);
+		song = new Song(numberOfChannelsToAdd );
 		song.setId(random.nextLong());
 		Assert.assertTrue(channel.getId() == 0);
 		channels.save(song, channel);
@@ -236,14 +238,14 @@ public class ChannelDataSourceTest extends AndroidTestCase {
 		Assert.assertTrue(channel.getId() == 0);
 		// Test song no id, channel id
 		channel = new Channel();
-		song = new Song(4);
+		song = new Song(numberOfChannelsToAdd);
 		Assert.assertTrue(channel.getId() == 0);
 		channels.save(song, channel);
 		Assert.assertTrue(channel.getId() == 0);
 		// Test song id, channel id
 		channel = new Channel();
 		channel.setId(random.nextLong());
-		song = new Song(4);
+		song = new Song(numberOfChannelsToAdd );
 		song.setId(random.nextLong());
 		Assert.assertTrue(channel.getId() > 0);
 		channels.save(song, channel);

@@ -29,7 +29,7 @@ public class Step implements Cloneable {
 	
 	// Default variables
 	private static final float DEFAULT_VELOCITY = 0.7f;
-	
+	// Members
 	private boolean mIsActive;
 	private float mVelocity;
 	private Channel channel; 
@@ -129,13 +129,11 @@ public class Step implements Cloneable {
 	 * Clones a step.
 	 * @see java.lang.Object#clone()
 	 */
-	public Step clone() {
-		
+	public Step clone() throws CloneNotSupportedException {
 		Step clone = new Step();
 		clone.mIsActive = this.mIsActive;
 		clone.mVelocity = this.mVelocity;
-		clone.channel = channel;
-		
+		clone.channel = this.channel;
 		return clone;
 	}
 	

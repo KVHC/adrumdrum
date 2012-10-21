@@ -373,45 +373,38 @@ public class GUIController {
      * THIS IS VERY OPTIMIZABLE
      */
     public void redrawChannels() {
-		
+		// Get the channel container.
 		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
 		channelContainer.removeAllViewsInLayout();
-		
 		int y = 0;
-		
-		// For each channel in song
+		// For each channel in song.
 		for(Channel c: song.getChannels()) {
-			
+			// Create a new row.
 			TableRow row = new TableRow(channelContainer.getContext());
-			
-			// Create a ChannelButton and set the name tag
+			// Create a ChannelButton and set the name tag.
 			ChannelButtonGUI name = new ChannelButtonGUI(parentActivity,c,y,this);
-			
-			// Create a ChannelMuteButton
+			// Create a ChannelMuteButton.
 			ChannelMuteButton mute = new ChannelMuteButton(parentActivity,c,this);
-
 			if(c.getSound() != null) {
 				name.setText(c.getSound().getName());
 			} else {
 				name.setText(SOUND_NAME_NO_SOUND);
 			}
-
+			// Add views to row.
 			row.addView(name);
 			row.addView(mute);
-			
-			// All the steps
+			// Create and add all the steps.
 			for(int x = 0; x < song.getNumberOfSteps(); x++) {
-				
 				GUIStepButton box = new GUIStepButton(row.getContext(), y, c.getStepAt(x), c.isStepActive(x));
 				box.setOnClickListener(stepClickListener);
 				box.setOnLongClickListener(stepLongClickListener);
 				row.addView(box);
-				
 			}
+			// Add the row to the table.
 			channelContainer.addView(row);
 			y++;
 		}
-
+		// Show table.
 		channelContainer.setVisibility(View.VISIBLE);
 		channelContainer.invalidate();
 	}
@@ -521,37 +514,30 @@ public class GUIController {
      * Listener to the add-new-channel-button. Doesn't redraw the old channels.
      */
     private OnClickListener addChannelListener = new OnClickListener() {
-		
 		public void onClick(View v) {
-
-			// Spinner for sound sample selection
+			// Spinner for sound sample selection.
 			final Spinner input = new Spinner(parentActivity);
 			mDBsoundHelper.open();
 			ArrayAdapter<Sound> spinnerArrayAdapter = new ArrayAdapter<Sound>(parentActivity, 
 									android.R.layout.simple_spinner_dropdown_item, 
 										mDBsoundHelper.getAllSounds());
 			mDBsoundHelper.close();
-			
 			input.setAdapter(spinnerArrayAdapter);
-			
+			// Build the dialog.
 			AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity);
 			builder.setView(input);	
 			builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int whichButton) {
-
+			    	// Set up 
 			    	String name = String.valueOf(input.getSelectedItem());
 			        Sound s = mSoundManager.get(name);
-			        
 			        Channel c = new Channel(s, song.getNumberOfSteps());
 			        song.addChannel(c);
 			        addChannel(c);
-			        
-			        player.loadSong(song);
-			        
+			        player.loadSong(song); // Should just be like... add sound? 
 			        dialog.dismiss();
 			    }
 			});
-			
 			builder.create();
 			builder.show();
 		}

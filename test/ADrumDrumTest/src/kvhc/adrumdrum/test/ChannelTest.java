@@ -38,7 +38,9 @@ public class ChannelTest extends AndroidTestCase {
 	private String testString = "test";
 	private static final int DEFAULT_NUMBER_OF_STEPS=16;
 	private static final int TEST_NUMBER_OF_STEPS=8;
-	
+	private static final float PERCENT_100 = 1.0f;
+	private static final float PERCENT_70 = 0.7f;
+	private static final float PERCENT_30 = 0.3f;
 	/**
      * Test the parameterless constructor.
      */
@@ -130,11 +132,12 @@ public class ChannelTest extends AndroidTestCase {
 		int middleStep = DEFAULT_NUMBER_OF_STEPS/2; 
 		c.multiStepVelocitySpike(middleStep);
 		
-		Assert.assertEquals(1.0f, c.getStepAt(middleStep).getVelocity());
-		Assert.assertEquals(0.7f, c.getStepAt(middleStep-1).getVelocity());
-		Assert.assertEquals(0.7f, c.getStepAt(middleStep+1).getVelocity());
-		Assert.assertEquals(0.3f, c.getStepAt(middleStep-2).getVelocity());
-		Assert.assertEquals(0.3f, c.getStepAt(middleStep+2).getVelocity());	
+		
+		Assert.assertEquals(PERCENT_100, c.getStepAt(middleStep).getVelocity());
+		Assert.assertEquals(PERCENT_70, c.getStepAt(middleStep-1).getVelocity());
+		Assert.assertEquals(PERCENT_70, c.getStepAt(middleStep+1).getVelocity());
+		Assert.assertEquals(PERCENT_30, c.getStepAt(middleStep-2).getVelocity());
+		Assert.assertEquals(PERCENT_30, c.getStepAt(middleStep+2).getVelocity());	
 	}
 	
 	/**
@@ -155,10 +158,13 @@ public class ChannelTest extends AndroidTestCase {
 	 */
 	public void testSetAndGetVolume() {
 		Channel c = new Channel();
-		c.setVolume(1.0f);
-		Assert.assertEquals(c.getVolume(), 1.0f);
-		c.setVolume(0.1f);
-		Assert.assertEquals(c.getVolume(), 0.1f);
+		Random random = new Random();
+		int randomAmountOfTries = random.nextInt();
+		for(int i = 0; i < randomAmountOfTries; i++) {
+			float testInput = random.nextFloat();
+			c.setVolume(testInput);
+			Assert.assertEquals(testInput, c.getChannelVolume());
+		}
 	}
 	
 }
