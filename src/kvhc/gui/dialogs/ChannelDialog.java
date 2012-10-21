@@ -245,7 +245,7 @@ public class ChannelDialog extends Dialog{
 	private View.OnClickListener clearStepsClick = new View.OnClickListener(){
 		public void onClick(View v) {
 			channel.clearAllSteps();
-			guic.invalidateAll();
+			guic.redrawChannels();
 			dismiss();
 		}
 	};

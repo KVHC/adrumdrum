@@ -193,8 +193,13 @@ public class GUIStepButton extends CheckBox {
 			textPosX = 13;
 		}	
 		
+		float velocity = step.getVelocity();
+		if(velocity < 0.1){
+			velocity = 0.1F;
+		}
+		
 		// Sätter alpha till ett värde mellan 0-255, beroende på velocity.
-		velocityShade.setAlpha((int) (step.getVelocity()*255));
+		velocityShade.setAlpha((int) (velocity*255));
 		
 		if (mPlaying){
 			textPaint.setColor(Color.RED); // Om steget spelas så ska färgen på siffrorna också vara röda
