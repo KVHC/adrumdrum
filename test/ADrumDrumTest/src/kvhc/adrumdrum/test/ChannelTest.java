@@ -150,6 +150,9 @@ public class ChannelTest extends AndroidTestCase {
 		Assert.assertEquals(true, c.isStepActive(1));
 	}
 	
+	/**
+	 * Tests setVolume & getVolume()
+	 */
 	public void testSetAndGetVolume() {
 		Channel c = new Channel();
 		c.setVolume(1.0f);
@@ -157,7 +160,6 @@ public class ChannelTest extends AndroidTestCase {
 		c.setVolume(0.1f);
 		Assert.assertEquals(c.getVolume(), 0.1f);
 	}
-	
 	
 }
 
