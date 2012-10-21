@@ -61,8 +61,9 @@ public class MainActivity extends Activity {
         	Log.e("Main", e.toString());
         }
         
+        // Are any sounds loaded in the database?
         if(mSoundLoader.getAllSounds().size() == 0) {
-        	
+        	// No, man. Load it up. 
         	Sound s = new Sound(R.raw.jazzfunkkitbd_01, "Bassdrum");
         	mSoundLoader.save(s);
         	s = new Sound(R.raw.jazzfunkkitbellridecym_01, "Bell Ride");
@@ -93,7 +94,7 @@ public class MainActivity extends Activity {
         	mSoundLoader.save(s);
         	s = new Sound(R.raw.jazzfunkkittom_01, "Tomtom 03");
         	mSoundLoader.save(s);
-        	
+        	// Upgrade database tables to make sure that they are operational. It's pretty weird. 
         	ChannelSQLiteHelper channelHelper = new ChannelSQLiteHelper(this);
             channelHelper.onUpgrade(channelHelper.getWritableDatabase(), 1, 3);
             SongSQLiteHelper songHelper = new SongSQLiteHelper(this);
@@ -101,8 +102,9 @@ public class MainActivity extends Activity {
             StepSQLiteHelper stepHelper = new StepSQLiteHelper(this);
             stepHelper.onUpgrade(stepHelper.getWritableDatabase(), 1, 3);
         }
-        
+        // Close the sound database connection.
         mSoundLoader.close();
+        // Create the GUIController.
         guic = new GUIController(this);
     }
 
@@ -111,7 +113,6 @@ public class MainActivity extends Activity {
      */
     public void onStop() {
     	guic.onStop();
-    	
     	super.onStop();
     }
     
@@ -120,7 +121,6 @@ public class MainActivity extends Activity {
      */
     public void onDestroy() {
     	guic.onDestroy();
-    	
     	super.onDestroy();
     }
 

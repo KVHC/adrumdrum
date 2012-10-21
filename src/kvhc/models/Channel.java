@@ -256,6 +256,11 @@ public class Channel {
 		return mSteps.size();
 	}
 	
+	/**
+	 * Return step at the position.
+	 * @param i
+	 * @return
+	 */
 	public Step getStepAt(int i){
 		if (i>=0 && i < mSteps.size()){
 			return mSteps.get(i);

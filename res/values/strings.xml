@@ -18,7 +18,7 @@
     <string name="remove_channel_button">Remove Channel</string>
     <string name="add_step_button">Add Step</string>
     <string name="remove_step_button">Del Step</string>
-    <string name="clear_steps">Clear Steps</string>
+    <string name="clear_steps">New Beat</string>
     <string name="spike_button">MultiStepVelocitySpike!</string>
     <string name="samples_prompt">Choose a sample</string>
     <string name="licenses">Licenses</string>

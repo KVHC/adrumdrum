@@ -337,7 +337,7 @@ public class GUIController {
      */
     public void clearAllSteps() {
     	player.stop();
-		song.clearAllSteps();
+    	initSong();
 		redrawChannels();
     }
  
