@@ -57,7 +57,7 @@ public class SoundDataSourceTest extends AndroidTestCase {
 		sounds.open();
 		// Test.
 		sounds.close();
-		Assert.assertFalse(sounds.isOpened());s
+		Assert.assertFalse(sounds.isOpened());
 		// Tear down.
 	}
 	

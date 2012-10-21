@@ -112,13 +112,17 @@ public class StepTest extends AndroidTestCase {
 		// Init a step with a channel and stepid
 		int randomStepId = new Random().nextInt()%DEFAULT_NUMBER_OF_STEPS;
 		Step s1 = new Step(new Channel(), randomStepId);
-		
+		Step s2=null;
 		// Make some changes to s1
 		s1.setVelolcity(TEST_VELOCITY);
 		s1.setActive(true);
 		
 		// Clone it to a new Step
-		Step s2 = s1.clone();
+		try {
+			s2 = s1.clone();
+		} catch(CloneNotSupportedException e) {
+			Assert.fail("Couldn't clone a step!");
+		}
 		
 		// Check if it looks alike
 		Assert.assertEquals(s1.getVelocity(), s2.getVelocity());
