@@ -31,6 +31,9 @@ import java.util.Random;
  * @author kvhc
  */
 public class StepTest extends AndroidTestCase {
+
+	private static final int DEFAULT_NUMBER_OF_STEPS = 16;
+	private static final float TEST_VELOCITY = 0.4f;
 	
 	/**
 	 * Tests the constructor that takes a Channel and an Int.
@@ -38,6 +41,13 @@ public class StepTest extends AndroidTestCase {
 	public void testStep() {
 		Channel testChannel = new Channel();
 		Assert.assertNotNull(new Step(testChannel, 1));
+	}
+	
+	/**
+	 * Tests empty constructor.
+	 */
+	public void testEmptyConstructor() {
+		Assert.assertNotNull(new Step());
 	}
 	
 	/**
@@ -73,4 +83,47 @@ public class StepTest extends AndroidTestCase {
 		
 		Assert.assertEquals("Current Velocity", testVel, step.getVelocity());
 	}
+	
+	/**
+	 * Test set and get step number.
+	 */
+	public void testGetAndSetNumber() {
+		Step s = new Step();
+		int random = new Random().nextInt();
+		s.setStepNumber(random);
+		Assert.assertEquals(random, s.getStepNumber());
+	}
+	
+	/**
+	 * Tests setId() and getId()
+	 */
+	public void testGetAndSetID() {
+		Step s = new Step();
+		long random = new Random().nextLong();
+		s.setId(random);
+		Assert.assertEquals(random, s.getId());
+	}
+	
+	/**
+	 * Tests clone()
+	 * Channel unfortunately doesn't implement equals/hashcode
+	 */
+	public void testClone() {
+		// Init a step with a channel and stepid
+		int randomStepId = new Random().nextInt()%DEFAULT_NUMBER_OF_STEPS;
+		Step s1 = new Step(new Channel(), randomStepId);
+		
+		// Make some changes to s1
+		s1.setVelolcity(TEST_VELOCITY);
+		s1.setActive(true);
+		
+		// Clone it to a new Step
+		Step s2 = s1.clone();
+		
+		// Check if it looks alike
+		Assert.assertEquals(s1.getVelocity(), s2.getVelocity());
+		Assert.assertEquals(s1.isActive(), s2.isActive());
+		Assert.assertEquals(s1.getId(), s2.getId());
+	}
+	
 }

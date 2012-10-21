@@ -38,6 +38,10 @@ import java.util.ArrayList;
  */
 public class PlayerTest extends AndroidTestCase implements Observer {
 	
+	// Test constants
+	private static final int MAX_BPM = 330;
+	private static final int MAX_RANGE = 100;
+	
 	private int count;
 	
 	/**
@@ -78,5 +82,15 @@ public class PlayerTest extends AndroidTestCase implements Observer {
 	 */
 	public void update(Observable observable, Object data) {
 		count++;
+	}
+	
+	/**
+	 * Test setBPMinRange().
+	 */
+	public void testSetBPMInRange() {
+		Player testPlayer = new Player(getContext());
+		
+		int bpm = testPlayer.setBPMInRange(MAX_RANGE);
+		Assert.assertEquals(MAX_BPM, bpm);
 	}
 }

@@ -26,15 +26,15 @@ public class StepDataSourceTest extends AndroidTestCase {
 	 */
 	public void testConstructor() {
 		// Test null input
-		StepDataSource songs = new StepDataSource(null);
-		Assert.assertNotNull(songs);
+		StepDataSource steps = new StepDataSource(null);
+		Assert.assertNotNull(steps);
 		// Test member context (androidTestCase, I think this is the one
 		// we want to use for the rest of the tests?
-		songs = new StepDataSource(mContext);
-		Assert.assertNotNull(songs);
+		steps = new StepDataSource(mContext);
+		Assert.assertNotNull(steps);
 		// Tests getContext() as input.
-		songs = new StepDataSource(getContext());
-		Assert.assertNotNull(songs);
+		steps = new StepDataSource(getContext());
+		Assert.assertNotNull(steps);
 	}
 	
 	/**
@@ -43,11 +43,9 @@ public class StepDataSourceTest extends AndroidTestCase {
 	public void testOpen() {
 		// Set up.
 		StepDataSource steps = new StepDataSource(getContext());
-		
 		// Test.
 		steps.open();
 		Assert.assertTrue(steps.isOpened());
-		
 		// Tear down.
 		steps.close();
 	}
@@ -59,11 +57,9 @@ public class StepDataSourceTest extends AndroidTestCase {
 		// Set up.
 		StepDataSource steps = new StepDataSource(getContext());
 		steps.open();
-		
 		// Test.
 		steps.close();
 		Assert.assertFalse(steps.isOpened());
-		
 		// Tear down.
 	}
 	
@@ -71,13 +67,13 @@ public class StepDataSourceTest extends AndroidTestCase {
 	 * Tests the input and ouput of the deleteStep(Step step) method.
 	 */
 	public void testDeleteStep() {
-		// Set up
+		// Set up.
 		Random random = new Random();
 		Channel channel = new Channel();
 		channel.setId(random.nextInt());
 		Step step;
 		StepDataSource steps = new StepDataSource(getContext());
-		// Test exception when database not opened
+		// Test exception when database not opened.
 		boolean didThrow = false;
 		try {
 			steps.deleteStep(null);
@@ -85,26 +81,21 @@ public class StepDataSourceTest extends AndroidTestCase {
 			didThrow = true;
 		}
 		Assert.assertTrue("Since there was no database connection open it should throw an exception.", didThrow);
-		
 		// Now open the database for the rest of the test.
 		steps.open();
-		
 		// Test delete null input.
 		int expected = 0; // Exptect to delete zero since we don't send a step in.
 		int numberOfStepsDeleted = steps.deleteStep(null);
 		Assert.assertEquals(expected, numberOfStepsDeleted);
-		
 		// Test delete empty step input.
 		step = new Step();
 		numberOfStepsDeleted = steps.deleteStep(step);
 		Assert.assertEquals(expected, numberOfStepsDeleted);
-		
 		// Test delete saved step.
 		step = new Step();
 		steps.save(step, channel);
 		numberOfStepsDeleted = steps.deleteStep(step);
-		Assert.assertEquals(1, numberOfStepsDeleted);
-		
+		Assert.assertEquals(1, numberOfStepsDeleted);		
 		// Test delete loaded step.
 		// Test for exceptions?
 		int numberOfSteps = random.nextInt(128);
@@ -118,7 +109,6 @@ public class StepDataSourceTest extends AndroidTestCase {
 			deletedSum += steps.deleteStep(s);
 		}
 		Assert.assertEquals(numberOfSteps, deletedSum);
-		
 		// Tear down.
 		steps.close();
 	}

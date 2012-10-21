@@ -322,7 +322,7 @@ public class GUIController {
 		player.loadSong(song);
 		
 		// Start playing again if it way playing before. New sneaky feature.
-		// This will soooo be deleted soon! C-;
+		// This will soooo be deleted soon!
 		if(isPlaying) {
 			player.play();
 		}

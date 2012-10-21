@@ -46,6 +46,7 @@ public class SoundDataSource {
 			SoundSQLiteHelper.COLUMN_ID, 
 			SoundSQLiteHelper.COLUMN_SOUNDVALUE,
 			SoundSQLiteHelper.COLUMN_NAME };
+	private boolean mIsOpen;
 	
 	/**
 	 * Default Constructor, needs the context to be able to use the database. 
@@ -53,6 +54,7 @@ public class SoundDataSource {
 	 */
 	public SoundDataSource(Context context) {
 		dbHelper = new SoundSQLiteHelper(context);
+		mIsOpen = false;
 	}
 	
 	/**
@@ -61,6 +63,7 @@ public class SoundDataSource {
 	 */
 	public void open() throws SQLException {
 		database = dbHelper.getWritableDatabase();
+		mIsOpen = true;
 	}
 	
 	/**
@@ -69,6 +72,7 @@ public class SoundDataSource {
 	 */
 	public void close() {
 		dbHelper.close();
+		mIsOpen = false;
 	}
 	
 	/**
@@ -79,17 +83,13 @@ public class SoundDataSource {
 	 * @return The id resulting from the insertion into the database.
 	 */
 	private long createSound(int soundValue, String name) {
-		
 		// Create value table.
 		ContentValues values = new ContentValues();
-		
 		// Fill value table.
 		values.put(SoundSQLiteHelper.COLUMN_SOUNDVALUE, soundValue);
 		values.put(SoundSQLiteHelper.COLUMN_NAME, name);
-		
 		// Run insertion query.
 		long insertId = database.insert(SoundSQLiteHelper.TABLE_SOUND, null, values);
-
 		// Return sound id from insertion query.
 		return insertId;
 	}
@@ -97,11 +97,14 @@ public class SoundDataSource {
 	/**
 	 * Deletes a sound from the database.
 	 * @param sound Sound to be deleted.
+	 * @throws SQLException if database connection not opened.
 	 */
-	public void deleteSound(Sound sound) {
+	public void deleteSound(Sound sound) throws SQLException {
+		if(!isOpened()) {
+			throw new SQLException("Database connection not open.");
+		}
 		// Get the sound id.
 		long id = sound.getId();
-		
 		// Delete sound.
 		database.delete(SoundSQLiteHelper.TABLE_SOUND, SoundSQLiteHelper.COLUMN_ID + " = " + id, null);
 	}
@@ -109,15 +112,16 @@ public class SoundDataSource {
 	/**
 	 * Creates a list of all the sounds in the database.
 	 * @return A list of all the sounds in the database.
+	 * @throws SQLException if database connection not opened.
 	 */
-	public List<Sound> getAllSounds() {
-		
+	public List<Sound> getAllSounds() throws SQLException {
+		if(!isOpened()) {
+			throw new SQLException("Database connection not open.");
+		}
 		// Create sound list.
 		List<Sound> sounds = new ArrayList<Sound>();
-		
 		// Run query (Nothing to set up).
 		Cursor cursor = database.query(SoundSQLiteHelper.TABLE_SOUND, allColumns, null, null, null, null, null);
-		
 		// Fill list with sounds.
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()) {
@@ -126,7 +130,6 @@ public class SoundDataSource {
 			cursor.moveToNext();
 		}
 		cursor.close();
-		
 		// Return sounds.
 		return sounds;
 	}
@@ -137,13 +140,10 @@ public class SoundDataSource {
 	 * @return The Sound the cursor was pointing to.
 	 */
 	private Sound cursorToSound(Cursor cursor) {
-		
 		// Create sound.
 		Sound sound = new Sound(cursor.getInt(SoundSQLiteHelper.Columns.SoundValue.index()),cursor.getString(SoundSQLiteHelper.Columns.Name.index()));
-		
 		// Set properties.
 		sound.setId((int)cursor.getLong(SoundSQLiteHelper.Columns.ID.index()));
-		
 		// Return sound.
 		return sound;
 	}
@@ -152,21 +152,21 @@ public class SoundDataSource {
 	 * Get a Sound based on the Sound ID.
 	 * @param soundId The ID of the sound.
 	 * @return The Sound with the id soundId.
+	 * @throws SQLException if database connection not opened.
 	 */
-	public Sound getSoundFromKey(long soundId) {
-		
+	public Sound getSoundFromKey(long soundId) throws SQLException {
+		if(!isOpened()) {
+			throw new SQLException("Database connection not open.");
+		}
 		// Set up selection query.
 		String where = SoundSQLiteHelper.COLUMN_ID + " = ?";
 		String[] whereArgs = new String[] { String.valueOf(soundId) };
-		
 		// Run query.
 		Cursor cursor = database.query(SoundSQLiteHelper.TABLE_SOUND, allColumns, where, whereArgs, null,null,null);
-		
 		// Get the sound.
 		cursor.moveToFirst();
 		Sound sound = cursorToSound(cursor);
 		cursor.close();
-		
 		// Return the sound.
 		return sound;
 	}
@@ -175,24 +175,23 @@ public class SoundDataSource {
 	 * Saves a sound to the database, if the sound doesn't have an id, it will create 
 	 * and id for it and set it. 
 	 * @param sound Sound to save to the database
+	 * @throws SQLException if database connection not opened.
 	 */
-	public void save(Sound sound) {
-		
+	public void save(Sound sound) throws SQLException {
+		if(!isOpened()) {
+			throw new SQLException("Database connection not open.");
+		}
 		// Does the sound exist?
 		if (sound.getId() > 0) {
 			// Yes, update!
-			
 			// Create value table.
 			ContentValues values = new ContentValues();
-			
 			// Fill value table.
 			values.put(SoundSQLiteHelper.COLUMN_SOUNDVALUE, sound.getSoundValue());
 			values.put(SoundSQLiteHelper.COLUMN_NAME, sound.getName());
-			
 			// Set up the query.
 			String where = SoundSQLiteHelper.COLUMN_ID + " = ?";
 			String[] whereArgs = new String[] { String.valueOf(sound.getId()) };
-			
 			// Run query.
 			database.update(SoundSQLiteHelper.TABLE_SOUND, values, where, whereArgs);
 		} else {
@@ -200,5 +199,13 @@ public class SoundDataSource {
 			long newSoundId = createSound(sound.getSoundValue(), sound.getName()); 
 			sound.setId(newSoundId);
 		}
+	}
+
+	/**
+	 * Returns true if the database connection is open.
+	 * @return true if the database connection is open.
+	 */
+	public boolean isOpened() {
+		return mIsOpen;
 	}
 }

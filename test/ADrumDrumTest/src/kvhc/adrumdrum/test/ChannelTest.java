@@ -23,7 +23,6 @@ import junit.framework.Assert;
 import android.test.AndroidTestCase;
 import java.util.Random;
 import kvhc.models.Channel;
-import kvhc.models.Song;
 import kvhc.models.Sound;
 
 /**
@@ -41,6 +40,10 @@ public class ChannelTest extends AndroidTestCase {
 	private static final float PERCENT_100 = 1.0f;
 	private static final float PERCENT_70 = 0.7f;
 	private static final float PERCENT_30 = 0.3f;
+	private static final float TEST_VELOCITY = 0.4f;
+	private static final float DEFAULT_VELOCITY = 0.7f;
+	private static final float RIGHT_PANNING = 0.2f;
+	private static final float LEFT_PANNING = 0.8f;
 	/**
      * Test the parameterless constructor.
      */
@@ -85,6 +88,8 @@ public class ChannelTest extends AndroidTestCase {
             Assert.assertEquals(testChannel.isStepActive(i),
             		testChannel.getSteps().get(i).isActive());
         }
+        // test if a step that doesn't exist isn't active. 
+        Assert.assertEquals(false, testChannel.isStepActive(DEFAULT_NUMBER_OF_STEPS+1));
     }
     /**
      * Test functionality related to panning, by using the setPanning method
@@ -167,5 +172,57 @@ public class ChannelTest extends AndroidTestCase {
 		}
 	}
 	
+	/**
+	 * Tests setSound(Sound)
+	 */
+	public void testSetAndGetSound() {
+		Channel c = new Channel();
+		Sound s = new Sound(1);
+		c.setSound(s);
+		Assert.assertEquals(s, c.getSound());
+	}
+	
+	/**
+	 * Tests setStep(int step, boolean active, float velocity)
+	 */
+	public void testSetStep() {
+		Channel c = new Channel();
+		int step = c.getNumberOfSteps()/2;
+		c.setStep(step, true, TEST_VELOCITY);
+		Assert.assertEquals(true, c.isStepActive(step));
+		Assert.assertEquals(TEST_VELOCITY, c.getStepAt(step).getVelocity());
+	}
+	
+	/**
+	 * Tests getVolumeRight(step)
+	 */
+	public void testGetVolumeRight() {
+		// Init a test Channel and set panning
+		Channel c = new Channel();
+		c.setPanning(RIGHT_PANNING, LEFT_PANNING);
+		// Expected values
+		float expectedVolumeRight = c.getVolume() * RIGHT_PANNING * TEST_VELOCITY;
+		float expectedVolumeDefault = c.getVolume() * c.getRightPanning() * DEFAULT_VELOCITY;
+		int step = c.getNumberOfSteps()/2;
+		c.setStep(step, true, TEST_VELOCITY);
+		Assert.assertEquals(expectedVolumeRight, c.getVolumeRight(step));
+		Assert.assertEquals(expectedVolumeDefault, c.getVolumeRight(step+1));
+	}
+	
+	/**
+	 * Tests getVolumeLeft(step)
+	 */
+	public void testGetVolumeLeft() {
+		// Init a test Channel and set panning
+		Channel c = new Channel();
+		c.setPanning(RIGHT_PANNING, LEFT_PANNING);
+		// Expected values
+		float expectedVolumeLeft = c.getVolume() * LEFT_PANNING * TEST_VELOCITY;
+		float expectedVolumeDefault = c.getVolume() * LEFT_PANNING * DEFAULT_VELOCITY;
+		int step = c.getNumberOfSteps()/2;
+		c.setStep(step, true, TEST_VELOCITY);
+		Assert.assertEquals(expectedVolumeLeft, c.getVolumeLeft(step));
+		Assert.assertEquals(expectedVolumeDefault, c.getVolumeLeft(step+1));
+	}
 }
 
