@@ -26,6 +26,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -57,18 +59,20 @@ import kvhc.util.db.SoundDataSource;
  */
 public class GUIController {
 
-	// Default variables
+	// Constant variables for this class
 	private static final int DEFAULT_NUMBER_OF_STEPS = 8;
 	private static final int DEFAULT_NUMBER_OF_CHANNELS = 4;
 	private static final int DEFAULT_BPM_PERCENTAGE_OF_MAX = 40;
+	private static final String NAME_OF_CLASS = "GUIController";
 	
+	// Default variables
 	private Player player;
 	private Song song;
 	private TextView tv1;
 	private int solo;
 	
 	private Activity parentActivity;
-	private HashMap<String, Sound> mSoundManager;
+	private Map<String, Sound> mSoundManager;
 	
     /**
      * An array of Strings containing the names of the different sounds.
@@ -98,19 +102,20 @@ public class GUIController {
 	/**
 	 * Initialize all the init functions.
 	 */
-	private void init(){
+	private final void init(){
 		initSong();
 		initText();
 		initButtons();
 		initBars();
 		initChannels();
+		// -1 in the solo variable means that no channel play solos
 		solo = -1;
 	}
 	
 	/**
 	 * Initialize sample song.
 	 */
-	private void initSong() {
+	private final void initSong() {
 		// Okay, make a song
 		
 		mDBsoundHelper.open();
@@ -146,14 +151,14 @@ public class GUIController {
 	/**
 	 * Initialize the default channel rows.
 	 */
-	private void initChannels() {
+	private final void initChannels() {
 		redrawChannels();
 	}
 		
 	/**
 	 * Initialize a TextView showing status messages.
 	 */
-    private void initText() {
+    private final void initText() {
     	tv1 = (TextView)parentActivity.findViewById(R.id.textView1);
 		
 	}
@@ -161,7 +166,7 @@ public class GUIController {
     /**
      * Initialize the necessary GUI-buttons (Play/Stop, Add Channel, Remove Step etc).
      */
-	private void initButtons() {
+	private final void initButtons() {
     	   Button btn1 = (Button)parentActivity.findViewById(R.id.button1);
            btn1.setOnClickListener(playOrStopClickListener);
            
@@ -178,7 +183,7 @@ public class GUIController {
 	/**
 	 * Initialize the BPM-bar.
 	 */
-	private void initBars(){
+	private final void initBars(){
 
 		SeekBar bpmBar = (SeekBar)parentActivity.findViewById(R.id.bpmbar);
 		player.setBPMInRange(DEFAULT_BPM_PERCENTAGE_OF_MAX);
@@ -296,11 +301,11 @@ public class GUIController {
 		boolean isPlaying = player.isPlaying();
 		player.stop();
 		
-		Log.w("GUIController", "Song to be loaded: " + song.getId());
-		Log.w("GUIController", "Song bpm: " + song.getBpm());
-		Log.w("GUIController", "Song name: " + song.getName());
-		Log.w("GUIController", "Number of channels: " + song.getNumberOfChannels());
-		Log.w("GUIController", "Get number of steps: " + song.getNumberOfSteps());
+		Log.w(NAME_OF_CLASS, "Song to be loaded: " + song.getId());
+		Log.w(NAME_OF_CLASS, "Song bpm: " + song.getBpm());
+		Log.w(NAME_OF_CLASS, "Song name: " + song.getName());
+		Log.w(NAME_OF_CLASS, "Number of channels: " + song.getNumberOfChannels());
+		Log.w(NAME_OF_CLASS, "Get number of steps: " + song.getNumberOfSteps());
 		
 		
 		// Add the song to the GUI 
@@ -372,6 +377,7 @@ public class GUIController {
 		
 		int y = 0;
 		
+		// For each channel in song
 		for(Channel c: song.getChannels()) {
 			
 			TableRow row = new TableRow(channelContainer.getContext());
@@ -518,9 +524,10 @@ public class GUIController {
 
 			// Spinner for sound sample selection
 			final Spinner input = new Spinner(parentActivity);
-			
 			mDBsoundHelper.open();
-			ArrayAdapter<Sound> spinnerArrayAdapter = new ArrayAdapter<Sound>(parentActivity, android.R.layout.simple_spinner_dropdown_item, mDBsoundHelper.getAllSounds());
+			ArrayAdapter<Sound> spinnerArrayAdapter = new ArrayAdapter<Sound>(parentActivity, 
+									android.R.layout.simple_spinner_dropdown_item, 
+										mDBsoundHelper.getAllSounds());
 			mDBsoundHelper.close();
 			
 			input.setAdapter(spinnerArrayAdapter);
@@ -632,6 +639,7 @@ public class GUIController {
 		
 		loadDialog.setOnDismissListener(new OnDismissListener() {
 			
+			// Set what the dialog shold do then dissmissed
 			public void onDismiss(DialogInterface dialog) {
 				
 				Song lSong = loadDialog.getSong();

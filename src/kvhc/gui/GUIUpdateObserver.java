@@ -36,7 +36,6 @@ import android.widget.TableRow;
 public class GUIUpdateObserver implements Observer {
 	
 	private static final int START_OF_STEPINDEX = 3;
-	private static final int NUMBER_OF_STARTING_BUTTONS = 2;
 	private Activity parentActivity;
 	private int current;
 	

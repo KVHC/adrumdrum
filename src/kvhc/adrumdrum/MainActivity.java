@@ -40,7 +40,6 @@ import android.view.MenuItem;
 public class MainActivity extends Activity {
 	
 	private GUIController guic;
-	
 	private SoundDataSource mSoundLoader;
 	
     /**
