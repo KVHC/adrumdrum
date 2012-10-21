@@ -140,7 +140,7 @@ public class MainActivity extends Activity {
 			case R.id.licenses: 
 				guic.createAndShowLicensesDialog();
 				return true;
-			case R.id.clear_steps:
+			case R.id.new_beat:
 				guic.clearAllSteps();
 				return true;
 			case R.id.save_song:
