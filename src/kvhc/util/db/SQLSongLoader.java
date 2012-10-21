@@ -78,10 +78,8 @@ public class SQLSongLoader implements ISongLoader {
 
 		// Set up variables
 		String name;
-		
 		getSongList(null);
 
-		
 		// Get arguments
 		switch(args.length) {
 		case 1:
@@ -100,10 +98,10 @@ public class SQLSongLoader implements ISongLoader {
 			if(song.getName().equals(name)) {
 				loadedSong = song;
 				
-				Log.w("SQLSongLoader", "Id: " + song.getId());
-				Log.w("SQLSongLoader", "Name: " + song.getName());
-				Log.w("SQLSongLoader", "NumChannels: " + song.getNumberOfChannels());
-				Log.w("SQLSongLoader", "NumSteps: " + song.getNumberOfSteps());
+				Log.d(getClass().toString(), "Id: " + song.getId());
+				Log.d(getClass().toString(), "Name: " + song.getName());
+				Log.d(getClass().toString(), "NumChannels: " + song.getNumberOfChannels());
+				Log.d(getClass().toString(), "NumSteps: " + song.getNumberOfSteps());
 				break;
 			}
 		}
@@ -151,7 +149,7 @@ public class SQLSongLoader implements ISongLoader {
 			mDBSoundHelper.open();
 			for(Channel channel : channels) {
 				// Sound has ID but no content. Get the sound from the database.
-				Log.w("SQLSongLoader", "Channel Id: " + channel.getId() + ". Sound id: " + channel.getSound().getId());
+				Log.d(getClass().toString(), "Channel Id: " + channel.getId() + ". Sound id: " + channel.getSound().getId());
 				channel.setSound(mDBSoundHelper.getSoundFromKey(channel.getSound().getId()));
 				
 				// Get all the steps from the database.

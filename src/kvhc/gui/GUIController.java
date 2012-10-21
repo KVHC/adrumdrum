@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
@@ -59,9 +60,9 @@ import kvhc.util.db.SoundDataSource;
  */
 public class GUIController {
 
-	// Constant variables for this class
-	private static final int DEFAULT_NUMBER_OF_STEPS = 8;
-	private static final int DEFAULT_NUMBER_OF_CHANNELS = 4;
+	// Default variables
+	private static final int DEFAULT_NUMBER_OF_STEPS = 16;
+	private static final int DEFAULT_NUMBER_OF_CHANNELS = 5;
 	private static final int DEFAULT_BPM_PERCENTAGE_OF_MAX = 40;
 	private static final String NAME_OF_CLASS = "GUIController";
 	
@@ -73,6 +74,8 @@ public class GUIController {
 	
 	private Activity parentActivity;
 	private Map<String, Sound> mSoundManager;
+	
+	private static String SOUND_NAME_NO_SOUND = "No Sound";
 	
     /**
      * An array of Strings containing the names of the different sounds.
@@ -127,15 +130,16 @@ public class GUIController {
 		mDBsoundHelper.close();
 		
 		// Creates list of sounds for channel.
-		ArrayList<Sound> sounds = new ArrayList<Sound>(DEFAULT_NUMBER_OF_CHANNELS);
+		List<Sound> sounds = new ArrayList<Sound>(DEFAULT_NUMBER_OF_CHANNELS);
 		
 		sounds.add(mSoundManager.get("Bassdrum"));
 		sounds.add(mSoundManager.get("Closed hihat"));
-		sounds.add(mSoundManager.get("Snare 01"));
-		sounds.add(mSoundManager.get("Ride"));
+		sounds.add(mSoundManager.get("Snare 02"));
+		sounds.add(mSoundManager.get("Crash 01"));
+		sounds.add(mSoundManager.get("Tomtom 02"));
 		
 		// Create channels
-		ArrayList<Channel> channels = new ArrayList<Channel>(sounds.size());
+		List<Channel> channels = new ArrayList<Channel>(sounds.size());
 		
 		// No saved song yet so this is how we roll.
 		for (int i=0; i < sounds.size(); i++)  {
@@ -160,7 +164,6 @@ public class GUIController {
 	 */
     private final void initText() {
     	tv1 = (TextView)parentActivity.findViewById(R.id.textView1);
-		
 	}
 
     /**
@@ -225,7 +228,7 @@ public class GUIController {
 		if(c.getSound() != null) {
 			name.setText(c.getSound().getName());
 		} else {
-			name.setText("No Sound");
+			name.setText(SOUND_NAME_NO_SOUND);
 		}
 		row.addView(name);
 		
@@ -301,12 +304,11 @@ public class GUIController {
 		boolean isPlaying = player.isPlaying();
 		player.stop();
 		
-		Log.w(NAME_OF_CLASS, "Song to be loaded: " + song.getId());
-		Log.w(NAME_OF_CLASS, "Song bpm: " + song.getBpm());
-		Log.w(NAME_OF_CLASS, "Song name: " + song.getName());
-		Log.w(NAME_OF_CLASS, "Number of channels: " + song.getNumberOfChannels());
-		Log.w(NAME_OF_CLASS, "Get number of steps: " + song.getNumberOfSteps());
-		
+		Log.d(NAME_OF_CLASS, "Song to be loaded: " + song.getId());
+		Log.d(NAME_OF_CLASS, "Song bpm: " + song.getBpm());
+		Log.d(NAME_OF_CLASS, "Song name: " + song.getName());
+		Log.d(NAME_OF_CLASS, "Number of channels: " + song.getNumberOfChannels());
+		Log.d(NAME_OF_CLASS, "Get number of steps: " + song.getNumberOfSteps());
 		
 		// Add the song to the GUI 
 		this.song = song;
@@ -391,7 +393,7 @@ public class GUIController {
 			if(c.getSound() != null) {
 				name.setText(c.getSound().getName());
 			} else {
-				name.setText("No Sound");
+				name.setText(SOUND_NAME_NO_SOUND);
 			}
 
 			row.addView(name);
@@ -607,7 +609,7 @@ public class GUIController {
 			stream.close();
 			br.close();
 		} catch (IOException e) {
-			Log.e("derp", e.getMessage());
+			Log.e(getClass().toString(), e.getMessage());
 		}
         licenses = sb.toString();
 		
@@ -636,20 +638,15 @@ public class GUIController {
 	 */
 	public void createAndShowLoadSongDialog() {
 		final LoadSongDialog loadDialog = new LoadSongDialog(parentActivity);
-		
-		loadDialog.setOnDismissListener(new OnDismissListener() {
-			
-			// Set what the dialog shold do then dissmissed
+		loadDialog.setOnDismissListener(new OnDismissListener() {			
+			// Set what the dialog should do then dismissed
 			public void onDismiss(DialogInterface dialog) {
-				
 				Song lSong = loadDialog.getSong();
-				
 				if(lSong != null) {
 					reloadSong(lSong);
 				}
 			}
 		});
-		
 		loadDialog.show();
 	}
 

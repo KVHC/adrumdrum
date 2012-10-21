@@ -129,7 +129,7 @@ public class Step implements Cloneable {
 	 * Clones a step.
 	 * @see java.lang.Object#clone()
 	 */
-	public Step clone(){
+	public Step clone() {
 		
 		Step clone = new Step();
 		clone.mIsActive = this.mIsActive;

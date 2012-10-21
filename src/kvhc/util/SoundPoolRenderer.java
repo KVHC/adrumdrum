@@ -20,8 +20,9 @@
 
 package kvhc.util;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -39,7 +40,7 @@ import kvhc.util.db.SoundDataSource;
 public class SoundPoolRenderer implements ISongRenderer {
 	
 	private SoundManager mSoundManager;
-	private HashMap<Long, Integer> mSoundMap;
+	private Map<Long, Integer> mSoundMap;
 	
 	private SoundDataSource mDBSoundHelper;
 	
@@ -59,7 +60,7 @@ public class SoundPoolRenderer implements ISongRenderer {
 	 * Loads the sounds into the SoundManager. 
 	 * Other stuff might use sound differently but its in the interface for now.
 	 */
-	public void loadSounds(ArrayList<Sound> sounds) {
+	public void loadSounds(List<Sound> sounds) {
 		mSoundMap = new HashMap<Long, Integer>(sounds.size());
 		mDBSoundHelper.open();
 		

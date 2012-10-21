@@ -45,10 +45,17 @@ public class StepSQLiteHelper extends SQLiteOpenHelper {
 	
 	// Foreign keys
 	public static final String FKEY_CHANNELID = "channel_id";
+
+	// Database operations
+	public static final String EQUALS_TO_PARAMETER = "=?";
+	public static final String EQUALS_TO = "=";
+	
 	
 	// Database info
 	private static final String DATABASE_NAME = "adrumdrum.db";
 	private static final int DATABASE_VERSION = 1;
+	
+
 	
 	/**
 	 * Column enumerator which contains the column index corresponding to if you select * channels (hopefully).

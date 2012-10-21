@@ -21,6 +21,8 @@
 package kvhc.util;
 
 import java.util.HashMap;
+import java.util.Map;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.AudioManager;
@@ -39,7 +41,7 @@ import android.media.SoundPool;
 @SuppressLint("UseSparseArrays")
 public class SoundManager {
 	private SoundPool mSoundPool;
-	private HashMap<Integer, Integer> mSoundPoolMap;
+	private Map<Integer, Integer> mSoundPoolMap;
 	private AudioManager  mAudioManager;
 	private Context mContext;
 	
@@ -81,7 +83,6 @@ public class SoundManager {
 		if(mSoundPoolMap.get(index) != null) {
 			float streamVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 			streamVolume = streamVolume / mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-			
 			mSoundPool.play(mSoundPoolMap.get(index), volume*left*streamVolume, volume*right*streamVolume, 1, 0, 1f);
 		}
 	}
