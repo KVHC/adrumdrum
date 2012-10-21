@@ -240,7 +240,7 @@ public class ChannelDataSource {
 			values.put(ChannelSQLiteHelper.COLUMN_NUMBER, channel.getChannelNumber());
 			values.put(ChannelSQLiteHelper.COLUMN_RIGHTPAN, channel.getRightPanning());
 			values.put(ChannelSQLiteHelper.COLUMN_LEFTPAN, channel.getLeftPanning());
-			values.put(ChannelSQLiteHelper.COLUMN_VOLUME, channel.getVolume());
+			values.put(ChannelSQLiteHelper.COLUMN_VOLUME, channel.getChannelVolume());
 			values.put(ChannelSQLiteHelper.COLUMN_MUTE, channel.isMuted() ? 1 : 0);
 		
 			// Add foreign keys to the value table.
