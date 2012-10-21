@@ -45,9 +45,11 @@ import android.widget.Spinner;
  */
 public class ChannelDialog extends Dialog{
 
+	// Class constants
 	private static final int MAX = 100;
 	private static final float ONE_PERCENT = 0.01f;
 	
+	// Class variables
 	private Channel channel;
 	private int id;
 	private GUIController guic;
@@ -245,7 +247,7 @@ public class ChannelDialog extends Dialog{
 	private View.OnClickListener clearStepsClick = new View.OnClickListener(){
 		public void onClick(View v) {
 			channel.clearAllSteps();
-			guic.invalidateAll();
+			guic.redrawChannels();
 			dismiss();
 		}
 	};

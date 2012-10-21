@@ -64,7 +64,9 @@ public class GUIController {
 	private static final int DEFAULT_NUMBER_OF_STEPS = 16;
 	private static final int DEFAULT_NUMBER_OF_CHANNELS = 5;
 	private static final int DEFAULT_BPM_PERCENTAGE_OF_MAX = 40;
+	private static final String NAME_OF_CLASS = "GUIController";
 	
+	// Default variables
 	private Player player;
 	private Song song;
 	private TextView tv1;
@@ -103,19 +105,20 @@ public class GUIController {
 	/**
 	 * Initialize all the init functions.
 	 */
-	private void init(){
+	private final void init(){
 		initSong();
 		initText();
 		initButtons();
 		initBars();
 		initChannels();
+		// -1 in the solo variable means that no channel play solos
 		solo = -1;
 	}
 	
 	/**
 	 * Initialize sample song.
 	 */
-	private void initSong() {
+	private final void initSong() {
 		// Okay, make a song
 		
 		mDBsoundHelper.open();
@@ -152,21 +155,21 @@ public class GUIController {
 	/**
 	 * Initialize the default channel rows.
 	 */
-	private void initChannels() {
+	private final void initChannels() {
 		redrawChannels();
 	}
 		
 	/**
 	 * Initialize a TextView showing status messages.
 	 */
-    private void initText() {
+    private final void initText() {
     	tv1 = (TextView)parentActivity.findViewById(R.id.textView1);
 	}
 
     /**
      * Initialize the necessary GUI-buttons (Play/Stop, Add Channel, Remove Step etc).
      */
-	private void initButtons() {
+	private final void initButtons() {
     	   Button btn1 = (Button)parentActivity.findViewById(R.id.button1);
            btn1.setOnClickListener(playOrStopClickListener);
            
@@ -183,7 +186,7 @@ public class GUIController {
 	/**
 	 * Initialize the BPM-bar.
 	 */
-	private void initBars(){
+	private final void initBars(){
 
 		SeekBar bpmBar = (SeekBar)parentActivity.findViewById(R.id.bpmbar);
 		player.setBPMInRange(DEFAULT_BPM_PERCENTAGE_OF_MAX);
@@ -301,11 +304,11 @@ public class GUIController {
 		boolean isPlaying = player.isPlaying();
 		player.stop();
 		
-		Log.d(getClass().toString(), "Song to be loaded: " + song.getId());
-		Log.d(getClass().toString(), "Song bpm: " + song.getBpm());
-		Log.d(getClass().toString(), "Song name: " + song.getName());
-		Log.d(getClass().toString(), "Number of channels: " + song.getNumberOfChannels());
-		Log.d(getClass().toString(), "Get number of steps: " + song.getNumberOfSteps());
+		Log.d(NAME_OF_CLASS, "Song to be loaded: " + song.getId());
+		Log.d(NAME_OF_CLASS, "Song bpm: " + song.getBpm());
+		Log.d(NAME_OF_CLASS, "Song name: " + song.getName());
+		Log.d(NAME_OF_CLASS, "Number of channels: " + song.getNumberOfChannels());
+		Log.d(NAME_OF_CLASS, "Get number of steps: " + song.getNumberOfSteps());
 		
 		// Add the song to the GUI 
 		this.song = song;
@@ -376,6 +379,7 @@ public class GUIController {
 		
 		int y = 0;
 		
+		// For each channel in song
 		for(Channel c: song.getChannels()) {
 			
 			TableRow row = new TableRow(channelContainer.getContext());
@@ -522,9 +526,10 @@ public class GUIController {
 
 			// Spinner for sound sample selection
 			final Spinner input = new Spinner(parentActivity);
-			
 			mDBsoundHelper.open();
-			ArrayAdapter<Sound> spinnerArrayAdapter = new ArrayAdapter<Sound>(parentActivity, android.R.layout.simple_spinner_dropdown_item, mDBsoundHelper.getAllSounds());
+			ArrayAdapter<Sound> spinnerArrayAdapter = new ArrayAdapter<Sound>(parentActivity, 
+									android.R.layout.simple_spinner_dropdown_item, 
+										mDBsoundHelper.getAllSounds());
 			mDBsoundHelper.close();
 			
 			input.setAdapter(spinnerArrayAdapter);
@@ -633,7 +638,8 @@ public class GUIController {
 	 */
 	public void createAndShowLoadSongDialog() {
 		final LoadSongDialog loadDialog = new LoadSongDialog(parentActivity);
-		loadDialog.setOnDismissListener(new OnDismissListener() {
+		loadDialog.setOnDismissListener(new OnDismissListener() {			
+			// Set what the dialog should do then dismissed
 			public void onDismiss(DialogInterface dialog) {
 				Song lSong = loadDialog.getSong();
 				if(lSong != null) {

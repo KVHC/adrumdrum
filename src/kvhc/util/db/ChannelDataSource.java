@@ -50,7 +50,7 @@ public class ChannelDataSource {
 			ChannelSQLiteHelper.COLUMN_MUTE, 
 			ChannelSQLiteHelper.FKEY_SONGID, 
 			ChannelSQLiteHelper.FKEY_SOUNDID };
-	
+	private boolean mIsOpen;	
 
 	/**
 	 * The only constructor available, needs context for using the database.
@@ -58,6 +58,7 @@ public class ChannelDataSource {
 	 */
 	public ChannelDataSource(Context context) {
 		dbHelper = new ChannelSQLiteHelper(context);
+		mIsOpen = false;
 	}
 	
 	/**
@@ -66,6 +67,7 @@ public class ChannelDataSource {
 	 */
 	public void open() throws SQLException {
 		database = dbHelper.getWritableDatabase();
+		mIsOpen = true;
 	}
 	
 	/**
@@ -73,6 +75,7 @@ public class ChannelDataSource {
 	 */
 	public void close() {
 		dbHelper.close();
+		mIsOpen = false;
 	}
 	
 	/**
@@ -91,8 +94,7 @@ public class ChannelDataSource {
 	 * @param mute = If the channel is muted or not. 
 	 * @return
 	 */
-	private long createChannel(Song song, Sound sound, float volume, float rightPan, float leftPan, int number, boolean mute) {
-		
+	private long createChannel(Song song, Sound sound, float volume, float rightPan, float leftPan, int number, boolean mute) { 
 		// Does the song exist?
 		if(song == null || song.getId() == 0) {
 			// Nope, don't add to the database.
@@ -130,13 +132,18 @@ public class ChannelDataSource {
 	/**
 	 * Deletes a channel from the database.
 	 * @param channel The channel to delete.
+	 * @throws SQLException when there is no connectino to the database.
+	 * @return the number of rows deleted.
 	 */
-	public void deleteChannel(Channel channel) {
+	public int deleteChannel(Channel channel) throws SQLException {
+		if(!mIsOpen) {
+			throw new SQLException("No database connection.");
+		}
 		// Get the id for the channel.
 		long id = channel.getId();
-		
+		channel.setId(0);
 		// Delete channel.
-		database.delete(ChannelSQLiteHelper.TABLE_CHANNEL, ChannelSQLiteHelper.COLUMN_ID + " = " + id, null);
+		return database.delete(ChannelSQLiteHelper.TABLE_CHANNEL, ChannelSQLiteHelper.COLUMN_ID + " = " + id, null);
 	}
 	
 	/**
@@ -148,23 +155,22 @@ public class ChannelDataSource {
 	 * 
 	 * @param song Song to which the Channels belongs. 
 	 * @return A list of the specified Song's channels.
+	 * @throws 
 	 */
-	public List<Channel> getAllChannelsForSong(Song song) {
-		
+	public List<Channel> getAllChannelsForSong(Song song) throws SQLException {
+		if(!mIsOpen) {
+			throw new SQLException("No database connection.");
+		}
 		// Create a list of channels
 		List<Channel> channels = new ArrayList<Channel>();
-		
 		// Set up the query.
 		String where = ChannelSQLiteHelper.FKEY_SONGID + " = ?";
 		String[] whereArgs = new String[] { String.valueOf(song.getId()) };
 		String orderBy = ChannelSQLiteHelper.COLUMN_NUMBER + " ASC";
-		
 		// Run query.
 		Cursor cursor = database.query(ChannelSQLiteHelper.TABLE_CHANNEL, allColumns, where, whereArgs, 
 				null,null, orderBy);
-		
 		Log.w("ChannelDataSource", "Number of Channels found: " + cursor.getCount());
-		
 		// Fill the list.
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()) {
@@ -173,7 +179,6 @@ public class ChannelDataSource {
 			cursor.moveToNext();
 		}
 		cursor.close();
-		
 		// Return channel list.
 		return channels;
 	}
@@ -188,14 +193,11 @@ public class ChannelDataSource {
 	 * @return A created channel.
 	 */
 	private Channel cursorToChannel(Cursor cursor) {
-		
 		// Create a new channel.
 		Channel channel = new Channel();
-		
 		// Get the foreign keys.
 		long channelId = cursor.getLong(ChannelSQLiteHelper.Columns.ID.index());
 		long soundId = cursor.getLong(ChannelSQLiteHelper.Columns.SoundId.index());
-		
 		// Set the properties.
 		channel.setId(channelId);
 		channel.setPanning(
@@ -204,11 +206,9 @@ public class ChannelDataSource {
 		channel.setVolume((float)cursor.getDouble(ChannelSQLiteHelper.Columns.Volume.index())); 
 		channel.setChannelNumber(cursor.getInt(ChannelSQLiteHelper.Columns.Number.index()));
 		channel.setMute(cursor.getInt(ChannelSQLiteHelper.Columns.Mute.index()) == 1);
-		
 		// Set up foreign key objects.
 		channel.setSteps(null);
 		channel.setSound(new Sound(soundId));
-		
 		// Return new channel.
 		return channel;
 	}
@@ -224,17 +224,14 @@ public class ChannelDataSource {
 	 * @param channel The Channel to save.
 	 */
 	public void save(Song song, Channel channel) {
-		
 		// Does the song exist? Does it exist in the database?
 		if(song == null || song.getId() == 0) {
 			// Nope. Don't save anything.
 			return;
 		}
-		
 		// Does the channel exist?
 		if(channel.getId() > 0) {
 			// Yes, update.
-			
 			// Set up value table.
 			ContentValues values = new ContentValues();
 			values.put(ChannelSQLiteHelper.COLUMN_NUMBER, channel.getChannelNumber());
@@ -242,7 +239,6 @@ public class ChannelDataSource {
 			values.put(ChannelSQLiteHelper.COLUMN_LEFTPAN, channel.getLeftPanning());
 			values.put(ChannelSQLiteHelper.COLUMN_VOLUME, channel.getChannelVolume());
 			values.put(ChannelSQLiteHelper.COLUMN_MUTE, channel.isMuted() ? 1 : 0);
-		
 			// Add foreign keys to the value table.
 			values.put(ChannelSQLiteHelper.FKEY_SONGID, song.getId());
 			if(channel.getSound() != null) {
@@ -250,11 +246,9 @@ public class ChannelDataSource {
 			} else {
 				values.put(ChannelSQLiteHelper.FKEY_SOUNDID, 0);
 			}
-			
 			// Set up query.
 			String where = ChannelSQLiteHelper.COLUMN_ID + " = ?";
 			String[] whereArgs = new String[] { String.valueOf(channel.getId() )};
-		
 			// Run query.
 			database.update(ChannelSQLiteHelper.TABLE_CHANNEL, values, where, whereArgs);
 		} else {
@@ -266,9 +260,16 @@ public class ChannelDataSource {
 					channel.getLeftPanning(), 
 					channel.getChannelNumber(), 
 					channel.isMuted());
-			
 			// Set the newly obtained id to the channel.
 			channel.setId(newChannelId);
 		}
+	}
+
+	/**
+	 * Returns true if the database is open for transactions.
+	 * @return True, then you can use the data source without error.
+	 */
+	public boolean isOpened() {
+		return mIsOpen;
 	}
 }

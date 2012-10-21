@@ -32,11 +32,11 @@ import java.util.Random;
  */
 public class StepTest extends AndroidTestCase {
 	
-	private Channel testChannel = new Channel();
 	/**
 	 * Tests the constructor that takes a Channel and an Int.
 	 */
 	public void testStep() {
+		Channel testChannel = new Channel();
 		Assert.assertNotNull(new Step(testChannel, 1));
 	}
 	
@@ -45,6 +45,7 @@ public class StepTest extends AndroidTestCase {
 	 * and sets the step active if the Boolean is true.
 	 */
 	public void testStepBoolean() {
+		Channel testChannel = new Channel();
 		Step step = new Step(true, testChannel, 1);
 		Assert.assertTrue(step.isActive());
 	}
@@ -53,6 +54,7 @@ public class StepTest extends AndroidTestCase {
 	 * Tests the setActive method.
 	 */
 	public void testSetActive() {
+		Channel testChannel = new Channel();
 		Step step = new Step(testChannel,1);
 		Assert.assertFalse(step.isActive());
 		
@@ -64,6 +66,7 @@ public class StepTest extends AndroidTestCase {
 	 * Tests the setVelocity/getVelocity methods
 	 */
 	public void testSetVel() {
+		Channel testChannel = new Channel();
 		Step step = new Step(testChannel,1);
 		float testVel = new Random().nextFloat();
 		step.setVelolcity(testVel);

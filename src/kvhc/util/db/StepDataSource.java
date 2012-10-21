@@ -40,7 +40,7 @@ public class StepDataSource {
 	
 	private SQLiteDatabase database;
 	private StepSQLiteHelper dbHelper;
-	
+	private boolean mIsOpened = false;
 	
 	private String[] allColumns = { StepSQLiteHelper.COLUMN_ID, 
 			StepSQLiteHelper.COLUMN_VELOCITY, 
@@ -54,6 +54,7 @@ public class StepDataSource {
 	 */
 	public StepDataSource(Context context) {
 		dbHelper = new StepSQLiteHelper(context);
+		mIsOpened = false;
 	}
 	
 	/**
@@ -62,6 +63,7 @@ public class StepDataSource {
 	 */
 	public void open() throws SQLException {
 		database = dbHelper.getWritableDatabase();
+		mIsOpened = true;
 	}
 	
 	/**
@@ -69,19 +71,24 @@ public class StepDataSource {
 	 */
 	public void close() {
 		dbHelper.close();
+		mIsOpened = false;
 	}
 	
 	/**
 	 * Creates a step from the parameters and adds it to the database.
 	 * Returns the newly added Step with ID from the database.
 	 * 
+	 * @throws SQLException if the database connection is not open.
 	 * @param velocity Step velocity
 	 * @param active Is the step active?
 	 * @param stepNumber The number of the step.
 	 * @param channel Channel the step belongs to.
-	 * @return The step as it exists in the database.
+	 * @return The step id from the database.
 	 */
-	private long createStep(float velocity, boolean active, int stepNumber, Channel channel) {
+	private long createStep(float velocity, boolean active, int stepNumber, Channel channel)throws SQLException {
+		if(!mIsOpened) {
+			throw new SQLException("No database connection.");
+		}
 		
 		// Is the channel in the database?
 		if(channel.getId() == 0) {
@@ -105,14 +112,21 @@ public class StepDataSource {
 	
 	/**
 	 * Deletes a step from the database.
-	 * @param step
+	 * 
+	 * Returns the amount of steps deleted.
+	 * @throws SQLException if the database connection is not open.
+	 * @param step The step to be deleted.
+	 * @return The amount of steps deleted.
 	 */
-	public void deleteStep(Step step) {
+	public int deleteStep(Step step) throws SQLException {
+		if(!mIsOpened) {
+			throw new SQLException("No database connection.");
+		}
 		// Get the id
 		long id = step.getId();
-		
+		step.setId(0);
 		// Delete step
-		database.delete(StepSQLiteHelper.TABLE_STEP, StepSQLiteHelper.COLUMN_ID + StepSQLiteHelper.EQUALS_TO + id, null);
+		return database.delete(StepSQLiteHelper.TABLE_STEP, StepSQLiteHelper.COLUMN_ID + StepSQLiteHelper.EQUALS_TO + id, null);
 	}
 	
 	/**
@@ -120,15 +134,21 @@ public class StepDataSource {
 	 * specified channel. 
 	 * 
 	 * If the Channel object doesn't have an id (not loaded from the db) 
-	 * it will return an empty list of steps. 
+	 * it will return an empty list of steps.
 	 * 
+	 * @throws SQLException if the database connection is not open.
 	 * @param channel The Channel to load steps from.
 	 * @return A list of steps.
 	 */
-	public List<Step> getAllStepsForChannel(Channel channel) {
+	public List<Step> getAllStepsForChannel(Channel channel) throws SQLException {
+		if(!mIsOpened) {
+			throw new SQLException("No database connection.");
+		}
 		
 		// Create a list for the steps.
 		List<Step> steps = new ArrayList<Step>();
+
+		
 		
 		// Does the channel exist? 
 		if(channel == null || channel.getId() == 0) {
@@ -160,11 +180,14 @@ public class StepDataSource {
 	/**
 	 * Updates a step with the parameters from the Step object and
 	 * Channel object.
+	 * @throws SQLException if the database connection is not open.
 	 * @param step The Step to update.
 	 * @param channel The Channel the Step belongs to.
 	 */
-	private void updateStep(Step step, Channel channel) {
-		
+	private void updateStep(Step step, Channel channel)	throws SQLException {
+		if(!mIsOpened) {
+			throw new SQLException("No database connection.");
+		}
 		// Does the step exist?
 		if(step == null || step.getId() == 0) {
 			// The step doesn't exist. Don't update.
@@ -197,24 +220,26 @@ public class StepDataSource {
 	 * the step. If it doesn't exist it is created and an ID is set on the step.
 	 * @param step The Step to save.
 	 * @param channel The Channel the Step belongs to.
+	 * @return Returns -1 if the channel isn't initiated in the database, 1 if updated and 2 if created.
 	 */
-	public void save(Step step, Channel channel) {
+	public int save(Step step, Channel channel) {
 		
 		// Does the channel exist in the database?
 		if(channel.getId() == 0) {
 			// Channel doesn't have an ID, not in database.
-			// Don't save. (Throw error?)
-			return;
+			return -1;
 		}
 		
 		// Does the step already exist?
 		if(step.getId() > 0) {
 			// Update the step.
 			updateStep(step, channel);
+			return 1;
 		} else {
 			// The step doesn't exist, create it.
 			long newStepId = createStep(step.getVelocity(), step.isActive(), step.getStepNumber(), channel);
-			step.setId(newStepId); 
+			step.setId(newStepId);
+			return 2;
 		}
 	}
 	
@@ -242,5 +267,14 @@ public class StepDataSource {
 		
 		// Return the new step.
 		return step;
+	}
+
+	/**
+	 * Returns true if the data source has a connection to the database.
+	 * @return True if the object is connected to the database.
+	 */
+	public boolean isOpened() {
+		// TODO Auto-generated method stub
+		return mIsOpened;
 	}
 }
