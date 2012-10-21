@@ -22,7 +22,6 @@ package kvhc.adrumdrum.test;
 
 import junit.framework.Assert;
 import android.test.AndroidTestCase;
-import kvhc.models.Sound;
 import kvhc.models.Step;
 import kvhc.models.Channel;
 import java.util.Random;
@@ -35,7 +34,6 @@ public class StepTest extends AndroidTestCase {
 
 	private static final int DEFAULT_NUMBER_OF_STEPS = 16;
 	private static final float TEST_VELOCITY = 0.4f;
-	private static final String TEST_STRING = "Test";
 	
 	/**
 	 * Tests the constructor that takes a Channel and an Int.
