@@ -22,7 +22,7 @@ package kvhc.util;
 import android.os.Handler;
 
 /***
- * A class representing a timer
+ * A class representing a timer.
  * @author Niclas 
  */
 public class AndroidTimer {
@@ -33,12 +33,12 @@ public class AndroidTimer {
 	private boolean enabled;
 	
 	/**
-	 * Constructor. The timer are not started until the start() method are called
+	 * Constructor. The timer are not started until the start() method are called.
 	 * 
-	 * @param handler: A handler that executes the current task
-	 * @param job: A Runnable object. This objects run method will be executed 
+	 * @param handler A handler that executes the current task
+	 * @param job A Runnable object. This objects run method will be executed 
 	 * every time the timer ticks
-	 * @param time: How long time between every timer tick, the time are in milliseconds
+	 * @param time How long time between every timer tick, the time are in milliseconds
 	 */
 	public AndroidTimer(Handler handler, Runnable job, long time) {
 		this.handler = handler;
@@ -47,25 +47,25 @@ public class AndroidTimer {
 	}
 	
 	/**
-	 * Constructor. The timer are not started until the start() method are called
+	 * Constructor. The timer are not started until the start() method are called.
 	 * 
-	 * @param job: A Runnable object. This objects run method will be executed 
+	 * @param job A Runnable object. This objects run method will be executed 
 	 * every time the timer ticks
-	 * @param time: How long time between every timer tick, the time are in milliseconds
+	 * @param time How long time between every timer tick, the time are in milliseconds
 	 */
 	public AndroidTimer(Runnable job, long time) {
 		this(new Handler(), job, time);
 	}
 	
 	/**
-	 * Stops the timer
+	 * Stops the timer.
 	 */
 	public void stop() {
 		enabled = false;
 	}
 	
 	/**
-	 * Starts the timer
+	 * Starts the timer.
 	 */
 	public void start() {
 		if (enabled) {
@@ -76,7 +76,7 @@ public class AndroidTimer {
 	}
 	
 	/**
-	 * Checks if the timer are running
+	 * Checks if the timer are running.
 	 * @return True if the timer are running, else false
 	 */
 	public boolean running() {
@@ -84,8 +84,8 @@ public class AndroidTimer {
 	}
 	
 	/**
-	 * Change the Runnable object that are used every timer tick
-	 * @param job: A Runnable object that should be used eery timer tick
+	 * Change the Runnable object that are used every timer tick.
+	 * @param job A Runnable object that should be used eery timer tick
 	 */
 	public void changeJob(Runnable job) {
 		this.job = job;
