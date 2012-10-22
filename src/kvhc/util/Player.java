@@ -59,12 +59,13 @@ public class Player extends Observable {
 	 * @param context from witch to play the sounds in.
 	 */
 	public Player(Context context) {
+		
 		mSongRender = new SoundPoolRenderer(context);
 		waitTime = DEFAULT_WAITTIME;
-		
 		currentStep = 0;
 		isPlaying = false;
         
+		// This runnable are executed every time the timer ticks
 		Runnable r = new Runnable(){
     		public void run() {
     			nextStep();
@@ -98,7 +99,8 @@ public class Player extends Observable {
 			mSongRender.renderSongAtStep(song, currentStep);
 			
 			currentStep++;
-
+			
+			// If current step is greater than total steps
 			if (currentStep >= song.getNumberOfSteps()) {
 				currentStep = 0;
 			}
@@ -118,6 +120,7 @@ public class Player extends Observable {
 	 * @param bpm the bpm to set
 	 */
 	public void setWaitTimeByBPM(int bpm) {
+		// A negative bpm stops the player
 		if (bpm <= 0){
 			stop();
 			return;
@@ -150,6 +153,7 @@ public class Player extends Observable {
 	/**
 	 * Stops the player.
 	 * Also notifies all observers with (-1).
+	 * The player are only stopped if it's running
 	 */
 	public void stop() {
 		if (isPlaying){

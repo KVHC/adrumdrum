@@ -65,6 +65,7 @@ public class SoundPoolRenderer implements ISongRenderer {
 		mDBSoundHelper.open();
 		
 		int i = 1;
+		// Fetch all sounds and give them an id
 		for(Sound sound : mDBSoundHelper.getAllSounds()) {
 			if(sound != null) {
 				mSoundMap.put(sound.getId(), i);
@@ -83,6 +84,7 @@ public class SoundPoolRenderer implements ISongRenderer {
 	public void renderSong(Song song) {
 		int numsteps = song.getNumberOfSteps();
 		
+		// For all steps
 		for (int i = 0; i < numsteps; i++) {
 			renderSongAtStep(song, i);
 		}
@@ -94,7 +96,9 @@ public class SoundPoolRenderer implements ISongRenderer {
 	 * IF sounds not loaded, cannot playback.
 	 */
 	public void renderSongAtStep(Song song, int step) {
+		// For all channels in this song
 		for (Channel c : song.getChannels()) {
+			// Play sound if the step is active, not muted and there are a sound for it
 			if (c.isStepActive(step) && !c.isMuted() && c.getSound() != null) {
 				int soundManagerId = mSoundMap.get(c.getSound().getId());
 				mSoundManager.playSound(soundManagerId, c.getVolumeRight(step), c.getVolumeLeft(step), c.getVolume());
