@@ -69,7 +69,7 @@ public class PlayerTest extends AndroidTestCase implements Observer {
 		//stopping the player should notify observers
 		testPlayer.stop();
 		//if update has been called this should be true
-		Assert.assertFalse(oldstep == -1);
+		Assert.assertTrue(oldstep == -1);
 		Assert.assertFalse(testPlayer.isPlaying());
 		//after stopping, current step should be 0
 		Assert.assertEquals(0, testPlayer.getActiveStep());
@@ -85,7 +85,8 @@ public class PlayerTest extends AndroidTestCase implements Observer {
 		try {
 			receivedData = Integer.parseInt(data.toString());
 		} catch (NumberFormatException e) {
-			throw new AssertionError("Player did not send integer");
+			Assert.fail("Player did not send integer");
+			receivedData=0;
 		}
 		
 		// The only possibility to send the same Integer two times in row is too start the 
