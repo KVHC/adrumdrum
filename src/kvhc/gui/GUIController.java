@@ -65,6 +65,7 @@ public class GUIController {
 	private static final int DEFAULT_NUMBER_OF_CHANNELS = 5;
 	private static final int DEFAULT_BPM_PERCENTAGE_OF_MAX = 40;
 	private static final String NAME_OF_CLASS = "GUIController";
+	private static final String SOUND_NAME_NO_SOUND = "No Sound";
 	
 	// Default variables
 	private Player player;
@@ -75,7 +76,6 @@ public class GUIController {
 	private Activity parentActivity;
 	private Map<String, Sound> mSoundManager;
 	
-	private static String SOUND_NAME_NO_SOUND = "No Sound";
 	
     /**
      * An array of Strings containing the names of the different sounds.
@@ -105,7 +105,7 @@ public class GUIController {
 	/**
 	 * Initialize all the init functions.
 	 */
-	private final void init(){
+	final private void init(){
 		initSong();
 		initText();
 		initButtons();
@@ -118,7 +118,7 @@ public class GUIController {
 	/**
 	 * Initialize sample song.
 	 */
-	private final void initSong() {
+	private void initSong() {
 		// Okay, make a song
 		
 		mDBsoundHelper.open();
@@ -155,21 +155,21 @@ public class GUIController {
 	/**
 	 * Initialize the default channel rows.
 	 */
-	private final void initChannels() {
+	private void initChannels() {
 		redrawChannels();
 	}
 		
 	/**
 	 * Initialize a TextView showing status messages.
 	 */
-    private final void initText() {
+    private void initText() {
     	tv1 = (TextView)parentActivity.findViewById(R.id.textView1);
 	}
 
     /**
      * Initialize the necessary GUI-buttons (Play/Stop, Add Channel, Remove Step etc).
      */
-	private final void initButtons() {
+	private void initButtons() {
     	   Button btn1 = (Button)parentActivity.findViewById(R.id.button1);
            btn1.setOnClickListener(playOrStopClickListener);
            
@@ -186,7 +186,7 @@ public class GUIController {
 	/**
 	 * Initialize the BPM-bar.
 	 */
-	private final void initBars(){
+	private void initBars(){
 
 		SeekBar bpmBar = (SeekBar)parentActivity.findViewById(R.id.bpmbar);
 		player.setBPMInRange(DEFAULT_BPM_PERCENTAGE_OF_MAX);

@@ -84,7 +84,7 @@ public class Channel {
 		int stepIdToAdd = 0;
 		
 		for (int i = 0; i < numSteps; i++) {
-			mSteps.add(new Step(this, stepIdToAdd++));
+			mSteps.add(new Step(stepIdToAdd++));
 		}
 		
 		volume = 1.0f;
@@ -316,7 +316,7 @@ public class Channel {
 			}
 		} else {
 			for(int i = 0; i < resizeByAmount; i++) {
-				mSteps.add(new Step(this, mSteps.size()));
+				mSteps.add(new Step(mSteps.size()));
 			}
 		}
 	}

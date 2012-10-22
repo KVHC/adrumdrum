@@ -42,7 +42,7 @@ public class PlayerTest extends AndroidTestCase implements Observer {
 	private static final int MAX_BPM = 330;
 	private static final int MAX_RANGE = 100;
 	
-	private int count;
+	private int oldstep = -100; // random number that player never send
 	
 	/**
 	 * Tests the constructor of Player.
@@ -59,7 +59,6 @@ public class PlayerTest extends AndroidTestCase implements Observer {
 	 */
 	public void testPlayAndStop(){
 		//init
-		count=0;
 		Player testPlayer = new Player(getContext());
 		ArrayList<Channel> testList = new ArrayList<Channel>();
 		testList.add(new Channel(new Sound(1,"test"),1));
@@ -70,7 +69,7 @@ public class PlayerTest extends AndroidTestCase implements Observer {
 		//stopping the player should notify observers
 		testPlayer.stop();
 		//if update has been called this should be true
-		Assert.assertTrue(count>0);
+		Assert.assertFalse(oldstep == -1);
 		Assert.assertFalse(testPlayer.isPlaying());
 		//after stopping, current step should be 0
 		Assert.assertEquals(0, testPlayer.getActiveStep());
@@ -81,8 +80,24 @@ public class PlayerTest extends AndroidTestCase implements Observer {
 	 * used to assert that Player correctly notifies its observers.
 	 */
 	public void update(Observable observable, Object data) {
-		count++;
+		int data;
+		// Assert if player didn't send a Integer
+		try {
+			data = Integer.parseInt(data.toString());
+		} catch (NumberFormatException e) {
+			throw new AssertionError("Player did not send integer");
+		}
+		
+		// The only possibility to send the same Integer two times in row is too start the 
+		// player and stop it before the first step is played. Otherwise the data that are sent
+		// must differ from the one sent before. Also this don't work if there are only one step
+		// in the channel but in this testcase there are.
+		if (data != -1){
+			Assert.assertTrue(oldstep == data);
+		}
+		oldstep = data;
 	}
+		
 	
 	/**
 	 * Test setBPMinRange().
@@ -93,4 +108,5 @@ public class PlayerTest extends AndroidTestCase implements Observer {
 		int bpm = testPlayer.setBPMInRange(MAX_RANGE);
 		Assert.assertEquals(MAX_BPM, bpm);
 	}
+	
 }

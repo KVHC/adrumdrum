@@ -32,7 +32,6 @@ public class Step implements Cloneable {
 	// Members
 	private boolean mIsActive;
 	private float mVelocity;
-	private Channel channel; 
 	private int mNumber; // The step number
 	private long id;
 	
@@ -41,17 +40,15 @@ public class Step implements Cloneable {
 	 * @param channel the channel of the step
 	 * @param stepid the id/column of the step
 	 */
-	public Step(Channel channel, int stepid) {
+	public Step(int stepid) {
 		mIsActive = false;
 		mVelocity = DEFAULT_VELOCITY;
-		this.channel = channel;
 		this.mNumber = stepid;
 	}
 	
 	public Step() {
 		this.mIsActive = false;
 		this.mVelocity = DEFAULT_VELOCITY;
-		this.channel = null;
 		this.mNumber = 0;
 		this.id = 0;
 	}
@@ -62,9 +59,8 @@ public class Step implements Cloneable {
 	 * @param Channel the channel of the step
 	 * @param stepid the id/column of the step
 	 */
-	public Step(boolean setActive, Channel channel, int stepid) {
+	public Step(boolean setActive, int stepid) {
 		mIsActive = setActive;
-		this.channel = channel;
 		this.mNumber = stepid;
 	}
 	
@@ -133,7 +129,6 @@ public class Step implements Cloneable {
 		Step clone = new Step();
 		clone.mIsActive = this.mIsActive;
 		clone.mVelocity = this.mVelocity;
-		clone.channel = this.channel;
 		return clone;
 	}
 	
