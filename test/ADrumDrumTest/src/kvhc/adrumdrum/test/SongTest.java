@@ -19,11 +19,13 @@
  */
 package kvhc.adrumdrum.test;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import junit.framework.Assert;
 import kvhc.models.Channel;
 import kvhc.models.Song;
+import kvhc.models.Step;
 import android.test.AndroidTestCase;
 
 /**
@@ -35,6 +37,7 @@ import android.test.AndroidTestCase;
 public class SongTest extends AndroidTestCase {
 
 	private static final int NUMBER_OF_CHANNELS = 4;
+	private static final int DEFAULT_NUMBER_OF_STEPS = 16;
 	
 	/**
 	 * Tests constructor with numChannels-parameter
@@ -44,6 +47,53 @@ public class SongTest extends AndroidTestCase {
 		Assert.assertEquals(NUMBER_OF_CHANNELS, s.getNumberOfChannels());
 		Assert.assertNotNull(s);
 		Assert.assertNull(s.getChannel(0).getSound());
+	}
+	
+	/**
+	 * Tests constructor that takes a list of Channels.
+	 */
+	public void testSecondConstructor() {
+		// If you send an invalid value, a Song should be created anyway
+		Song s = new Song(null);
+		Assert.assertNotNull(s);
+		
+		//Init a random number
+		int randomNumberOfChannels = new Random().nextInt(NUMBER_OF_CHANNELS*2);
+		
+		//Make a list of Channels
+		ArrayList<Channel> listOfChannels = new ArrayList<Channel>(randomNumberOfChannels);
+		for (int i=0;i<randomNumberOfChannels;i++) {
+			Channel c = new Channel();
+			listOfChannels.add(c);
+		}
+		//Make a new song with the list of channels
+		s = new Song(listOfChannels);
+		
+		//Test if it is the right number of Channels in the Song
+		Assert.assertEquals(randomNumberOfChannels, s.getNumberOfChannels());
+		
+	}
+	
+	/**
+	 * Tests setChannels(List<Channel> channels)
+	 */
+	public void testsetChannels() {
+		//Init a Song.
+		Song s = new Song(NUMBER_OF_CHANNELS);
+		//Init a random number
+		int randomNumberOfChannels = new Random().nextInt(NUMBER_OF_CHANNELS*2);
+		
+		//Make a list of Channels
+		ArrayList<Channel> listOfChannels = new ArrayList<Channel>(randomNumberOfChannels);
+		for (int i=0;i<randomNumberOfChannels;i++) {
+			Channel c = new Channel();
+			listOfChannels.add(c);
+		}
+		//Set the Song to use these channels
+		s.setChannels(listOfChannels);
+		
+		//Test if it is the right number of Channels in the Song
+		Assert.assertEquals(randomNumberOfChannels, s.getNumberOfChannels());
 	}
 	
 	/**
@@ -57,6 +107,15 @@ public class SongTest extends AndroidTestCase {
 		s.removeChannel(s.getNumberOfChannels()-1);
 		s.removeChannel(s.getNumberOfChannels()-1);
 		Assert.assertEquals(1, s.getNumberOfChannels());
+		
+		//Test to remove a Channel that doesn't exist
+		boolean didItRemoveAChannel = s.removeChannel(-1);
+		
+		//Nothing should have happen
+		Assert.assertEquals(1, s.getNumberOfChannels());
+		
+		//Test if it returns false as expected
+		Assert.assertEquals(false, didItRemoveAChannel);
 	}
 	
 	/**
@@ -170,7 +229,67 @@ public class SongTest extends AndroidTestCase {
 		Assert.assertEquals(defaultNumberOfSteps-3, s.getNumberOfSteps());
 	}
 	
+	/**
+	 * Tests equals(Object)
+	 */
+	public void testEquals() {
+		String testString = "Test String";
+		
+		//Make three new Songs. 
+		// s1==s2, s1!=s3, s2!=s3
+		Song s1 = new Song(NUMBER_OF_CHANNELS);
+		Song s2 = new Song(NUMBER_OF_CHANNELS);
+		Song s3 = new Song(NUMBER_OF_CHANNELS+2);
+		
+		// Set some values
+		s1.setName(testString);
+		s2.setName(testString);
+		s3.setName(testString+"test");
+		s1.setId(1);
+		s2.setId(1);
+		s3.setId(2);
+
+		// Test equals on them
+		Assert.assertEquals(true, s1.equals(s2));
+		Assert.assertEquals(true, s2.equals(s1));
+		Assert.assertEquals(false, s1.equals(s3));
+		Assert.assertEquals(false, s3.equals(s1));
+		Assert.assertEquals(false, s2.equals(s3));
+		Assert.assertEquals(false, s3.equals(s2));
+		
+		//Test against some random other objects
+		Assert.assertEquals(false, s1.equals(testString));
+		Assert.assertEquals(false, s3.equals(new Channel()));
+	}
+	
+	/**
+	 * Test muteAllChannelsExcept(channelindex) 
+	 */
+	public void testmuteAllChannelsExcept() {
+		//Make a new song
+		Song s = new Song(NUMBER_OF_CHANNELS);
+		
+		//These shouldn't be muted
+		Assert.assertEquals(false, s.getChannel(0).isMuted());
+		Assert.assertEquals(false, s.getChannel(1).isMuted());
+		
+		//Mute all except this one
+		s.muteAllChannelsExcept(NUMBER_OF_CHANNELS-2);
+		
+		//Check some
+		Assert.assertEquals(true, s.getChannel(0).isMuted());
+		Assert.assertEquals(false, s.getChannel(NUMBER_OF_CHANNELS-2).isMuted());
+		
+		//This should be 1 when we check later
+		int numberOfMutedChannels = 0;
+		
+		for(Channel c : s.getChannels()) {
+			if (!c.isMuted()) {
+				numberOfMutedChannels++;
+			}
+		}
+		// Check if just one was muted
+		Assert.assertEquals(1, numberOfMutedChannels);
+	}
 
 }
-
-

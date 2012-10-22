@@ -28,11 +28,52 @@ import junit.framework.Assert;
  * @author kvhc
  */
 public class SoundTest extends AndroidTestCase {
+	
     /**
      * Tests that the creation of a Sound object works properly.
      */
 	public void testConstructor() {
 		Sound testSound = new Sound(1, "test");
 		Assert.assertNotNull(testSound);
+	}
+	
+	/**
+	 * Tests to set a name and then get it. If it is the same - success!
+	 * Also tests toString.
+	 */
+	public void testSetAndGetName() {
+		String testName1 = "Test1";
+		String testName2 = "Test2";
+		Sound s = new Sound(1, testName1);
+		
+		// Test just getName()
+		Assert.assertEquals(testName1, s.getName());
+		// Set the name with setName
+		s.setName(testName2);
+		// Test if the change has been made
+		Assert.assertEquals(testName2, s.getName());
+		
+		// Also test toString, which is basically the same as getName()
+		Assert.assertEquals(testName2, s.toString());
+	}
+	
+	/**
+	 * Tests setSoundValue() & getSoundValue().
+	 */
+	public void testSetAndGetSoundValue() {
+		Sound s = new Sound(1, "Test");
+		Assert.assertEquals(1, s.getSoundValue());
+		s.setSoundValue(0);
+		Assert.assertEquals(0, s.getSoundValue());
+	}
+	
+	/**
+	 * Tests setId() & getId().
+	 */
+	public void testSetAndGetId() {
+		Sound s = new Sound(1);
+		Assert.assertEquals(1, s.getId());
+		s.setId(0);
+		Assert.assertEquals(0, s.getId());
 	}
 }

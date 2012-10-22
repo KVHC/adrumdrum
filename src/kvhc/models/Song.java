@@ -33,6 +33,7 @@ public class Song {
 	// Constant variables
 	private static final int DEFAULT_NUMBER_OF_STEPS = 16;
 	private static final int DEFAULT_NUMBER_OF_CHANNELS = 4;
+	private static final int DEFAULT_BPM = 120;
 	
 	// Class variables
 	private long id;
@@ -49,7 +50,7 @@ public class Song {
 		
 		mNumsteps = DEFAULT_NUMBER_OF_STEPS;
 		mChannels = new ArrayList<Channel>(numChannels);
-		mBpm = 120;
+		mBpm = DEFAULT_BPM;
 		
 		// For all channels
 		for (int i = 0; i < numChannels; i++) {
@@ -59,7 +60,7 @@ public class Song {
 	
 	/**
 	 * Creates a song based on an array of channels.
-	 * @param channels
+	 * @param channels the Channels the Song should consist of
 	 */
 	public Song(List<Channel> channels) {
 		if (channels == null) {		
@@ -73,7 +74,7 @@ public class Song {
 				mNumsteps = DEFAULT_NUMBER_OF_STEPS;
 			}
 		}
-		mBpm = 120;
+		mBpm = DEFAULT_BPM;
 	}
 	
 	/**
@@ -118,7 +119,7 @@ public class Song {
 	
 	/**
 	 * Remove a number of steps from all channels.
-	 * @param numberOfStepsToRemove
+	 * @param numberOfStepsToRemove the number of steps to remove
 	 */
 	public void removeSteps(int numberOfStepsToRemove) {
 		// If the channel will have more than one step left after removal

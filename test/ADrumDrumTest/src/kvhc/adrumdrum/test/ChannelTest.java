@@ -21,9 +21,12 @@ package kvhc.adrumdrum.test;
 
 import junit.framework.Assert;
 import android.test.AndroidTestCase;
+
+import java.util.ArrayList;
 import java.util.Random;
 import kvhc.models.Channel;
 import kvhc.models.Sound;
+import kvhc.models.Step;
 
 /**
  * Test class for kvhc.models.Channel.
@@ -45,6 +48,7 @@ public class ChannelTest extends AndroidTestCase {
 	private static final float RIGHT_PANNING = 0.2f;
 	private static final float LEFT_PANNING = 0.8f;
 	private static final int MAX_NUMBER_OF_TRIES = 1000;
+	private static final int BIG_NUMBER = 1000000;
 	
 	/**
      * Test the parameterless constructor.
@@ -172,6 +176,10 @@ public class ChannelTest extends AndroidTestCase {
 			c.setVolume(testInput);
 			Assert.assertEquals(testInput, c.getChannelVolume());
 		}
+		
+		// Set channel to mute and see if it returns 0.0f volume
+		c.setMute(true);
+		Assert.assertEquals(0.0f, c.getVolume());
 	}
 	
 	/**
@@ -193,6 +201,8 @@ public class ChannelTest extends AndroidTestCase {
 		c.setStep(step, true, TEST_VELOCITY);
 		Assert.assertEquals(true, c.isStepActive(step));
 		Assert.assertEquals(TEST_VELOCITY, c.getStepAt(step).getVelocity());
+		
+		Assert.assertEquals(null, c.getStepAt(-1));
 	}
 	
 	/**
@@ -209,6 +219,15 @@ public class ChannelTest extends AndroidTestCase {
 		c.setStep(step, true, TEST_VELOCITY);
 		Assert.assertEquals(expectedVolumeRight, c.getVolumeRight(step));
 		Assert.assertEquals(expectedVolumeDefault, c.getVolumeRight(step+1));
+		
+		//Set channel to mute and check it it returns 0.0f as volume
+		c.setMute(true);
+		Assert.assertEquals(0.0f, c.getVolumeRight(step));
+		Assert.assertEquals(0.0f, c.getVolumeRight(step+1));
+		c.setMute(false);
+		
+		//Check if it return 0.0f in volume if the step doesn't exists
+		Assert.assertEquals(0.0f, c.getVolumeLeft(-1));
 	}
 	
 	/**
@@ -225,6 +244,46 @@ public class ChannelTest extends AndroidTestCase {
 		c.setStep(step, true, TEST_VELOCITY);
 		Assert.assertEquals(expectedVolumeLeft, c.getVolumeLeft(step));
 		Assert.assertEquals(expectedVolumeDefault, c.getVolumeLeft(step+1));
+		
+		//Set channel to mute and check it it returns 0.0f as volume
+		c.setMute(true);
+		Assert.assertEquals(0.0f, c.getVolumeLeft(step));
+		Assert.assertEquals(0.0f, c.getVolumeLeft(step+1));
+		c.setMute(false);
+		
+		//Check if it return 0.0f in volume if the step doesn't exists
+		Assert.assertEquals(0.0f, c.getVolumeLeft(-1));
+	}
+	
+	/**
+	 * Test getChannelNumber() and setChannelNumber
+	 */
+	public void testChannelNumber() {
+		Channel c = new Channel();
+		int random = new Random().nextInt(BIG_NUMBER);
+		c.setChannelNumber(random);
+		Assert.assertEquals(random, c.getChannelNumber());
+	}
+	
+	/**
+	 * Tests setSteps(List<Step> steps)
+	 */
+	public void testSetSteps() {
+		//Init a random number of steps
+		int randomNumberOfSteps = new Random().nextInt(DEFAULT_NUMBER_OF_STEPS);
+		//Init a new Channel
+		Channel c = new Channel();
+		//Make a list of steps
+		ArrayList<Step> listOfSteps = new ArrayList<Step>(randomNumberOfSteps);
+		for (int i=0;i<randomNumberOfSteps;i++) {
+			Step s = new Step(i);
+			listOfSteps.add(s);
+		}
+		//Set the channel to use these steps
+		c.setSteps(listOfSteps);
+		
+		//Test if it is the right number of steps
+		Assert.assertEquals(randomNumberOfSteps, c.getNumberOfSteps());
 	}
 }
 
