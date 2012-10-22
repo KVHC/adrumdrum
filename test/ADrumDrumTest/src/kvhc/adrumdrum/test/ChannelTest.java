@@ -44,6 +44,8 @@ public class ChannelTest extends AndroidTestCase {
 	private static final float DEFAULT_VELOCITY = 0.7f;
 	private static final float RIGHT_PANNING = 0.2f;
 	private static final float LEFT_PANNING = 0.8f;
+	private static final int MAX_NUMBER_OF_TRIES = 1000;
+	
 	/**
      * Test the parameterless constructor.
      */
@@ -164,7 +166,7 @@ public class ChannelTest extends AndroidTestCase {
 	public void testSetAndGetVolume() {
 		Channel c = new Channel();
 		Random random = new Random();
-		int randomAmountOfTries = random.nextInt();
+		int randomAmountOfTries = random.nextInt(MAX_NUMBER_OF_TRIES);
 		for(int i = 0; i < randomAmountOfTries; i++) {
 			float testInput = random.nextFloat();
 			c.setVolume(testInput);
