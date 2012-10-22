@@ -36,11 +36,10 @@ public class StepTest extends AndroidTestCase {
 	private static final float TEST_VELOCITY = 0.4f;
 	
 	/**
-	 * Tests the constructor that takes a Channel and an Int.
+	 * Tests the constructor that takes an Int.
 	 */
 	public void testStep() {
-		Channel testChannel = new Channel();
-		Assert.assertNotNull(new Step(testChannel, 1));
+		Assert.assertNotNull(new Step(1));
 	}
 	
 	/**
@@ -51,12 +50,11 @@ public class StepTest extends AndroidTestCase {
 	}
 	
 	/**
-	 * Tests the constructor which takes Boolean, Channel, Int,
+	 * Tests the constructor which takes Boolean and Int,
 	 * and sets the step active if the Boolean is true.
 	 */
 	public void testStepBoolean() {
-		Channel testChannel = new Channel();
-		Step step = new Step(true, testChannel, 1);
+		Step step = new Step(true, 1);
 		Assert.assertTrue(step.isActive());
 	}
 	
@@ -64,8 +62,7 @@ public class StepTest extends AndroidTestCase {
 	 * Tests the setActive method.
 	 */
 	public void testSetActive() {
-		Channel testChannel = new Channel();
-		Step step = new Step(testChannel,1);
+		Step step = new Step(1);
 		Assert.assertFalse(step.isActive());
 		
 		step.setActive(true);
@@ -76,8 +73,7 @@ public class StepTest extends AndroidTestCase {
 	 * Tests the setVelocity/getVelocity methods
 	 */
 	public void testSetVel() {
-		Channel testChannel = new Channel();
-		Step step = new Step(testChannel,1);
+		Step step = new Step(1);
 		float testVel = new Random().nextFloat();
 		step.setVelolcity(testVel);
 		
@@ -106,13 +102,12 @@ public class StepTest extends AndroidTestCase {
 	
 	/**
 	 * Tests clone()
-	 * Channel unfortunately doesn't implement equals/hashcode
 	 */
 	public void testClone() {
 		// Init a step with a channel and stepid
 		int randomStepId = new Random().nextInt()%DEFAULT_NUMBER_OF_STEPS;
-		Step s1 = new Step(new Channel(), randomStepId);
-		Step s2=null;
+		Step s1 = new Step(randomStepId);
+		Step s2 = null;
 		// Make some changes to s1
 		s1.setVelolcity(TEST_VELOCITY);
 		s1.setActive(true);

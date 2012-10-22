@@ -80,10 +80,10 @@ public class PlayerTest extends AndroidTestCase implements Observer {
 	 * used to assert that Player correctly notifies its observers.
 	 */
 	public void update(Observable observable, Object data) {
-		int data;
+		int receivedData;
 		// Assert if player didn't send a Integer
 		try {
-			data = Integer.parseInt(data.toString());
+			receivedData = Integer.parseInt(data.toString());
 		} catch (NumberFormatException e) {
 			throw new AssertionError("Player did not send integer");
 		}
@@ -92,10 +92,10 @@ public class PlayerTest extends AndroidTestCase implements Observer {
 		// player and stop it before the first step is played. Otherwise the data that are sent
 		// must differ from the one sent before. Also this don't work if there are only one step
 		// in the channel but in this testcase there are.
-		if (data != -1){
-			Assert.assertTrue(oldstep == data);
+		if (receivedData != -1){
+			Assert.assertTrue(oldstep == receivedData);
 		}
-		oldstep = data;
+		oldstep = receivedData;
 	}
 		
 	
