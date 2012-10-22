@@ -31,11 +31,10 @@ import kvhc.models.Sound;
  */
 public class AssetManagerModelTest extends AndroidTestCase {
 	
-	
 	/**
 	 * Tests getSoundManager()
 	 */
-	/*public void testSoundManager() {
+	public void testSoundManager() {
 		AssetManagerModel<Sound> amm = AssetManagerModel.getSoundManager();
 		Assert.assertNotNull(amm);
 		
@@ -44,6 +43,5 @@ public class AssetManagerModelTest extends AndroidTestCase {
 		
 		Assert.assertEquals(s, amm.getValue("derp"));
 	}
-	*/
 	
 }
