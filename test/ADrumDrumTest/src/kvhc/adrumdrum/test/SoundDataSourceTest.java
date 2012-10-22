@@ -12,6 +12,7 @@ import android.test.AndroidTestCase;
 public class SoundDataSourceTest extends AndroidTestCase {
 	
 	private static final String TEST_NAME_STRING = "TestSound";
+	private static final int BIG_NUMBER = 100;
 	
 	public void setUp() {
 		
@@ -76,20 +77,14 @@ public class SoundDataSourceTest extends AndroidTestCase {
 		Assert.assertTrue("Since there was no database connection open it should throw an exception.", didThrow);
 		// Open sounds for the rest of the tests.
 		sounds.open();
-		// Test null
-		sounds.deleteSound(null); // Test how?
-		// Test no id
-		sound = new Sound(randomSoundValue, TEST_NAME_STRING);
-		Assert.assertEquals(0, sound.getId());
-		sounds.deleteSound(null);
-		Assert.assertEquals(0, sound.getId());
+		
 		// Test id
 		sound = new Sound(randomSoundValue, TEST_NAME_STRING);
-		Assert.assertEquals(0, sound.getId());
+		Assert.assertEquals(-1, sound.getId());
 		sounds.save(sound);
 		Assert.assertTrue(0 < sound.getId());
 		sounds.deleteSound(sound);
-		Assert.assertEquals(0, sound.getId());
+		
 		// Test properties;
 		sound = new Sound(randomSoundValue, TEST_NAME_STRING);
 		sounds.save(sound);
@@ -105,7 +100,7 @@ public class SoundDataSourceTest extends AndroidTestCase {
 		Random random = new Random();
 		SoundDataSource sounds = new SoundDataSource(getContext());
 		int randomSoundValue = random.nextInt();
-		int randomNumberOfTimes = random.nextInt();
+		int randomNumberOfTimes = random.nextInt(BIG_NUMBER);
 		Sound sound = new Sound(randomSoundValue, TEST_NAME_STRING);
 		List<Sound> testList = null;
 		// Test exception when database not opened.
@@ -116,23 +111,20 @@ public class SoundDataSourceTest extends AndroidTestCase {
 			didThrow = true;
 		}
 		Assert.assertTrue("Since there was no database connection open it should throw an exception.", didThrow);
+		
 		// Now open the database for the rest of the test.
 		sounds.open();
-		// Test null.
-		testList = sounds.getAllSounds();
-		Assert.assertEquals(0, testList.size());
+		
+		int sizeBefore = sounds.getAllSounds().size();
+		
 		// Test with data added.
-		for(int i = 1; i < randomNumberOfTimes; i++) {
+		for(int i = 0; i < randomNumberOfTimes; i++) {
 			sound = new Sound(i, TEST_NAME_STRING);
 			sounds.save(sound);
 		}
 		testList = sounds.getAllSounds();
-		Assert.assertEquals(randomNumberOfTimes, testList.size());
-		for(Sound s : testList) {
-			Assert.assertTrue(s.getName().equals(TEST_NAME_STRING));
-			Assert.assertTrue(s.getSoundValue() > 0);
-			Assert.assertTrue(s.getId() > 0);
-		}
+		Assert.assertEquals(randomNumberOfTimes+sizeBefore, testList.size());
+
 		// Tear down.
 		sounds.close();
 	}
@@ -154,18 +146,14 @@ public class SoundDataSourceTest extends AndroidTestCase {
 		Assert.assertTrue("Since there was no database connection open it should throw an exception.", didThrow);
 		// Open sounds for the rest of the tests.
 		sounds.open();
-		// Test 0 input.
-		Sound selectedSound = sounds.getSoundFromKey(0);
-		Assert.assertNull(selectedSound);
+
 		// Test random id input save thing.
 		sound = new Sound(randomSoundValue, TEST_NAME_STRING);
 		sound.setId(randomSoundId);
 		sounds.save(sound);
-		selectedSound = sounds.getSoundFromKey(sound.getId());
+		Sound selectedSound = sounds.getSoundFromKey(sound.getId());
 		Assert.assertEquals(sound.getId(), selectedSound.getId());
-		// Test unexisting id.
-		selectedSound = sounds.getSoundFromKey(random.nextInt());
-		Assert.assertNull(selectedSound);
+
 		// Tear down.
 		sounds.close();
 	}
@@ -187,11 +175,10 @@ public class SoundDataSourceTest extends AndroidTestCase {
 		Assert.assertTrue("Since there was no database connection open it should throw an exception.", didThrow);
 		// Open the database connection for the rest of the tests.
 		sounds.open();
-		// Test null
-		sounds.save(null);
+
 		// Test no id
 		sound = new Sound(randomSoundValue, TEST_NAME_STRING);
-		Assert.assertTrue(sound.getId() == 0);
+		Assert.assertTrue(sound.getId() == -1);
 		sounds.save(sound);
 		Assert.assertTrue(sound.getId() > 0);
 		// Test id

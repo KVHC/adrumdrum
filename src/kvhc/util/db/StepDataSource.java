@@ -222,7 +222,11 @@ public class StepDataSource {
 	 * @param channel The Channel the Step belongs to.
 	 * @return Returns -1 if the channel isn't initiated in the database, 1 if updated and 2 if created.
 	 */
-	public int save(Step step, Channel channel) {
+	public int save(Step step, Channel channel) throws SQLException {
+		
+		if(!mIsOpened) {
+			throw new SQLException("No database connection.");
+		}
 		
 		// Does the channel exist in the database?
 		if(channel.getId() == 0) {

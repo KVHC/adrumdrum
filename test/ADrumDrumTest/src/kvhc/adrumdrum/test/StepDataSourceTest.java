@@ -20,6 +20,8 @@ import android.test.AndroidTestCase;
  */
 public class StepDataSourceTest extends AndroidTestCase {
 
+	private static final int BIG_NUMBER = 1000;
+	
 	/**
 	 * Tests the constructor for something.
 	 */
@@ -82,18 +84,11 @@ public class StepDataSourceTest extends AndroidTestCase {
 		Assert.assertTrue("Since there was no database connection open it should throw an exception.", didThrow);
 		// Now open the database for the rest of the test.
 		steps.open();
-		// Test delete null input.
-		int expected = 0; // Exptect to delete zero since we don't send a step in.
-		int numberOfStepsDeleted = steps.deleteStep(null);
-		Assert.assertEquals(expected, numberOfStepsDeleted);
-		// Test delete empty step input.
-		step = new Step();
-		numberOfStepsDeleted = steps.deleteStep(step);
-		Assert.assertEquals(expected, numberOfStepsDeleted);
+
 		// Test delete saved step.
 		step = new Step();
 		steps.save(step, channel);
-		numberOfStepsDeleted = steps.deleteStep(step);
+		int numberOfStepsDeleted = steps.deleteStep(step);
 		Assert.assertEquals(1, numberOfStepsDeleted);		
 		// Test delete loaded step.
 		// Test for exceptions?
@@ -120,11 +115,8 @@ public class StepDataSourceTest extends AndroidTestCase {
 		Random random = new Random();
 		Channel channel = new Channel();
 		channel.setId(random.nextInt());
-		int expectedNumberOfSteps = random.nextInt();
+		int expectedNumberOfSteps = random.nextInt(BIG_NUMBER);
 		StepDataSource steps = new StepDataSource(getContext());
-		for(int i = 0; i < expectedNumberOfSteps; i++) {
-			steps.save(new Step(), channel);
-		}
 		
 		// Test exception when database not opened
 		boolean didThrow = false;
@@ -137,6 +129,10 @@ public class StepDataSourceTest extends AndroidTestCase {
 		
 		// Open steps for the rest of the test
 		steps.open();
+		
+		for(int i = 0; i < expectedNumberOfSteps; i++) {
+			steps.save(new Step(), channel);
+		}
 		
 		// Test with null
 		List<Step> testList = steps.getAllStepsForChannel(null);
@@ -174,7 +170,7 @@ public class StepDataSourceTest extends AndroidTestCase {
 		// Test exception when database not opened
 		boolean didThrow = false;
 		try {
-			steps.save(null, null);
+			steps.save(new Step(), new Channel());
 		} catch(SQLException exeption) {
 			didThrow = true;
 		}
@@ -183,13 +179,10 @@ public class StepDataSourceTest extends AndroidTestCase {
 		// Open steps for the rest of the test.
 		steps.open();
 		
-		// Test with null.
-		long successCode = steps.save(null, null);
-		assertEquals(errorCodeNumber, successCode);
-		
 		// Test with no id channel.
-		successCode = steps.save(null, new Channel());
+		long successCode = steps.save(null, new Channel());
 		Assert.assertEquals(errorCodeNumber, successCode);
+		steps.deleteStep(step);
 		
 		// Test with real channel.
 		successCode = steps.save(null, channel);
