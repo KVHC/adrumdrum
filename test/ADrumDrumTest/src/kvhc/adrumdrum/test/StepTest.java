@@ -30,7 +30,8 @@ import java.util.Random;
  * @author kvhc
  */
 public class StepTest extends AndroidTestCase {
-
+	
+	// Constants for this class
 	private static final int DEFAULT_NUMBER_OF_STEPS = 16;
 	private static final float TEST_VELOCITY = 0.4f;
 	

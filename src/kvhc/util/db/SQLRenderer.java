@@ -64,6 +64,7 @@ public class SQLRenderer implements ISongRenderer {
 	public void loadSounds(List<Sound> soundList) {
 		mSounds = soundList;
 		
+		// For all sounds
 		for(Sound sound : mSounds) {
 			dbSoundHelper.save(sound);
 		}

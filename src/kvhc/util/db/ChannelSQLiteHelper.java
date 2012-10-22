@@ -109,12 +109,16 @@ public class ChannelSQLiteHelper extends SQLiteOpenHelper {
 	}
 	
 
-	@Override
+	/**
+	 * What to do then an instance are created
+	 */
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(DATABASE_CREATE);
 	}
 
-	@Override
+	/**
+	 * What to do then the database are uppgraded
+	 */
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		Log.w(ChannelSQLiteHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion +  ", which will destroy all data");
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_CHANNEL);

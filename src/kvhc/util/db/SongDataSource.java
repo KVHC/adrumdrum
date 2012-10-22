@@ -102,6 +102,7 @@ public class SongDataSource {
 	 * @return Nothing.
 	 */
 	public void save(Song song) throws SQLException {
+		// If the datase are closed
 		if(!mIsOpen) {
 			throw new SQLException("No database connection.");
 		}
@@ -130,6 +131,7 @@ public class SongDataSource {
 	 * @param song Song to be deleted.
 	 */
 	public void deleteSong(Song song) throws SQLException {
+		// If the database are closed
 		if(!mIsOpen) {
 			throw new SQLException("No database connection.");
 		}
@@ -146,6 +148,7 @@ public class SongDataSource {
 	 * @return a list of all songs.
 	 */
 	public List<Song> getAllSongs() throws SQLException {
+		// If the database is closed
 		if(!mIsOpen) {
 			throw new SQLException("No database connection.");
 		}

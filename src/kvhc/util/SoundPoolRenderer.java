@@ -41,7 +41,6 @@ public class SoundPoolRenderer implements ISongRenderer {
 	
 	private SoundManager mSoundManager;
 	private Map<Long, Integer> mSoundMap;
-	
 	private SoundDataSource mDBSoundHelper;
 	
 	/**

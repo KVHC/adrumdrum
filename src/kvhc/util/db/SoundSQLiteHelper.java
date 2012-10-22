@@ -90,12 +90,16 @@ public class SoundSQLiteHelper extends SQLiteOpenHelper {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
-	@Override
+	/**
+	 * what to do then an instance is created
+	 */
 	public void onCreate(SQLiteDatabase database) {
 		database.execSQL(DATABASE_CREATE);
 }
 
-	@Override
+	/**
+	 * What to do then the database are upgraded
+	 */
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		Log.w(SoundSQLiteHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion +  ", which will destroy all data");
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_SOUND);

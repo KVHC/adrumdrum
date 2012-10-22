@@ -93,12 +93,16 @@ public class SongSQLiteHelper extends SQLiteOpenHelper {
 	}
 	
 	
-	@Override
+	/**
+	 * What to do then an instance are created
+	 */
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(DATABASE_CREATE);
 	}
 
-	@Override
+	/**
+	 * What to do then the database are updated
+	 */
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		Log.w(SongSQLiteHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion +  ", which will destroy all data");
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_SONG);

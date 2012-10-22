@@ -42,6 +42,7 @@ public class SoundDataSource {
 	// Members.
 	private SQLiteDatabase database;
 	private SoundSQLiteHelper dbHelper;
+	// List of column names
 	private String[] allColumns = { 
 			SoundSQLiteHelper.COLUMN_ID, 
 			SoundSQLiteHelper.COLUMN_SOUNDVALUE,
@@ -100,6 +101,7 @@ public class SoundDataSource {
 	 * @throws SQLException if database connection not opened.
 	 */
 	public void deleteSound(Sound sound) throws SQLException {
+		// If the database is closed
 		if(!isOpened()) {
 			throw new SQLException("Database connection not open.");
 		}
@@ -115,6 +117,7 @@ public class SoundDataSource {
 	 * @throws SQLException if database connection not opened.
 	 */
 	public List<Sound> getAllSounds() throws SQLException {
+		// If the database are closed
 		if(!isOpened()) {
 			throw new SQLException("Database connection not open.");
 		}
@@ -155,6 +158,7 @@ public class SoundDataSource {
 	 * @throws SQLException if database connection not opened.
 	 */
 	public Sound getSoundFromKey(long soundId) throws SQLException {
+		// If the database is closed
 		if(!isOpened()) {
 			throw new SQLException("Database connection not open.");
 		}
@@ -178,6 +182,7 @@ public class SoundDataSource {
 	 * @throws SQLException if database connection not opened.
 	 */
 	public void save(Sound sound) throws SQLException {
+		// If the database is closed
 		if(!isOpened()) {
 			throw new SQLException("Database connection not open.");
 		}
