@@ -76,11 +76,7 @@ public class GUIController {
 	private Activity parentActivity;
 	private Map<String, Sound> mSoundManager;
 	
-	
-    /**
-     * An array of Strings containing the names of the different sounds.
-     * This should be done in a different way (?)
-     */
+	// An array of Strings containing the names of the different sounds.
 	private SoundDataSource mDBsoundHelper; 
 	
 	/**
@@ -97,7 +93,6 @@ public class GUIController {
 		
 		init();
 	}
-	
 	
 	//----------------------------------------------------------------------
 	// Methods that initialize the GUIcontroller
@@ -162,7 +157,7 @@ public class GUIController {
 	/**
 	 * Initialize a TextView showing status messages.
 	 */
-    private void initText() {
+	private void initText() {
     	tv1 = (TextView)parentActivity.findViewById(R.id.textView1);
 	}
 
@@ -185,6 +180,7 @@ public class GUIController {
 	
 	/**
 	 * Initialize the BPM-bar.
+	 * Sets the progressbar to a default value and tells the Song to use that.
 	 */
 	private void initBars(){
 
@@ -193,12 +189,12 @@ public class GUIController {
 		bpmBar.setProgress(DEFAULT_BPM_PERCENTAGE_OF_MAX);
 		song.setBpm(DEFAULT_BPM_PERCENTAGE_OF_MAX);
 		
-    	bpmBar.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
+		bpmBar.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
 
 			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 				int bpm = player.setBPMInRange(progress);
 				song.setBpm(progress);
-				tv1.setText("BPM is: " + bpm);
+				tv1.setText("BPM is: " + bpm); // Update status-text
 				
 			}
 
@@ -206,7 +202,7 @@ public class GUIController {
 			public void onStopTrackingTouch(SeekBar arg0) {}
         });
     	
-    }
+	}
 	
 	
 	//-------------------------------------------------------------------
@@ -251,14 +247,15 @@ public class GUIController {
 	
 	/**
 	 * Removes a channel with the specified index.
-	 * @param channelIndex
+	 * @param channelIndex index of channel to remove
 	 */
-    public void removeChannel(int channelIndex) {
+	public void removeChannel(int channelIndex) {
     	if (song.removeChannel(channelIndex)) {
+    		// If the channel was successfully removed, reload the song.
     		player.loadSong(song);
     		redrawChannels();
     	}
-    }   
+	}   
     	
 	
     /**
@@ -275,6 +272,7 @@ public class GUIController {
     		solo = channel;
     	}
     }
+    
     
     /**
      * A method for getting the id of the channel that playes solo.
@@ -354,6 +352,7 @@ public class GUIController {
 	
     /**
      * Numerate the steps. Used when Loading a song from the database.
+     * Otherwise all the steps would be step number one.
      */
     private void numerateSteps(){
     	for (Channel c: song.getChannels()){
@@ -414,9 +413,12 @@ public class GUIController {
 	 * Update the name on the GUI-button
 	 * @param channelId 
 	 */
-	public void updateButtonGUI(int channelId){
+	public void updateButtonGUI(int channelId) {
+		// Get the tablelayout containing all the steps and channelbuttons.
 		TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
-  
+		
+		// Get the ChannelButtonGUI and tell it to update its name.
+		// The ChannelButtonGUI is first in every row.
     	if (channelId <  channelContainer.getChildCount()){
     		TableRow row = (TableRow)channelContainer.getChildAt(channelId);
     		ChannelButtonGUI guib = (ChannelButtonGUI) row.getChildAt(0);
@@ -426,12 +428,14 @@ public class GUIController {
     
     
     /**
-     * Method for invalidating all elements in the channel container.
+     * Method for invalidating all elements one-by-one in the channel container.
      * This fixes some trouble we had on non-Samsung phones.
      */
-    public void invalidateAll(){
+	public void invalidateAll(){
+		// Get the tablelayout containing all the steps and channelbuttons. 
     	TableLayout channelContainer = (TableLayout)parentActivity.findViewById(R.id.ChannelContainer);
     	
+    	// For every child in every row, call invalidate()
     	for (int i = 0; i < channelContainer.getChildCount(); i ++){
     		TableRow row = (TableRow)channelContainer.getChildAt(i);
     		for (int j = 0; j < row.getChildCount(); j ++){
@@ -442,7 +446,7 @@ public class GUIController {
     
     
     //-------------------------------------------------------------------------
-    // Methods for what to do then the GUIControler are destroyed
+    // Methods for what to do then the GUIControler are destroyed/stopped
     
 	/**
 	 * Call onStop.
@@ -495,9 +499,9 @@ public class GUIController {
     
 	/**
 	 * Listener to the Play/Stop-button.
+	 * Sets status-text.
 	 */
-    private OnClickListener playOrStopClickListener = new OnClickListener()
-    {
+	private OnClickListener playOrStopClickListener = new OnClickListener() {
 		public void onClick(View v) {
 			if (player.isPlaying()) {
     			player.stop();
@@ -511,7 +515,8 @@ public class GUIController {
     }; 
     
     /**
-     * Listener to the add-new-channel-button. Doesn't redraw the old channels.
+     * Listener to the add-new-channel-button. 
+     * Doesn't redraw the old channels, doesn't stop playback.
      */
     private OnClickListener addChannelListener = new OnClickListener() {
 		public void onClick(View v) {
@@ -544,7 +549,8 @@ public class GUIController {
 	};
 
 	/**
-	 * Listener to the add-new-step-button. Redraws all the channels.
+	 * Listener to the add-new-step-button. 
+	 * Stops the playback, updates status-text. Redraws all the channels.
 	 */
 	private OnClickListener addStepListener = new OnClickListener() {
 		
@@ -559,7 +565,8 @@ public class GUIController {
 	};
 	
 	/**
-	 * Listener to the remove-step-button. Redraws all the channels.
+	 * Listener to the remove-step-button. 
+	 * Stops the playback, updates status-text. Redraws all the channels.
 	 */
 	private OnClickListener removeStepListener = new OnClickListener() {
 		
