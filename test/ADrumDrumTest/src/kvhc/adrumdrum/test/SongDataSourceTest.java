@@ -18,6 +18,7 @@ import android.test.AndroidTestCase;
 public class SongDataSourceTest extends AndroidTestCase {
 
 	private static final int MAX_RANDOM_TEST_NUMBER_OF_CHANNELS = 16;
+	private static final int BIG_NUMBER = 100;
 	
 	// Maybe set up
 	public void setUp() {
@@ -92,10 +93,9 @@ public class SongDataSourceTest extends AndroidTestCase {
 			didThrow = true;
 		}
 		Assert.assertTrue("Since there was no database connection open it should throw an exception.", didThrow);
+		
 		// Open connection for the rest of the tests.
 		songs.open();
-		// Test null input.
-		songs.deleteSong(null);
 		// Test new Song input.
 		songs.deleteSong(new Song(randomChannel));
 		// Test reference song input.
@@ -107,6 +107,7 @@ public class SongDataSourceTest extends AndroidTestCase {
 		songs.deleteSong(song);
 		// Test loaded song.
 		song = new Song(randomChannel);
+		song.setName("test");
 		songs.save(song);
 		List<Song> testList = songs.getAllSongs();
 		Assert.assertTrue(testList.contains(song));
@@ -114,6 +115,7 @@ public class SongDataSourceTest extends AndroidTestCase {
 		testList = songs.getAllSongs();
 		Assert.assertFalse(testList.contains(song));
 		// Tear down.
+		
 		songs.close();
 	}
 	
@@ -125,8 +127,8 @@ public class SongDataSourceTest extends AndroidTestCase {
 		Random random = new Random();
 		SongDataSource songs = new SongDataSource(mContext);
 		int randomChannel = random.nextInt(MAX_RANDOM_TEST_NUMBER_OF_CHANNELS);
-		int amountOfSongs = random.nextInt();
-		List<Song> testList;
+		int amountOfSongs = random.nextInt(BIG_NUMBER);
+
 		// Test exception when database not opened
 		boolean didThrow = false;
 		try {
@@ -135,20 +137,20 @@ public class SongDataSourceTest extends AndroidTestCase {
 			didThrow = true;
 		}
 		Assert.assertTrue("Since there was no database connection open it should throw an exception.", didThrow);
+		
 		// Open connection for the rest of the tests.
 		songs.open();
-		// Test
-		testList = songs.getAllSongs();
-		Assert.assertEquals(0, testList.size());
+		
+		// Check number of old songs
+		int amountOfOldSongs = songs.getAllSongs().size();
+		
 		// Test new Song input.
 		for(int i = 0; i < amountOfSongs; i++) {
 			songs.save(new Song(randomChannel));
 		}
-		testList = songs.getAllSongs();
-		Assert.assertEquals(amountOfSongs, testList.size());
-		for(Song song : testList) {
-			songs.deleteSong(song);
-		}
+		int songsAdded = songs.getAllSongs().size()-amountOfOldSongs;
+		Assert.assertEquals(amountOfSongs, songsAdded);
+
 		// Tear down.
 		songs.close();
 	}
@@ -171,9 +173,7 @@ public class SongDataSourceTest extends AndroidTestCase {
 		Assert.assertTrue("Since there was no database connection open it should throw an exception.", didThrow);
 		// Open connection for the rest of the tests.
 		songs.open();
-		// Test null input
-		songs.save(null);
-		Assert.assertTrue(true); // Don't know what to test here. 
+
 		// Test empty song
 		songs.save(new Song(randomChannel));
 		// Test song with parameters
@@ -187,6 +187,6 @@ public class SongDataSourceTest extends AndroidTestCase {
 		Assert.assertTrue(song.getId() == 0);
 		// Tear down.
 		songs.close();
-		songs.save(song);
+		
 	}
 }

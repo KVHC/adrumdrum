@@ -6,7 +6,6 @@ import java.util.Random;
 import junit.framework.Assert;
 import kvhc.models.Channel;
 import kvhc.models.Step;
-import kvhc.util.db.SongDataSource;
 import kvhc.util.db.StepDataSource;
 import android.database.SQLException;
 import android.test.AndroidTestCase;

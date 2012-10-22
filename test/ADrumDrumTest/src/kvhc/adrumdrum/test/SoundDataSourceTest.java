@@ -6,7 +6,6 @@ import java.util.Random;
 import junit.framework.Assert;
 import kvhc.models.Sound;
 import kvhc.util.db.SoundDataSource;
-import kvhc.util.db.StepDataSource;
 import android.database.SQLException;
 import android.test.AndroidTestCase;
 

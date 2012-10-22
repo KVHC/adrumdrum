@@ -9,6 +9,7 @@ import kvhc.models.Song;
 import kvhc.util.db.ChannelDataSource;
 import android.database.SQLException;
 import android.test.AndroidTestCase;
+import android.util.Log;
 
 /**
  * Unit test class for SongDataSource.
@@ -78,6 +79,9 @@ public class ChannelDataSourceTest extends AndroidTestCase {
 		// Tear down.
 	}
 	
+	/**
+	 * Tests deleting Channel.
+	 */
 	public void testDeleteChannel() {
 		// Set up.
 		Random random = new Random();
@@ -98,10 +102,9 @@ public class ChannelDataSourceTest extends AndroidTestCase {
 			didThrow = true;
 		}
 		Assert.assertTrue("Since there was no database connection open it should throw an exception.", didThrow);
+		
 		// Open the Data Source for the rest of the tests.
 		channels.open();
-		// Test null channel
-		channels.deleteChannel(channel);
 		// Test unsaved channel
 		channel = new Channel();
 		channels.deleteChannel(channel);
@@ -112,7 +115,7 @@ public class ChannelDataSourceTest extends AndroidTestCase {
 		Assert.assertTrue(channel.getId() > 0);
 		channels.deleteChannel(channel);
 		Assert.assertTrue(channel.getId() == 0);
-		
+
 		// Test saved channel properties
 		channel = new Channel();
 		channel.setChannelNumber(insertChannelNumber);
@@ -124,26 +127,30 @@ public class ChannelDataSourceTest extends AndroidTestCase {
 		Assert.assertEquals(insertMute, channel.isMuted());
 		Assert.assertEquals(insertRightPan, channel.getRightPanning());
 		Assert.assertEquals(insertLeftPan, channel.getLeftPanning());
-		Assert.assertEquals(insertVolume, channel.getVolume());
+		Assert.assertEquals(insertVolume, channel.getChannelVolume());
 		channels.save(song, channel);
 		Assert.assertTrue(channel.getId() > 0);
 		Assert.assertEquals(insertChannelNumber, channel.getChannelNumber());
 		Assert.assertEquals(insertMute, channel.isMuted());
 		Assert.assertEquals(insertRightPan, channel.getRightPanning());
 		Assert.assertEquals(insertLeftPan, channel.getLeftPanning());
-		Assert.assertEquals(insertVolume, channel.getVolume());
+		Assert.assertEquals(insertVolume, channel.getChannelVolume());
 		channels.deleteChannel(channel);
 		Assert.assertTrue(channel.getId() == 0);
 		Assert.assertEquals(insertChannelNumber, channel.getChannelNumber());
 		Assert.assertEquals(insertMute, channel.isMuted());
 		Assert.assertEquals(insertRightPan, channel.getRightPanning());
 		Assert.assertEquals(insertLeftPan, channel.getLeftPanning());
-		Assert.assertEquals(insertVolume, channel.getVolume());
+		Assert.assertEquals(insertVolume, channel.getChannelVolume());
+		
 		// Tear down.
 		channels.close();
 	}
 	
 	
+	/**
+	 * Tests getAllChannelsForSong()
+	 */
 	public void testGetAllChannelsForSong() {
 		// Set up.
 		Random random = new Random();
@@ -163,9 +170,6 @@ public class ChannelDataSourceTest extends AndroidTestCase {
 		Assert.assertTrue("Since there was no database connection open it should throw an exception.", didThrow);
 		// Set as opened for the rest of the tests.
 		channels.open();
-		// Test null
-		testList = channels.getAllChannelsForSong(null);
-		Assert.assertEquals(0, testList.size());
 		// Test new no id input
 		testList = channels.getAllChannelsForSong(new Song(numberOfChannelsToAdd));
 		Assert.assertEquals(0, testList.size());
@@ -180,6 +184,9 @@ public class ChannelDataSourceTest extends AndroidTestCase {
 		channels.close();
 	}
 	
+	/**
+	 * Tests to save.
+	 */
 	public void testSave() {
 		// Set up.
 		Random random = new Random();
@@ -193,37 +200,16 @@ public class ChannelDataSourceTest extends AndroidTestCase {
 		float insertVolume = random.nextFloat();
 		Song song = new Song(0);
 		song.setId(random.nextLong());
-		// Test exception when database not opened.
-		boolean didThrow = false;
-		try {
-			channels.save(null, null);
-		} catch(SQLException exeption) {
-			didThrow = true;
-		}
-		Assert.assertTrue("Since there was no database connection open it should throw an exception.", didThrow);
+		
 		// Open database for transactions for the rest of the tests.
 		channels.open();
-		// Test song null, channel null
-		channels.save(null, null);
-		Assert.assertTrue(true); // Hopefully no crash.
-		// Test song no id, channel null
-		
-		channels.save(new Song(numberOfChannelsToAdd), null);
-		Assert.assertTrue(true); // Hopefully no crash.
-		// Test song id, channel null
-		song = new Song(numberOfChannelsToAdd );
-		song.setId(random.nextLong());
-		channels.save(song, null);
+
 		// Test song null, channel no id
 		channel = new Channel();
 		Assert.assertTrue(channel.getId() == 0);
 		channels.save(new Song(numberOfChannelsToAdd), channel);
 		Assert.assertTrue(channel.getId() == 0);
-		// Test song no id, channel no id
-		channel = new Channel();
-		Assert.assertTrue(channel.getId() == 0);
-		channels.save(new Song(numberOfChannelsToAdd ), channel);
-		Assert.assertTrue(channel.getId() > 0);
+
 		// Test song id, channel no id
 		channel = new Channel();
 		song = new Song(numberOfChannelsToAdd );
@@ -231,25 +217,29 @@ public class ChannelDataSourceTest extends AndroidTestCase {
 		Assert.assertTrue(channel.getId() == 0);
 		channels.save(song, channel);
 		Assert.assertTrue(channel.getId() > 0);
+		
 		// Test song null, channel id
 		channel = new Channel();
 		Assert.assertTrue(channel.getId() == 0);
 		channels.save(null, channel);
 		Assert.assertTrue(channel.getId() == 0);
+		
 		// Test song no id, channel id
 		channel = new Channel();
 		song = new Song(numberOfChannelsToAdd);
 		Assert.assertTrue(channel.getId() == 0);
 		channels.save(song, channel);
 		Assert.assertTrue(channel.getId() == 0);
+		
 		// Test song id, channel id
 		channel = new Channel();
 		channel.setId(random.nextLong());
 		song = new Song(numberOfChannelsToAdd );
 		song.setId(random.nextLong());
-		Assert.assertTrue(channel.getId() > 0);
+		Assert.assertTrue(channel.getId() != 0);
 		channels.save(song, channel);
-		Assert.assertTrue(channel.getId() > 0);
+		Assert.assertTrue(channel.getId() != 0);
+		
 		// Test saved channel properties
 		channel = new Channel();
 		channel.setChannelNumber(insertChannelNumber);
@@ -261,14 +251,14 @@ public class ChannelDataSourceTest extends AndroidTestCase {
 		Assert.assertEquals(insertMute, channel.isMuted());
 		Assert.assertEquals(insertRightPan, channel.getRightPanning());
 		Assert.assertEquals(insertLeftPan, channel.getLeftPanning());
-		Assert.assertEquals(insertVolume, channel.getVolume());
+		Assert.assertEquals(insertVolume, channel.getChannelVolume());
 		channels.save(song, channel);
 		Assert.assertTrue(channel.getId() > 0);
 		Assert.assertEquals(insertChannelNumber, channel.getChannelNumber());
 		Assert.assertEquals(insertMute, channel.isMuted());
 		Assert.assertEquals(insertRightPan, channel.getRightPanning());
 		Assert.assertEquals(insertLeftPan, channel.getLeftPanning());
-		Assert.assertEquals(insertVolume, channel.getVolume());
+		Assert.assertEquals(insertVolume, channel.getChannelVolume());
 		channels.deleteChannel(channel);
 		// Tear down.
 		channels.close();

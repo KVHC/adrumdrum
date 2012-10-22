@@ -23,7 +23,6 @@ package kvhc.adrumdrum.test;
 import junit.framework.Assert;
 import android.test.AndroidTestCase;
 import kvhc.models.Step;
-import kvhc.models.Channel;
 import java.util.Random;
 
 /**

@@ -31,7 +31,7 @@ import kvhc.util.AndroidTimer;
  */
 public class AndroidTimerTest extends AndroidTestCase {
 	
-	private int mock = 0;
+	int mock = 0;
 	
 	/**
 	 * Tests the constructor.

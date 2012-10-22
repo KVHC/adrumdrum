@@ -25,7 +25,6 @@ import java.util.Random;
 import junit.framework.Assert;
 import kvhc.models.Channel;
 import kvhc.models.Song;
-import kvhc.models.Step;
 import android.test.AndroidTestCase;
 
 /**
@@ -37,7 +36,6 @@ import android.test.AndroidTestCase;
 public class SongTest extends AndroidTestCase {
 
 	private static final int NUMBER_OF_CHANNELS = 4;
-	private static final int DEFAULT_NUMBER_OF_STEPS = 16;
 	
 	/**
 	 * Tests constructor with numChannels-parameter
