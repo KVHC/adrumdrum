@@ -30,10 +30,11 @@ import java.util.List;
  */
 public class Song {
 
-	// Default variables
+	// Constant variables
 	private static final int DEFAULT_NUMBER_OF_STEPS = 16;
 	private static final int DEFAULT_NUMBER_OF_CHANNELS = 4;
 	
+	// Class variables
 	private long id;
 	private List<Channel> mChannels;
 	private int mNumsteps;
@@ -50,6 +51,7 @@ public class Song {
 		mChannels = new ArrayList<Channel>(numChannels);
 		mBpm = 120;
 		
+		// For all channels
 		for (int i = 0; i < numChannels; i++) {
 			mChannels.add(new Channel(null, mNumsteps));
 		}
@@ -119,6 +121,7 @@ public class Song {
 	 * @param numberOfStepsToRemove
 	 */
 	public void removeSteps(int numberOfStepsToRemove) {
+		// If the channel will have more than one step left after removal
 		if (!mChannels.isEmpty() && numberOfStepsToRemove <= mChannels.get(0).getNumberOfSteps()-1) {
 			for (int i = 0; i < mChannels.size(); i++) {
 				mChannels.get(i).resizeBy(-numberOfStepsToRemove);
@@ -130,6 +133,7 @@ public class Song {
 	 * Resets all steps in all Channels.
 	 */
 	public void clearAllSteps() {
+		// For all channels in song
 		for (Channel channel : mChannels) {
 			channel.clearAllSteps();
 		}
@@ -222,6 +226,7 @@ public class Song {
 	 * Unmutes all Channels in the Song.
 	 */
 	public void playAll(){
+		// For all channels
 		for (int i=0;i<mChannels.size();i++) {
 			mChannels.get(i).setMute(false);
 		}
@@ -279,7 +284,7 @@ public class Song {
 	public boolean equals(Object o) {
 		if(o instanceof Song) {
 			Song song = (Song)o;
-			return mName.equals(song.getName());
+			return (mName.equals(song.getName()) && (this.id == song.id));
 		}
 		return false;
 	}
@@ -291,6 +296,6 @@ public class Song {
 	 */
 	@Override
 	public int hashCode() {
-		return((int)id);
+		return((int)id + Integer.parseInt(mName));
 	}
 }

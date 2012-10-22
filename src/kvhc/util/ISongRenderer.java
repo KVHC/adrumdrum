@@ -1,6 +1,4 @@
 /**
- * aDrumDrum is a step sequencer for Android.
- * Copyright (C) 2012  Daniel Fallstrand, Niclas Ståhl, Oscar Dragén and Viktor Nilsson.
  *
  * This file is part of aDrumDrum.
  *
