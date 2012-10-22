@@ -127,6 +127,7 @@ public class StepDialog extends Dialog {
             guic.setSpike(channel,stepnr);
             SeekBar velocityBar = (SeekBar)findViewById(R.id.seekbarVelocity);
             velocityBar.setProgress(MAX_PERCENT);
+            dismiss();
             guic.redrawChannels();
         }
     };
