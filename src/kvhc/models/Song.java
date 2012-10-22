@@ -29,7 +29,7 @@ import java.util.List;
  *
  */
 public class Song {
-	
+
 	// Default variables
 	private static final int DEFAULT_NUMBER_OF_STEPS = 16;
 	private static final int DEFAULT_NUMBER_OF_CHANNELS = 4;
@@ -41,8 +41,8 @@ public class Song {
 	private int mBpm;
 	
 	/**
-	 * Creates a song with a set number of channels
-	 * @param numChannels
+	 * Creates a song with a set number of channels.
+	 * @param numChannels number of Channels in the Song
 	 */
 	public Song(int numChannels) {
 		
@@ -92,11 +92,11 @@ public class Song {
 	
 	/**
 	 * Removes a channel on the given index.
-	 * @param channel the index of the channel to remove
+	 * @param channelIndex the index of the channel to remove
 	 * @return true if a channel was successfully removed
 	 */
 	public boolean removeChannel(int channelIndex) {
-		if (channelIndex >= mChannels.size() ||  mChannels.size() <= 1 ) {
+		if (channelIndex >= mChannels.size() ||  mChannels.size() <= 1) {
 			return false;
 		} else {
 			mChannels.remove(channelIndex);
@@ -119,7 +119,7 @@ public class Song {
 	 * @param numberOfStepsToRemove
 	 */
 	public void removeSteps(int numberOfStepsToRemove) {
-		if (!mChannels.isEmpty() && numberOfStepsToRemove <= mChannels.get(0).getNumberOfSteps() - 1) {
+		if (!mChannels.isEmpty() && numberOfStepsToRemove <= mChannels.get(0).getNumberOfSteps()-1) {
 			for (int i = 0; i < mChannels.size(); i++) {
 				mChannels.get(i).resizeBy(-numberOfStepsToRemove);
 			}
@@ -172,8 +172,8 @@ public class Song {
 	}
 	
 	/**
-	 * Returns all the sounds loaded for all the channels
-	 * @return
+	 * Returns all the sounds loaded for all the channels.
+	 * @return a list of the Sounds from the Channels
 	 */
 	public List<Sound> getSounds() {
 		List<Sound> sounds = new ArrayList<Sound>(mChannels.size());
@@ -186,32 +186,35 @@ public class Song {
 	}
 	
 	/**
-	 * Gives the song a name
-	 * @param name
+	 * Gives the song a name.
+	 * @param name the name to set
 	 */
 	public void setName(String name) {
 		mName = name;
 	}
 		
 	/**
-	 * Returns the name of the song 
-	 * @return
+	 * Returns the name of the song.
+	 * @return the name of the song
 	 */
 	public String getName() {
 		return mName;
 	}
 	
 	/**
-	 * Mutes all channels except the specified one
-	 * @param channel the channel to go SOLO 
+	 * Mutes all channels except the specified one.
+	 * @param channel the index of the channel to go SOLO 
 	 */
 	public void muteAllChannelsExcept(int channel) {
+		// If the channel index doesn't represent a channel, do nothing
 		if (channel>=mChannels.size()) {
 			return;
 		}
+		// Mute ALL channels
 		for (int i=0;i<mChannels.size();i++) {
 			mChannels.get(i).setMute(true);
 		}
+		// Unmute the specified channel
 		mChannels.get(channel).setMute(false);
 	}
 	
@@ -253,7 +256,7 @@ public class Song {
 
 	/**
 	 * Gets the set BPM of the song.
-	 * @return
+	 * @return the set BPM of the song
 	 */
 	public int getBpm() {
 		return mBpm;
@@ -261,27 +264,30 @@ public class Song {
 
 	/**
 	 * Sets the BPM of the song.
-	 * @param mBpm
+	 * @param mBpm the bpm to set
 	 */
 	public void setBpm(int mBpm) {
 		this.mBpm = mBpm;
 	}
 	
 	/**
-	 * Compare a song for equality
-	 * @param Song to compare to
+	 * Compare a song for equality.
+	 * @param o the Object to compare to
+	 * @return boolean whether it is an equal Song
 	 */
 	@Override
 	public boolean equals(Object o) {
-		if(o instanceof Song)
-		{
+		if(o instanceof Song) {
 			Song song = (Song)o;
 			return mName.equals(song.getName());
 		}
 		return false;
 	}
+	
 	/**
-	 * Returns the hashcode of the Song
+	 * Returns the hashcode of the Song.
+	 * This is just the ID.
+	 * @return the hashcode of the Song
 	 */
 	@Override
 	public int hashCode() {

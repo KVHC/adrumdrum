@@ -37,7 +37,6 @@ public class Step implements Cloneable {
 	
 	/**
 	 * Constructor, sets isActive to false by default.
-	 * @param channel the channel of the step
 	 * @param stepid the id/column of the step
 	 */
 	public Step(int stepid) {
@@ -46,6 +45,9 @@ public class Step implements Cloneable {
 		this.mNumber = stepid;
 	}
 	
+	/**
+	 * Empty Constructor, set everything to default values.
+	 */
 	public Step() {
 		this.mIsActive = false;
 		this.mVelocity = DEFAULT_VELOCITY;
@@ -55,8 +57,7 @@ public class Step implements Cloneable {
 	
 	/**
 	 * Constructor.
-	 * @param SetActive True to enable the step, false otherwise.
-	 * @param Channel the channel of the step
+	 * @param setActive True to enable the step, false otherwise.
 	 * @param stepid the id/column of the step
 	 */
 	public Step(boolean setActive, int stepid) {
@@ -66,7 +67,7 @@ public class Step implements Cloneable {
 	
 	/**
 	 * Enables or disables the step.
-	 * @param Active True to enable the step, false to disable
+	 * @param active True to enable the step, false to disable
 	 */
 	public void setActive(boolean active) {
 		mIsActive = active;
@@ -115,7 +116,7 @@ public class Step implements Cloneable {
 	
 	/**
 	 * Set the step number (for saving and loading).
-	 * @param step position number
+	 * @param stepNumber position number
 	 */
 	public void setStepNumber(int stepNumber) {
 		mNumber = stepNumber;

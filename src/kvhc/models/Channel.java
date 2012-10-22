@@ -31,7 +31,7 @@ import java.util.List;
  *
  */
 public class Channel {
-	
+
 	// Default variables
 	private static final int DEFAULT_NUMBER_OF_STEPS = 16;
 	private static final float SPIKE_VELOCITY_CENTER = 1.0f;
@@ -41,20 +41,20 @@ public class Channel {
 	// Identification
 	private long mId;
 	private int mChannelNumber;
-	
+
 	// Steps
 	private int numSteps;
 	private List<Step> mSteps;
-	
+
 	// Volume variables
 	private float volume;
 	private float leftPan;
 	private float rightPan;
 	private boolean mute;
-	
+
 	// The sound to play
 	private Sound mSound;
-	
+
 	/**
 	 * Constructor for an empty channel.
 	 * Sets the Sound of the channel to null.
@@ -62,7 +62,7 @@ public class Channel {
 	public Channel() {
 		this(null, DEFAULT_NUMBER_OF_STEPS); 
 	}
-	
+
 	/**
 	 * Constructor for a channel with a sound.
 	 * @param sound the sound of the channel
@@ -70,7 +70,7 @@ public class Channel {
 	public Channel(Sound sound) {
 		this(sound, DEFAULT_NUMBER_OF_STEPS);
 	}
-	
+
 	/**
 	 * Constructor for a channel with a sound and a specific number of steps.
 	 * @param sound the sound of the Channel
@@ -107,7 +107,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Resets all steps. Sets them inactive and with default volume. 
+	 * Resets all steps. Sets them to inactive and with default volume. 
 	 */
 	public void clearAllSteps() {
 		for (Step step : mSteps) {
@@ -155,7 +155,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Sets a specific step to active or not active and with a specific velocity ("volume")
+	 * Sets a specific step to active or not active and with a specific velocity ("volume").
 	 * @param step what step
 	 * @param active boolean whether the step should be active or not
 	 * @param velocity velocity ("volume") of the step, between 0 and 1
@@ -166,7 +166,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Get the left speakers volume of a separate step in the channel
+	 * Get the left speakers volume of a separate step in the channel.
 	 * Is computed by multiplying the channel volume by the steps velocity and the left panning.
 	 * 
 	 * @param step what step
@@ -184,7 +184,7 @@ public class Channel {
 	}
 	
 	/**
-	 * This method returns the volume set to this channel
+	 * This method returns the volume set to this channel.
 	 * @return The raw volume of this channel without caring about velocity 
 	 * 		   of the next step or if the channel is muted
 	 */
@@ -193,8 +193,9 @@ public class Channel {
 	}
 	
 	/**
-	 * Get the right speakers volume of a separate step in the channel
+	 * Get the right speakers volume of a separate step in the channel.
 	 * Is computed by multiplying the channel volume by the steps velocity ("volume")
+	 * and the Channels right panning.
 	 * 
 	 * @param step what step
 	 * @return a float between 0 and 1
@@ -257,9 +258,9 @@ public class Channel {
 	}
 	
 	/**
-	 * Return step at the position.
-	 * @param i
-	 * @return
+	 * Return Step at the position.
+	 * @param i index of step to return
+	 * @return Step at index
 	 */
 	public Step getStepAt(int i){
 		if (i>=0 && i < mSteps.size()){
@@ -271,8 +272,8 @@ public class Channel {
 
 	/**
 	 * Sets the panning of the right and left speaker.
-	 * @param rightLevel
-	 * @param leftLevel
+	 * @param rightLevel right panning, float between 0.0 and 1.0
+	 * @param leftLevel left panning, float between 0.0 and 1.0
 	 */
 	public void setPanning(float rightLevel, float leftLevel) {
 		leftPan = leftLevel;
@@ -358,7 +359,7 @@ public class Channel {
     
 	/**
 	 * Returns the ID of the channel.
-	 * @return
+	 * @return ID of the channel
 	 */
 	public long getId() {
 		return mId;
@@ -387,6 +388,7 @@ public class Channel {
 
 	/**
 	 * Position of channel in song in database.
+	 * @return position of channel in song in database
 	 */
 	public int getChannelNumber() {
 		return mChannelNumber;
@@ -394,7 +396,7 @@ public class Channel {
 	
 	/**
 	 * Sets the number of the Channel.
-	 * @param channelNumber
+	 * @param channelNumber the number to set
 	 */
 	public void setChannelNumber(int channelNumber) {
 		mChannelNumber = channelNumber;
