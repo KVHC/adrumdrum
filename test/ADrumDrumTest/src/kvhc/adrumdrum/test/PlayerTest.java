@@ -86,7 +86,7 @@ public class PlayerTest extends AndroidTestCase implements Observer {
 			receivedData = Integer.parseInt(data.toString());
 		} catch (NumberFormatException e) {
 			Assert.fail("Player did not send integer");
-			receivedData=0;
+			receivedData=-10;
 		}
 		
 		// The only possibility to send the same Integer two times in row is too start the 
