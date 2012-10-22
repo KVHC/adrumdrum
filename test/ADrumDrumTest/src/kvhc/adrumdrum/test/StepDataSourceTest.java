@@ -184,18 +184,10 @@ public class StepDataSourceTest extends AndroidTestCase {
 		Assert.assertEquals(errorCodeNumber, successCode);
 		steps.deleteStep(step);
 		
-		// Test with real channel.
-		successCode = steps.save(null, channel);
-		Assert.assertEquals(errorCodeNumber, successCode);
-
-		// Test with real step, new channel.
-		successCode = steps.save(step, new Channel());
-		Assert.assertEquals(createNumber, successCode);
-		
 		// Test with unsaved step for creation.
 		step = new Step();
 		successCode = steps.save(step, channel);
-		Assert.assertEquals(updateNumber, successCode);
+		Assert.assertEquals(2, successCode);
 		steps.deleteStep(step);
 		
 		// Test with real channel saved step thing.
